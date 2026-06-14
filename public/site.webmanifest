@@ -1,0 +1,14 @@
+{
+  "name": "Diverse Russia — Official Representative",
+  "short_name": "Diverse Russia",
+  "start_url": "/",
+  "theme_color": "#000000",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "description": "Франшиза культового польского бренда Diverse. Официальный представитель в России — ООО «Хаус».",
+  "icons": [
+    { "src": "/diverse-144.png", "sizes": "144x144", "type": "image/png" },
+    { "src": "/diverse-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/diverse-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

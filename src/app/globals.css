@@ -1,0 +1,132 @@
+@import "tailwindcss";
+
+/* ============================================
+   DIVERSE BRAND — Design System
+   ============================================ */
+
+@theme {
+  /* Fonts */
+  --font-inter: "Inter", sans-serif;
+
+  /* Brand Colors */
+  --color-brand-black: #000000;
+  --color-brand-white: #ffffff;
+  --color-brand-light: #f5f5f5;
+  --color-brand-gray-100: #f5f5f5;
+  --color-brand-gray-200: #ebebeb;
+  --color-brand-gray-300: #999999;
+  --color-brand-gray-400: #666666;
+  --color-brand-gray-500: #595959;
+  --color-brand-text: #1a1a1a;
+  --color-brand-accent: #d12026;
+  --color-brand-accent-hover: #b31b20;
+  --color-brand-dext: #ff0000;
+
+  /* Typography Scale */
+  --text-hero: 4rem;
+  --text-hero--line-height: 1.05;
+  --text-section-title: 2.5rem;
+  --text-section-title--line-height: 1.1;
+}
+
+/* ============================================
+   Base Styles
+   ============================================ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-inter);
+  color: var(--color-brand-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ghost marker pulse animation */
+@keyframes ghostPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(209,32,38,0.6); }
+  70%  { box-shadow: 0 0 0 12px rgba(209,32,38,0); }
+  100% { box-shadow: 0 0 0 0 rgba(209,32,38,0); }
+}
+
+.ghost-tooltip {
+  background: #fff !important;
+  border: 1px solid #d12026 !important;
+  border-radius: 4px !important;
+  font-family: Inter, sans-serif !important;
+  font-size: 11px !important;
+  color: #1a1a1a !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+  padding: 6px 10px !important;
+  white-space: nowrap;
+}
+.ghost-tooltip::before {
+  border-top-color: #d12026 !important;
+}
+
+/* ============================================
+   Leaflet Popup — Premium Store Card
+   ============================================ */
+
+.store-popup .leaflet-popup-content-wrapper {
+  padding: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.18) !important;
+}
+
+.store-popup .leaflet-popup-content {
+  margin: 0;
+  width: 240px !important;
+  line-height: 0;
+}
+
+.store-popup .leaflet-popup-tip {
+  box-shadow: none;
+}
+
+.store-popup .leaflet-popup-close-button {
+  top: 6px !important;
+  right: 6px !important;
+  width: 24px !important;
+  height: 24px !important;
+  font-size: 16px !important;
+  color: #fff !important;
+  background: rgba(0,0,0,0.35) !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1 !important;
+  border: none !important;
+  z-index: 10;
+  transition: background 0.2s !important;
+}
+
+.store-popup .leaflet-popup-close-button:hover {
+  background: rgba(0,0,0,0.6) !important;
+}
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+
+.container-brand {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-inline: 24px;
+}
+
+@media (min-width: 768px) {
+  .container-brand {
+    padding-inline: 40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-brand {
+    padding-inline: 60px;
+  }
+}
