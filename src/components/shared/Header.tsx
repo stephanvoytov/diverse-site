@@ -45,7 +45,6 @@ export default function Header() {
     : isDarkBg
       ? "bg-brand-black/95 backdrop-blur-md"
       : "bg-white/95 backdrop-blur-md shadow-sm";
-  const logoTheme = !isScrolled ? "light" : isDarkBg ? "dark" : "light";
   const navColor = !isScrolled
     ? "text-white/80 hover:text-white"
     : isDarkBg

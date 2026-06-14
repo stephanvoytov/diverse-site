@@ -179,7 +179,7 @@ export default function AboutContent() {
                     </div>
 
                     {/* Content */}
-                    <div className={`flex-1 md:w-[calc(50%-28px)] ${isLeft ? "md:pr-12 md:text-right" : "md:pl-12 md:text-left"}`}>
+                    <div className={`max-md:flex-1 md:flex-none md:w-[calc(50%-28px)] ${isLeft ? "md:pr-12 md:text-right" : "md:pl-12 md:text-left"}`}>
                       <span className="inline-block text-sm font-bold text-brand-accent mb-1">{m.year}</span>
                       <h3 className="text-xl font-bold text-brand-black mb-2">{m.title}</h3>
                       <p className="text-sm text-brand-gray-400 leading-relaxed">{m.desc}</p>
