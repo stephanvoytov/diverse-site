@@ -1,6 +1,8 @@
 import Header from "@/components/shared/Header";
 import Hero from "@/components/blocks/Hero";
 import About from "@/components/blocks/About";
+import WhyDiverse from "@/components/blocks/WhyDiverse";
+import CaseStudies from "@/components/blocks/CaseStudies";
 import Franchise from "@/components/blocks/Franchise";
 import Roadmap from "@/components/blocks/Roadmap";
 import Faq from "@/components/blocks/Faq";
@@ -31,6 +33,8 @@ export default function Home() {
       <main>
         <Hero />
         <About />
+        <WhyDiverse />
+        <CaseStudies />
         <Franchise />
         <Roadmap />
         <Faq />

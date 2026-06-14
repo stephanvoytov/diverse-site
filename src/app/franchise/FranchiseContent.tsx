@@ -2,10 +2,24 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
 import Faq from "@/components/blocks/Faq";
 import { plans, benefits } from "@/data/franchise";
+
+const phoneRegex = /^[\d\s\+\-\(\)]{7,20}$/;
+
+const franchiseFormSchema = z.object({
+  name: z.string().min(2, "Введите имя").max(50, "Слишком длинное имя"),
+  phone: z.string().regex(phoneRegex, "Введите корректный телефон"),
+  city: z.string().optional(),
+  message: z.string().min(5, "Напишите пару слов").max(500, "Слишком длинное сообщение").optional().or(z.literal("")),
+});
+
+type FranchiseForm = z.infer<typeof franchiseFormSchema>;
 
 /* ——— Comparison table data ——— */
 
@@ -216,6 +230,39 @@ function BenefitsSection() {
 /* ——— Contact form section ——— */
 
 function ContactSection() {
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<FranchiseForm>({
+    resolver: zodResolver(franchiseFormSchema),
+  });
+
+  const onSubmit = async (data: FranchiseForm) => {
+    setSubmitStatus("idle");
+    try {
+      const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT || "/api/lead";
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: data.name,
+          phone: data.phone,
+          message: data.city
+            ? `Хочу открыть магазин в городе: ${data.city}${data.message ? `. ${data.message}` : ""}`
+            : data.message || "Хочу открыть магазин по франшизе",
+        }),
+      });
+      if (!res.ok) throw new Error("Server error");
+      setSubmitStatus("success");
+      reset();
+    } catch {
+      setSubmitStatus("error");
+    }
+  };
+
   return (
     <section data-header="light" className="bg-brand-gray-100 py-20 md:py-28">
       <div className="container-brand">
@@ -241,56 +288,98 @@ function ContactSection() {
           transition={{ delay: 0.1 }}
         >
           <form
-            action="#"
-            method="POST"
+            onSubmit={handleSubmit(onSubmit)}
+            noValidate
             className="bg-white p-8 md:p-10 rounded-sm shadow-sm"
-            onSubmit={(e) => {
-              e.preventDefault();
-              alert("Спасибо! Мы свяжемся с вами в ближайшее время.");
-            }}
           >
             <div className="space-y-5">
               <div>
-                <label className="block text-xs tracking-[0.15em] uppercase text-brand-gray-500 mb-2">
+                <label htmlFor="franchise-name" className="block text-xs tracking-[0.15em] uppercase text-brand-gray-500 mb-2">
                   Имя <span className="text-brand-accent">*</span>
                 </label>
                 <input
+                  id="franchise-name"
                   type="text"
-                  required
                   placeholder="Ваше имя"
-                  className="w-full px-4 py-3 text-sm bg-brand-gray-100 border border-brand-gray-200 rounded-sm outline-none focus:border-brand-black transition-colors placeholder:text-brand-gray-300"
+                  {...register("name")}
+                  className={`w-full px-4 py-3 text-sm bg-brand-gray-100 border rounded-sm outline-none transition-colors placeholder:text-brand-gray-300 ${
+                    errors.name
+                      ? "border-brand-accent"
+                      : "border-brand-gray-200 focus:border-brand-black"
+                  }`}
                 />
+                {errors.name && (
+                  <p className="mt-1 text-xs text-brand-accent">{errors.name.message}</p>
+                )}
               </div>
 
               <div className="grid sm:grid-cols-2 gap-5">
                 <div>
-                  <label className="block text-xs tracking-[0.15em] uppercase text-brand-gray-500 mb-2">
+                  <label htmlFor="franchise-phone" className="block text-xs tracking-[0.15em] uppercase text-brand-gray-500 mb-2">
                     Телефон <span className="text-brand-accent">*</span>
                   </label>
                   <input
+                    id="franchise-phone"
                     type="tel"
-                    required
                     placeholder="+7 (999) 123-45-67"
-                    className="w-full px-4 py-3 text-sm bg-brand-gray-100 border border-brand-gray-200 rounded-sm outline-none focus:border-brand-black transition-colors placeholder:text-brand-gray-300"
+                    {...register("phone")}
+                    className={`w-full px-4 py-3 text-sm bg-brand-gray-100 border rounded-sm outline-none transition-colors placeholder:text-brand-gray-300 ${
+                      errors.phone
+                        ? "border-brand-accent"
+                        : "border-brand-gray-200 focus:border-brand-black"
+                    }`}
                   />
+                  {errors.phone && (
+                    <p className="mt-1 text-xs text-brand-accent">{errors.phone.message}</p>
+                  )}
                 </div>
                 <div>
-                  <label className="block text-xs tracking-[0.15em] uppercase text-brand-gray-500 mb-2">
+                  <label htmlFor="franchise-city" className="block text-xs tracking-[0.15em] uppercase text-brand-gray-500 mb-2">
                     Город
                   </label>
                   <input
+                    id="franchise-city"
                     type="text"
                     placeholder="Ваш город"
+                    {...register("city")}
                     className="w-full px-4 py-3 text-sm bg-brand-gray-100 border border-brand-gray-200 rounded-sm outline-none focus:border-brand-black transition-colors placeholder:text-brand-gray-300"
                   />
                 </div>
               </div>
 
+              <div>
+                <label htmlFor="franchise-message" className="block text-xs tracking-[0.15em] uppercase text-brand-gray-500 mb-2">
+                  Комментарий
+                </label>
+                <textarea
+                  id="franchise-message"
+                  rows={3}
+                  placeholder="Какой формат интересует? Есть ли помещение?"
+                  {...register("message")}
+                  className="w-full px-4 py-3 text-sm bg-brand-gray-100 border border-brand-gray-200 rounded-sm outline-none focus:border-brand-black transition-colors placeholder:text-brand-gray-300 resize-none"
+                />
+              </div>
+
+              {submitStatus === "success" && (
+                <p className="text-sm text-green-600 font-medium text-center">
+                  ✓ Спасибо! Мы свяжемся с вами в ближайшее время.
+                </p>
+              )}
+              {submitStatus === "error" && (
+                <p className="text-sm text-brand-accent text-center">
+                  ✕ Ошибка отправки. Напишите нам в{" "}
+                  <a href="https://wa.me/79062373561" target="_blank" rel="noopener noreferrer" className="underline hover:no-underline">WhatsApp</a>
+                  {" "}или на{" "}
+                  <a href="mailto:diverserussia@yandex.ru" className="underline hover:no-underline">почту</a>.
+                </p>
+              )}
+
               <button
                 type="submit"
-                className="w-full py-4 bg-brand-accent text-white text-xs tracking-[0.2em] uppercase font-semibold rounded-sm hover:bg-brand-accent-hover transition-colors"
+                disabled={isSubmitting || submitStatus === "success"}
+                className="w-full py-4 bg-brand-accent text-white text-xs tracking-[0.2em] uppercase font-semibold rounded-sm hover:bg-brand-accent-hover transition-colors disabled:opacity-50"
               >
-                Отправить заявку
+                {isSubmitting ? "Отправка…" : submitStatus === "success" ? "Отправлено ✓" : "Отправить заявку"}
               </button>
 
               <p className="text-xs text-brand-gray-300 text-center">
