@@ -3,8 +3,10 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ModalProvider } from "@/lib/modal-context";
 import ContactModal from "@/components/shared/ContactModal";
+import JsonLd from "@/components/shared/JsonLd";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://diversebrand.ru";
 
 const inter = Inter({
   subsets: ["cyrillic", "latin"],
@@ -14,7 +16,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://diversebrand.ru"),
+  metadataBase: new URL(siteUrl),
   title: "Франшиза Diverse — официальный представитель в России",
   description:
     "Франшиза культового польского бренда Diverse. 0₽ паушальный взнос, 0% роялти. 11 магазинов уже открыты. Станьте партнёром в своём городе.",
@@ -56,6 +58,36 @@ export const metadata: Metadata = {
       },
     ],
   },
+  alternates: {
+    canonical: `${siteUrl}${basePath}/`,
+  },
+  other: {
+    "theme-color": "#000000",
+  },
+};
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Diverse Russia",
+  legalName: "ООО «ХАУС»",
+  description: "Официальный представитель бренда Diverse в России и СНГ",
+  url: siteUrl + basePath,
+  logo: `${siteUrl}${basePath}/apple-touch-icon.png`,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "пл. Победы, 4, оф. 210",
+    addressLocality: "Калининград",
+    addressRegion: "Калининградская область",
+    postalCode: "236022",
+    addressCountry: "RU",
+  },
+  contactPoint: {
+    "@type": "ContactPoint",
+    telephone: "+7-906-237-35-61",
+    contactType: "sales",
+    email: "diverserussia@yandex.ru",
+  },
 };
 
 export default function RootLayout({
@@ -66,6 +98,7 @@ export default function RootLayout({
   return (
     <html lang="ru" className={inter.variable}>
       <body>
+        <JsonLd data={organizationSchema} />
         <ModalProvider>
           {children}
           <ContactModal />

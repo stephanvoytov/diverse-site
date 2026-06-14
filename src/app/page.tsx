@@ -7,10 +7,26 @@ import Faq from "@/components/blocks/Faq";
 import StoresMap from "@/components/shared/StoresMap";
 import Contacts from "@/components/blocks/Contacts";
 import Footer from "@/components/shared/Footer";
+import JsonLd from "@/components/shared/JsonLd";
+import { faqItems } from "@/data/franchise";
 
 export default function Home() {
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqItems.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+
   return (
     <>
+      <JsonLd data={faqSchema} />
       <Header />
       <main>
         <Hero />
