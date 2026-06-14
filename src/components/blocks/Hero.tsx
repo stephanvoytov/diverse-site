@@ -113,15 +113,15 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.0 }}
         >
-          <a
-            href="/#section-contacts"
-            className="inline-flex items-center gap-2 text-xs tracking-[0.15em] uppercase text-white/40 hover:text-white/80 transition-colors"
+          <button
+            onClick={openModal}
+            className="inline-flex items-center gap-2 text-xs tracking-[0.15em] uppercase text-white/40 hover:text-white/80 transition-colors cursor-pointer"
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M8 1v8M5 6l3 3 3-3M2 12v2a1 1 0 001 1h10a1 1 0 001-1v-2"/>
             </svg>
             Скачать презентацию франшизы
-          </a>
+          </button>
         </motion.div>
 
         {/* Stats row */}

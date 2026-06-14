@@ -317,7 +317,7 @@ export default function AboutContent() {
               transition={{ delay: 0.1 }}
             >
               <a
-                href="/franchise"
+                href="/franchise/"
                 className="inline-flex items-center justify-center px-8 py-4 text-sm tracking-[0.2em] font-semibold uppercase text-white bg-brand-accent hover:bg-brand-accent-hover transition-all duration-300 rounded-sm"
               >
                 Условия франшизы

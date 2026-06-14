@@ -180,7 +180,15 @@ export default function ContactModal() {
               )}
               {submitStatus === "error" && (
                 <p className="text-sm text-brand-accent text-center">
-                  ✕ Ошибка отправки. Попробуйте позже или напишите в Telegram.
+                  ✕ Ошибка отправки.
+                  Напишите нам в{" "}
+                  <a href="https://wa.me/79062373561" target="_blank" rel="noopener noreferrer" className="underline hover:no-underline">
+                    WhatsApp
+                  </a>
+                  {" "}или{" "}
+                  <a href="mailto:diverserussia@yandex.ru" className="underline hover:no-underline">
+                    на почту
+                  </a>
                 </p>
               )}
 

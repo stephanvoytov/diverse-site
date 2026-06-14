@@ -225,7 +225,7 @@ export default function CollectionContent() {
                 этапах — от поиска помещения до открытия.
               </p>
               <a
-                href="/franchise"
+                href="/franchise/"
                 className="inline-flex items-center justify-center px-10 py-4 text-sm tracking-[0.2em] font-semibold uppercase text-white bg-brand-accent hover:bg-brand-accent-hover transition-all duration-300 rounded-sm"
               >
                 Узнать о франшизе
