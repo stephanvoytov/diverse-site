@@ -9,11 +9,12 @@ import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import type { Store } from "@/data/stores";
 import { stores, citiesSummary } from "@/data/stores";
+import { asset } from "@/lib/path";
 
 function popupHtml(s: Store): string {
   return `<div style="width:240px;font-family:Inter,sans-serif;line-height:1.5;border-radius:4px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.15);">
     <div style="width:100%;aspect-ratio:3/2;background:#f0f0f0;overflow:hidden;">
-      <img src="${s.photo}" alt="${s.city}"
+      <img src="${asset(s.photo)}" alt="${s.city}"
         style="width:100%;height:100%;object-fit:contain;display:block;background:#f0f0f0;"
         onerror="this.parentElement.innerHTML='<div style=\\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:700;color:#D12026;background:#f5f5f5;\\'>${s.city[0]}</div>'" />
     </div>

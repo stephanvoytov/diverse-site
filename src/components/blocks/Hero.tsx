@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Button from "@/components/ui/Button";
+import { asset } from "@/lib/path";
 
 export default function Hero() {
   const ref = useRef<HTMLDivElement>(null);
@@ -34,7 +35,7 @@ export default function Hero() {
       <motion.div
         className="absolute inset-0 bg-cover bg-center max-md:bg-[30%_center] bg-no-repeat"
         style={{
-          backgroundImage: `url('/images/hero.jpg')`,
+          backgroundImage: `url('${asset("/images/hero.jpg")}')`,
           y: backgroundY,
         }}
       />

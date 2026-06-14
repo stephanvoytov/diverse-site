@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { navLinks } from "@/data/navigation";
 import { footerSocials as socials } from "@/data/socials";
+import { asset } from "@/lib/path";
 
 export default function Footer() {
   return (
@@ -11,7 +12,7 @@ export default function Footer() {
           <div className="md:col-span-4">
             <Link href="/" className="inline-block mb-5">
               <img
-                src="/brand/logo-light.svg"
+                src={asset("/brand/logo-light.svg")}
                 alt="Diverse"
                 className="h-4 md:h-5 w-auto"
               />

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
+import { asset } from "@/lib/path";
 
 /* ——— Timeline data ——— */
 
@@ -37,21 +38,21 @@ const lines: BrandLine[] = [
     tagline: "Флагман. Городской стиль.",
     desc: "Основная линия бренда — сбалансированная комбинация спортивной, повседневной и модной одежды. Вдохновлена культурой больших городов: Нью-Йорк, Лондон, Берлин, Гонконг.",
     features: ["Clean look & quiet luxury", "Sporty retro", "Мужская, женская, детская", "Аксессуары и обувь", "Качество на уровне Nike, Hilfiger — по доступной цене"],
-    img: "/images/diverse.avif",
+    img: asset("/images/diverse.avif"),
   },
   {
     name: "Diverse Extreme Team",
     tagline: "Спорт. Экстрим. Технологии.",
     desc: "Технический партнёр Dakar Rally и 24h Le Mans. Отдельная линия для экстремальных видов спорта с собственной коллекцией DEXT TECH — одежда будущего с технологическими материалами.",
     features: ["Dakar Classics & Dakar VIP line", "24h Le Mans официальная коллекция", "DEXT TECH — футуристичные материалы", "RECCO® система спасения", "PrimaLoft® изоляция"],
-    img: "/images/etremeteam.avif",
+    img: asset("/images/etremeteam.avif"),
   },
   {
     name: "Coalition",
     tagline: "Премиум. Streetwear. Природа.",
     desc: "Премиум-суббренд в портфеле ETOS. Интерпретация стиля outdoor в современном ключе. Унисекс-модели, природные оттенки, натуральные материалы.",
     features: ["Streetwear & workwear", "Outdoor-эстетика", "Модели унисекс", "Шерпа флис, пуховики", "Tie-dye, клетка, авторские принты"],
-    img: "/images/coalition.avif",
+    img: asset("/images/coalition.avif"),
   },
 ];
 
@@ -64,7 +65,7 @@ export default function AboutContent() {
       <main>
         {/* Hero */}
         <section data-header="dark" className="relative bg-brand-black pt-28 pb-20 md:pt-36 md:pb-28 overflow-hidden">
-          <div className="absolute inset-0 bg-[url('/images/diverse.avif')] bg-cover bg-center opacity-20" />
+          <div className="absolute inset-0 bg-cover bg-center opacity-20" style={{ backgroundImage: `url('${asset("/images/diverse.avif")}')` }} />
           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/80" />
 
           <div className="container-brand relative z-10 text-center">

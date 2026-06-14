@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { subbrands, aboutStats } from "@/data/brand";
+import { asset } from "@/lib/path";
 
 function ParallaxCard({ item }: { item: (typeof subbrands)[0] }) {
   return (
@@ -14,7 +15,7 @@ function ParallaxCard({ item }: { item: (typeof subbrands)[0] }) {
     >
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url('${item.img}')` }}
+        style={{ backgroundImage: `url('${asset(item.img)}')` }}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent group-hover:from-black/90 transition-all duration-500" />
       <div className="absolute bottom-0 left-0 right-0 p-6">

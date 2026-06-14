@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 const inter = Inter({
   subsets: ["cyrillic", "latin"],
   weight: ["300", "400", "500", "600", "700"],
@@ -15,13 +17,13 @@ export const metadata: Metadata = {
   description:
     "Франшиза культового польского бренда Diverse. 0₽ паушальный взнос, 0% роялти. 11 магазинов уже открыты. Станьте партнёром в своём городе.",
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
+    icon: `${basePath}/favicon.ico`,
+    shortcut: `${basePath}/favicon.ico`,
     apple: [
-      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+      { url: `${basePath}/apple-touch-icon.png`, sizes: "180x180", type: "image/png" },
     ],
   },
-  manifest: "/site.webmanifest",
+  manifest: `${basePath}/site.webmanifest`,
   appleWebApp: {
     title: "Diverse Russia",
     statusBarStyle: "black-translucent",
@@ -34,7 +36,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/hero.jpg",
+        url: `${basePath}/images/hero.jpg`,
         width: 1920,
         height: 1080,
         alt: "Франшиза Diverse — официальный представитель в России",

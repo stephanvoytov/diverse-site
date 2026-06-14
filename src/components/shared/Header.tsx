@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Button from "@/components/ui/Button";
 import { navLinks } from "@/data/navigation";
+import { asset } from "@/lib/path";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -63,13 +64,13 @@ export default function Header() {
         {/* Logo */}
         <a href="/" className="flex-shrink-0">
           <img
-            src={
+            src={asset(
               !isScrolled
                 ? "/brand/logo-light.svg"
                 : isDarkBg
                   ? "/brand/logo-light.svg"
                   : "/brand/logo-dark.svg"
-            }
+            )}
             alt="Diverse"
             className="h-4 md:h-5 w-auto transition-opacity"
           />

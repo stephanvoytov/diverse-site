@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import FranchiseContent from "./FranchiseContent";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 export const metadata: Metadata = {
   title: "Франшиза Diverse — 0₽ паушальный взнос, 0% роялти",
   description:
@@ -9,7 +11,7 @@ export const metadata: Metadata = {
     title: "Франшиза Diverse — условия и преимущества",
     description:
       "Три варианта: торговый остров, реновация или полный стандарт. Европейский бренд с 30-летней историей.",
-    images: [{ url: "/images/hero.jpg", width: 1920, height: 1080 }],
+    images: [{ url: `${basePath}/images/hero.jpg`, width: 1920, height: 1080 }],
   },
 };
 
