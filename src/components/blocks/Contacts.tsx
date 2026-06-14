@@ -12,8 +12,7 @@ const phoneRegex = /^[\d\s\+\-\(\)]{7,20}$/;
 const contactSchema = z.object({
   name: z.string().min(2, "Введите имя").max(50, "Слишком длинное имя"),
   phone: z.string().regex(phoneRegex, "Введите корректный телефон"),
-  email: z.string().email("Неверный email").or(z.literal("")),
-  message: z.string().min(5, "Напишите пару слов").max(500, "Слишком длинное сообщение"),
+  message: z.string().optional(),
 });
 
 type ContactForm = z.infer<typeof contactSchema>;
@@ -54,8 +53,9 @@ export default function Contacts() {
           className="text-center mb-10 md:mb-14"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5 }}
+          style={{ willChange: "transform, opacity" }}
         >
           <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">
             Свяжитесь с нами
@@ -72,8 +72,9 @@ export default function Contacts() {
           className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, delay: 0.1 }}
+          style={{ willChange: "transform, opacity" }}
         >
           {/* ——— Форма ——— */}
           <div>
@@ -98,66 +99,37 @@ export default function Contacts() {
                 )}
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div>
-                  <label htmlFor="phone" className="block text-xs tracking-[0.15em] uppercase text-brand-gray-500 mb-2">
-                    Телефон <span className="text-brand-accent">*</span>
-                  </label>
-                  <input
-                    id="phone"
-                    type="tel"
-                    placeholder="+7 (999) 123-45-67"
-                    {...register("phone")}
-                    className={`w-full px-4 py-3 text-sm bg-white border rounded-sm outline-none transition-colors placeholder:text-brand-gray-300 ${
-                      errors.phone
-                        ? "border-brand-accent"
-                        : "border-brand-gray-200 focus:border-brand-black"
-                    }`}
-                  />
-                  {errors.phone && (
-                    <p className="mt-1 text-xs text-brand-accent">{errors.phone.message}</p>
-                  )}
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-xs tracking-[0.15em] uppercase text-brand-gray-500 mb-2">
-                    Email
-                  </label>
-                  <input
-                    id="email"
-                    type="email"
-                    placeholder="mail@example.com"
-                    {...register("email")}
-                    className={`w-full px-4 py-3 text-sm bg-white border rounded-sm outline-none transition-colors placeholder:text-brand-gray-300 ${
-                      errors.email
-                        ? "border-brand-accent"
-                        : "border-brand-gray-200 focus:border-brand-black"
-                    }`}
-                  />
-                  {errors.email && (
-                    <p className="mt-1 text-xs text-brand-accent">{errors.email.message}</p>
-                  )}
-                </div>
-              </div>
-
               <div>
-                <label htmlFor="message" className="block text-xs tracking-[0.15em] uppercase text-brand-gray-500 mb-2">
-                  Сообщение <span className="text-brand-accent">*</span>
+                <label htmlFor="phone" className="block text-xs tracking-[0.15em] uppercase text-brand-gray-500 mb-2">
+                  Телефон <span className="text-brand-accent">*</span>
                 </label>
-                <textarea
-                  id="message"
-                  rows={4}
-                  placeholder="Ваше сообщение..."
-                  {...register("message")}
-                  className={`w-full px-4 py-3 text-sm bg-white border rounded-sm outline-none transition-colors placeholder:text-brand-gray-300 resize-none ${
-                    errors.message
+                <input
+                  id="phone"
+                  type="tel"
+                  placeholder="+7 (999) 123-45-67"
+                  {...register("phone")}
+                  className={`w-full px-4 py-3 text-sm bg-white border rounded-sm outline-none transition-colors placeholder:text-brand-gray-300 ${
+                    errors.phone
                       ? "border-brand-accent"
                       : "border-brand-gray-200 focus:border-brand-black"
                   }`}
                 />
-                {errors.message && (
-                  <p className="mt-1 text-xs text-brand-accent">{errors.message.message}</p>
+                {errors.phone && (
+                  <p className="mt-1 text-xs text-brand-accent">{errors.phone.message}</p>
                 )}
+              </div>
+
+              <div>
+                <label htmlFor="message" className="block text-xs tracking-[0.15em] uppercase text-brand-gray-500 mb-2">
+                  Сообщение
+                </label>
+                <textarea
+                  id="message"
+                  rows={4}
+                  placeholder="Какой формат интересует? Есть ли помещение?"
+                  {...register("message")}
+                  className="w-full px-4 py-3 text-sm bg-white border border-brand-gray-200 rounded-sm outline-none focus:border-brand-black transition-colors placeholder:text-brand-gray-300 resize-none"
+                />
               </div>
 
               {submitStatus === "success" && (

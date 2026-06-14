@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: "Франшиза Diverse — условия и преимущества",
     description:
       "Три варианта: торговый остров, реновация или полный стандарт. Европейский бренд с 30-летней историей.",
-    images: [{ url: `${basePath}/images/hero.jpg`, width: 1920, height: 1080 }],
+    images: [{ url: `${basePath}/images/hero.webp`, width: 1920, height: 1080 }],
   },
 };
 

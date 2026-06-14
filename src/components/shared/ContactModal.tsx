@@ -12,8 +12,7 @@ const phoneRegex = /^[\d\s\+\-\(\)]{7,20}$/;
 const schema = z.object({
   name: z.string().min(2, "Введите имя").max(50, "Слишком длинное имя"),
   phone: z.string().regex(phoneRegex, "Введите корректный телефон"),
-  email: z.string().email("Неверный email").or(z.literal("")),
-  message: z.string().min(5, "Напишите пару слов").max(500, "Слишком длинное сообщение"),
+  message: z.string().optional(),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -144,35 +143,16 @@ export default function ContactModal() {
               </div>
 
               <div>
-                <label htmlFor="modal-email" className="block text-xs tracking-[0.15em] uppercase text-brand-gray-500 mb-1.5">
-                  Email
-                </label>
-                <input
-                  id="modal-email"
-                  type="email"
-                  placeholder="mail@example.com"
-                  {...register("email")}
-                  className={`w-full px-4 py-3 text-sm bg-white border rounded-sm outline-none transition-colors placeholder:text-brand-gray-300 ${
-                    errors.email ? "border-brand-accent" : "border-brand-gray-200 focus:border-brand-black"
-                  }`}
-                />
-                {errors.email && <p className="mt-1 text-xs text-brand-accent">{errors.email.message}</p>}
-              </div>
-
-              <div>
                 <label htmlFor="modal-message" className="block text-xs tracking-[0.15em] uppercase text-brand-gray-500 mb-1.5">
-                  Сообщение <span className="text-brand-accent">*</span>
+                  Сообщение
                 </label>
                 <textarea
                   id="modal-message"
                   rows={3}
-                  placeholder="Ваше сообщение..."
+                  placeholder="Какой формат интересует? Есть ли помещение?"
                   {...register("message")}
-                  className={`w-full px-4 py-3 text-sm bg-white border rounded-sm outline-none transition-colors placeholder:text-brand-gray-300 resize-none ${
-                    errors.message ? "border-brand-accent" : "border-brand-gray-200 focus:border-brand-black"
-                  }`}
+                  className="w-full px-4 py-3 text-sm bg-white border border-brand-gray-200 rounded-sm outline-none focus:border-brand-black transition-colors placeholder:text-brand-gray-300 resize-none"
                 />
-                {errors.message && <p className="mt-1 text-xs text-brand-accent">{errors.message.message}</p>}
               </div>
 
               {submitStatus === "success" && (

@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { ModalProvider } from "@/lib/modal-context";
 import ContactModal from "@/components/shared/ContactModal";
+import StickyCta from "@/components/shared/StickyCta";
+import TelegramFloat from "@/components/shared/TelegramFloat";
 import JsonLd from "@/components/shared/JsonLd";
+
+const ymId = process.env.NEXT_PUBLIC_YM_ID || "";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://diversebrand.ru";
@@ -41,7 +46,7 @@ export const metadata: Metadata = {
     title: "Франшиза Diverse в России",
     description:
       "Официальный представитель бренда Diverse в РФ и СНГ. 30+ лет, 400+ магазинов, партнёр Dakar Rally.",
-    images: [`${basePath}/images/hero.jpg`],
+    images: [`${basePath}/images/hero.webp`],
   },
   openGraph: {
     title: "Франшиза Diverse в России",
@@ -51,7 +56,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: `${basePath}/images/hero.jpg`,
+        url: `${basePath}/images/hero.webp`,
         width: 1920,
         height: 1080,
         alt: "Франшиза Diverse — официальный представитель в России",
@@ -96,13 +101,39 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru" className={inter.variable}>
+    <html lang="ru" className={inter.variable} data-scroll-behavior="smooth">
       <body>
         <JsonLd data={organizationSchema} />
         <ModalProvider>
           {children}
           <ContactModal />
+          <StickyCta />
+          <TelegramFloat />
         </ModalProvider>
+
+        {ymId && (
+          <Script id="yandex-metrica" strategy="afterInteractive">
+            {`
+              (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+              m[i].l=1*new Date();
+              for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+              k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+              (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+              ym(${ymId}, "init", {
+                clickmap:true,
+                trackLinks:true,
+                accurateTrackBounce:true,
+                webvisor:true
+              });
+            `}
+          </Script>
+        )}
+        <noscript>
+          <div>
+            <img src="https://mc.yandex.ru/watch/${ymId}" style={{position:"absolute",left:-9999}} alt="" />
+          </div>
+        </noscript>
       </body>
     </html>
   );

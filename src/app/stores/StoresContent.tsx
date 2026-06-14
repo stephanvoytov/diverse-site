@@ -5,12 +5,14 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
+import { useModal } from "@/lib/modal-context";
 import { stores } from "@/data/stores";
 
 const russianStores = stores.filter((s) => s.country === "Россия");
 const kzStores = stores.filter((s) => s.country === "Казахстан");
 
 export default function StoresContent() {
+  const { open: openModal } = useModal();
   return (
     <>
       <Header />
@@ -146,12 +148,12 @@ export default function StoresContent() {
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
             >
-              <a
-                href="/franchise/"
-                className="inline-flex items-center justify-center px-8 py-4 text-sm tracking-[0.2em] font-semibold uppercase text-white bg-brand-accent hover:bg-brand-accent-hover transition-all duration-300 rounded-sm"
+              <button
+                onClick={openModal}
+                className="inline-flex items-center justify-center px-8 py-4 text-sm tracking-[0.2em] font-semibold uppercase text-white bg-brand-accent hover:bg-brand-accent-hover transition-all duration-300 rounded-sm cursor-pointer"
               >
-                Условия франшизы
-              </a>
+                Стать партнёром
+              </button>
             </motion.div>
           </div>
         </section>

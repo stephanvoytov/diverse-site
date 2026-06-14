@@ -4,7 +4,10 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
+import { useModal } from "@/lib/modal-context";
 import { collections } from "@/data/collections";
+
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 function CollectionSection({
   item,
@@ -42,20 +45,16 @@ function CollectionSection({
         className="absolute inset-0 will-change-transform"
       >
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 bg-cover bg-center"
           style={{
-            background: `linear-gradient(135deg, ${item.colorFrom}, ${item.colorTo})`,
+            backgroundImage: item.image
+              ? `url(${basePath}/images/collections/${item.image})`
+              : `linear-gradient(135deg, ${item.colorFrom}, ${item.colorTo})`,
+            backgroundPosition: item.bgPosition || "center",
           }}
         >
-          {/* Pattern dots */}
-          <div
-            className="absolute inset-0 opacity-[0.06]"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle at 1px 1px, white 1px, transparent 0)",
-              backgroundSize: "40px 40px",
-            }}
-          />
+          {/* Dark overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/40" />
           {/* Diagonal accent — alternates side */}
           <div
             className={`absolute top-0 h-full w-px bg-white/[0.04] ${
@@ -74,9 +73,6 @@ function CollectionSection({
           </div>
         </div>
       </motion.div>
-
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/40" />
 
       {/* Content — always left-aligned for readability */}
       <motion.div
@@ -132,6 +128,7 @@ function CollectionSection({
 }
 
 export default function CollectionContent() {
+  const { open: openModal } = useModal();
   return (
     <>
       <Header />
@@ -224,12 +221,12 @@ export default function CollectionContent() {
                 Открой магазин Diverse в своём городе. Полная поддержка на всех
                 этапах — от поиска помещения до открытия.
               </p>
-              <a
-                href="/franchise/"
-                className="inline-flex items-center justify-center px-10 py-4 text-sm tracking-[0.2em] font-semibold uppercase text-white bg-brand-accent hover:bg-brand-accent-hover transition-all duration-300 rounded-sm"
+              <button
+                onClick={openModal}
+                className="inline-flex items-center justify-center px-10 py-4 text-sm tracking-[0.2em] font-semibold uppercase text-white bg-brand-accent hover:bg-brand-accent-hover transition-all duration-300 rounded-sm cursor-pointer"
               >
-                Узнать о франшизе
-              </a>
+                Стать партнёром
+              </button>
             </motion.div>
           </div>
         </section>

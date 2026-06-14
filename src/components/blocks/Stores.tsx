@@ -147,6 +147,8 @@ export default function Stores() {
   }
 
   // IP → город пользователя + ghost на карте
+  // При падении (CORS, блокировка) — просто не показываем метку,
+  // блок «откройте по франшизе» всё равно виден
   useEffect(() => {
     fetch("https://ipinfo.io/json")
       .then((r) => r.json())
@@ -325,31 +327,29 @@ export default function Stores() {
             ref={sidebarRef}
             className="order-2 lg:order-1 overflow-y-auto border-t lg:border-t-0 lg:border-r border-brand-gray-200 max-h-[320px] lg:max-h-[480px] bg-white"
           >
-            {userCity && (
-              <>
-                <div className="px-4 py-3.5 border-l-2 border-brand-accent/40 bg-brand-accent/[0.02]">
-                  <div className="flex items-center gap-3">
-                    <span className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 bg-brand-accent/20 text-brand-accent">
-                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M6 1v10M1 6h10" />
-                      </svg>
-                    </span>
-                    <div className="min-w-0">
-                      <div className="text-sm font-semibold text-brand-black">
-                        {userCity}
-                      </div>
-                      <div className="text-xs text-brand-accent mt-0.5 font-medium">
-                        откройте по франшизе
-                      </div>
-                      <div className="text-xs text-brand-gray-400 mt-0.5">
-                        Станьте партнёром ООО «ХАУС»
-                      </div>
+            <>
+              <div className="px-4 py-3.5 border-l-2 border-brand-accent/40 bg-brand-accent/[0.02]">
+                <div className="flex items-center gap-3">
+                  <span className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 bg-brand-accent/20 text-brand-accent">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M6 1v10M1 6h10" />
+                    </svg>
+                  </span>
+                  <div className="min-w-0">
+                    <div className="text-sm font-semibold text-brand-black">
+                      {userCity || "Ваш город"}
+                    </div>
+                    <div className="text-xs text-brand-accent mt-0.5 font-medium">
+                      откройте по франшизе
+                    </div>
+                    <div className="text-xs text-brand-gray-400 mt-0.5">
+                      Станьте партнёром ООО «ХАУС»
                     </div>
                   </div>
                 </div>
-                <div className="border-t border-dashed border-brand-gray-200 mx-4" />
-              </>
-            )}
+              </div>
+              <div className="border-t border-dashed border-brand-gray-200 mx-4" />
+            </>
             {stores.map((s, i) => {
               const isActive = activeIdx === i;
               const isUfa = s.city === "Уфа";

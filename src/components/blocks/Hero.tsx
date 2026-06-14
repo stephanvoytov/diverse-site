@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Button from "@/components/ui/Button";
+import DiverseLogo from "@/components/shared/DiverseLogo";
 import { asset } from "@/lib/path";
 import { useModal } from "@/lib/modal-context";
 
@@ -37,13 +38,13 @@ export default function Hero() {
       <motion.div
         className="absolute inset-0 bg-cover bg-center max-md:bg-[30%_center] bg-no-repeat"
         style={{
-          backgroundImage: `url('${asset("/images/hero.jpg")}')`,
+          backgroundImage: `url('${asset("/images/hero.webp")}')`,
           y: backgroundY,
         }}
       />
 
       {/* Layer 3: Dark overlay for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/70" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/65 to-black/85" />
 
       {/* Layer 4: Content */}
       <motion.div
@@ -62,14 +63,15 @@ export default function Hero() {
 
         {/* Main Heading */}
         <motion.h1
-          className="max-sm:text-4xl text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold text-white uppercase leading-[1.05] max-w-5xl"
+          className="flex flex-col max-sm:text-4xl text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold text-white uppercase leading-none max-w-5xl"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          Франшиза
-          <br />
-          <span className="text-brand-accent">Diverse</span>
+          <span>Франшиза</span>
+          <span className="text-brand-accent -mt-1 sm:-mt-2 md:-mt-3 leading-none">
+            <DiverseLogo className="h-[0.55em] w-auto block" />
+          </span>
         </motion.h1>
 
         {/* Subtitle */}
@@ -79,10 +81,10 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          Культовый польский бренд. Партнёр Dakar Rally.
+          Польский бренд. Партнёр Dakar Rally. 30+ лет на рынке.
           <br />
           <span className="text-white/90">
-            0₽ паушальный взнос · 0% роялти
+            0₽ паушальный взнос · 0% роялти · Свой склад в Европе
           </span>
         </motion.p>
 
@@ -120,7 +122,7 @@ export default function Hero() {
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M8 1v8M5 6l3 3 3-3M2 12v2a1 1 0 001 1h10a1 1 0 001-1v-2"/>
             </svg>
-            Скачать презентацию франшизы
+            Скачать презентацию
           </button>
         </motion.div>
 

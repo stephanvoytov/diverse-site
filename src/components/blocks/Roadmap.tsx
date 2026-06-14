@@ -14,8 +14,9 @@ export default function Roadmap() {
           className="text-center mb-14 md:mb-20"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5 }}
+          style={{ willChange: "transform, opacity" }}
         >
           <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">
             Как открыть
@@ -39,6 +40,7 @@ export default function Roadmap() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
+              style={{ willChange: "transform, opacity" }}
             >
               {/* Number circle + line */}
               <div className="flex flex-col items-center shrink-0">
@@ -74,8 +76,9 @@ export default function Roadmap() {
           className="text-center mt-14"
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5, delay: 0.4 }}
+          style={{ willChange: "transform, opacity" }}
         >
           <button
             onClick={openModal}

@@ -17,8 +17,9 @@ export default function Faq() {
           className="text-center mb-12 md:mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5 }}
+          style={{ willChange: "transform, opacity" }}
         >
           <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">
             Часто спрашивают
@@ -44,7 +45,8 @@ export default function Faq() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.06 }}
-                className={`rounded-sm overflow-hidden transition-all duration-300 ${
+                style={{ willChange: "transform, opacity" }}
+                className={`rounded-sm overflow-hidden transition-[background-color,border-color,box-shadow] duration-300 ${
                   isOpen
                     ? "bg-white shadow-md border border-brand-accent/20"
                     : "bg-white/80 border border-brand-gray-200 hover:border-brand-gray-300"
@@ -103,8 +105,9 @@ export default function Faq() {
           className="text-center mt-12"
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5, delay: 0.3 }}
+          style={{ willChange: "transform, opacity" }}
         >
           <p className="text-sm text-brand-gray-400 mb-4">
             Остались вопросы? Свяжитесь с нами — ответим на всё

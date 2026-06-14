@@ -1,9 +1,13 @@
+"use client";
+
 import Link from "next/link";
 import { navLinks } from "@/data/navigation";
 import { footerSocials as socials } from "@/data/socials";
+import { useModal } from "@/lib/modal-context";
 import { asset } from "@/lib/path";
 
 export default function Footer() {
+  const { open: openModal } = useModal();
   return (
     <footer className="bg-brand-black">
       <div className="container-brand py-10">
@@ -77,9 +81,19 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Соцсети */}
+          {/* Быстрая заявка + Соцсети */}
           <div className="md:col-span-3">
-            <p className="text-[11px] tracking-[0.2em] uppercase text-white/30 mb-5">
+            <p className="text-[11px] tracking-[0.2em] uppercase text-white/30 mb-4">
+              Готовы начать?
+            </p>
+            <button
+              onClick={openModal}
+              className="w-full mb-5 px-5 py-3 bg-brand-accent text-white text-xs tracking-[0.2em] uppercase font-semibold rounded-sm hover:bg-brand-accent-hover transition-colors cursor-pointer"
+            >
+              Оставить заявку
+            </button>
+
+            <p className="text-[11px] tracking-[0.2em] uppercase text-white/30 mb-3">
               Соцсети
             </p>
             <div className="flex flex-wrap gap-2">
@@ -106,7 +120,14 @@ export default function Footer() {
           <p className="text-xs text-white/25">
             &copy; {new Date().getFullYear()} ООО «ХАУС». Все права защищены.
           </p>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
+            <Link
+              href="/privacy/"
+              className="text-xs text-white/30 hover:text-white/60 transition-colors"
+            >
+              Политика конфиденциальности
+            </Link>
+            <span className="text-xs text-white/20" aria-hidden="true">|</span>
             <span className="text-xs text-white/20">
               Diverse — официальный партнёр
             </span>
