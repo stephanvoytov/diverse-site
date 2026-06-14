@@ -7,11 +7,13 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useModal } from "@/lib/modal-context";
 
+const phoneRegex = /^[\d\s\+\-\(\)]{7,20}$/;
+
 const schema = z.object({
-  name: z.string().min(2, "Введите имя"),
-  phone: z.string().min(5, "Введите телефон"),
+  name: z.string().min(2, "Введите имя").max(50, "Слишком длинное имя"),
+  phone: z.string().regex(phoneRegex, "Введите корректный телефон"),
   email: z.string().email("Неверный email").or(z.literal("")),
-  message: z.string().min(5, "Напишите пару слов"),
+  message: z.string().min(5, "Напишите пару слов").max(500, "Слишком длинное сообщение"),
 });
 
 type FormData = z.infer<typeof schema>;

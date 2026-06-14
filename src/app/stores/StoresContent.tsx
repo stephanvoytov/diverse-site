@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Header from "@/components/shared/Header";
@@ -163,6 +164,7 @@ export default function StoresContent() {
 /* ——— Store card ——— */
 
 function StoreCard({ store, index }: { store: (typeof stores)[0]; index: number }) {
+  const [imgFailed, setImgFailed] = useState(false);
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -172,19 +174,20 @@ function StoreCard({ store, index }: { store: (typeof stores)[0]; index: number 
       className="group rounded-sm overflow-hidden bg-brand-gray-100 border border-brand-gray-200 hover:border-brand-gray-300 transition-all duration-300"
     >
       <div className="aspect-[4/3] bg-brand-gray-200 overflow-hidden">
-        <Image
-          src={store.photo}
-          alt={`${store.city} — ${store.mall || store.address}`}
-          width={400}
-          height={300}
-          className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            target.style.display = "none";
-            const parent = target.parentElement!;
-            parent.innerHTML = `<div class="w-full h-full flex items-center justify-center text-3xl font-bold text-brand-accent bg-brand-gray-100">${store.city[0]}</div>`;
-          }}
-        />
+        {imgFailed ? (
+          <div className="w-full h-full flex items-center justify-center text-3xl font-bold text-brand-accent bg-brand-gray-100">
+            {store.city[0]}
+          </div>
+        ) : (
+          <Image
+            src={store.photo}
+            alt={`${store.city} — ${store.mall || store.address}`}
+            width={400}
+            height={300}
+            className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+            onError={() => setImgFailed(true)}
+          />
+        )}
       </div>
       <div className="p-4 md:p-5">
         <p className="text-base font-bold text-brand-black mb-1">{store.city}</p>

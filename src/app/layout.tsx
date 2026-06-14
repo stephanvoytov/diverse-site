@@ -30,6 +30,17 @@ export const metadata: Metadata = {
     title: "Diverse Russia",
     statusBarStyle: "black-translucent",
   },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Франшиза Diverse в России",
+    description:
+      "Официальный представитель бренда Diverse в РФ и СНГ. 30+ лет, 400+ магазинов, партнёр Dakar Rally.",
+    images: [`${basePath}/images/hero.jpg`],
+  },
   openGraph: {
     title: "Франшиза Diverse в России",
     description:

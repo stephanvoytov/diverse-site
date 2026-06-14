@@ -1,4 +1,4 @@
-import { type ButtonHTMLAttributes } from "react";
+import { type ButtonHTMLAttributes, type AnchorHTMLAttributes } from "react";
 import Link from "next/link";
 
 type ButtonVariant = "primary" | "accent" | "outline" | "outline-white" | "ghost";
@@ -14,7 +14,7 @@ interface ButtonBaseProps {
 type ButtonProps = ButtonBaseProps &
   (
     | (ButtonHTMLAttributes<HTMLButtonElement> & { href?: never })
-    | (ButtonHTMLAttributes<HTMLAnchorElement> & { href: string })
+    | (AnchorHTMLAttributes<HTMLAnchorElement> & { href: string })
   );
 
 const variantStyles: Record<ButtonVariant, string> = {
@@ -50,7 +50,7 @@ export default function Button(props: ButtonProps) {
   const styles = `${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`;
 
   if ("href" in rest && rest.href) {
-    const { href, ...anchorRest } = rest as ButtonHTMLAttributes<HTMLAnchorElement> & { href: string };
+    const { href, ...anchorRest } = rest as AnchorHTMLAttributes<HTMLAnchorElement> & { href: string };
     return (
       <Link href={href} className={styles} {...anchorRest}>
         {children}
