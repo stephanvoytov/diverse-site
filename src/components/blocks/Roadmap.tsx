@@ -2,8 +2,10 @@
 
 import { motion } from "framer-motion";
 import { roadmapSteps } from "@/data/franchise";
+import { useModal } from "@/lib/modal-context";
 
 export default function Roadmap() {
+  const { open: openModal } = useModal();
   return (
     <section data-header="light" className="bg-brand-gray-100 overflow-hidden">
       <div className="container-brand py-16 md:py-24">
@@ -104,12 +106,12 @@ export default function Roadmap() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <a
-            href="#section-contacts"
-            className="inline-flex items-center justify-center px-8 py-4 text-sm tracking-[0.2em] font-semibold uppercase text-white bg-brand-black hover:bg-neutral-900 transition-all duration-300 rounded-sm"
+          <button
+            onClick={openModal}
+            className="inline-flex items-center justify-center px-8 py-4 text-sm tracking-[0.2em] font-semibold uppercase text-white bg-brand-black hover:bg-neutral-900 transition-all duration-300 rounded-sm cursor-pointer"
           >
             Начать прямо сейчас
-          </a>
+          </button>
         </motion.div>
       </div>
     </section>

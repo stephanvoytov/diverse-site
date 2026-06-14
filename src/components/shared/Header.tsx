@@ -4,8 +4,10 @@ import { useState, useEffect, useRef } from "react";
 import Button from "@/components/ui/Button";
 import { navLinks } from "@/data/navigation";
 import { asset } from "@/lib/path";
+import { useModal } from "@/lib/modal-context";
 
 export default function Header() {
+  const { open: openModal } = useModal();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDarkBg, setIsDarkBg] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -90,7 +92,7 @@ export default function Header() {
           <Button
             variant={btnVariant}
             size="sm"
-            href="/franchise"
+            onClick={openModal}
           >
             Оставить заявку
           </Button>
@@ -140,8 +142,7 @@ export default function Header() {
           <Button
             variant="accent"
             size="lg"
-            href="/franchise"
-            onClick={() => setIsMobileOpen(false)}
+            onClick={() => { openModal(); setIsMobileOpen(false); }}
           >
             Оставить заявку
           </Button>

@@ -35,7 +35,7 @@ export default function Contacts() {
   };
 
   return (
-    <section id="section-contacts" data-header="light" className="h-screen bg-white overflow-y-auto">
+    <section id="section-contacts" data-header="light" className="min-h-screen bg-white">
       <div className="container-brand py-10 md:py-12">
         {/* Заголовок */}
         <motion.div

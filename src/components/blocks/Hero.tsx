@@ -4,8 +4,10 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Button from "@/components/ui/Button";
 import { asset } from "@/lib/path";
+import { useModal } from "@/lib/modal-context";
 
 export default function Hero() {
+  const { open: openModal } = useModal();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -45,12 +47,12 @@ export default function Hero() {
 
       {/* Layer 4: Content */}
       <motion.div
-        className="relative z-10 flex flex-col justify-center items-center text-center h-full px-6 pt-16 md:pt-20"
+        className="relative z-10 flex flex-col justify-center items-center text-center h-full px-6 max-sm:pt-12 pt-14 md:pt-16"
         style={{ y: textY, opacity }}
       >
         {/* Tagline */}
         <motion.p
-          className="text-xs md:text-sm tracking-[0.3em] uppercase text-white/60 mb-6"
+          className="text-xs md:text-sm tracking-[0.3em] uppercase text-white/60 max-sm:mb-4 mb-5"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -60,7 +62,7 @@ export default function Hero() {
 
         {/* Main Heading */}
         <motion.h1
-          className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-white uppercase leading-[1.05] max-w-5xl"
+          className="max-sm:text-4xl text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold text-white uppercase leading-[1.05] max-w-5xl"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -72,7 +74,7 @@ export default function Hero() {
 
         {/* Subtitle */}
         <motion.p
-          className="mt-6 text-base md:text-lg text-white/70 max-w-2xl leading-relaxed"
+          className="max-sm:mt-4 mt-5 text-base md:text-lg text-white/70 max-w-2xl leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
@@ -86,33 +88,33 @@ export default function Hero() {
 
         {/* CTA Buttons */}
         <motion.div
-          className="mt-10 flex flex-col sm:flex-row gap-4"
+          className="max-sm:mt-6 mt-8 flex flex-col sm:flex-row max-sm:gap-3 gap-3"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
         >
-          <Button variant="accent" size="lg" href="/franchise">
+          <Button variant="accent" size="lg" onClick={openModal}>
             Стать партнёром
           </Button>
           <Button
             variant="outline"
             size="lg"
-            href="/franchise"
+            href="/franchise/"
             className="border-white text-white hover:bg-white hover:text-black"
           >
             Узнать больше
           </Button>
         </motion.div>
 
-        {/* Presentation link */}
+        {/* Presentation link (hidden on mid-size screens to save space) */}
         <motion.div
-          className="mt-6"
+          className="max-sm:mt-4 mt-5 hidden lg:block"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.0 }}
         >
           <a
-            href="#section-contacts"
+            href="/#section-contacts"
             className="inline-flex items-center gap-2 text-xs tracking-[0.15em] uppercase text-white/40 hover:text-white/80 transition-colors"
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
@@ -124,27 +126,27 @@ export default function Hero() {
 
         {/* Stats row */}
         <motion.div
-          className="mt-10 md:mt-16 flex gap-4 md:gap-16 text-center"
+          className="max-sm:mt-6 mt-8 md:mt-10 flex max-sm:gap-2 gap-4 md:gap-10 text-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1 }}
         >
           <div>
-            <p className="text-2xl md:text-3xl font-bold text-white">30+</p>
+            <p className="max-sm:text-xl text-2xl md:text-3xl font-bold text-white">30+</p>
             <p className="text-xs tracking-[0.15em] uppercase text-white/50 mt-1">
               Лет на рынке
             </p>
           </div>
           <div className="w-px bg-white/20" />
           <div>
-            <p className="text-2xl md:text-3xl font-bold text-white">400+</p>
+            <p className="max-sm:text-xl text-2xl md:text-3xl font-bold text-white">400+</p>
             <p className="text-xs tracking-[0.15em] uppercase text-white/50 mt-1">
               Магазинов в мире
             </p>
           </div>
           <div className="w-px bg-white/20" />
           <div>
-            <p className="text-2xl md:text-3xl font-bold text-brand-accent">11</p>
+            <p className="max-sm:text-xl text-2xl md:text-3xl font-bold text-brand-accent">11</p>
             <p className="text-xs tracking-[0.15em] uppercase text-white/50 mt-1">
               В РФ и Казахстане
             </p>
@@ -154,7 +156,7 @@ export default function Hero() {
 
       {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
+        className="absolute max-sm:bottom-3 bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 z-20"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}

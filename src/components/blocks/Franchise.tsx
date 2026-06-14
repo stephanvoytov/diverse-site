@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { plans, benefits } from "@/data/franchise";
+import { useModal } from "@/lib/modal-context";
 
 const cardVariants = {
   hidden: { opacity: 0, y: 40 },
@@ -14,6 +15,7 @@ const cardVariants = {
 };
 
 export default function Franchise() {
+  const { open: openModal } = useModal();
   const [openId, setOpenId] = useState<string | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
@@ -42,7 +44,7 @@ export default function Franchise() {
   }, []);
 
   return (
-    <section id="section-franchise" data-header="dark" ref={sectionRef} className="relative h-screen bg-brand-black overflow-y-auto">
+    <section id="section-franchise" data-header="dark" ref={sectionRef} className="relative min-h-screen bg-brand-black">
       {/* Static pattern */}
       <div className="absolute inset-0 opacity-[0.04]">
         <div
@@ -109,7 +111,7 @@ export default function Franchise() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-60px" }}
-              className={`relative rounded-sm overflow-hidden cursor-pointer transition-all duration-500 ${
+              className={`relative rounded-sm overflow-hidden cursor-pointer transition-all duration-500 flex flex-col ${
                 openId === plan.id
                   ? "bg-white/[0.12] border border-brand-accent/40 shadow-[0_0_50px_-18px_rgba(209,32,38,0.35)]"
                   : "bg-white/5 border border-white/10 hover:bg-white/[0.08]"
@@ -117,7 +119,7 @@ export default function Franchise() {
               onClick={() => setOpenId(openId === plan.id ? null : plan.id)}
             >
               {/* Always visible */}
-              <div className="p-6 md:p-8">
+              <div className="p-6 md:p-8 flex flex-col flex-1">
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
                     <p className="text-xs tracking-[0.2em] uppercase text-brand-accent mb-2">
@@ -142,10 +144,10 @@ export default function Franchise() {
                     </svg>
                   </motion.div>
                 </div>
-                <p className="text-sm text-white/50 leading-relaxed mb-5">
+                <p className="text-sm text-white/50 leading-relaxed">
                   {plan.desc}
                 </p>
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between mt-auto pt-5">
                   <motion.span
                     className="text-lg md:text-xl font-bold text-brand-accent"
                     initial={{ opacity: 0, x: -10 }}
@@ -265,12 +267,12 @@ export default function Franchise() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.6 }}
         >
-          <a
-            href="/franchise"
-            className="inline-flex items-center justify-center px-8 py-4 text-sm tracking-[0.2em] font-semibold uppercase text-white bg-brand-accent hover:bg-brand-accent-hover transition-all duration-300 rounded-sm"
+          <button
+            onClick={openModal}
+            className="inline-flex items-center justify-center px-8 py-4 text-sm tracking-[0.2em] font-semibold uppercase text-white bg-brand-accent hover:bg-brand-accent-hover transition-all duration-300 rounded-sm cursor-pointer"
           >
             Стать партнёром
-          </a>
+          </button>
         </motion.div>
       </div>
     </section>

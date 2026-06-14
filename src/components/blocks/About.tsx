@@ -38,7 +38,7 @@ function ParallaxCard({ item }: { item: (typeof subbrands)[0] }) {
 
 export default function About() {
   return (
-    <section data-header="light" className="h-screen bg-white overflow-y-auto">
+    <section data-header="light" className="min-h-screen bg-white">
       <div className="container-brand py-6 md:py-8">
         {/* Header */}
         <div

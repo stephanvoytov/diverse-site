@@ -277,7 +277,7 @@ export default function Stores() {
   }
 
   return (
-    <section data-header="light" className="h-screen bg-brand-gray-100 overflow-y-auto">
+    <section data-header="light" className="min-h-screen bg-brand-gray-100">
       <div className="container-brand py-10 md:py-12">
         {/* ——— Шапка ——— */}
         <motion.div

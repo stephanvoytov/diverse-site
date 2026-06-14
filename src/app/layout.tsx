@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { ModalProvider } from "@/lib/modal-context";
+import ContactModal from "@/components/shared/ContactModal";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
@@ -52,7 +54,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru" className={inter.variable}>
-      <body>{children}</body>
+      <body>
+        <ModalProvider>
+          {children}
+          <ContactModal />
+        </ModalProvider>
+      </body>
     </html>
   );
 }

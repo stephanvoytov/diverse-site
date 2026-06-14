@@ -3,8 +3,10 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { faqItems } from "@/data/franchise";
+import { useModal } from "@/lib/modal-context";
 
 export default function Faq() {
+  const { open: openModal } = useModal();
   const [openIdx, setOpenIdx] = useState<number | null>(null);
 
   return (
@@ -107,12 +109,12 @@ export default function Faq() {
           <p className="text-sm text-brand-gray-400 mb-4">
             Остались вопросы? Свяжитесь с нами — ответим на всё
           </p>
-          <a
-            href="#section-contacts"
-            className="inline-flex items-center justify-center px-8 py-4 text-sm tracking-[0.2em] font-semibold uppercase text-white bg-brand-accent hover:bg-brand-accent-hover transition-all duration-300 rounded-sm"
+          <button
+            onClick={openModal}
+            className="inline-flex items-center justify-center px-8 py-4 text-sm tracking-[0.2em] font-semibold uppercase text-white bg-brand-accent hover:bg-brand-accent-hover transition-all duration-300 rounded-sm cursor-pointer"
           >
             Задать вопрос
-          </a>
+          </button>
         </motion.div>
       </div>
     </section>
