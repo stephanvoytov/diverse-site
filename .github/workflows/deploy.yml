@@ -26,6 +26,10 @@ jobs:
       - run: npm run build
         env:
           NEXT_PUBLIC_BASE_PATH: /diverse-site
+          # Укажи URL для сбора заявок (Web3Forms / EmailJS / и т.д.),
+          # иначе формы будут падать с ошибкой на GitHub Pages.
+          # Для локальной разработки используется /api/lead.
+          # NEXT_PUBLIC_FORM_ENDPOINT: https://api.web3forms.com/submit
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

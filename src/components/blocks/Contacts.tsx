@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -15,9 +16,8 @@ const contactSchema = z.object({
 
 type ContactForm = z.infer<typeof contactSchema>;
 
-
-
 export default function Contacts() {
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
   const {
     register,
     handleSubmit,
@@ -27,11 +27,21 @@ export default function Contacts() {
     resolver: zodResolver(contactSchema),
   });
 
-  const onSubmit = async (_data: ContactForm) => {
-    // TODO: connect to backend
-    await new Promise((r) => setTimeout(r, 1000));
-    reset();
-    alert("Спасибо! Мы свяжемся с вами в ближайшее время.");
+  const onSubmit = async (data: ContactForm) => {
+    setSubmitStatus("idle");
+    try {
+      const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT || "/api/lead";
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error("Server error");
+      setSubmitStatus("success");
+      reset();
+    } catch {
+      setSubmitStatus("error");
+    }
   };
 
   return (
@@ -148,12 +158,23 @@ export default function Contacts() {
                 )}
               </div>
 
+              {submitStatus === "success" && (
+                <p className="text-sm text-green-600 font-medium">
+                  ✓ Спасибо! Мы свяжемся с вами.
+                </p>
+              )}
+              {submitStatus === "error" && (
+                <p className="text-sm text-brand-accent">
+                  ✕ Ошибка отправки. Попробуйте позже или напишите в Telegram.
+                </p>
+              )}
+
               <button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || submitStatus === "success"}
                 className="w-full sm:w-auto px-8 py-3.5 bg-brand-accent text-white text-xs tracking-[0.2em] uppercase font-semibold rounded-sm hover:bg-brand-accent-hover transition-colors disabled:opacity-50"
               >
-                {isSubmitting ? "Отправка…" : "Отправить"}
+                {isSubmitting ? "Отправка…" : submitStatus === "success" ? "Отправлено ✓" : "Отправить"}
               </button>
             </form>
           </div>

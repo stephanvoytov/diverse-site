@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -44,11 +44,24 @@ export default function ContactModal() {
     return () => window.removeEventListener("keydown", onKey);
   }, [isOpen, close]);
 
-  const onSubmit = async (_: FormData) => {
-    await new Promise((r) => setTimeout(r, 1000));
-    reset();
-    close();
-    alert("Спасибо! Мы свяжемся с вами в ближайшее время.");
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+
+  const onSubmit = async (data: FormData) => {
+    setSubmitStatus("idle");
+    try {
+      const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT || "/api/lead";
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error("Server error");
+      setSubmitStatus("success");
+      reset();
+      setTimeout(() => { setSubmitStatus("idle"); close(); }, 2000);
+    } catch {
+      setSubmitStatus("error");
+    }
   };
 
   return (
@@ -160,12 +173,23 @@ export default function ContactModal() {
                 {errors.message && <p className="mt-1 text-xs text-brand-accent">{errors.message.message}</p>}
               </div>
 
+              {submitStatus === "success" && (
+                <p className="text-sm text-green-600 text-center font-medium">
+                  ✓ Спасибо! Мы свяжемся с вами.
+                </p>
+              )}
+              {submitStatus === "error" && (
+                <p className="text-sm text-brand-accent text-center">
+                  ✕ Ошибка отправки. Попробуйте позже или напишите в Telegram.
+                </p>
+              )}
+
               <button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || submitStatus === "success"}
                 className="w-full px-8 py-3.5 bg-brand-accent text-white text-xs tracking-[0.2em] uppercase font-semibold rounded-sm hover:bg-brand-accent-hover transition-colors disabled:opacity-50"
               >
-                {isSubmitting ? "Отправка…" : "Отправить заявку"}
+                {isSubmitting ? "Отправка…" : submitStatus === "success" ? "Отправлено ✓" : "Отправить заявку"}
               </button>
 
               <p className="text-xs text-brand-gray-300 leading-relaxed text-center">
