@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Button from "@/components/ui/Button";
 import { navLinks } from "@/data/navigation";
 import { asset } from "@/lib/path";
@@ -11,8 +12,13 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDarkBg, setIsDarkBg] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [currentPath, setCurrentPath] = useState("");
 
   const themeRef = useRef(false);
+
+  useEffect(() => {
+    setCurrentPath(window.location.pathname);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,6 +46,23 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Lock body scroll when menu open
+  useEffect(() => {
+    if (isMobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileOpen]);
+
+  const isActive = (href: string) => {
+    if (href === "/") return currentPath === "/";
+    return currentPath.startsWith(href.replace(/\/$/, ""));
+  };
+
   const headerBg = !isScrolled
     ? "bg-transparent"
     : isDarkBg
@@ -57,13 +80,15 @@ export default function Header() {
       : "text-brand-black";
   const btnVariant = isDarkBg ? "outline-white" : "accent";
 
+  const closeMenu = () => setIsMobileOpen(false);
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-[1000] transition-all duration-500 ${headerBg}`}
     >
       <div className="container-brand flex items-center justify-between h-16 md:h-20">
         {/* Logo */}
-        <a href="/" className="flex-shrink-0">
+        <a href="/" className="flex-shrink-0 relative z-50">
           <img
             src={asset(
               !isScrolled
@@ -83,7 +108,9 @@ export default function Header() {
             <a
               key={link.href}
               href={link.href}
-              className={`text-xs tracking-[0.15em] uppercase font-light transition-colors duration-300 ${navColor}`}
+              className={`text-xs tracking-[0.15em] uppercase font-light transition-colors duration-300 ${navColor} ${
+                isActive(link.href) ? "!text-brand-accent font-semibold" : ""
+              }`}
             >
               {link.label}
             </a>
@@ -97,24 +124,24 @@ export default function Header() {
           </Button>
         </nav>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Menu Button (hamburger) */}
         <button
           onClick={() => setIsMobileOpen(!isMobileOpen)}
-          className={`lg:hidden flex flex-col gap-1.5 p-2 transition-colors ${menuColor}`}
-          aria-label="Меню"
+          className={`lg:hidden relative z-50 flex flex-col gap-1.5 p-2 transition-colors ${menuColor}`}
+          aria-label={isMobileOpen ? "Закрыть меню" : "Открыть меню"}
         >
           <span
-            className={`block w-6 h-px bg-current transition-transform ${
+            className={`block w-6 h-px bg-current transition-all duration-300 ${
               isMobileOpen ? "rotate-45 translate-y-[5px]" : ""
             }`}
           />
           <span
-            className={`block w-6 h-px bg-current transition-opacity ${
-              isMobileOpen ? "opacity-0" : ""
+            className={`block w-6 h-px bg-current transition-all duration-300 ${
+              isMobileOpen ? "opacity-0 scale-x-0" : ""
             }`}
           />
           <span
-            className={`block w-6 h-px bg-current transition-transform ${
+            className={`block w-6 h-px bg-current transition-all duration-300 ${
               isMobileOpen ? "-rotate-45 -translate-y-[5px]" : ""
             }`}
           />
@@ -122,31 +149,67 @@ export default function Header() {
       </div>
 
       {/* Mobile Menu */}
-      <div
-        className={`lg:hidden fixed inset-0 bg-white z-40 transition-transform duration-500 ${
-          isMobileOpen ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
-        <div className="flex flex-col items-center justify-center h-full gap-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-lg uppercase tracking-[0.15em] font-light text-brand-black hover:text-brand-accent transition-colors"
-              onClick={() => setIsMobileOpen(false)}
+      <AnimatePresence>
+        {isMobileOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              className="lg:hidden fixed inset-0 bg-black/40 z-30"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={closeMenu}
+            />
+
+            {/* Panel */}
+            <motion.div
+              className="lg:hidden fixed inset-y-0 right-0 z-40 w-full max-w-sm bg-white shadow-2xl overflow-y-auto"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 30, stiffness: 300 }}
             >
-              {link.label}
-            </a>
-          ))}
-          <Button
-            variant="accent"
-            size="lg"
-            onClick={() => { openModal(); setIsMobileOpen(false); }}
-          >
-            Оставить заявку
-          </Button>
-        </div>
-      </div>
+              <div className="flex flex-col justify-center min-h-full px-10 py-24">
+                <nav className="flex flex-col gap-6">
+                  {navLinks.map((link, i) => (
+                    <motion.a
+                      key={link.href}
+                      href={link.href}
+                      className={`relative text-2xl uppercase tracking-[0.15em] font-light transition-colors duration-300 ${
+                        isActive(link.href)
+                          ? "text-brand-accent"
+                          : "text-brand-black hover:text-brand-accent"
+                      }`}
+                      onClick={closeMenu}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -20 }}
+                      transition={{ duration: 0.3, delay: 0.1 + i * 0.05 }}
+                    >
+                      {isActive(link.href) && (
+                        <span className="absolute -left-4 top-1/2 -translate-y-1/2 w-1 h-6 bg-brand-accent rounded-full" />
+                      )}
+                      {link.label}
+                    </motion.a>
+                  ))}
+                </nav>
+
+                <div className="mt-12 pt-8 border-t border-brand-gray-200">
+                  <Button
+                    variant="accent"
+                    size="lg"
+                    className="w-full"
+                    onClick={() => { openModal(); closeMenu(); }}
+                  >
+                    Оставить заявку
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
