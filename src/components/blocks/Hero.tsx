@@ -81,10 +81,10 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          Один из популярнейших брендов польши. Партнер Dakar RAlly.
+          Один из популярнейших брендов Польши. Партнёр Dakar Rally.
           <br />
           <span className="text-white/90">
-            0р пауш взнос 0 роялти От 800к р.
+            0 ₽ паушальный взнос · 0% роялти · от 800 000 ₽
           </span>
         </motion.p>
 
