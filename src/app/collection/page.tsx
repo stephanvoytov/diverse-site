@@ -2,16 +2,27 @@ import type { Metadata } from "next";
 import CollectionContent from "./CollectionContent";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://diversebrand.ru";
 
 export const metadata: Metadata = {
-  title: "Коллекции | Diverse",
+  title: "Коллекции одежды Diverse — от DENIM до DEXT TECH",
   description:
-    "Коллекции Diverse: DENIM, DEXT, 24H Le Mans, DEXT TECH II, Coalition, EVO Series, OPEN, Athletics. От флагманской линии до технологичной экипировки.",
+    "8 коллекций: DENIM, DEXT, 24H Le Mans, Coalition, EVO Series, OPEN, Athletics. От городской классики до технологичной экипировки для экстрима.",
   openGraph: {
+    title: "Коллекции Diverse — каждая со своим характером",
+    description:
+      "От флагманской линии до официальной коллекции 24H Le Mans и технологичной DEXT TECH II.",
+    images: [{ url: `${basePath}/images/diverse.avif`, width: 1200, height: 800 }],
+  },
+  twitter: {
+    card: "summary_large_image",
     title: "Коллекции Diverse",
     description:
-      "DENIM, DEXT, 24H Le Mans, Coalition, EVO Series, OPEN, Athletics — каждая коллекция рассказывает свою историю.",
-    images: [{ url: `${basePath}/images/diverse.avif`, width: 1200, height: 800 }],
+      "DENIM, DEXT TECH, Coalition, EVO, OPEN, Athletics — одна линейка разнообразнее другой.",
+    images: [`${basePath}/images/diverse.avif`],
+  },
+  alternates: {
+    canonical: `${siteUrl}${basePath}/collection/`,
   },
 };
 

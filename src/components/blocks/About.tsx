@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import CountUp from "@/components/ui/CountUp";
 import { subbrands, aboutStats } from "@/data/brand";
@@ -15,9 +16,12 @@ function ParallaxCard({ item }: { item: (typeof subbrands)[0] }) {
       className="group relative rounded-sm overflow-hidden aspect-[7/8] cursor-pointer"
       whileHover={{ scale: 1.02, transition: { duration: 0.4 } }}
     >
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url('${asset(item.img)}')` }}
+      <Image
+        src={asset(item.img)}
+        alt={item.name + " — " + item.desc}
+        fill
+        className="absolute inset-0 object-cover object-center"
+        sizes="(max-width: 768px) 100vw, 33vw"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent group-hover:from-black/90 transition-all duration-500" />
       <div className="absolute bottom-0 left-0 right-0 p-6">

@@ -37,13 +37,12 @@ export default function Faq() {
             const isOpen = openIdx === i;
 
             return (
-              <motion.div
+              <motion.article
                 key={i}
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.06 }}
-                style={{ willChange: "transform, opacity" }}
                 className={`rounded-sm overflow-hidden transition-[background-color,border-color,box-shadow] duration-300 ${
                   isOpen
                     ? "bg-white shadow-md border border-brand-accent/20"
@@ -53,6 +52,8 @@ export default function Faq() {
                 <button
                   onClick={() => setOpenIdx(isOpen ? null : i)}
                   className="w-full text-left px-5 md:px-7 py-4 md:py-5 flex items-center justify-between gap-4"
+                  aria-expanded={isOpen}
+                  aria-controls={`faq-answer-${i}`}
                 >
                   <span className="text-sm md:text-base font-semibold text-brand-black pr-4">
                     {item.question}
@@ -79,6 +80,8 @@ export default function Faq() {
                 <AnimatePresence>
                   {isOpen && (
                     <motion.div
+                      id={`faq-answer-${i}`}
+                      role="region"
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
@@ -93,7 +96,7 @@ export default function Faq() {
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </motion.div>
+              </motion.article>
             );
           })}
         </div>

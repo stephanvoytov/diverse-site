@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "@/components/ui/Button";
 import { navLinks } from "@/data/navigation";
+import Image from "next/image";
 import { asset } from "@/lib/path";
 import { useModal } from "@/lib/modal-context";
 import { CONTACTS } from "@/config/site";
@@ -84,7 +85,7 @@ export default function Header() {
       <div className="container-brand flex items-center justify-between h-16 md:h-20">
         {/* Logo */}
         <a href="/" className="flex-shrink-0 relative z-50">
-          <img
+          <Image
             src={asset(
               !isScrolled
                 ? "/brand/logo-light.svg"
@@ -93,6 +94,8 @@ export default function Header() {
                   : "/brand/logo-dark.svg"
             )}
             alt="Diverse"
+            width={120}
+            height={20}
             className="h-4 md:h-5 w-auto transition-opacity"
           />
         </a>

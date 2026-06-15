@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
@@ -44,33 +45,40 @@ function CollectionSection({
         style={{ y: bgY, scale }}
         className="absolute inset-0 will-change-transform"
       >
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: item.image
-              ? `url(${basePath}/images/collections/${item.image})`
-              : `linear-gradient(135deg, ${item.colorFrom}, ${item.colorTo})`,
-            backgroundPosition: item.bgPosition || "center",
-          }}
-        >
-          {/* Dark overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/40" />
-          {/* Diagonal accent — alternates side */}
-          <div
-            className={`absolute top-0 h-full w-px bg-white/[0.04] ${
-              isEven ? "left-[15%]" : "right-[15%]"
-            }`}
+        {item.image ? (
+          <Image
+            src={`${basePath}/images/collections/${item.image}`}
+            alt={`Коллекция ${item.name}`}
+            fill
+            className="object-cover"
+            style={{ objectPosition: item.bgPosition || "center" }}
+            sizes="100vw"
           />
-          {/* Large watermark — alternates side */}
+        ) : (
           <div
-            className={`absolute inset-0 flex items-center ${
-              isEven ? "justify-start pl-[8%]" : "justify-end pr-[8%]"
-            }`}
-          >
-            <span className="text-[clamp(8rem,25vw,20rem)] font-black text-white/[0.04] select-none tracking-[0.05em] leading-none">
-              {item.short}
-            </span>
-          </div>
+            className="absolute inset-0"
+            style={{
+              background: `linear-gradient(135deg, ${item.colorFrom}, ${item.colorTo})`,
+            }}
+          />
+        )}
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/40" />
+        {/* Diagonal accent — alternates side */}
+        <div
+          className={`absolute top-0 h-full w-px bg-white/[0.04] ${
+            isEven ? "left-[15%]" : "right-[15%]"
+          }`}
+        />
+        {/* Large watermark — alternates side */}
+        <div
+          className={`absolute inset-0 flex items-center ${
+            isEven ? "justify-start pl-[8%]" : "justify-end pr-[8%]"
+          }`}
+        >
+          <span className="text-[clamp(8rem,25vw,20rem)] font-black text-white/[0.04] select-none tracking-[0.05em] leading-none">
+            {item.short}
+          </span>
         </div>
       </motion.div>
 

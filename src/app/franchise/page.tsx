@@ -2,16 +2,27 @@ import type { Metadata } from "next";
 import FranchiseContent from "./FranchiseContent";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://diversebrand.ru";
 
 export const metadata: Metadata = {
-  title: "Франшиза Diverse — 0₽ паушальный взнос, 0% роялти",
+  title: "Франшиза Diverse — откройте магазин в своём городе",
   description:
-    "Откройте магазин культового польского бренда. 0₽ взнос, 0% роялти, от 800 000 ₽ инвестиций. Полное сопровождение 24/7. 11 магазинов уже работают в РФ и Казахстане.",
+    "Три формата: остров от 800 000 ₽, реновация или полный стандарт. Дизайн-проект, товарный запас и обучение — всё включено.",
   openGraph: {
-    title: "Франшиза Diverse — условия и преимущества",
+    title: "Франшиза Diverse — бизнес с европейским брендом",
     description:
-      "Три варианта: торговый остров, реновация или полный стандарт. Европейский бренд с 30-летней историей.",
+      "Польский fashion-бренд с 30-летней историей ищет партнёров в РФ и СНГ. 11 магазинов уже работают.",
     images: [{ url: `${basePath}/images/hero.webp`, width: 1920, height: 1080 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Франшиза Diverse — старт бизнеса",
+    description:
+      "Полное сопровождение 24/7. Без паушального взноса и роялти. От 800 000 ₽.",
+    images: [`${basePath}/images/hero.webp`],
+  },
+  alternates: {
+    canonical: `${siteUrl}${basePath}/franchise/`,
   },
 };
 

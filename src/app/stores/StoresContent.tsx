@@ -168,7 +168,7 @@ export default function StoresContent() {
 function StoreCard({ store, index }: { store: (typeof stores)[0]; index: number }) {
   const [imgFailed, setImgFailed] = useState(false);
   return (
-    <motion.div
+    <motion.article
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -198,6 +198,6 @@ function StoreCard({ store, index }: { store: (typeof stores)[0]; index: number 
         )}
         <p className="text-xs text-brand-gray-400">{store.address}</p>
       </div>
-    </motion.div>
+    </motion.article>
   );
 }

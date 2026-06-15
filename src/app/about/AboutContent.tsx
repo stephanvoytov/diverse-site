@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
@@ -68,7 +69,15 @@ export default function AboutContent() {
       <main>
         {/* Hero */}
         <section data-header="dark" className="relative bg-brand-black pt-28 pb-20 md:pt-36 md:pb-28 overflow-hidden">
-          <div className="absolute inset-0 bg-cover bg-center opacity-20" style={{ backgroundImage: `url('${asset("/images/diverse.avif")}')` }} />
+          <div className="absolute inset-0 opacity-20">
+            <Image
+              src={asset("/images/diverse.avif")}
+              alt="Diverse — польский бренд одежды с 30-летней историей"
+              fill
+              className="object-cover"
+              sizes="100vw"
+            />
+          </div>
           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/80" />
 
           <div className="container-brand relative z-10 text-center">

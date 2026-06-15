@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Button from "@/components/ui/Button";
 import CountUp from "@/components/ui/CountUp";
@@ -39,12 +40,18 @@ export default function Hero() {
 
       {/* Layer 2: Photo with parallax */}
       <motion.div
-        className="absolute inset-0 bg-cover bg-center max-md:bg-[30%_center] bg-no-repeat"
-        style={{
-          backgroundImage: `url('${asset("/images/hero.webp")}')`,
-          y: backgroundY,
-        }}
-      />
+        className="absolute inset-0 overflow-hidden"
+        style={{ y: backgroundY }}
+      >
+        <Image
+          src={asset("/images/hero.webp")}
+          alt="Франшиза Diverse — официальный представитель бренда в России"
+          fill
+          className="object-cover object-center max-md:object-[65%_center]"
+          priority
+          sizes="100vw"
+        />
+      </motion.div>
 
       {/* Layer 3: Dark overlay for text readability */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/65 to-black/85" />

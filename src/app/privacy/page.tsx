@@ -91,26 +91,24 @@ const sections = [
 export default function PrivacyPage() {
   return (
     <>
-      <div className="min-h-screen bg-brand-gray-50">
-        {/* Шапка */}
-        <div className="bg-brand-black py-16 md:py-20">
-          <div className="container-brand">
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1]">
-              Политика
-              <br />
-              <span className="text-brand-accent">конфиденциальности</span>
-            </h1>
-            <p className="text-sm text-white/40 mt-3">
-              ООО «ХАУС» &middot; Актуально на 15 июня 2026
-            </p>
-          </div>
+      <header className="bg-brand-black py-16 md:py-20">
+        <div className="container-brand">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1]">
+            Политика
+            <br />
+            <span className="text-brand-accent">конфиденциальности</span>
+          </h1>
+          <p className="text-sm text-white/40 mt-3">
+            ООО «ХАУС» &middot; Актуально на 15 июня 2026
+          </p>
         </div>
+      </header>
 
-        {/* Контент */}
+      <main className="min-h-screen bg-brand-gray-50">
         <div className="container-brand py-12 md:py-16 max-w-3xl">
           <div className="space-y-10">
             {sections.map((section) => (
-              <div key={section.title}>
+              <article key={section.title}>
                 <h2 className="text-xl md:text-2xl font-bold text-brand-black mb-3">
                   {section.title}
                 </h2>
@@ -121,11 +119,19 @@ export default function PrivacyPage() {
                     </p>
                   ))}
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </div>
-      </div>
+      </main>
+
+      <footer className="border-t border-brand-gray-200 bg-white">
+        <div className="container-brand py-5 text-center">
+          <a href="/" className="text-sm text-brand-gray-400 hover:text-brand-accent transition-colors">
+            &larr; Вернуться на главную
+          </a>
+        </div>
+      </footer>
     </>
   );
 }

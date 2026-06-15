@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { navLinks } from "@/data/navigation";
 import { footerSocials as socials } from "@/data/socials";
+import Image from "next/image";
 import { useModal } from "@/lib/modal-context";
 import { asset } from "@/lib/path";
 import { CONTACTS } from "@/config/site";
@@ -17,9 +18,11 @@ export default function Footer() {
           {/* Logo + описание */}
           <div className="md:col-span-4">
             <Link href="/" className="inline-block mb-5">
-              <img
+              <Image
                 src={asset("/brand/logo-light.svg")}
                 alt="Diverse"
+                width={120}
+                height={20}
                 className="h-4 md:h-5 w-auto"
               />
             </Link>

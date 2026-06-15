@@ -45,15 +45,16 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Франшиза Diverse в России",
+    title: "Франшиза Diverse в РФ и СНГ",
     description:
-      "Официальный представитель бренда Diverse в РФ и СНГ. 30+ лет, 400+ магазинов, партнёр Dakar Rally.",
+      "Станьте партнёром культового польского бренда. Полное сопровождение 24/7 — от поиска помещения до открытия.",
     images: [`${basePath}/images/hero.webp`],
   },
   openGraph: {
-    title: "Франшиза Diverse в России",
+    title: "Франшиза Diverse",
     description:
-      "Официальный представитель бренда Diverse в РФ и СНГ. 30+ лет, 400+ магазинов, партнёр Dakar Rally.",
+      "Польский бренд №1 с 30-летней историей. 400+ магазинов, партнёр Dakar Rally и 24h Le Mans. Три формата на выбор.",
+    siteName: "Diverse Россия",
     locale: "ru_RU",
     type: "website",
     images: [
@@ -97,6 +98,24 @@ const organizationSchema = {
   },
 };
 
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Франшиза Diverse в России",
+  url: siteUrl + basePath,
+  description: "Официальный представитель бренда Diverse в РФ и СНГ. Франшиза культового польского бренда.",
+  inLanguage: "ru",
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  name: "Навигационная цепочка",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Главная", item: siteUrl + basePath },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -106,6 +125,8 @@ export default function RootLayout({
     <html lang="ru" className={inter.variable} data-scroll-behavior="smooth">
       <body>
         <JsonLd data={organizationSchema} />
+        <JsonLd data={websiteSchema} />
+        <JsonLd data={breadcrumbSchema} />
         <UserCityProvider>
           <ModalProvider>
             {children}

@@ -38,7 +38,7 @@ export default function CaseStudies() {
             const isVideo = videoOpen === cs.id;
 
             return (
-            <motion.div
+            <motion.article
               key={cs.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -130,7 +130,7 @@ export default function CaseStudies() {
                   </p>
                 )}
               </div>
-            </motion.div>
+            </motion.article>
           );
         })}
         </div>
