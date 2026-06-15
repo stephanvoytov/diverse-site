@@ -6,7 +6,7 @@
 export const whyDiverseMetrics: Metric[] = [
   { value: "30+", label: "лет на рынке" },
   { value: "400+", label: "магазинов" },
-  { value: "20+", label: "стран" },
+  { value: "9+", label: "стран" },
   { value: "11", label: "действующих точек в РФ и Казахстане" },
   { value: "0 ₽", label: "паушальный взнос" },
   { value: "0%", label: "роялти" },
@@ -58,7 +58,7 @@ export const caseStudies: CaseStudy[] = [
     photo: "/images/stores/ufa-mega.jpg",
     opened: "2022",
     area: "—",
-    format: "Полная линейка коллекций Diverse",
+    format: "Полный стандарт",
     tag: "Высокий трафик ТЦ.",
     quote: "Формат позволяет быстро запуститься в любом крупном ТЦ. Уже через полгода вышли на плановую выручку.",
     investment: "2,4 млн ₽",

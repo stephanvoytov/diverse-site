@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { caseStudies } from "@/data/metrics";
+import { asset } from "@/lib/path";
 import YoutubeEmbed from "@/components/shared/YoutubeEmbed";
 
 export default function CaseStudies() {
@@ -53,7 +54,7 @@ export default function CaseStudies() {
                   <YoutubeEmbed videoId={cs.youtubeId} />
                 ) : (
                   <Image
-                    src={cs.photo}
+                    src={asset(cs.photo)}
                     alt={`Магазин Diverse в ${cs.city}`}
                     width={500}
                     height={375}

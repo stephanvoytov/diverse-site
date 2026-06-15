@@ -68,7 +68,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          Официальный представитель бренда Diverse в России
+          Официальный представитель бренда в России
         </motion.p>
 
         {/* Main Heading — smoother progression */}
@@ -95,7 +95,7 @@ export default function Hero() {
             ? `Откройте Diverse в ${city} — рядом с вами уже 11 магазинов сети`
             : <>
                 <span className="max-sm:hidden">Готовая модель бизнеса в сегменте масс-маркет/мидл. Один из самых популярных брендов в Европе. Партнёр Dakar Rally.</span>
-                <span className="sm:hidden">Готовая модель бизнеса в сегменте масс-маркет/мидл. Один из самых популярных брендов в Европе.</span>
+                <span className="sm:hidden">Готовая модель бизнеса в сегменте масс-маркет/мидл. Один из самых популярных брендов в Европе. Партнёр Dakar Rally.</span>
               </>}
         </motion.p>
 

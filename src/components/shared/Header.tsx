@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "@/components/ui/Button";
+import Link from "next/link";
 import { navLinks } from "@/data/navigation";
 import { contactSocials } from "@/data/socials";
 import Image from "next/image";
@@ -83,24 +84,24 @@ export default function Header({ transparent }: { transparent?: boolean }) {
     >
       <div className="container-brand flex items-center justify-between h-16 md:h-20">
         {/* Logo */}
-        <a href="/" className="flex-shrink-0 relative z-50">
+        <Link href="/" className="flex-shrink-0 relative z-50">
           <Image
             src={asset(
               transparent || !isScrolled
                 ? "/brand/logo-light.svg"
                 : "/brand/logo-dark.svg"
             )}
-            alt="Diverse"
+            alt="Diverse — логотип"
             width={120}
             height={20}
             className="h-4 md:h-5 w-auto transition-opacity"
           />
-        </a>
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-8">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className={`text-xs tracking-[0.15em] uppercase font-light transition-colors duration-300 ${navColor} ${
@@ -108,7 +109,7 @@ export default function Header({ transparent }: { transparent?: boolean }) {
               }`}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
           <Button
             variant={btnVariant}
@@ -183,7 +184,7 @@ export default function Header({ transparent }: { transparent?: boolean }) {
               <div className="flex items-center justify-between px-6 h-16 md:h-20">
                 <Image
                   src={asset("/brand/logo-dark.svg")}
-                  alt="Diverse"
+                  alt="Diverse — логотип"
                   width={100}
                   height={16}
                   className="h-4 md:h-5 w-auto"
@@ -202,7 +203,7 @@ export default function Header({ transparent }: { transparent?: boolean }) {
               {/* Nav links */}
               <nav className="flex-1 flex flex-col justify-center px-10 gap-8">
                 {navLinks.map((link) => (
-                  <a
+                  <Link
                     key={link.href}
                     href={link.href}
                     className={`text-2xl font-light transition-colors ${
@@ -213,7 +214,7 @@ export default function Header({ transparent }: { transparent?: boolean }) {
                     onClick={closeMenu}
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 ))}
               </nav>
 

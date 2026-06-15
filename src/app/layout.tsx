@@ -80,7 +80,7 @@ const organizationSchema = {
   "@type": "Organization",
   name: "Diverse Россия",
   legalName: SITE.company,
-  description: "Официальный представитель бренда Diverse в России и СНГ",
+  description: "Официальный представитель бренда в России и СНГ",
   url: siteUrl + basePath,
   logo: `${siteUrl}${basePath}/apple-touch-icon.png`,
   address: {

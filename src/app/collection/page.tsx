@@ -7,7 +7,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://diversebrand.ru";
 export const metadata: Metadata = {
   title: "Коллекции одежды Diverse — от DENIM до DEXT TECH",
   description:
-    "8 коллекций: DENIM, DEXT, 24H Le Mans, Coalition, EVO Series, OPEN, Athletics. От городской классики до технологичной экипировки для экстрима.",
+    "9 коллекций: Diverse, Dakar, DENIM, 24H Le Mans, DEXT, Coalition, EVO Series, OPEN, Athletics. От городской классики до технологичной экипировки для экстрима.",
   openGraph: {
     title: "Коллекции Diverse — каждая со своим характером",
     description:
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Коллекции Diverse",
     description:
-      "DENIM, DEXT TECH, Coalition, EVO, OPEN, Athletics — одна линейка разнообразнее другой.",
+      "9 коллекций: от Diverse и Dakar до DENIM и DEXT TECH — каждая со своим характером.",
     images: [`${basePath}/images/diverse.avif`],
   },
   alternates: {

@@ -165,7 +165,7 @@ export default function ContactFloating() {
                         <p className="text-xs text-green-600 text-center">✓ Заявка отправлена</p>
                       )}
                       {status === "error" && (
-                        <p className="text-xs text-brand-accent text-center">Ошибка. Попробуйте позже.</p>
+                        <p className="text-xs text-brand-accent text-center">Ошибка. Напишите нам в <a href={CONTACTS.telegram} target="_blank" rel="noopener noreferrer" className="underline hover:no-underline">Telegram</a>.</p>
                       )}
 
                       <button

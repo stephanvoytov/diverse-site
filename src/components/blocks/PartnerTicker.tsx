@@ -1,4 +1,6 @@
 import { partners } from "@/data/partners";
+import Image from "next/image";
+import { asset } from "@/lib/path";
 
 interface PartnerTickerProps {
   simple?: boolean;
@@ -38,9 +40,11 @@ export default function PartnerTicker({ simple }: PartnerTickerProps) {
               key={p.id}
               className="flex items-center justify-center flex-shrink-0"
             >
-              <img
-                src={p.logo}
+              <Image
+                src={asset(p.logo)}
                 alt={p.name}
+                width={140}
+                height={52}
                 draggable={false}
                 className="object-contain"
                 style={{

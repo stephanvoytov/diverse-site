@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "О бренде Diverse",
-    description: "Создан в 1993 году в Гданьске. Сегодня — 400+ магазинов в 20+ странах и партнёр Dakar Rally.",
+    description: "Создан в 1993 году в Гданьске. Сегодня — 400+ магазинов в 9+ странах и партнёр Dakar Rally.",
     images: [`${basePath}/images/diverse.avif`],
   },
   alternates: {

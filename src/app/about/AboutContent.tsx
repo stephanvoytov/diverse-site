@@ -84,8 +84,8 @@ export default function AboutContent() {
             <div className="flex flex-nowrap justify-center gap-6 md:gap-20 text-center">
               {[
                 { num: 30, suffix: "+", label: "Лет на рынке" },
-                { num: 400, suffix: "+", label: "Магазинов в Европе" },
-                { num: 3, suffix: "", label: "Собственных бренда", accent: true },
+                { num: 400, suffix: "+", label: "Магазинов в мире" },
+                { num: 3, suffix: "", label: "Суббренда", accent: true },
               ].map((s, i) => (
                 <motion.div
                   key={s.label}
@@ -286,7 +286,7 @@ export default function AboutContent() {
                   ООО «ХАУС» — официальный дистрибьютор
                 </h2>
                 <p className="text-base md:text-lg text-brand-gray-400 leading-relaxed max-w-2xl mx-auto mb-8">
-                  Мы являемся официальными представителями марки Diverse на территории России и стран СНГ. 
+                  Мы — официальные представители марки Diverse в России и странах СНГ. 
                   Запустили 11 магазинов в РФ и Казахстане. Наша задача — сделать европейское качество доступным для партнёров по всей стране.
                 </p>
                 <div className="inline-flex items-center gap-2 text-sm text-brand-gray-400">

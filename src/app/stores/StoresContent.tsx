@@ -7,6 +7,7 @@ import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
 import { useModal } from "@/lib/modal-context";
 import { stores } from "@/data/stores";
+import { asset } from "@/lib/path";
 
 const russianStores = stores.filter((s) => s.country === "Россия");
 const kzStores = stores.filter((s) => s.country === "Казахстан");
@@ -182,7 +183,7 @@ function StoreCard({ store, index }: { store: (typeof stores)[0]; index: number 
           </div>
         ) : (
           <Image
-            src={store.photo}
+            src={asset(store.photo)}
             alt={`${store.city} — ${store.mall || store.address}`}
             width={400}
             height={300}

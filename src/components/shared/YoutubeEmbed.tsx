@@ -7,7 +7,7 @@ export default function YoutubeEmbed({ videoId }: { videoId: string }) {
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowFullScreen
       className="absolute inset-0 w-full h-full"
-      title="Видео-обзор магазина Diverse"
+      title={`Видео-обзор — магазин Diverse №${videoId}`}
     />
   );
 }

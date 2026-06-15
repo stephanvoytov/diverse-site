@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useModal } from "@/lib/modal-context";
 import { useUserCity } from "@/lib/user-city-context";
-import { queueLead, flushQueue } from "@/lib/lead-queue";
+import { queueLead } from "@/lib/lead-queue";
 import { FORMAT_OPTIONS, CONTACTS } from "@/config/site";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
@@ -290,6 +290,9 @@ function StepContact({
         <p className="text-xs text-brand-gray-300 text-center leading-relaxed">
           Бесплатно · Без обязательств · Ответим за 15–30 мин
         </p>
+        <p className="text-[10px] text-brand-gray-300 text-center leading-relaxed mt-3">
+          Нажимая «Получить расчёт», вы соглашаетесь на обработку персональных данных
+        </p>
       </form>
     </motion.div>
   );
@@ -393,7 +396,7 @@ export default function ContactModal() {
 
     const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT || "/api/lead";
     // phone validated in validateStep3()
-    const phoneValue: string = phone!;
+    const phoneValue: string = phone ?? "";
     const payload = {
       name: name.trim(),
       phone: phoneValue,

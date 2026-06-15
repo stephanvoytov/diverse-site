@@ -18,7 +18,7 @@ function ParallaxCard({ item }: { item: (typeof subbrands)[0] }) {
     >
       <Image
         src={asset(item.img)}
-        alt={`Франшиза Diverse — ${item.name}. ${item.desc.split(". ")[0]}`}
+        alt={item.name}
         fill
         className="absolute inset-0 object-cover object-center"
         sizes="(max-width: 768px) 100vw, 33vw"
@@ -83,7 +83,7 @@ export default function About() {
               transition={{ duration: 0.6, delay: 0.2 }}
         
             >
-              Один из крупнейших fashion-брендов Восточной Европы. Сильный характер, уверенность, позитивная энергия — личность бренда для тех, кто живёт активно и ищет разнообразие. Более 400 магазинов в 20+ странах мира.
+              Один из крупнейших fashion-брендов Восточной Европы. Сильный характер, уверенность, позитивная энергия — личность бренда для тех, кто живёт активно и ищет разнообразие. Более 400 магазинов в 9+ странах мира.
             </motion.p>
           </div>
         </div>
