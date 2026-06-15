@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { partners } from "@/data/partners";
 
 interface PartnerTickerProps {
@@ -7,43 +8,30 @@ interface PartnerTickerProps {
 }
 
 export default function PartnerTicker({ simple }: PartnerTickerProps) {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+
+    let pos = 0;
+    let raf: number;
+    const speed = 0.4;
+
+    const tick = () => {
+      pos -= speed;
+      const half = el.scrollWidth / 2;
+      if (Math.abs(pos) >= half) pos += half;
+      el.style.transform = `translateX(${pos}px)`;
+      raf = requestAnimationFrame(tick);
+    };
+
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
   return (
     <section data-header="light" className="bg-white overflow-hidden">
-      <style>{`
-        @keyframes partnerScroll {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .partner-scroller {
-          display: flex;
-          width: max-content;
-          animation: partnerScroll 50s linear infinite;
-        }
-        .partner-logo {
-          flex-shrink: 0;
-          margin-right: 3rem;
-          height: 3.5rem;
-          display: flex;
-          align-items: center;
-        }
-        @media (min-width: 768px) {
-          .partner-logo {
-            height: 5rem;
-            margin-right: 5rem;
-          }
-        }
-        .partner-logo img {
-          height: 100%;
-          width: auto;
-          object-fit: contain;
-          max-width: 200px;
-        }
-        .partner-logo[data-id="motul"] img {
-          max-height: 65%;
-          max-width: 130px;
-        }
-      `}</style>
-
       <div className="container-brand py-16 md:py-24 text-center">
         {simple ? (
           <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400">
@@ -66,13 +54,25 @@ export default function PartnerTicker({ simple }: PartnerTickerProps) {
         <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 z-10 pointer-events-none bg-gradient-to-l from-white to-transparent" />
 
         <div className="overflow-hidden">
-          <div className="partner-scroller">
+          <div ref={scrollerRef} className="flex" style={{ width: "max-content" }}>
             {[...partners, ...partners].map((p, i) => (
-              <div key={`${p.id}-${i}`} className="partner-logo" data-id={p.id}>
+              <div
+                key={`${p.id}-${i}`}
+                className="flex-shrink-0 flex items-center"
+                style={{
+                  height: "3.5rem",
+                  marginRight: "3rem",
+                }}
+              >
                 <img
                   src={p.logo}
                   alt={p.name}
                   draggable={false}
+                  className="h-full w-auto object-contain"
+                  style={{
+                    maxWidth: p.id === "motul" ? 130 : 200,
+                    maxHeight: p.id === "motul" ? "65%" : undefined,
+                  }}
                 />
               </div>
             ))}
