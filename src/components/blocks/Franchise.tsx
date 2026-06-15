@@ -59,7 +59,7 @@ export default function Franchise() {
             transition={{ duration: 0.5, delay: 0.2 }}
             style={{ willChange: "transform, opacity" }}
           >
-            Сотни магазинов по всему миру. В России — пока единицы. Ваш город может стать следующим.
+            Польский бренд с 30-летней историей. Без паушального взноса и роялти.
           </motion.p>
         </div>
 
