@@ -3,12 +3,15 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Button from "@/components/ui/Button";
+import CountUp from "@/components/ui/CountUp";
 import DiverseLogo from "@/components/shared/DiverseLogo";
 import { asset } from "@/lib/path";
 import { useModal } from "@/lib/modal-context";
+import { useUserCity } from "@/lib/user-city-context";
 
 export default function Hero() {
   const { open: openModal } = useModal();
+  const { city } = useUserCity();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -22,7 +25,7 @@ export default function Hero() {
   return (
     <section
       ref={ref}
-      data-header="dark"
+      data-header="light"
       className="relative h-screen min-h-[600px] overflow-hidden bg-black"
     >
       {/* Layer 1: Fallback gradient (always on) */}
@@ -58,7 +61,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          Официальный партнёр бренда Diverse
+          Официальный представитель бренда Diverse в России
         </motion.p>
 
         {/* Main Heading */}
@@ -81,7 +84,9 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          Один из популярнейших брендов Польши. Партнёр Dakar Rally.
+          {city
+            ? `Откройте Diverse в ${city} — рядом с вами уже 11 магазинов сети`
+            : "Один из популярнейших брендов Польши. Партнёр Dakar Rally."}
           <br />
           <span className="text-white/90">
             0 ₽ паушальный взнос · 0% роялти · от 800 000 ₽
@@ -96,7 +101,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.8 }}
         >
           <Button variant="accent" size="lg" onClick={openModal}>
-            Рассчитать прибыль
+            Получить консультацию
           </Button>
           <Button
             variant="outline"
@@ -116,21 +121,27 @@ export default function Hero() {
           transition={{ duration: 1, delay: 1 }}
         >
           <div>
-            <p className="max-sm:text-xl text-2xl md:text-3xl font-bold text-white">30+</p>
+            <p className="max-sm:text-xl text-2xl md:text-3xl font-bold text-white">
+              <CountUp to={30} suffix="+" className="max-sm:text-xl text-2xl md:text-3xl font-bold text-white" />
+            </p>
             <p className="text-xs tracking-[0.15em] uppercase text-white/50 mt-1">
               Лет на рынке
             </p>
           </div>
           <div className="w-px bg-white/20" />
           <div>
-            <p className="max-sm:text-xl text-2xl md:text-3xl font-bold text-white">400+</p>
+            <p className="max-sm:text-xl text-2xl md:text-3xl font-bold text-white">
+              <CountUp to={400} suffix="+" className="max-sm:text-xl text-2xl md:text-3xl font-bold text-white" />
+            </p>
             <p className="text-xs tracking-[0.15em] uppercase text-white/50 mt-1">
               Магазинов в мире
             </p>
           </div>
           <div className="w-px bg-white/20" />
           <div>
-            <p className="max-sm:text-xl text-2xl md:text-3xl font-bold text-brand-accent">11</p>
+            <p className="max-sm:text-xl text-2xl md:text-3xl font-bold text-brand-accent">
+              <CountUp to={11} className="max-sm:text-xl text-2xl md:text-3xl font-bold text-brand-accent" />
+            </p>
             <p className="text-xs tracking-[0.15em] uppercase text-white/50 mt-1">
               В РФ и Казахстане
             </p>

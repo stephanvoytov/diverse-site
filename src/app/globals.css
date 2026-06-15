@@ -130,3 +130,62 @@ body {
     padding-inline: 60px;
   }
 }
+
+/* ============================================
+   react-phone-number-input — стилизация
+   ============================================ */
+
+.PhoneInput {
+  width: 100%;
+}
+
+.PhoneInputInput {
+  width: 100%;
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+  padding: 12px 16px;
+  border-radius: 2px;
+  outline: none;
+  border: 1px solid #ebebeb;
+  background: #f5f5f5;
+  color: #1a1a1a;
+  transition: border-color 0.2s;
+}
+
+.PhoneInputInput:focus {
+  border-color: #000;
+}
+
+.PhoneInputInput::placeholder {
+  color: #999;
+}
+
+/* Тёмная тема (блок Контакты) */
+.phone-input-dark .PhoneInputInput {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.phone-input-dark .PhoneInputInput:focus {
+  border-color: #fff;
+}
+
+.phone-input-dark .PhoneInputInput::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.phone-input-dark .PhoneInputCountrySelect:focus + .PhoneInputCountryIcon--border {
+  box-shadow: 0 0 0 1px #fff, inset 0 0 0 1px #fff;
+}
+
+/* Светлая тема с красным фокусом (ContactModal / CallbackWidget) */
+.phone-input-accent .PhoneInputInput {
+  background: #f5f5f5;
+  border-color: #ebebeb;
+}
+
+.phone-input-accent .PhoneInputInput:focus {
+  border-color: var(--color-brand-accent, #d12026);
+}

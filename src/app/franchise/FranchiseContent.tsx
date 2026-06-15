@@ -9,12 +9,14 @@ import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
 import Faq from "@/components/blocks/Faq";
 import { plans, benefits } from "@/data/franchise";
-
-const phoneRegex = /^[\d\s\+\-\(\)]{7,20}$/;
+import { CONTACTS } from "@/config/site";
+import { useUserCity } from "@/lib/user-city-context";
+import PhoneInput from "react-phone-number-input/react-hook-form";
+import "react-phone-number-input/style.css";
 
 const franchiseFormSchema = z.object({
   name: z.string().min(2, "Введите имя").max(50, "Слишком длинное имя"),
-  phone: z.string().regex(phoneRegex, "Введите корректный телефон"),
+  phone: z.string().min(5, "Введите корректный телефон"),
   city: z.string().optional(),
   message: z.string().min(5, "Напишите пару слов").max(500, "Слишком длинное сообщение").optional().or(z.literal("")),
 });
@@ -231,7 +233,9 @@ function BenefitsSection() {
 
 function ContactSection() {
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const { city: detectedCity } = useUserCity();
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
@@ -250,6 +254,7 @@ function ContactSection() {
         body: JSON.stringify({
           name: data.name,
           phone: data.phone,
+          city: detectedCity,
           message: data.city
             ? `Хочу открыть магазин в городе: ${data.city}${data.message ? `. ${data.message}` : ""}`
             : data.message || "Хочу открыть магазин по франшизе",
@@ -276,7 +281,7 @@ function ContactSection() {
             Начните <span className="text-brand-accent">свой бизнес</span>
           </h2>
           <p className="text-base md:text-lg text-brand-gray-400 max-w-xl mx-auto">
-            Оставьте заявку — мы свяжемся в ближайшее время
+            Оставьте заявку — мы ответим на все вопросы
           </p>
         </motion.div>
 
@@ -318,16 +323,12 @@ function ContactSection() {
                   <label htmlFor="franchise-phone" className="block text-xs tracking-[0.15em] uppercase text-brand-gray-500 mb-2">
                     Телефон <span className="text-brand-accent">*</span>
                   </label>
-                  <input
-                    id="franchise-phone"
-                    type="tel"
+                  <PhoneInput
+                    name="phone"
+                    control={control}
+                    defaultCountry="RU"
                     placeholder="+7 (999) 123-45-67"
-                    {...register("phone")}
-                    className={`w-full px-4 py-3 text-sm bg-brand-gray-100 border rounded-sm outline-none transition-colors placeholder:text-brand-gray-300 ${
-                      errors.phone
-                        ? "border-brand-accent"
-                        : "border-brand-gray-200 focus:border-brand-black"
-                    }`}
+                    className=""
                   />
                   {errors.phone && (
                     <p className="mt-1 text-xs text-brand-accent">{errors.phone.message}</p>
@@ -362,15 +363,15 @@ function ContactSection() {
 
               {submitStatus === "success" && (
                 <p className="text-sm text-green-600 font-medium text-center">
-                  ✓ Спасибо! Мы свяжемся с вами в ближайшее время.
+                  ✓ Спасибо! Мы получили заявку.
                 </p>
               )}
               {submitStatus === "error" && (
                 <p className="text-sm text-brand-accent text-center">
                   ✕ Ошибка отправки. Напишите нам в{" "}
-                  <a href="https://wa.me/79062373561" target="_blank" rel="noopener noreferrer" className="underline hover:no-underline">WhatsApp</a>
+                  <a href={CONTACTS.telegram} target="_blank" rel="noopener noreferrer" className="underline hover:no-underline font-semibold">Telegram</a>
                   {" "}или на{" "}
-                  <a href="mailto:diverserussia@yandex.ru" className="underline hover:no-underline">почту</a>.
+                  <a href={`mailto:${CONTACTS.email}`} className="underline hover:no-underline">почту</a>.
                 </p>
               )}
 

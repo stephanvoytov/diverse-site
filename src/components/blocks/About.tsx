@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import CountUp from "@/components/ui/CountUp";
 import { subbrands, aboutStats } from "@/data/brand";
 import { asset } from "@/lib/path";
 
@@ -108,7 +109,12 @@ export default function About() {
                   stat.accent ? "text-brand-accent" : "text-brand-black"
                 }`}
               >
-                {stat.num}
+                {(() => {
+                  const match = stat.num.match(/^(\d+)(.*)$/);
+                  if (!match) return stat.num;
+                  const [, digits, suffix] = match;
+                  return <CountUp to={Number(digits)} suffix={suffix} className={`text-3xl md:text-4xl font-bold ${stat.accent ? "text-brand-accent" : "text-brand-black"}`} />;
+                })()}
               </p>
               <p className="text-xs tracking-[0.15em] uppercase text-brand-gray-400 mt-1">
                 {stat.label}

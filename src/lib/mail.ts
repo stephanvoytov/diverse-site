@@ -6,6 +6,8 @@ export interface LeadData {
   phone: string;
   email?: string;
   message: string;
+  /** Предположительный город (из dadata) */
+  city?: string;
 }
 
 function base64(s: string): string {
@@ -87,6 +89,45 @@ async function smtpSend(
   });
 }
 
+/**
+ * Разбирает message в HTML для письма.
+ *
+ * "Формат: ... Город: ..." → строки в виде таблицы
+ * Свободный текст           → просто текст
+ */
+function formatDetails(msg: string): string {
+  if (!msg) return "";
+
+  const parts = msg.split(".").map((p) => p.trim()).filter(Boolean);
+
+  // Пробуем как ключ: значение
+  const rows: string[] = [];
+  let allStructured = true;
+
+  for (const part of parts) {
+    const idx = part.indexOf(":");
+    if (idx === -1) { allStructured = false; break; }
+    const key = part.slice(0, idx).trim();
+    const val = part.slice(idx + 1).trim();
+    if (!val) { allStructured = false; break; }
+    rows.push(`${escapeHtml(key)}: ${escapeHtml(val)}`);
+  }
+
+  if (allStructured && rows.length > 0) {
+    return rows.join("<br>");
+  }
+
+  return escapeHtml(msg);
+}
+
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
 export async function sendLead(data: LeadData): Promise<void> {
   const { SMTP_HOST, SMTP_PORT, SMTP_SECURE, SMTP_USER, SMTP_PASS, MAIL_TO } =
     process.env;
@@ -95,17 +136,29 @@ export async function sendLead(data: LeadData): Promise<void> {
     throw new Error("SMTP not configured");
   }
 
-  const subject = `Новая заявка от ${data.name}`;
+  const isCallback = data.message === "Обратный звонок";
+
+  const subject = isCallback
+    ? `📞 Обратный звонок — ${data.phone}`
+    : `📩 Новая заявка — ${data.name} — ${data.phone}`;
+
+  const detailsHtml = formatDetails(data.message);
 
   const html = `
-    <h2>Новая заявка с сайта Diverse</h2>
-    <table style="border-collapse:collapse;width:100%;max-width:500px">
-      <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold">Имя</td><td style="padding:8px;border:1px solid #ddd">${data.name}</td></tr>
-      <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold">Телефон</td><td style="padding:8px;border:1px solid #ddd">${data.phone}</td></tr>
-      ${data.email ? `<tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold">Email</td><td style="padding:8px;border:1px solid #ddd">${data.email}</td></tr>` : ""}
-      <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold">Сообщение</td><td style="padding:8px;border:1px solid #ddd">${data.message}</td></tr>
+    <table style="border-collapse:collapse;width:100%;max-width:480px;font-family:Arial,sans-serif;font-size:14px">
+      ${isCallback ? `
+        <tr><td style="padding:10px 0;color:#888">Тип</td><td style="padding:10px 0;font-weight:bold">📞 Обратный звонок</td></tr>
+        ${data.city ? `<tr><td style="padding:10px 0;border-top:1px solid #eee;color:#888">Город</td><td style="padding:10px 0;border-top:1px solid #eee;font-weight:bold">${escapeHtml(data.city)}</td></tr>` : ""}
+        <tr><td style="padding:10px 0;border-top:1px solid #eee;color:#888">Телефон</td><td style="padding:10px 0;border-top:1px solid #eee;font-weight:bold">${data.phone}</td></tr>
+      ` : `
+        <tr><td style="padding:10px 0;color:#888">Имя</td><td style="padding:10px 0;font-weight:bold">${data.name}</td></tr>
+        <tr><td style="padding:10px 0;border-top:1px solid #eee;color:#888">Телефон</td><td style="padding:10px 0;border-top:1px solid #eee;font-weight:bold">${data.phone}</td></tr>
+        ${data.email ? `<tr><td style="padding:10px 0;border-top:1px solid #eee;color:#888">Email</td><td style="padding:10px 0;border-top:1px solid #eee;font-weight:bold">${data.email}</td></tr>` : ""}
+        ${data.city ? `<tr><td style="padding:10px 0;border-top:1px solid #eee;color:#888">Город (предп.)</td><td style="padding:10px 0;border-top:1px solid #eee;font-weight:bold">${escapeHtml(data.city)}</td></tr>` : ""}
+        ${detailsHtml ? `<tr><td style="padding:10px 0;border-top:1px solid #eee;color:#888;vertical-align:top">Детали</td><td style="padding:10px 0;border-top:1px solid #eee">${detailsHtml}</td></tr>` : ""}
+      `}
     </table>
-    <p style="color:#888;font-size:12px">Отправлено с сайта diversebrand.ru</p>
+    <p style="color:#aaa;font-size:12px;margin-top:20px">Отправлено с diversebrand.ru</p>
   `;
 
   await smtpSend(

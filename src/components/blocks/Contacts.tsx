@@ -6,12 +6,15 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contactSocials } from "@/data/socials";
-
-const phoneRegex = /^[\d\s\+\-\(\)]{7,20}$/;
+import { CONTACTS } from "@/config/site";
+import { formatPhone } from "@/lib/phone";
+import { useUserCity } from "@/lib/user-city-context";
+import PhoneInput from "react-phone-number-input/react-hook-form";
+import "react-phone-number-input/style.css";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Введите имя").max(50, "Слишком длинное имя"),
-  phone: z.string().regex(phoneRegex, "Введите корректный телефон"),
+  phone: z.string().min(5, "Введите корректный телефон"),
   message: z.string().optional(),
 });
 
@@ -19,7 +22,9 @@ type ContactForm = z.infer<typeof contactSchema>;
 
 export default function Contacts() {
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const { city: detectedCity } = useUserCity();
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
@@ -35,7 +40,7 @@ export default function Contacts() {
       const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, city: detectedCity }),
       });
       if (!res.ok) throw new Error("Server error");
       setSubmitStatus("success");
@@ -46,7 +51,7 @@ export default function Contacts() {
   };
 
   return (
-    <section id="section-contacts" data-header="light" className="min-h-screen bg-white">
+    <section id="section-contacts" data-header="dark" className="min-h-screen bg-brand-black">
       <div className="container-brand py-10 md:py-12">
         {/* Заголовок */}
         <motion.div
@@ -57,13 +62,13 @@ export default function Contacts() {
           transition={{ duration: 0.5 }}
           style={{ willChange: "transform, opacity" }}
         >
-          <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">
+          <p className="text-xs tracking-[0.3em] uppercase text-white/40 mb-4">
             Свяжитесь с нами
           </p>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-brand-black leading-[1.1] mb-4">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-4">
             Контакты
           </h2>
-          <p className="text-base md:text-lg text-brand-gray-400 max-w-xl mx-auto">
+          <p className="text-base md:text-lg text-white/40 max-w-xl mx-auto">
             Откройте магазин Diverse по франшизе или задайте любой вопрос
           </p>
         </motion.div>
@@ -80,7 +85,7 @@ export default function Contacts() {
           <div>
             <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
               <div>
-                <label htmlFor="name" className="block text-xs tracking-[0.15em] uppercase text-brand-gray-500 mb-2">
+                <label htmlFor="name" className="block text-xs tracking-[0.15em] uppercase text-white/50 mb-2">
                   Имя <span className="text-brand-accent">*</span>
                 </label>
                 <input
@@ -88,10 +93,10 @@ export default function Contacts() {
                   type="text"
                   placeholder="Ваше имя"
                   {...register("name")}
-                  className={`w-full px-4 py-3 text-sm bg-white border rounded-sm outline-none transition-colors placeholder:text-brand-gray-300 ${
+                  className={`w-full px-4 py-3 text-sm bg-white/10 border rounded-sm outline-none transition-colors text-white placeholder:text-white/30 ${
                     errors.name
                       ? "border-brand-accent"
-                      : "border-brand-gray-200 focus:border-brand-black"
+                      : "border-white/20 focus:border-white"
                   }`}
                 />
                 {errors.name && (
@@ -100,19 +105,15 @@ export default function Contacts() {
               </div>
 
               <div>
-                <label htmlFor="phone" className="block text-xs tracking-[0.15em] uppercase text-brand-gray-500 mb-2">
+                <label htmlFor="phone" className="block text-xs tracking-[0.15em] uppercase text-white/50 mb-2">
                   Телефон <span className="text-brand-accent">*</span>
                 </label>
-                <input
-                  id="phone"
-                  type="tel"
+                <PhoneInput
+                  name="phone"
+                  control={control}
+                  defaultCountry="RU"
                   placeholder="+7 (999) 123-45-67"
-                  {...register("phone")}
-                  className={`w-full px-4 py-3 text-sm bg-white border rounded-sm outline-none transition-colors placeholder:text-brand-gray-300 ${
-                    errors.phone
-                      ? "border-brand-accent"
-                      : "border-brand-gray-200 focus:border-brand-black"
-                  }`}
+                  className="phone-input-dark"
                 />
                 {errors.phone && (
                   <p className="mt-1 text-xs text-brand-accent">{errors.phone.message}</p>
@@ -120,7 +121,7 @@ export default function Contacts() {
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-xs tracking-[0.15em] uppercase text-brand-gray-500 mb-2">
+                <label htmlFor="message" className="block text-xs tracking-[0.15em] uppercase text-white/50 mb-2">
                   Сообщение
                 </label>
                 <textarea
@@ -128,25 +129,25 @@ export default function Contacts() {
                   rows={4}
                   placeholder="Какой формат интересует? Есть ли помещение?"
                   {...register("message")}
-                  className="w-full px-4 py-3 text-sm bg-white border border-brand-gray-200 rounded-sm outline-none focus:border-brand-black transition-colors placeholder:text-brand-gray-300 resize-none"
+                  className="w-full px-4 py-3 text-sm bg-white/10 border border-white/20 rounded-sm outline-none focus:border-white transition-colors text-white placeholder:text-white/30 resize-none"
                 />
               </div>
 
               {submitStatus === "success" && (
-                <p className="text-sm text-green-600 font-medium">
-                  ✓ Спасибо! Мы свяжемся с вами.
+                <p className="text-sm text-green-400 font-medium">
+                  ✓ Спасибо! Мы получили заявку.
                 </p>
               )}
               {submitStatus === "error" && (
                 <p className="text-sm text-brand-accent">
                   ✕ Ошибка отправки.
                   Напишите нам в{" "}
-                  <a href="https://wa.me/79062373561" target="_blank" rel="noopener noreferrer" className="underline hover:no-underline">
-                    WhatsApp
+                  <a href={CONTACTS.telegram} target="_blank" rel="noopener noreferrer" className="underline hover:no-underline font-semibold">
+                    Telegram
                   </a>
-                  {" "}или{" "}
+                  {" "}или на{" "}
                   <a href="mailto:diverserussia@yandex.ru" className="underline hover:no-underline">
-                    на почту
+                    почту
                   </a>
                 </p>
               )}
@@ -166,36 +167,36 @@ export default function Contacts() {
             <div className="space-y-8">
               {/* Реквизиты */}
               <div>
-                <p className="text-xs tracking-[0.15em] uppercase text-brand-gray-400 mb-4">
+                <p className="text-xs tracking-[0.15em] uppercase text-white/40 mb-4">
                   Реквизиты
                 </p>
-                <h3 className="text-xl font-bold text-brand-black mb-1">ООО «ХАУС»</h3>
-                <p className="text-sm text-brand-gray-400 mb-0.5">ИНН 3907201307</p>
-                <p className="text-sm text-brand-gray-400">
+                <h3 className="text-xl font-bold text-white mb-1">ООО «ХАУС»</h3>
+                <p className="text-sm text-white/40 mb-0.5">ИНН 3907201307</p>
+                <p className="text-sm text-white/40">
                   236022, Калининград, пл. Победы, 4, оф. 210
                 </p>
               </div>
 
               {/* Email / Phone */}
               <div>
-                <p className="text-xs tracking-[0.15em] uppercase text-brand-gray-400 mb-4">
+                <p className="text-xs tracking-[0.15em] uppercase text-white/40 mb-4">
                   Контакты
                 </p>
                 <ul className="space-y-3">
                   <li>
                     <a
-                      href="mailto:diverserussia@yandex.ru"
-                      className="text-sm text-brand-black hover:text-brand-accent transition-colors font-medium"
+                      href={`mailto:${CONTACTS.email}`}
+                      className="text-sm text-white/70 hover:text-white transition-colors font-medium"
                     >
-                      diverserussia@yandex.ru
+                      {CONTACTS.email}
                     </a>
                   </li>
                   <li>
                     <a
-                      href="tel:+79062373561"
-                      className="text-sm text-brand-black hover:text-brand-accent transition-colors font-medium"
+                      href={`tel:${CONTACTS.phoneRaw}`}
+                      className="text-sm text-white/70 hover:text-white transition-colors font-medium"
                     >
-                      +7 906 237 35 61
+                      {formatPhone()}
                     </a>
                   </li>
                 </ul>
@@ -203,7 +204,7 @@ export default function Contacts() {
 
               {/* Соцсети */}
               <div>
-                <p className="text-xs tracking-[0.15em] uppercase text-brand-gray-400 mb-4">
+                <p className="text-xs tracking-[0.15em] uppercase text-white/40 mb-4">
                   Социальные сети
                 </p>
                 <div className="flex flex-wrap gap-3">
@@ -214,7 +215,7 @@ export default function Contacts() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={s.label}
-                      className="w-11 h-11 rounded-sm border border-brand-gray-200 flex items-center justify-center text-brand-gray-400 hover:text-brand-accent hover:border-brand-accent transition-all duration-200"
+                      className="w-11 h-11 rounded-sm border border-white/20 flex items-center justify-center text-white/40 hover:text-white hover:border-white transition-all duration-200"
                     >
                       {s.icon}
                     </a>
@@ -224,7 +225,7 @@ export default function Contacts() {
             </div>
 
             {/* Нижний блок — можно добавить карту или что-то ещё */}
-            <p className="text-xs text-brand-gray-300 leading-relaxed">
+            <p className="text-xs text-white/40 leading-relaxed">
               Нажимая «Отправить», вы соглашаетесь на обработку персональных данных.
             </p>
           </div>

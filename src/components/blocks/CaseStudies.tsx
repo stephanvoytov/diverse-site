@@ -1,10 +1,14 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { caseStudies } from "@/data/metrics";
+import YoutubeEmbed from "@/components/shared/YoutubeEmbed";
 
 export default function CaseStudies() {
+  const [videoOpen, setVideoOpen] = useState<string | null>(null);
+
   return (
     <section id="section-cases" data-header="light" className="bg-white py-16 md:py-24">
       <div className="container-brand">
@@ -30,7 +34,10 @@ export default function CaseStudies() {
 
         {/* Cards */}
         <div className="grid md:grid-cols-3 gap-5 md:gap-6 max-w-5xl mx-auto">
-          {caseStudies.map((cs, i) => (
+          {caseStudies.map((cs, i) => {
+            const isVideo = videoOpen === cs.id;
+
+            return (
             <motion.div
               key={cs.id}
               initial={{ opacity: 0, y: 30 }}
@@ -40,19 +47,45 @@ export default function CaseStudies() {
               style={{ willChange: "transform, opacity" }}
               className="group rounded-sm overflow-hidden border border-brand-gray-200 bg-white hover:border-brand-gray-300 hover:shadow-sm transition-[border-color,box-shadow] duration-300"
             >
-              {/* Photo */}
+              {/* Photo / Video */}
               <div className="aspect-[4/3] bg-brand-gray-100 overflow-hidden relative">
-                <Image
-                  src={cs.photo}
-                  alt={`Магазин Diverse в ${cs.city}`}
-                  width={500}
-                  height={375}
-                  className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
-                />
+                {isVideo && cs.youtubeId ? (
+                  <YoutubeEmbed videoId={cs.youtubeId} />
+                ) : (
+                  <Image
+                    src={cs.photo}
+                    alt={`Магазин Diverse в ${cs.city}`}
+                    width={500}
+                    height={375}
+                    className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                  />
+                )}
                 {/* Badge */}
                 <div className="absolute top-3 left-3 bg-brand-accent text-white text-[10px] font-bold px-2.5 py-1 rounded-sm uppercase tracking-wide">
                   {cs.format}
                 </div>
+                {cs.youtubeId && !isVideo && (
+                  <button
+                    onClick={() => setVideoOpen(cs.id)}
+                    className="absolute top-3 right-3 bg-black/70 hover:bg-black/90 text-white text-[10px] font-semibold px-2.5 py-1.5 rounded-sm uppercase tracking-wide flex items-center gap-1.5 transition-colors"
+                  >
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                    Видео
+                  </button>
+                )}
+                {isVideo && cs.youtubeId && (
+                  <button
+                    onClick={() => setVideoOpen(null)}
+                    className="absolute top-3 right-3 bg-black/70 hover:bg-black/90 text-white text-[10px] font-semibold px-2.5 py-1.5 rounded-sm uppercase tracking-wide flex items-center gap-1.5 transition-colors"
+                  >
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                    Фото
+                  </button>
+                )}
               </div>
 
               {/* Info */}
@@ -98,7 +131,8 @@ export default function CaseStudies() {
                 )}
               </div>
             </motion.div>
-          ))}
+          );
+        })}
         </div>
       </div>
     </section>

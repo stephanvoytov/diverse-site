@@ -3,15 +3,17 @@ import { Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { ModalProvider } from "@/lib/modal-context";
+import { UserCityProvider } from "@/lib/user-city-context";
 import ContactModal from "@/components/shared/ContactModal";
-import StickyCta from "@/components/shared/StickyCta";
 import TelegramFloat from "@/components/shared/TelegramFloat";
+import CallbackWidget from "@/components/shared/CallbackWidget";
 import JsonLd from "@/components/shared/JsonLd";
+import { CONTACTS, SITE } from "@/config/site";
 
 const ymId = process.env.NEXT_PUBLIC_YM_ID || "";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://diversebrand.ru";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || SITE.url;
 
 const inter = Inter({
   subsets: ["cyrillic", "latin"],
@@ -74,8 +76,8 @@ export const metadata: Metadata = {
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "Diverse Russia",
-  legalName: "ООО «ХАУС»",
+  name: "Diverse Россия",
+  legalName: SITE.company,
   description: "Официальный представитель бренда Diverse в России и СНГ",
   url: siteUrl + basePath,
   logo: `${siteUrl}${basePath}/apple-touch-icon.png`,
@@ -89,9 +91,9 @@ const organizationSchema = {
   },
   contactPoint: {
     "@type": "ContactPoint",
-    telephone: "+7-906-237-35-61",
+    telephone: CONTACTS.phoneRaw,
     contactType: "sales",
-    email: "diverserussia@yandex.ru",
+    email: CONTACTS.email,
   },
 };
 
@@ -104,12 +106,14 @@ export default function RootLayout({
     <html lang="ru" className={inter.variable} data-scroll-behavior="smooth">
       <body>
         <JsonLd data={organizationSchema} />
-        <ModalProvider>
-          {children}
-          <ContactModal />
-          <StickyCta />
-          <TelegramFloat />
-        </ModalProvider>
+        <UserCityProvider>
+          <ModalProvider>
+            {children}
+            <ContactModal />
+            <TelegramFloat />
+            <CallbackWidget />
+          </ModalProvider>
+        </UserCityProvider>
 
         {ymId && (
           <Script id="yandex-metrica" strategy="afterInteractive">

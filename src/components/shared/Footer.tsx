@@ -5,6 +5,8 @@ import { navLinks } from "@/data/navigation";
 import { footerSocials as socials } from "@/data/socials";
 import { useModal } from "@/lib/modal-context";
 import { asset } from "@/lib/path";
+import { CONTACTS } from "@/config/site";
+import { formatPhone } from "@/lib/phone";
 
 export default function Footer() {
   const { open: openModal } = useModal();
@@ -64,18 +66,18 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="mailto:diverserussia@yandex.ru"
+                  href={`mailto:${CONTACTS.email}`}
                   className="text-sm text-white/50 hover:text-white transition-colors"
                 >
-                  diverserussia@yandex.ru
+                  {CONTACTS.email}
                 </a>
               </li>
               <li>
                 <a
-                  href="tel:+79062373561"
+                  href={`tel:${CONTACTS.phoneRaw}`}
                   className="text-sm text-white/50 hover:text-white transition-colors"
                 >
-                  +7 906 237 35 61
+                  {formatPhone()}
                 </a>
               </li>
             </ul>

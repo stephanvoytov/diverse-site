@@ -171,7 +171,7 @@ export default function Franchise() {
               <path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.33L10 13.13 5.23 15.72l.91-5.33L2.27 6.62l5.34-.78L10 1z" fill="#D12026"/>
             </svg>
             <span className="text-sm text-white/50 group-hover:text-white/80 transition-colors">
-              <span className="text-white/80 font-medium">Топ-10</span> лучших франшиз одежды —{" "}
+              <span className="text-white/80 font-medium">Топ-8</span> лучших франшиз магазинов одежды —{" "}
               <span className="text-white/60">рейтинг </span>
               <span className="font-medium text-white/80">«Комсомольской правды»</span>
               <span className="text-white/40 ml-1">2026</span>

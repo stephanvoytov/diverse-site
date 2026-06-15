@@ -31,6 +31,8 @@ export interface CaseStudy {
   paybackPeriod: string;
   /** Доходность (ROI % в месяц) */
   roi: string;
+  /** ID видео на YouTube (опционально) */
+  youtubeId?: string;
 }
 
 export const caseStudies: CaseStudy[] = [

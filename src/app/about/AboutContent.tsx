@@ -5,6 +5,7 @@ import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
 import { useModal } from "@/lib/modal-context";
 import { asset } from "@/lib/path";
+import PartnerTicker from "@/components/blocks/PartnerTicker";
 
 /* ——— Timeline data ——— */
 
@@ -274,6 +275,9 @@ export default function AboutContent() {
             </div>
           </div>
         </section>
+
+        {/* Partners */}
+        {/* <PartnerTicker /> */}
 
         {/* Representative */}
         <section data-header="light" className="bg-white py-20 md:py-28">
