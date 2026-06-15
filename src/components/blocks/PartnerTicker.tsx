@@ -8,21 +8,20 @@ interface PartnerTickerProps {
 }
 
 export default function PartnerTicker({ simple }: PartnerTickerProps) {
-  const scrollerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const el = scrollerRef.current;
-    if (!el) return;
+    const track = trackRef.current;
+    if (!track) return;
+    const parent = track.parentElement;
+    if (!parent) return;
 
-    let pos = 0;
     let raf: number;
-    const speed = 0.4;
 
     const tick = () => {
-      pos -= speed;
-      const half = el.scrollWidth / 2;
-      if (Math.abs(pos) >= half) pos += half;
-      el.style.transform = `translateX(${pos}px)`;
+      parent.scrollLeft += 0.5;
+      const half = track.scrollWidth / 2;
+      if (parent.scrollLeft >= half) parent.scrollLeft -= half;
       raf = requestAnimationFrame(tick);
     };
 
@@ -53,8 +52,11 @@ export default function PartnerTicker({ simple }: PartnerTickerProps) {
         <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 z-10 pointer-events-none bg-gradient-to-r from-white to-transparent" />
         <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 z-10 pointer-events-none bg-gradient-to-l from-white to-transparent" />
 
-        <div className="overflow-hidden">
-          <div ref={scrollerRef} className="flex" style={{ width: "max-content" }}>
+        <div
+          className="overflow-hidden"
+          style={{ scrollbarWidth: "none" }}
+        >
+          <div ref={trackRef} className="flex">
             {[...partners, ...partners].map((p, i) => (
               <div
                 key={`${p.id}-${i}`}
