@@ -73,10 +73,16 @@ const formatCards: FormatCard[] = [
 /* ——— Функция форматирования чисел ——— */
 
 function formatBig(n: string): string {
+  const prefix = n.startsWith("~") ? "~" : "";
   const digits = n.replace(/\D/g, "");
-  if (digits.length >= 7) return digits.slice(0, -6) + " млн";
-  if (digits.length >= 4) return digits.slice(0, -3) + " тыс";
+  const suffix = n.includes("₽/мес") ? " ₽/мес" : "";
+  if (digits.length >= 7) return prefix + digits.slice(0, -6) + " млн" + suffix;
+  if (digits.length >= 4) return prefix + digits.slice(0, -3) + " тыс" + suffix;
   return n;
+}
+
+function formatPayoff(n: string): string {
+  return formatBig(n);
 }
 
 export default function WhyDiverse() {
@@ -187,7 +193,7 @@ export default function WhyDiverse() {
                     <span className={card.accent ? "text-white/60" : "text-brand-gray-500"}>{s.label}</span>
                     <span className={`font-semibold ${
                       card.accent ? "text-white" : "text-brand-black"
-                    }`}>{s.payoff}</span>
+                    }`}>{formatPayoff(s.payoff)}</span>
                     <span className={`text-[11px] ${
                       card.accent ? "text-white/40" : "text-brand-gray-400"
                     }`}>{s.months}</span>
