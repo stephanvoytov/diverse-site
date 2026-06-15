@@ -9,7 +9,7 @@ export default function StickyCta() {
 
   useEffect(() => {
     const onScroll = () => {
-      setVisible(window.scrollY > window.innerHeight * 0.35);
+      setVisible(window.scrollY > window.innerHeight * 0.6);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
@@ -22,10 +22,11 @@ export default function StickyCta() {
         visible ? "translate-y-0" : "translate-y-full"
       }`}
     >
-      <div className="bg-white/95 backdrop-blur-md border-t border-brand-gray-200 px-4 py-3 shadow-xl">
+      {/* Mobile: full-width bar. Desktop: compact centered button */}
+      <div className="bg-white/95 backdrop-blur-md border-t border-brand-gray-200 px-4 py-3 shadow-xl md:bg-transparent md:border-none md:shadow-none md:px-0 md:pb-6">
         <button
           onClick={openModal}
-          className="w-full py-3.5 bg-brand-accent text-white text-xs tracking-[0.2em] uppercase font-semibold rounded-sm hover:bg-brand-accent-hover transition-colors cursor-pointer"
+          className="w-full py-3.5 bg-brand-accent text-white text-xs tracking-[0.2em] uppercase font-semibold rounded-sm hover:bg-brand-accent-hover transition-colors cursor-pointer md:w-auto md:mx-auto md:block md:px-8 md:py-3.5 md:shadow-xl"
         >
           Рассчитать прибыль
         </button>

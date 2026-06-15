@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { plans, benefits } from "@/data/franchise";
+import { useModal } from "@/lib/modal-context";
 
 const cardProfit: Record<string, string> = {
   island: "~80 000 ₽",
@@ -10,6 +11,7 @@ const cardProfit: Record<string, string> = {
 };
 
 export default function Franchise() {
+  const { open: openModal } = useModal();
   return (
     <section
       data-header="dark"
@@ -178,6 +180,22 @@ export default function Franchise() {
               <path d="M3.5 10.5L10.5 3.5M10.5 3.5H4.5M10.5 3.5V9.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </a>
+        </motion.div>
+
+        {/* CTA */}
+        <motion.div
+          className="text-center mt-8"
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+        >
+          <button
+            onClick={openModal}
+            className="inline-flex items-center justify-center px-8 py-4 text-sm tracking-[0.2em] font-semibold uppercase text-white bg-brand-accent hover:bg-brand-accent-hover transition-all duration-300 rounded-sm cursor-pointer"
+          >
+            Стать партнёром
+          </button>
         </motion.div>
 
       </div>
