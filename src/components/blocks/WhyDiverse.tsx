@@ -123,7 +123,7 @@ export default function WhyDiverse() {
                   : "bg-white text-brand-black border border-brand-gray-200"
               }`}
             >
-              {/* Tagline + name */}
+              {/* Header */}
               <div className="px-6 pt-6 pb-3">
                 <span className="text-[10px] tracking-[0.2em] uppercase font-semibold text-brand-accent">
                   {card.tagline}
@@ -135,63 +135,66 @@ export default function WhyDiverse() {
                 </h3>
               </div>
 
-              {/* Scenarios — наверху, выделены */}
-              <div className="px-6 pb-3 space-y-2 flex-1">
-                <p className={`text-[10px] tracking-[0.15em] uppercase font-semibold ${
-                  card.accent ? "text-white/40" : "text-brand-gray-400"
+              {/* Scenarios */}
+              <div className="px-6 pb-4 flex flex-col gap-1 flex-1">
+                <span className={`text-[9px] tracking-[0.15em] uppercase font-semibold ${
+                  card.accent ? "text-white/25" : "text-brand-gray-300"
                 }`}>
                   Сценарии окупаемости
-                </p>
-                {card.scenarios.map((s) => (
-                  <div
-                    key={s.label}
-                    className={`flex items-center justify-between gap-2 px-3 py-2 rounded-sm text-xs ${
-                      card.accent ? "bg-brand-accent/10 border border-brand-accent/20" : "bg-brand-accent/5 border border-brand-accent/10"
-                    }`}
-                  >
-                    <span className={card.accent ? "text-white/70" : "text-brand-gray-500"}>{s.label}</span>
-                    <span className={`font-semibold ${
-                      card.accent ? "text-white" : "text-brand-black"
-                    }`}>{formatPayoff(s.payoff)}</span>
-                    <span className={`font-semibold text-brand-accent`}>{s.months}</span>
-                  </div>
-                ))}
+                </span>
+
+                <div className="space-y-px">
+                  {card.scenarios.map((s, si) => {
+                    const isBase = si === 1;
+                    return (
+                      <div
+                        key={s.label}
+                        className={`flex items-center justify-between gap-2 px-3 py-2 text-xs ${
+                          isBase
+                            ? card.accent
+                              ? "bg-white/[0.06] font-semibold text-white"
+                              : "bg-brand-accent/[0.04] font-semibold text-brand-black"
+                            : card.accent
+                              ? "text-white/40"
+                              : "text-brand-gray-400"
+                        }`}
+                      >
+                        <span className={isBase ? "" : "pl-3"}>{s.label}</span>
+                        <span className={isBase ? "" : "text-brand-gray-400"}>{formatPayoff(s.payoff)}</span>
+                        <span className={isBase ? "text-brand-accent font-bold" : `font-medium ${card.accent ? "text-white/30" : "text-brand-gray-300"}`}>
+                          {s.months}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
 
-              {/* Divider */}
+              {/* Bottom */}
               <div className={`mx-6 h-px ${
-                card.accent ? "bg-white/10" : "bg-brand-gray-200"
+                card.accent ? "bg-white/[0.06]" : "bg-brand-gray-200"
               }`} />
 
-              {/* Metrics row: revenue */}
-              <div className="px-6 pt-4 pb-2">
-                <p className={`text-2xl md:text-3xl font-bold ${
-                  card.accent ? "text-white" : "text-brand-black"
-                }`}>
-                  {formatBig(card.revenue)}
-                </p>
-                <p className={`text-[11px] ${
-                  card.accent ? "text-white/40" : "text-brand-gray-400"
-                }`}>
-                  Выручка / мес
-                </p>
-              </div>
-
-              {/* Zero fee badge */}
-              <div className={`mx-6 mb-3 px-3 py-2 rounded-sm flex items-center justify-center gap-4 ${
-                card.accent ? "bg-white/5" : "bg-brand-accent/5"
-              }`}>
-                <span className="text-sm font-bold text-brand-accent">0 ₽ взнос</span>
-                <span className={`w-px h-4 ${
-                  card.accent ? "bg-white/10" : "bg-brand-gray-200"
-                }`} />
-                <span className="text-sm font-bold text-brand-accent">0% роялти</span>
-                <span className={`w-px h-4 ${
-                  card.accent ? "bg-white/10" : "bg-brand-gray-200"
-                }`} />
-                <span className={`text-xs ${
-                  card.accent ? "text-white/50" : "text-brand-gray-400"
-                }`}>{card.area}</span>
+              <div className="px-6 pt-3 pb-5 flex items-center justify-between gap-3">
+                <div>
+                  <span className={`text-2xl font-bold leading-none ${
+                    card.accent ? "text-white" : "text-brand-black"
+                  }`}>
+                    {formatBig(card.revenue)}
+                  </span>
+                  <span className={`block text-[10px] mt-0.5 ${
+                    card.accent ? "text-white/25" : "text-brand-gray-300"
+                  }`}>
+                    выручка / мес
+                  </span>
+                </div>
+                <div className="text-right text-[10px] leading-tight">
+                  <span className="font-semibold text-brand-accent">0 ₽ взнос</span>
+                  <br />
+                  <span className="font-semibold text-brand-accent">0% роялти</span>
+                  <br />
+                  <span className={card.accent ? "text-white/30" : "text-brand-gray-400"}>{card.area}</span>
+                </div>
               </div>
             </motion.div>
           ))}
