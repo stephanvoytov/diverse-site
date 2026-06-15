@@ -1,4 +1,4 @@
-import dynamic from "next/dynamic";
+﻿import dynamic from "next/dynamic";
 import Header from "@/components/shared/Header";
 import Hero from "@/components/blocks/Hero";
 import About from "@/components/blocks/About";
@@ -16,7 +16,7 @@ import { faqItems } from "@/data/franchise";
 const StoresMap = dynamic(() => import("@/components/shared/StoresMap"), {
   loading: () => (
     <div className="flex items-center justify-center h-[400px] bg-brand-gray-100 text-brand-gray-400 text-sm">
-      Жагрузка карты…
+      Загрузка карты…
     </div>
   ),
 });

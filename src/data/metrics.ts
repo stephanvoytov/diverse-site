@@ -1,4 +1,4 @@
-export interface Metric {
+﻿export interface Metric {
   value: string;
   label: string;
 }
@@ -75,7 +75,7 @@ export const caseStudies: CaseStudy[] = [
     area: "—",
     format: "Международный формат",
     tag: "Подтверждает возможность масштабирования сети за пределами РФ.",
-    quote: "Жапуск в Казахстане показал, что бренд Diverse востребован не только в России. Логистика из Польши налажена.",
+    quote: "Запуск в Казахстане показал, что бренд Diverse востребован не только в России. Логистика из Польши налажена.",
     investment: "3,2 млн ₽",
     profitMonth: "~200 тыс ₽",
     paybackPeriod: "17 мес",

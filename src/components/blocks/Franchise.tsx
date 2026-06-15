@@ -103,12 +103,14 @@ export default function Franchise() {
                   <p className="text-[11px] text-white/30 tracking-wide">
                     Прибыль / мес
                   </p>
-                  <p className="text-[10px] text-white/20 mt-0.5">*оценка</p>
                 </div>
               </div>
             </motion.div>
           ))}
         </motion.div>
+
+        {/* Единая оговорка под карточками */}
+        <p className="text-center text-[10px] text-white/20 mt-6">* Все цифры — оценочные, точный расчёт под ваш формат на консультации</p>
 
         {/* Benefits row — без двойной анимации */}
         <div

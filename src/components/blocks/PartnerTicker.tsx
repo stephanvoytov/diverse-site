@@ -2,7 +2,11 @@
 
 import { partners } from "@/data/partners";
 
-export default function PartnerTicker() {
+interface PartnerTickerProps {
+  simple?: boolean;
+}
+
+export default function PartnerTicker({ simple }: PartnerTickerProps) {
   return (
     <section data-header="light" className="bg-white overflow-hidden">
       <style>{`
@@ -41,12 +45,20 @@ export default function PartnerTicker() {
       `}</style>
 
       <div className="container-brand py-16 md:py-24 text-center">
-        <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">
-          Партнёры бренда
-        </p>
-        <h2 className="text-3xl md:text-5xl font-bold text-brand-black leading-[1.1]">
-          С кем сотрудничает <span className="text-brand-accent">Diverse</span>
-        </h2>
+        {simple ? (
+          <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400">
+            Партнёры Diverse
+          </p>
+        ) : (
+          <>
+            <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">
+              Партнёры бренда
+            </p>
+            <h2 className="text-3xl md:text-5xl font-bold text-brand-black leading-[1.1]">
+              С кем сотрудничает <span className="text-brand-accent">Diverse</span>
+            </h2>
+          </>
+        )}
       </div>
 
       <div className="relative">

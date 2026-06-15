@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -52,7 +52,7 @@ export default function Contacts() {
       queueLead({
         name: data.name,
         phone: data.phone,
-        message: data.message || "Жапрос с главной (секция Контакты)",
+        message: data.message || "Запрос с главной (секция Контакты)",
         createdAt: Date.now(),
       });
       setSubmitStatus("error");
@@ -62,7 +62,7 @@ export default function Contacts() {
   return (
     <section id="section-contacts" data-header="dark" className="min-h-screen bg-brand-black">
       <div className="container-brand py-10 md:py-12">
-        {/* Жаголовок */}
+        {/* Заголовок */}
         <motion.div
           className="text-center mb-10 md:mb-14"
           initial={{ opacity: 0, y: 20 }}

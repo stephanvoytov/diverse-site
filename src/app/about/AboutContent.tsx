@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -7,6 +7,7 @@ import Footer from "@/components/shared/Footer";
 import { useModal } from "@/lib/modal-context";
 import { asset } from "@/lib/path";
 import PartnerTicker from "@/components/blocks/PartnerTicker";
+import CountUp from "@/components/ui/CountUp";
 
 /* ——— Timeline data ——— */
 
@@ -20,44 +21,12 @@ const milestones: Milestone[] = [
   { year: "1993", title: "Основание бренда", desc: "Diverse создан в Гданьске, Польша. Название отражает разнообразие стилей — от спорта до urban-классики. Вдохновение — культура и стиль жизни Нью-Йорка." },
   { year: "2007", title: "Выход на международный рынок", desc: "Начало экспансии в Центральную и Восточную Европу. Diverse появляется в крупнейших торговых центрах региона." },
   { year: "2010–2020", title: "Рост сети", desc: "Сеть вырастает до 400+ магазинов в 9 странах. Diverse входит в тройку крупнейших fashion-брендов Польши по товарообороту." },
-  { year: "2018", title: "Топ-3 fashion в Польше", desc: "Бренд закрепляется в лидерах рынка ЦВЕ. Жапуск линии DEXT — спортивной одежды для экстремальных видов спорта." },
+  { year: "2018", title: "Топ-3 fashion в Польше", desc: "Бренд закрепляется в лидерах рынка ЦВЕ. Запуск линии DEXT — спортивной одежды для экстремальных видов спорта." },
   { year: "2020", title: "Партнёр Dakar Rally", desc: "Diverse становится официальным техническим партнёром ралли «Дакар» — первый бренд одежды в истории легендарной гонки." },
   { year: "2023", title: "30 лет на рынке", desc: "Подтверждение лидерства. Diverse Extreme Team расширяет партнёрства: 24h Le Mans, официальные коллекции, DEXT TECH." },
 ];
 
-/* ——— Lines data ——— */
 
-interface BrandLine {
-  name: string;
-  tagline: string;
-  desc: string;
-  features: string[];
-  img: string;
-}
-
-const lines: BrandLine[] = [
-  {
-    name: "Diverse",
-    tagline: "Флагман. Характер.",
-    desc: "Флагманская линия для людей, ищущих разнообразие. Сильный характер, уверенность, позитивная энергия — черты, определяющие личность бренда. Diverse черпает вдохновение из последних модных трендов, выбирая самое интересное и адаптируя под свой харизматичный характер. Качество сопоставимо с Nike, Hilfiger — по доступной цене.",
-    features: ["Одежда — манифест образа жизни", "Открытость, спонтанность, энергия", "Мужская, женская, детская", "Аксессуары и обувь", "Clean look, sporty retro, urban"],
-    img: asset("/images/diverse.avif"),
-  },
-  {
-    name: "Diverse Extreme Team",
-    tagline: "Адреналин. Барьеры. Драйв.",
-    desc: "Сила, адреналин, ломание барьеров — DEXT для тех, в ком живёт страсть. Спонсор легендарного Night of the Jumps, технический партнёр Dakar Rally и 24h Le Mans. Тёмные цвета отражают сильный характер, яркие акценты — уверенность быть замеченным.",
-    features: ["Night of the Jumps — спонсорство с 2000-х", "Dakar Classics & Dakar VIP line", "24h Le Mans официальная коллекция", "DEXT TECH — футуристичные материалы", "RECCO®, PrimaLoft®"],
-    img: asset("/images/etremeteam.avif"),
-  },
-  {
-    name: "Coalition",
-    tagline: "Снег. Вода. Драйв.",
-    desc: "ДНК Coalition — снег и вода. Летние водные виды спорта создают климат, в котором стиль Coalition работает идеально. Воздушные ткани с лёгкими мотивами, подчёркнутые яркими цветовыми контрастами. Коллекции дополняют аксессуары: кепки, очки, шлёпанцы. Уверенный микс спорта с casual стилем.",
-    features: ["Водные виды спорта — основа ДНК", "Воздушные ткани, яркие контрасты", "Аксессуары: кепки, очки, шлёпанцы", "Модели унисекс", "Микс sport & casual"],
-    img: asset("/images/coalition.avif"),
-  },
-];
 
 /* ——— Representatives ——— */
 
@@ -108,6 +77,9 @@ export default function AboutContent() {
           </div>
         </section>
 
+        {/* Partners — сразу после Hero */}
+        <PartnerTicker simple />
+
         {/* Philosophy */}
         <section data-header="light" className="bg-white py-20 md:py-28">
           <div className="container-brand max-w-4xl">
@@ -123,37 +95,13 @@ export default function AboutContent() {
               </h2>
             </motion.div>
 
-            <div className="space-y-6 text-base md:text-lg text-brand-gray-400 leading-relaxed">
+            <div className="text-base md:text-lg text-brand-gray-400 leading-relaxed">
               <motion.p
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
-                <span className="text-brand-black">Diverse</span> — бренд для людей, ищущих разнообразие, живущих активно. Для тех, чья одежда — манифест образа жизни: открытость, спонтанность, готовность исследовать неизведанные территории, опыты и идеи.
-              </motion.p>
-              <motion.p
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-              >
-                <span className="text-brand-black">Сильный характер, уверенность, позитивная энергия, свежесть</span> — черты, определяющие уникальную личность бренда. Почти 30 лет Diverse отвечает требованиям активных людей, ценящих комфорт, качество и стиль. Бренд черпает вдохновение из последних модных трендов, выбирая самое интересное и адаптируя под харизматичный характер Diverse.
-              </motion.p>
-              <motion.p
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-              >
-                Создание бренда в 1993 году было вдохновлено культурой и стилем жизни Нью-Йорка. Команда дизайнеров улавливает последние тренды в мировых столицах моды: Нью-Йорк, Лондон, Гонконг и Берлин. Качество продукции Diverse сопоставимо с такими брендами, как Nike и Hilfiger — но по доступной цене.
-              </motion.p>
-              <motion.p
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-              >
-                Одежда, которую передают из поколения в поколение — философия «Generation to Generation». Магазины Diverse разработаны с учётом 30-летнего опыта: гибкая концепция, универсальность, перерабатываемые материалы.
+                <span className="text-brand-black">Diverse</span> — бренд для людей, ищущих разнообразие, живущих активно. Для тех, чья одежда — манифест образа жизни: открытость, спонтанность, готовность исследовать неизведанные территории, опыты и идеи. Качество продукции Diverse сопоставимо с мировыми гигантами — но по доступной цене.
               </motion.p>
             </div>
           </div>
@@ -211,70 +159,32 @@ export default function AboutContent() {
           </div>
         </section>
 
-        {/* Three lines */}
-        <section data-header="light" className="bg-white py-20 md:py-28">
-          <div className="container-brand">
-            <motion.div
-              className="text-center mb-14"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">Линии бренда</p>
-              <h2 className="text-3xl md:text-5xl font-bold text-brand-black leading-[1.1] mb-4">
-                Три суббренда<span className="whitespace-nowrap"> —{" "}<span className="text-brand-accent">три стиля</span></span>
-              </h2>
-              <p className="text-base md:text-lg text-brand-gray-400 max-w-2xl mx-auto">
-                От городской классики до технологичной одежды для экстрима
-              </p>
-            </motion.div>
-
-            <div className="space-y-12 max-w-5xl mx-auto">
-              {lines.map((line, i) => (
-                <motion.div
-                  key={line.name}
-                  className={`flex flex-col md:flex-row gap-6 md:gap-10 items-center ${
-                    i % 2 === 1 ? "md:flex-row-reverse" : ""
-                  }`}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                >
-                  <div className="w-full md:w-1/2 aspect-[4/3] rounded-sm overflow-hidden bg-brand-gray-100">
-                    <div
-                      className="w-full h-full bg-cover bg-center"
-                      style={{ backgroundImage: `url('${line.img}')` }}
-                    />
-                  </div>
-                  <div className="w-full md:w-1/2">
-                    <p className="text-xs tracking-[0.2em] uppercase text-brand-accent mb-1">{line.tagline}</p>
-                    <h3 className="text-2xl md:text-3xl font-bold text-brand-black mb-3">{line.name}</h3>
-                    <p className="text-sm text-brand-gray-400 leading-relaxed mb-5">{line.desc}</p>
-                    <ul className="space-y-2">
-                      {line.features.map((f) => (
-                        <li key={f} className="flex items-start gap-3 text-sm text-brand-gray-500">
-                          <span className="w-1.5 h-1.5 rounded-full bg-brand-accent mt-[6px] shrink-0" />
-                          {f}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* Link to collections */}
+        <motion.div
+          className="text-center -mt-8 pb-12"
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+        >
+          <a
+            href="/collection/"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-brand-accent hover:text-brand-accent-hover transition-colors group"
+          >
+            Посмотреть коллекции
+            <span className="group-hover:translate-x-1 transition-transform">→</span>
+          </a>
+        </motion.div>
 
         {/* Stats */}
         <section data-header="light" className="bg-brand-gray-100 py-20 md:py-28">
           <div className="container-brand">
             <div className="flex flex-wrap justify-center gap-8 md:gap-16 text-center">
               {[
-                { num: "30+", label: "Лет на рынке" },
-                { num: "400+", label: "Магазинов в мире" },
-                { num: "20+", label: "Стран присутствия" },
-                { num: "3", label: "Суббренда", accent: true },
+                { num: 30, suffix: "+", label: "Лет на рынке" },
+                { num: 400, suffix: "+", label: "Магазинов в мире" },
+                { num: 20, suffix: "+", label: "Стран присутствия" },
+                { num: 3, suffix: "", label: "Суббренда", accent: true },
               ].map((s, i) => (
                 <motion.div
                   key={s.label}
@@ -284,7 +194,7 @@ export default function AboutContent() {
                   transition={{ duration: 0.4, delay: i * 0.08 }}
                 >
                   <p className={`text-4xl md:text-5xl font-bold ${s.accent ? "text-brand-accent" : "text-brand-black"}`}>
-                    {s.num}
+                    <CountUp to={s.num} suffix={s.suffix} className="" />
                   </p>
                   <p className="text-xs tracking-[0.15em] uppercase text-brand-gray-400 mt-2">{s.label}</p>
                 </motion.div>
@@ -292,9 +202,6 @@ export default function AboutContent() {
             </div>
           </div>
         </section>
-
-        {/* Partners */}
-        {/* <PartnerTicker /> */}
 
         {/* Representative */}
         <section data-header="light" className="bg-white py-20 md:py-28">
@@ -310,7 +217,7 @@ export default function AboutContent() {
               </h2>
               <p className="text-base md:text-lg text-brand-gray-400 leading-relaxed max-w-2xl mx-auto mb-8">
                 Мы являемся официальными представителями марки Diverse на территории России и стран СНГ. 
-                Жапустили 11 магазинов в РФ и Казахстане. Наша задача — сделать европейское качество доступным для партнёров по всей стране.
+                Запустили 11 магазинов в РФ и Казахстане. Наша задача — сделать европейское качество доступным для партнёров по всей стране.
               </p>
               <div className="inline-flex items-center gap-2 text-sm text-brand-gray-400">
                 <span className="w-2 h-2 rounded-full bg-brand-accent" />
