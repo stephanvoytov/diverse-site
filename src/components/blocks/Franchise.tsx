@@ -59,7 +59,7 @@ export default function Franchise() {
             transition={{ duration: 0.5, delay: 0.2 }}
             style={{ willChange: "transform, opacity" }}
           >
-            Всего 11 магазинов из 400+ в мире. Остальные города свободны.
+            Сотни магазинов по всему миру. В России — пока единицы. Ваш город может стать следующим.
           </motion.p>
         </div>
 
