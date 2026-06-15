@@ -109,7 +109,7 @@ export default function WhyDiverse() {
         </motion.div>
 
         {/* Cards */}
-        <div className="grid md:grid-cols-3 gap-5 md:gap-6 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-5 md:gap-6 max-w-6xl mx-auto">
           {formatCards.map((card, i) => (
             <motion.div
               key={card.id}
@@ -125,7 +125,7 @@ export default function WhyDiverse() {
             >
               {/* Header */}
               <div className="px-6 pt-6 pb-3">
-                <span className="text-[10px] tracking-[0.2em] uppercase font-semibold text-brand-accent">
+                <span className="text-[11px] tracking-[0.2em] uppercase font-semibold text-brand-accent">
                   {card.tagline}
                 </span>
                 <h3 className={`text-xl font-bold mt-1 ${
@@ -137,8 +137,8 @@ export default function WhyDiverse() {
 
               {/* Scenarios */}
               <div className="px-6 pb-4 flex flex-col gap-1 flex-1 min-w-0">
-                <span className={`text-[9px] tracking-[0.15em] uppercase font-semibold ${
-                  card.accent ? "text-white/25" : "text-brand-gray-300"
+                <span className={`text-[11px] tracking-[0.15em] uppercase font-semibold ${
+                  card.accent ? "text-white/30" : "text-brand-gray-400"
                 }`}>
                   Сценарии окупаемости
                 </span>
@@ -149,7 +149,7 @@ export default function WhyDiverse() {
                     return (
                       <div
                         key={s.label}
-                        className={`flex items-center justify-between gap-1.5 px-2.5 py-1.5 text-[11px] leading-tight whitespace-nowrap ${
+                        className={`flex items-center justify-between gap-1.5 px-2.5 py-2 text-xs leading-none whitespace-nowrap ${
                           isBase
                             ? card.accent
                               ? "bg-white/[0.06] font-semibold text-white"
@@ -182,8 +182,8 @@ export default function WhyDiverse() {
                   }`}>
                     {formatBig(card.revenue)}
                   </span>
-                  <span className={`block text-[11px] mt-0.5 ${
-                    card.accent ? "text-white/25" : "text-brand-gray-300"
+                  <span className={`block text-xs mt-0.5 ${
+                    card.accent ? "text-white/30" : "text-brand-gray-400"
                   }`}>
                     выручка / мес
                   </span>
