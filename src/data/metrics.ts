@@ -46,7 +46,7 @@ export const caseStudies: CaseStudy[] = [
     quote: "Diverse даёт готовый бизнес с нулевым взносом — это уникальное предложение на рынке франшиз. Мы работаем уже 6 лет, и сеть только растёт.",
     investment: "3 000 000 ₽",
     profitMonth: "~250 000 ₽",
-    paybackPeriod: "12–14 мес",
+    paybackPeriod: "14–18 мес",
     roi: "8%",
   },
   {
@@ -61,7 +61,7 @@ export const caseStudies: CaseStudy[] = [
     quote: "Формат позволяет быстро запуститься в любом крупном ТЦ. Уже через полгода вышли на плановую выручку.",
     investment: "2 400 000 ₽",
     profitMonth: "~180 000 ₽",
-    paybackPeriod: "~13 мес",
+    paybackPeriod: "14–18 мес",
     roi: "8%",
   },
   {
@@ -76,7 +76,7 @@ export const caseStudies: CaseStudy[] = [
     quote: "Запуск в Казахстане показал, что бренд Diverse востребован не только в России. Логистика из Польши налажена.",
     investment: "3 200 000 ₽",
     profitMonth: "~200 000 ₽",
-    paybackPeriod: "14–16 мес",
+    paybackPeriod: "14–18 мес",
     roi: "6%",
   },
 ];

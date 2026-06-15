@@ -15,7 +15,6 @@ interface FormatCard {
   name: string;
   tagline: string;
   revenue: string;
-  roi: string;
   area: string;
   fee: string;
   royalty: string;
@@ -28,48 +27,45 @@ const formatCards: FormatCard[] = [
     id: "island",
     name: "Торговый остров",
     tagline: "Быстрый старт",
-    revenue: "~400 000 ₽/мес",
-    roi: "~10%",
+    revenue: "~450 000 ₽/мес",
     area: "от 12 м²",
     fee: "0 ₽",
     royalty: "0%",
     accent: false,
     scenarios: [
-      { label: "Пессимистичный", payoff: "~50 000 ₽/мес", months: "14 мес" },
-      { label: "Базовый", payoff: "~80 000 ₽/мес", months: "10 мес" },
-      { label: "Агрессивный", payoff: "~120 000 ₽/мес", months: "7 мес" },
+      { label: "Пессимистичный", payoff: "~40 000 ₽/мес", months: "24 мес" },
+      { label: "Базовый", payoff: "~75 000 ₽/мес", months: "14 мес" },
+      { label: "Агрессивный", payoff: "~120 000 ₽/мес", months: "9 мес" },
     ],
   },
   {
     id: "renovation",
     name: "Реновация",
     tagline: "Переоборудование",
-    revenue: "~700 000 ₽/мес",
-    roi: "~10%",
+    revenue: "~1 000 000 ₽/мес",
     area: "Готовое помещение",
     fee: "0 ₽",
     royalty: "0%",
     accent: true,
     scenarios: [
-      { label: "Пессимистичный", payoff: "~90 000 ₽/мес", months: "20 мес" },
+      { label: "Пессимистичный", payoff: "~60 000 ₽/мес", months: "30 мес" },
       { label: "Базовый", payoff: "~150 000 ₽/мес", months: "14 мес" },
-      { label: "Агрессивный", payoff: "~220 000 ₽/мес", months: "10 мес" },
+      { label: "Агрессивный", payoff: "~250 000 ₽/мес", months: "9 мес" },
     ],
   },
   {
     id: "standard",
     name: "Полный стандарт",
     tagline: "Магазин под ключ",
-    revenue: "~1 200 000 ₽/мес",
-    roi: "~8%",
+    revenue: "~2 500 000 ₽/мес",
     area: "от 60 м²",
     fee: "0 ₽",
     royalty: "0%",
     accent: false,
     scenarios: [
-      { label: "Пессимистичный", payoff: "~150 000 ₽/мес", months: "26 мес" },
-      { label: "Базовый", payoff: "~250 000 ₽/мес", months: "18 мес" },
-      { label: "Агрессивный", payoff: "~380 000 ₽/мес", months: "12 мес" },
+      { label: "Пессимистичный", payoff: "~150 000 ₽/мес", months: "28 мес" },
+      { label: "Базовый", payoff: "~400 000 ₽/мес", months: "12 мес" },
+      { label: "Агрессивный", payoff: "~700 000 ₽/мес", months: "7 мес" },
     ],
   },
 ];
@@ -138,28 +134,18 @@ export default function WhyDiverse() {
                 card.accent ? "bg-white/10" : "bg-brand-gray-200"
               }`} />
 
-              {/* Metrics row: revenue + area */}
-              <div className="px-6 pt-4 pb-3 flex items-end justify-between gap-3">
-                <div>
-                  <p className={`text-2xl md:text-3xl font-bold ${
-                    card.accent ? "text-white" : "text-brand-black"
-                  }`}>
-                    {formatBig(card.revenue)}
-                  </p>
-                  <p className={`text-[11px] ${
-                    card.accent ? "text-white/40" : "text-brand-gray-400"
-                  }`}>
-                    Выручка / мес
-                  </p>
-                </div>
-                <div className="text-right shrink-0">
-                  <p className="text-lg font-bold text-brand-accent">{card.roi}</p>
-                  <p className={`text-[11px] ${
-                    card.accent ? "text-white/40" : "text-brand-gray-400"
-                  }`}>
-                    Доходность
-                  </p>
-                </div>
+              {/* Metrics row: revenue */}
+              <div className="px-6 pt-4 pb-3">
+                <p className={`text-2xl md:text-3xl font-bold ${
+                  card.accent ? "text-white" : "text-brand-black"
+                }`}>
+                  {formatBig(card.revenue)}
+                </p>
+                <p className={`text-[11px] ${
+                  card.accent ? "text-white/40" : "text-brand-gray-400"
+                }`}>
+                  Выручка / мес
+                </p>
               </div>
 
               {/* Zero fee badge */}

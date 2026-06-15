@@ -74,11 +74,7 @@ export default function CaseStudies() {
                 <div className="h-px bg-brand-gray-200" />
 
                 {/* Financial metrics */}
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <p className="text-base font-bold text-brand-black">{cs.roi}</p>
-                    <p className="text-[11px] text-brand-gray-400">Доходность / мес</p>
-                  </div>
+                <div className="grid grid-cols-3 gap-3">
                   <div>
                     <p className="text-base font-bold text-brand-black">{cs.paybackPeriod}</p>
                     <p className="text-[11px] text-brand-gray-400">Окупаемость</p>
