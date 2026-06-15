@@ -59,7 +59,7 @@ export default function Franchise() {
             transition={{ duration: 0.5, delay: 0.2 }}
             style={{ willChange: "transform, opacity" }}
           >
-            0 ₽ паушальный взнос · 0% роялти · Никаких предоплат
+            400+ магазинов в мире · Всего 11 в РФ и Казахстане · Ваш город свободен
           </motion.p>
         </div>
 

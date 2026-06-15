@@ -432,7 +432,7 @@ export default function FranchiseContent() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              Культовый польский бренд. Партнёр Dakar Rally. Более 400 магазинов в мире.
+              Культовый польский бренд: 400+ магазинов в 20+ странах. В РФ и Казахстане — только 11. Рынок почти пустой.
             </motion.p>
 
             {/* Key numbers */}
