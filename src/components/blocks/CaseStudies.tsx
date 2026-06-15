@@ -57,6 +57,7 @@ export default function CaseStudies() {
                     alt={`Магазин Diverse в ${cs.city}`}
                     width={500}
                     height={375}
+                    priority={i === 0}
                     className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
                   />
                 )}

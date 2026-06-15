@@ -1,89 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-
-/* ——— Данные для карточек ——— */
-
-interface Scenario {
-  label: string;
-  payoff: string;
-  months: string;
-}
-
-interface FormatCard {
-  id: string;
-  name: string;
-  tagline: string;
-  revenue: string;
-  area: string;
-  fee: string;
-  royalty: string;
-  accent: boolean;
-  scenarios: Scenario[];
-}
-
-const formatCards: FormatCard[] = [
-  {
-    id: "island",
-    name: "Торговый остров",
-    tagline: "Быстрый старт",
-    revenue: "~450 000 ₽/мес",
-    area: "от 12 м²",
-    fee: "0 ₽",
-    royalty: "0%",
-    accent: false,
-    scenarios: [
-      { label: "Пессимистичный", payoff: "~40 000 ₽/мес", months: "24 мес" },
-      { label: "Базовый", payoff: "~75 000 ₽/мес", months: "14 мес" },
-      { label: "Агрессивный", payoff: "~120 000 ₽/мес", months: "9 мес" },
-    ],
-  },
-  {
-    id: "renovation",
-    name: "Реновация",
-    tagline: "Переоборудование",
-    revenue: "~1 000 000 ₽/мес",
-    area: "Готовое помещение",
-    fee: "0 ₽",
-    royalty: "0%",
-    accent: true,
-    scenarios: [
-      { label: "Пессимистичный", payoff: "~60 000 ₽/мес", months: "30 мес" },
-      { label: "Базовый", payoff: "~150 000 ₽/мес", months: "14 мес" },
-      { label: "Агрессивный", payoff: "~250 000 ₽/мес", months: "9 мес" },
-    ],
-  },
-  {
-    id: "standard",
-    name: "Полный стандарт",
-    tagline: "Магазин под ключ",
-    revenue: "~2 500 000 ₽/мес",
-    area: "от 60 м²",
-    fee: "0 ₽",
-    royalty: "0%",
-    accent: false,
-    scenarios: [
-      { label: "Пессимистичный", payoff: "~150 000 ₽/мес", months: "28 мес" },
-      { label: "Базовый", payoff: "~400 000 ₽/мес", months: "12 мес" },
-      { label: "Агрессивный", payoff: "~700 000 ₽/мес", months: "7 мес" },
-    ],
-  },
-];
-
-/* ——— Функция форматирования чисел ——— */
-
-function formatBig(n: string): string {
-  const prefix = n.startsWith("~") ? "~" : "";
-  const digits = n.replace(/\D/g, "");
-  const suffix = n.includes("₽/мес") ? " ₽/мес" : "";
-  if (digits.length >= 7) return prefix + digits.slice(0, -6) + " млн" + suffix;
-  if (digits.length >= 4) return prefix + digits.slice(0, -3) + " тыс" + suffix;
-  return n;
-}
-
-function formatPayoff(n: string): string {
-  return formatBig(n);
-}
+import { formatCards, type FormatCard } from "@/data/formats";
+import { formatBig, formatPayoff } from "@/lib/format";
 
 export default function WhyDiverse() {
   return (
@@ -149,7 +68,7 @@ export default function WhyDiverse() {
                     return (
                       <div
                         key={s.label}
-                        className={`flex items-center justify-between gap-1.5 px-2.5 py-2 text-xs leading-none whitespace-nowrap ${
+                        className={`flex items-center justify-between gap-1.5 px-2.5 py-2 text-xs leading-none max-md:whitespace-normal md:whitespace-nowrap ${
                           isBase
                             ? card.accent
                               ? "bg-white/[0.06] font-semibold text-white"

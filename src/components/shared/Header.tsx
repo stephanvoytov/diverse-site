@@ -62,8 +62,8 @@ export default function Header() {
   const headerBg = !isScrolled
     ? "bg-transparent"
     : isDarkBg
-      ? "bg-brand-black/95 backdrop-blur-md"
-      : "bg-white/95 backdrop-blur-md shadow-sm";
+      ? "bg-brand-black/95"
+      : "bg-white/95 shadow-sm";
   const navColor = !isScrolled
     ? "text-white/80 hover:text-white"
     : isDarkBg
@@ -122,23 +122,25 @@ export default function Header() {
           </Button>
         </nav>
 
-        {/* Phone (mobile) — click-to-call */}
-        <a
-          href={`tel:${CONTACTS.phoneRaw}`}
-          className="lg:hidden relative z-50 flex items-center justify-center w-10 h-10 mr-1 transition-colors"
-          aria-label="Позвонить"
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={menuColor}>
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-          </svg>
-        </a>
+        {/* Mobile right side: contact + menu */}
+        <div className="lg:hidden flex items-center gap-1 relative z-50">
+          {/* Contact button */}
+          <a
+            href={`tel:${CONTACTS.phoneRaw}`}
+            className="flex items-center justify-center w-10 h-10 transition-colors"
+            aria-label="Позвонить"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={menuColor}>
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+            </svg>
+          </a>
 
-        {/* Mobile Menu Button (hamburger) */}
-        <button
-          onClick={() => setIsMobileOpen(!isMobileOpen)}
-          className={`lg:hidden relative z-50 flex flex-col gap-1.5 p-2 transition-colors ${menuColor}`}
-          aria-label={isMobileOpen ? "Закрыть меню" : "Открыть меню"}
-        >
+          {/* Hamburger */}
+          <button
+            onClick={() => setIsMobileOpen(!isMobileOpen)}
+            className={`flex flex-col gap-1.5 p-2 transition-colors ${menuColor}`}
+            aria-label={isMobileOpen ? "Закрыть меню" : "Открыть меню"}
+          >
           <span
             className={`block w-6 h-px bg-current transition-all duration-300 ${
               isMobileOpen ? "rotate-45 translate-y-[5px]" : ""
@@ -155,6 +157,7 @@ export default function Header() {
             }`}
           />
         </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}

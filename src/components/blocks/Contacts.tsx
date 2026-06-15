@@ -6,15 +6,17 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contactSocials } from "@/data/socials";
-import { CONTACTS } from "@/config/site";
+import { CONTACTS, FORMAT_OPTIONS } from "@/config/site";
 import { formatPhone } from "@/lib/phone";
 import { useUserCity } from "@/lib/user-city-context";
+import { queueLead } from "@/lib/lead-queue";
 import PhoneInput from "react-phone-number-input/react-hook-form";
 import "react-phone-number-input/style.css";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Введите имя").max(50, "Слишком длинное имя"),
   phone: z.string().min(5, "Введите корректный телефон"),
+  format: z.string().optional(),
   message: z.string().optional(),
 });
 
@@ -46,6 +48,13 @@ export default function Contacts() {
       setSubmitStatus("success");
       reset();
     } catch {
+      // Сохраняем лид локально, чтобы не потерять при ошибке сети/сервера
+      queueLead({
+        name: data.name,
+        phone: data.phone,
+        message: data.message || "Запрос с главной (секция Контакты)",
+        createdAt: Date.now(),
+      });
       setSubmitStatus("error");
     }
   };
@@ -118,6 +127,25 @@ export default function Contacts() {
                 {errors.phone && (
                   <p className="mt-1 text-xs text-brand-accent">{errors.phone.message}</p>
                 )}
+              </div>
+
+              <div>
+                <label htmlFor="contacts-format" className="block text-xs tracking-[0.15em] uppercase text-white/50 mb-2">
+                  Формат
+                </label>
+                <select
+                  id="contacts-format"
+                  {...register("format")}
+                  defaultValue=""
+                  className="w-full px-4 py-3 text-sm bg-white/10 border border-white/20 rounded-sm outline-none focus:border-white transition-colors text-white appearance-none"
+                >
+                  <option value="" disabled className="text-brand-gray-400">Выберите формат</option>
+                  {FORMAT_OPTIONS.map((f) => (
+                    <option key={f.id} value={f.id} className="text-brand-black">
+                      {f.label} — {f.desc}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div>

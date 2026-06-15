@@ -14,7 +14,7 @@ export default function Roadmap() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.5 }}
-          style={{ willChange: "transform, opacity" }}
+
         >
           <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">
             Как открыть
@@ -38,7 +38,7 @@ export default function Roadmap() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              style={{ willChange: "transform, opacity" }}
+    
             >
               {/* Number circle + line */}
               <div className="flex flex-col items-center shrink-0">

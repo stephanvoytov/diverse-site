@@ -1,5 +1,5 @@
 export interface FranchisePlan {
-  id: string;
+  id: "island" | "renovation" | "standard";
   name: string;
   tagline: string;
   desc: string;

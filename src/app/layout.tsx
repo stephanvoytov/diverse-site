@@ -5,12 +5,13 @@ import "./globals.css";
 import { ModalProvider } from "@/lib/modal-context";
 import { UserCityProvider } from "@/lib/user-city-context";
 import ContactModal from "@/components/shared/ContactModal";
-import TelegramFloat from "@/components/shared/TelegramFloat";
-import CallbackWidget from "@/components/shared/CallbackWidget";
+import ContactFloating from "@/components/shared/ContactFloating";
+import ExitIntentPopup from "@/components/shared/ExitIntentPopup";
 import JsonLd from "@/components/shared/JsonLd";
 import { CONTACTS, SITE } from "@/config/site";
 
 const ymId = process.env.NEXT_PUBLIC_YM_ID || "";
+const vkPixelId = process.env.NEXT_PUBLIC_VK_PIXEL_ID || "";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || SITE.url;
@@ -131,8 +132,8 @@ export default function RootLayout({
           <ModalProvider>
             {children}
             <ContactModal />
-            <TelegramFloat />
-            <CallbackWidget />
+            <ContactFloating />
+            <ExitIntentPopup />
           </ModalProvider>
         </UserCityProvider>
 
@@ -154,6 +155,15 @@ export default function RootLayout({
             `}
           </Script>
         )}
+
+        {vkPixelId && (
+          <Script id="vk-pixel" strategy="afterInteractive">
+            {`
+              !function(){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src="https://vk.com/js/api/openapi.js?169",t.onload=function(){VK.Retargeting.Init("${vkPixelId}"),VK.Retargeting.Hit()},document.head.appendChild(t)}();
+            `}
+          </Script>
+        )}
+
         <noscript>
           <div>
             <img src="https://mc.yandex.ru/watch/${ymId}" style={{position:"absolute",left:-9999}} alt="" />

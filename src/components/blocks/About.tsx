@@ -12,13 +12,13 @@ function ParallaxCard({ item }: { item: (typeof subbrands)[0] }) {
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0, transition: { duration: 0.6 } }}
       viewport={{ once: true, margin: "-60px" }}
-      style={{ willChange: "transform, opacity" }}
+
       className="group relative rounded-sm overflow-hidden aspect-[7/8] cursor-pointer"
       whileHover={{ scale: 1.02, transition: { duration: 0.4 } }}
     >
       <Image
         src={asset(item.img)}
-        alt={item.name + " — " + item.desc}
+        alt={`Франшиза Diverse — ${item.name}. ${item.desc.split(". ")[0]}`}
         fill
         className="absolute inset-0 object-cover object-center"
         sizes="(max-width: 768px) 100vw, 33vw"
@@ -31,7 +31,7 @@ function ParallaxCard({ item }: { item: (typeof subbrands)[0] }) {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ delay: 0.2 }}
-            style={{ willChange: "transform, opacity" }}
+      
           >
           {item.name}
         </motion.h3>
@@ -58,7 +58,7 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5 }}
-              style={{ willChange: "transform, opacity" }}
+        
             >
               О бренде
             </motion.p>
@@ -68,7 +68,7 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              style={{ willChange: "transform, opacity" }}
+        
             >
               Diverse — <br />
               <span className="text-brand-accent">30+ лет</span> истории
@@ -81,7 +81,7 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              style={{ willChange: "transform, opacity" }}
+        
             >
               Один из крупнейших fashion-брендов Восточной Европы. Сильный характер, уверенность, позитивная энергия — личность бренда для тех, кто живёт активно и ищет разнообразие. Более 400 магазинов в 20+ странах мира.
             </motion.p>
@@ -95,7 +95,7 @@ export default function About() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          style={{ willChange: "opacity" }}
+
         >
           {aboutStats.map((stat, i) => (
             <motion.div
@@ -104,7 +104,7 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.4, delay: 0.35 + i * 0.1 }}
-              style={{ willChange: "transform, opacity" }}
+        
             >
               <p
                 className={`text-3xl md:text-4xl font-bold ${
@@ -141,7 +141,7 @@ export default function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.4, delay: 0.3 }}
-          style={{ willChange: "transform, opacity" }}
+    
         >
           <a
             href="/about/"

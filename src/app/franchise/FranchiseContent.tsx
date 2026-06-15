@@ -9,36 +9,22 @@ import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
 import Faq from "@/components/blocks/Faq";
 import { plans, benefitsFull as benefits } from "@/data/franchise";
-import { CONTACTS } from "@/config/site";
+import { comparisonRows } from "@/data/formats";
+import { CONTACTS, FORMAT_OPTIONS } from "@/config/site";
 import { useUserCity } from "@/lib/user-city-context";
+import { queueLead } from "@/lib/lead-queue";
 import PhoneInput from "react-phone-number-input/react-hook-form";
 import "react-phone-number-input/style.css";
 
 const franchiseFormSchema = z.object({
   name: z.string().min(2, "Введите имя").max(50, "Слишком длинное имя"),
   phone: z.string().min(5, "Введите корректный телефон"),
+  format: z.string().optional(),
   city: z.string().optional(),
   message: z.string().min(5, "Напишите пару слов").max(500, "Слишком длинное сообщение").optional().or(z.literal("")),
 });
 
 type FranchiseForm = z.infer<typeof franchiseFormSchema>;
-
-/* ——— Comparison table data ——— */
-
-interface ComparisonRow {
-  label: string;
-  values: string[];
-}
-
-const comparisonRows: ComparisonRow[] = [
-  { label: "Инвестиции", values: ["от 800 000 ₽", "от 1 500 000 ₽", "от 3 000 000 ₽"] },
-  { label: "Площадь", values: ["от 12 м²", "Существующее помещение", "от 60 м²"] },
-  { label: "Дизайн-проект", values: ["Базовый", "Переоборудование", "Полный от ETOS"] },
-  { label: "Срок запуска", values: ["от 2 недель", "от 3 недель", "от 4 недель"] },
-  { label: "Товарный запас", values: ["Стартовый", "Стартовый", "Максимальный"] },
-  { label: "Роялти", values: ["0%", "0%", "0%"] },
-  { label: "Паушальный взнос", values: ["0 ₽", "0 ₽", "0 ₽"] },
-];
 
 /* ——— Plans accordion (reused from main) ——— */
 
@@ -73,12 +59,16 @@ function PlansSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className={`rounded-sm overflow-hidden transition-all duration-500 cursor-pointer ${
+                className={`rounded-sm overflow-hidden transition-all duration-500 ${
                   isOpen
                     ? "bg-white border-2 border-brand-accent/40 shadow-lg"
-                    : "bg-brand-gray-100 border border-brand-gray-200 hover:border-brand-gray-300"
+                    : "bg-brand-gray-100 border border-brand-gray-200 hover:border-brand-gray-300 cursor-pointer"
                 }`}
                 onClick={() => setOpenId(isOpen ? null : plan.id)}
+                role="button"
+                tabIndex={0}
+                aria-expanded={isOpen}
+                onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setOpenId(isOpen ? null : plan.id); } }}
               >
                 <div className="p-6 md:p-8">
                   <p className="text-xs tracking-[0.2em] uppercase text-brand-accent mb-2">{plan.tagline}</p>
@@ -135,6 +125,8 @@ function PlansSection() {
 /* ——— Comparison table ——— */
 
 function ComparisonTable() {
+  const [activeTab, setActiveTab] = useState(0);
+
   return (
     <section data-header="light" className="bg-brand-gray-100 py-20 md:py-28">
       <div className="container-brand">
@@ -150,8 +142,9 @@ function ComparisonTable() {
           </h2>
         </motion.div>
 
+        {/* Desktop: полноценная таблица */}
         <motion.div
-          className="max-w-4xl mx-auto overflow-x-auto"
+          className="hidden md:block max-w-4xl mx-auto overflow-x-auto"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -186,6 +179,42 @@ function ComparisonTable() {
             </tbody>
           </table>
         </motion.div>
+
+        {/* Mobile: табы + карточка */}
+        <div className="md:hidden max-w-lg mx-auto">
+          {/* Табы форматов */}
+          <div className="flex rounded-sm overflow-hidden mb-6">
+            {plans.map((p, idx) => (
+              <button
+                key={p.id}
+                onClick={() => setActiveTab(idx)}
+                className={`flex-1 py-3 text-xs font-semibold tracking-[0.1em] uppercase transition-all duration-200 ${
+                  idx === activeTab
+                    ? "bg-brand-accent text-white"
+                    : "bg-white text-brand-gray-400 border border-brand-gray-200 hover:border-brand-gray-300"
+                }`}
+              >
+                {p.name}
+              </button>
+            ))}
+          </div>
+
+          {/* Карточка параметров */}
+          <div className="bg-white rounded-sm overflow-hidden border border-brand-gray-200">
+            <table className="w-full text-sm">
+              <tbody>
+                {comparisonRows.map((row) => (
+                  <tr key={row.label} className="border-b border-brand-gray-100 last:border-b-0">
+                    <td className="py-3.5 px-4 text-brand-gray-500 font-medium w-1/2">{row.label}</td>
+                    <td className="py-3.5 px-4 text-brand-black font-semibold text-right">
+                      {row.values[activeTab]}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -254,16 +283,26 @@ function ContactSection() {
         body: JSON.stringify({
           name: data.name,
           phone: data.phone,
+          format: data.format || "",
           city: detectedCity,
           message: data.city
-            ? `Хочу открыть магазин в городе: ${data.city}${data.message ? `. ${data.message}` : ""}`
-            : data.message || "Хочу открыть магазин по франшизе",
+            ? `Хочу открыть магазин в городе: ${data.city}${data.format ? `, формат: ${data.format}` : ""}${data.message ? `. ${data.message}` : ""}`
+            : data.message || (data.format ? `Хочу открыть магазин по франшизе, формат: ${data.format}` : "Хочу открыть магазин по франшизе"),
         }),
       });
       if (!res.ok) throw new Error("Server error");
       setSubmitStatus("success");
       reset();
     } catch {
+      // Сохраняем лид локально, чтобы не потерять при ошибке сети/сервера
+      queueLead({
+        name: data.name,
+        phone: data.phone,
+        message: data.city
+          ? `Хочу открыть магазин в городе: ${data.city}${data.format ? `, формат: ${data.format}` : ""}${data.message ? `. ${data.message}` : ""}`
+          : data.message || (data.format ? `Хочу открыть магазин по франшизе, формат: ${data.format}` : "Хочу открыть магазин по франшизе"),
+        createdAt: Date.now(),
+      });
       setSubmitStatus("error");
     }
   };
@@ -335,17 +374,34 @@ function ContactSection() {
                   )}
                 </div>
                 <div>
-                  <label htmlFor="franchise-city" className="block text-xs tracking-[0.15em] uppercase text-brand-gray-500 mb-2">
-                    Город
+                  <label htmlFor="franchise-format" className="block text-xs tracking-[0.15em] uppercase text-brand-gray-500 mb-2">
+                    Формат
                   </label>
-                  <input
-                    id="franchise-city"
-                    type="text"
-                    placeholder="Ваш город"
-                    {...register("city")}
-                    className="w-full px-4 py-3 text-sm bg-brand-gray-100 border border-brand-gray-200 rounded-sm outline-none focus:border-brand-black transition-colors placeholder:text-brand-gray-300"
-                  />
+                  <select
+                    id="franchise-format"
+                    {...register("format")}
+                    defaultValue=""
+                    className="w-full px-4 py-3 text-sm bg-brand-gray-100 border border-brand-gray-200 rounded-sm outline-none focus:border-brand-black transition-colors appearance-none"
+                  >
+                    <option value="" disabled>Выберите формат</option>
+                    {FORMAT_OPTIONS.map((f) => (
+                      <option key={f.id} value={f.id}>{f.label} — {f.desc}</option>
+                    ))}
+                  </select>
                 </div>
+              </div>
+
+              <div>
+                <label htmlFor="franchise-city" className="block text-xs tracking-[0.15em] uppercase text-brand-gray-500 mb-2">
+                  Город
+                </label>
+                <input
+                  id="franchise-city"
+                  type="text"
+                  placeholder="Ваш город"
+                  {...register("city")}
+                  className="w-full px-4 py-3 text-sm bg-brand-gray-100 border border-brand-gray-200 rounded-sm outline-none focus:border-brand-black transition-colors placeholder:text-brand-gray-300"
+                />
               </div>
 
               <div>

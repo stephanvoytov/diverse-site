@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import Header from "@/components/shared/Header";
 import Hero from "@/components/blocks/Hero";
 import About from "@/components/blocks/About";
@@ -6,12 +7,19 @@ import TrustModel from "@/components/blocks/TrustModel";
 import WhyDiverse from "@/components/blocks/WhyDiverse";
 import Roadmap from "@/components/blocks/Roadmap";
 import CaseStudies from "@/components/blocks/CaseStudies";
-import StoresMap from "@/components/shared/StoresMap";
 import Faq from "@/components/blocks/Faq";
 import Contacts from "@/components/blocks/Contacts";
 import Footer from "@/components/shared/Footer";
 import JsonLd from "@/components/shared/JsonLd";
 import { faqItems } from "@/data/franchise";
+
+const StoresMap = dynamic(() => import("@/components/shared/StoresMap"), {
+  loading: () => (
+    <div className="flex items-center justify-center h-[400px] bg-brand-gray-100 text-brand-gray-400 text-sm">
+      Загрузка карты…
+    </div>
+  ),
+});
 
 export default function Home() {
   const faqSchema = {

@@ -20,7 +20,7 @@ export default function Footer() {
             <Link href="/" className="inline-block mb-5">
               <Image
                 src={asset("/brand/logo-light.svg")}
-                alt="Diverse"
+                alt="Diverse — логотип"
                 width={120}
                 height={20}
                 className="h-4 md:h-5 w-auto"

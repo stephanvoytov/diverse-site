@@ -71,9 +71,9 @@ export default function Hero() {
           Официальный представитель бренда Diverse в России
         </motion.p>
 
-        {/* Main Heading */}
+        {/* Main Heading — smoother progression */}
         <motion.h1
-          className="flex flex-col max-sm:text-4xl text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold text-white uppercase leading-none max-w-5xl"
+          className="flex flex-col max-sm:text-[3.25rem] sm:text-5xl md:text-6xl lg:text-8xl font-bold text-white uppercase leading-none max-w-5xl"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -84,20 +84,29 @@ export default function Hero() {
           </span>
         </motion.h1>
 
-        {/* Subtitle */}
+        {/* Description */}
         <motion.p
-          className="max-sm:mt-4 mt-5 text-base md:text-lg text-white/70 max-w-2xl leading-relaxed"
+          className="max-sm:mt-4 mt-5 max-sm:text-xs text-base md:text-lg text-white/70 max-w-2xl leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           {city
             ? `Откройте Diverse в ${city} — рядом с вами уже 11 магазинов сети`
-            : "Польский бренд для активных людей. Сильный характер, уверенность, свежесть. Партнёр Dakar Rally."}
-          <br />
-          <span className="text-white/90">
-            0 ₽ паушальный взнос · 0% роялти · от 800 000 ₽
-          </span>
+            : <>
+                <span className="max-sm:hidden">Один из самых популярных брендов в Европе. Сильный характер, уверенность, свежесть. Партнёр Dakar Rally.</span>
+                <span className="sm:hidden">Один из самых популярных брендов в Европе. Партнёр Dakar Rally.</span>
+              </>}
+        </motion.p>
+
+        {/* Pricing — separate, more prominent on mobile */}
+        <motion.p
+          className="max-sm:mt-3 mt-3 max-sm:text-sm text-base md:text-lg text-white/90 font-medium max-w-2xl leading-snug"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.7 }}
+        >
+          0&nbsp;₽ паушальный взнос&nbsp;·&nbsp;0%&nbsp;роялти&nbsp;·&nbsp;от&nbsp;800&nbsp;000&nbsp;₽
         </motion.p>
 
         {/* CTA Buttons */}
@@ -107,14 +116,14 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
         >
-          <Button variant="accent" size="lg" onClick={openModal}>
+          <Button variant="accent" size="md" className="sm:px-8 sm:py-4" onClick={openModal}>
             Получить консультацию
           </Button>
           <Button
             variant="outline"
-            size="lg"
+            size="md"
             onClick={() => document.getElementById("section-cases")?.scrollIntoView({ behavior: "smooth" })}
-            className="border-white text-white hover:bg-white hover:text-black"
+            className="border-white text-white hover:bg-white hover:text-black sm:px-8 sm:py-4"
           >
             Посмотреть кейсы
           </Button>

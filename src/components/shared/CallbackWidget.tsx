@@ -62,7 +62,7 @@ export default function CallbackWidget() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed bottom-24 left-6 z-50 w-72 bg-white rounded-sm shadow-2xl border border-brand-gray-200 overflow-hidden"
+            className="fixed bottom-24 left-6 z-50 w-[calc(100vw-48px)] max-w-sm bg-white rounded-sm shadow-2xl border border-brand-gray-200 overflow-hidden"
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}

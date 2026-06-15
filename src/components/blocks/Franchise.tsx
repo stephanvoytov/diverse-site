@@ -2,13 +2,8 @@
 
 import { motion } from "framer-motion";
 import { plans, benefits } from "@/data/franchise";
+import { cardProfit } from "@/data/formats";
 import { useModal } from "@/lib/modal-context";
-
-const cardProfit: Record<string, string> = {
-  island: "~80 тыс ₽",
-  renovation: "~150 тыс ₽",
-  standard: "~250 тыс ₽",
-};
 
 export default function Franchise() {
   const { open: openModal } = useModal();

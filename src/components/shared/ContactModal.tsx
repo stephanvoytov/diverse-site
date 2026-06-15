@@ -445,7 +445,7 @@ export default function ContactModal() {
             {/* Close */}
             <button
               onClick={close}
-              className="absolute top-4 right-4 w-8 h-8 rounded-full border border-brand-gray-200 flex items-center justify-center text-brand-gray-400 hover:text-brand-black hover:border-brand-gray-400 transition-colors bg-white z-10 cursor-pointer"
+              className="absolute top-4 right-4 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full border border-brand-gray-200 text-brand-gray-400 hover:text-brand-black hover:border-brand-gray-400 transition-colors bg-white z-10 cursor-pointer"
               aria-label="Закрыть"
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
