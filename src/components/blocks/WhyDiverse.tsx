@@ -135,13 +135,36 @@ export default function WhyDiverse() {
                 </h3>
               </div>
 
+              {/* Scenarios — наверху, выделены */}
+              <div className="px-6 pb-3 space-y-2 flex-1">
+                <p className={`text-[10px] tracking-[0.15em] uppercase font-semibold ${
+                  card.accent ? "text-white/40" : "text-brand-gray-400"
+                }`}>
+                  Сценарии окупаемости
+                </p>
+                {card.scenarios.map((s) => (
+                  <div
+                    key={s.label}
+                    className={`flex items-center justify-between gap-2 px-3 py-2 rounded-sm text-xs ${
+                      card.accent ? "bg-brand-accent/10 border border-brand-accent/20" : "bg-brand-accent/5 border border-brand-accent/10"
+                    }`}
+                  >
+                    <span className={card.accent ? "text-white/70" : "text-brand-gray-500"}>{s.label}</span>
+                    <span className={`font-semibold ${
+                      card.accent ? "text-white" : "text-brand-black"
+                    }`}>{formatPayoff(s.payoff)}</span>
+                    <span className={`font-semibold text-brand-accent`}>{s.months}</span>
+                  </div>
+                ))}
+              </div>
+
               {/* Divider */}
               <div className={`mx-6 h-px ${
                 card.accent ? "bg-white/10" : "bg-brand-gray-200"
               }`} />
 
               {/* Metrics row: revenue */}
-              <div className="px-6 pt-4 pb-3">
+              <div className="px-6 pt-4 pb-2">
                 <p className={`text-2xl md:text-3xl font-bold ${
                   card.accent ? "text-white" : "text-brand-black"
                 }`}>
@@ -169,47 +192,6 @@ export default function WhyDiverse() {
                 <span className={`text-xs ${
                   card.accent ? "text-white/50" : "text-brand-gray-400"
                 }`}>{card.area}</span>
-              </div>
-
-              {/* Divider */}
-              <div className={`mx-6 h-px ${
-                card.accent ? "bg-white/10" : "bg-brand-gray-200"
-              }`} />
-
-              {/* Scenarios */}
-              <div className="px-6 py-4 space-y-2 flex-1">
-                <p className={`text-[10px] tracking-[0.15em] uppercase font-semibold ${
-                  card.accent ? "text-white/40" : "text-brand-gray-400"
-                }`}>
-                  Сценарии окупаемости
-                </p>
-                {card.scenarios.map((s) => (
-                  <div
-                    key={s.label}
-                    className={`flex items-center justify-between gap-2 px-3 py-1.5 rounded-sm text-xs ${
-                      card.accent ? "bg-white/5" : "bg-brand-gray-100"
-                    }`}
-                  >
-                    <span className={card.accent ? "text-white/60" : "text-brand-gray-500"}>{s.label}</span>
-                    <span className={`font-semibold ${
-                      card.accent ? "text-white" : "text-brand-black"
-                    }`}>{formatPayoff(s.payoff)}</span>
-                    <span className={`text-[11px] ${
-                      card.accent ? "text-white/40" : "text-brand-gray-400"
-                    }`}>{s.months}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Area (repeated for clarity) */}
-              <div className={`mx-6 pb-4 flex items-center gap-1.5 ${
-                card.accent ? "text-white/30" : "text-brand-gray-300"
-              }`}>
-                <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.2">
-                  <rect x="1" y="1" width="12" height="12" rx="1" />
-                  <path d="M5 1v12M9 1v12M1 5h12M1 9h12" />
-                </svg>
-                <span className="text-[11px]">{card.area}</span>
               </div>
             </motion.div>
           ))}
