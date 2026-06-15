@@ -12,7 +12,8 @@ const phoneRegex = /^[\d\s\+\-\(\)]{7,20}$/;
 const schema = z.object({
   name: z.string().min(2, "Введите имя").max(50, "Слишком длинное имя"),
   phone: z.string().regex(phoneRegex, "Введите корректный телефон"),
-  message: z.string().optional(),
+  city: z.string().optional(),
+  budget: z.string().min(1, "Выберите бюджет"),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -51,10 +52,15 @@ export default function ContactModal() {
     setSubmitStatus("idle");
     try {
       const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT || "/api/lead";
+      const payload = {
+        name: data.name,
+        phone: data.phone,
+        message: [data.city && `Город: ${data.city}`, `Бюджет: ${data.budget}`].filter(Boolean).join(". "),
+      };
       const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error("Server error");
       setSubmitStatus("success");
@@ -97,14 +103,11 @@ export default function ContactModal() {
 
             {/* Header */}
             <div className="px-8 pt-8 pb-2">
-              <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-2">
-                Свяжитесь с нами
-              </p>
               <h2 className="text-2xl md:text-3xl font-bold text-brand-black">
-                Оставьте заявку
+                Получить расчёт франшизы
               </h2>
               <p className="text-sm text-brand-gray-400 mt-2 leading-relaxed">
-                Мы свяжемся с вами в ближайшее время и ответим на все вопросы
+                Ответим в течение 15–30 минут
               </p>
             </div>
 
@@ -143,16 +146,35 @@ export default function ContactModal() {
               </div>
 
               <div>
-                <label htmlFor="modal-message" className="block text-xs tracking-[0.15em] uppercase text-brand-gray-500 mb-1.5">
-                  Сообщение
+                <label htmlFor="modal-city" className="block text-xs tracking-[0.15em] uppercase text-brand-gray-500 mb-1.5">
+                  Город
                 </label>
-                <textarea
-                  id="modal-message"
-                  rows={3}
-                  placeholder="Какой формат интересует? Есть ли помещение?"
-                  {...register("message")}
-                  className="w-full px-4 py-3 text-sm bg-white border border-brand-gray-200 rounded-sm outline-none focus:border-brand-black transition-colors placeholder:text-brand-gray-300 resize-none"
+                <input
+                  id="modal-city"
+                  type="text"
+                  placeholder="Ваш город"
+                  {...register("city")}
+                  className="w-full px-4 py-3 text-sm bg-white border border-brand-gray-200 rounded-sm outline-none focus:border-brand-black transition-colors placeholder:text-brand-gray-300"
                 />
+              </div>
+
+              <div>
+                <label htmlFor="modal-budget" className="block text-xs tracking-[0.15em] uppercase text-brand-gray-500 mb-1.5">
+                  Бюджет <span className="text-brand-accent">*</span>
+                </label>
+                <select
+                  id="modal-budget"
+                  {...register("budget")}
+                  className={`w-full px-4 py-3 text-sm bg-white border rounded-sm outline-none transition-colors ${
+                    errors.budget ? "border-brand-accent" : "border-brand-gray-200 focus:border-brand-black"
+                  }`}
+                >
+                  <option value="">Выберите бюджет</option>
+                  <option value="до 1 млн">до 1 млн</option>
+                  <option value="1–3 млн">1–3 млн</option>
+                  <option value="3+ млн">3+ млн</option>
+                </select>
+                {errors.budget && <p className="mt-1 text-xs text-brand-accent">{errors.budget.message}</p>}
               </div>
 
               {submitStatus === "success" && (
@@ -179,11 +201,11 @@ export default function ContactModal() {
                 disabled={isSubmitting || submitStatus === "success"}
                 className="w-full px-8 py-3.5 bg-brand-accent text-white text-xs tracking-[0.2em] uppercase font-semibold rounded-sm hover:bg-brand-accent-hover transition-colors disabled:opacity-50"
               >
-                {isSubmitting ? "Отправка…" : submitStatus === "success" ? "Отправлено ✓" : "Отправить заявку"}
+                {isSubmitting ? "Отправка…" : submitStatus === "success" ? "Отправлено ✓" : "Получить расчёт"}
               </button>
 
               <p className="text-xs text-brand-gray-300 leading-relaxed text-center">
-                Нажимая «Отправить», вы соглашаетесь на обработку персональных данных.
+                консультация без обязательств
               </p>
             </form>
           </motion.div>

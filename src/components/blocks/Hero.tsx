@@ -58,7 +58,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          Официальный представитель в России
+          Официальный партнёр бренда Diverse
         </motion.p>
 
         {/* Main Heading */}
@@ -81,10 +81,10 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          Польский бренд. Партнёр Dakar Rally. 30+ лет на рынке.
+          Один из популярнейших брендов польши. Партнер Dakar RAlly.
           <br />
           <span className="text-white/90">
-            0₽ паушальный взнос · 0% роялти · Свой склад в Европе
+            0р пауш взнос 0 роялти От 800к р.
           </span>
         </motion.p>
 
@@ -96,34 +96,16 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.8 }}
         >
           <Button variant="accent" size="lg" onClick={openModal}>
-            Стать партнёром
+            Рассчитать прибыль
           </Button>
           <Button
             variant="outline"
             size="lg"
-            href="/franchise/"
+            onClick={() => document.getElementById("section-cases")?.scrollIntoView({ behavior: "smooth" })}
             className="border-white text-white hover:bg-white hover:text-black"
           >
-            Узнать больше
+            Посмотреть кейсы
           </Button>
-        </motion.div>
-
-        {/* Presentation link (hidden on mid-size screens to save space) */}
-        <motion.div
-          className="max-sm:mt-4 mt-5 hidden lg:block"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.0 }}
-        >
-          <button
-            onClick={openModal}
-            className="inline-flex items-center gap-2 text-xs tracking-[0.15em] uppercase text-white/40 hover:text-white/80 transition-colors cursor-pointer"
-          >
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M8 1v8M5 6l3 3 3-3M2 12v2a1 1 0 001 1h10a1 1 0 001-1v-2"/>
-            </svg>
-            Скачать презентацию
-          </button>
         </motion.div>
 
         {/* Stats row */}
@@ -156,25 +138,6 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute max-sm:bottom-3 bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 z-20"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-      >
-        <motion.div
-          className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center pt-2"
-          animate={{ opacity: [0.3, 1, 0.3] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <motion.div
-            className="w-1 h-2 bg-white/60 rounded-full"
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          />
-        </motion.div>
-      </motion.div>
     </section>
   );
 }

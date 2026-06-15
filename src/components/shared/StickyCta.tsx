@@ -9,7 +9,7 @@ export default function StickyCta() {
 
   useEffect(() => {
     const onScroll = () => {
-      setVisible(window.scrollY > window.innerHeight * 0.8);
+      setVisible(window.scrollY > window.innerHeight * 0.35);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
@@ -18,7 +18,7 @@ export default function StickyCta() {
 
   return (
     <div
-      className={`md:hidden fixed bottom-0 left-0 right-0 z-50 transition-transform duration-400 ${
+      className={`fixed bottom-0 left-0 right-0 z-50 transition-transform duration-400 ${
         visible ? "translate-y-0" : "translate-y-full"
       }`}
     >
@@ -27,7 +27,7 @@ export default function StickyCta() {
           onClick={openModal}
           className="w-full py-3.5 bg-brand-accent text-white text-xs tracking-[0.2em] uppercase font-semibold rounded-sm hover:bg-brand-accent-hover transition-colors cursor-pointer"
         >
-          Стать партнёром
+          Рассчитать прибыль
         </button>
       </div>
     </div>

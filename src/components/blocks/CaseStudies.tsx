@@ -6,7 +6,7 @@ import { caseStudies } from "@/data/metrics";
 
 export default function CaseStudies() {
   return (
-    <section data-header="light" className="bg-white py-16 md:py-24">
+    <section id="section-cases" data-header="light" className="bg-white py-16 md:py-24">
       <div className="container-brand">
         {/* Header */}
         <motion.div
