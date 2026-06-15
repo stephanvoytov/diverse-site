@@ -2,6 +2,7 @@ import Header from "@/components/shared/Header";
 import Hero from "@/components/blocks/Hero";
 import About from "@/components/blocks/About";
 import Franchise from "@/components/blocks/Franchise";
+import TrustModel from "@/components/blocks/TrustModel";
 import WhyDiverse from "@/components/blocks/WhyDiverse";
 import Roadmap from "@/components/blocks/Roadmap";
 import CaseStudies from "@/components/blocks/CaseStudies";
@@ -34,6 +35,7 @@ export default function Home() {
         <Hero />
         <About />
         <Franchise />
+        <TrustModel />
         <WhyDiverse />
         <Roadmap />
         <CaseStudies />

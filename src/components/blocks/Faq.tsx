@@ -3,10 +3,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { faqItems } from "@/data/franchise";
-import { useModal } from "@/lib/modal-context";
 
 export default function Faq() {
-  const { open: openModal } = useModal();
   const [openIdx, setOpenIdx] = useState<number | null>(null);
 
   return (
@@ -100,25 +98,6 @@ export default function Faq() {
           })}
         </div>
 
-        {/* Bottom CTA */}
-        <motion.div
-          className="text-center mt-12"
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          style={{ willChange: "transform, opacity" }}
-        >
-          <p className="text-sm text-brand-gray-400 mb-4">
-            Остались вопросы? Свяжитесь с нами — ответим на всё
-          </p>
-          <button
-            onClick={openModal}
-            className="inline-flex items-center justify-center px-8 py-4 text-sm tracking-[0.2em] font-semibold uppercase text-white bg-brand-accent hover:bg-brand-accent-hover transition-all duration-300 rounded-sm cursor-pointer"
-          >
-            Задать вопрос
-          </button>
-        </motion.div>
       </div>
     </section>
   );
