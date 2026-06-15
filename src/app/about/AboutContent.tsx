@@ -95,7 +95,7 @@ export default function AboutContent() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              Diverse — <span className="text-brand-accent">30+ лет</span> истории
+              Diverse<span className="whitespace-nowrap"> —{" "}<span className="text-brand-accent">30+ лет</span> истории</span>
             </motion.h1>
             <motion.p
               className="text-base md:text-lg text-white/60 max-w-2xl mx-auto"
@@ -222,7 +222,7 @@ export default function AboutContent() {
             >
               <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">Линии бренда</p>
               <h2 className="text-3xl md:text-5xl font-bold text-brand-black leading-[1.1] mb-4">
-                Три суббренда — <span className="text-brand-accent">три стиля</span>
+                Три суббренда<span className="whitespace-nowrap"> —{" "}<span className="text-brand-accent">три стиля</span></span>
               </h2>
               <p className="text-base md:text-lg text-brand-gray-400 max-w-2xl mx-auto">
                 От городской классики до технологичной одежды для экстрима
