@@ -5,9 +5,9 @@ import { plans, benefits } from "@/data/franchise";
 import { useModal } from "@/lib/modal-context";
 
 const cardProfit: Record<string, string> = {
-  island: "~80 000 ₽",
-  renovation: "~150 000 ₽",
-  standard: "~250 000 ₽",
+  island: "~80 тыс ₽",
+  renovation: "~150 тыс ₽",
+  standard: "~250 тыс ₽",
 };
 
 export default function Franchise() {
