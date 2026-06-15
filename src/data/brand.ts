@@ -7,17 +7,17 @@ export interface Subbrand {
 export const subbrands: Subbrand[] = [
   {
     name: "Diverse",
-    desc: "Флагманский суббренд для городских жителей. Концепция «из поколения в поколение» — одежда на годы.",
+    desc: "Флагманская линия для тех, кто ищет разнообразие и живёт активно. Одежда — манифест образа жизни: открытость, спонтанность, уверенность.",
     img: "/images/diverse.avif",
   },
   {
     name: "Diverse Extreme Team",
-    desc: "Технический партнёр Dakar Rally. Спорт, эмоции, DEXT TECH.",
+    desc: "Сила, адреналин, ломание барьеров. Спонсор Night of the Jumps и технический партнёр Dakar Rally. Для тех, кто пересекает внутренние границы.",
     img: "/images/etremeteam.avif",
   },
   {
     name: "Coalition",
-    desc: "Премиум-суббренд. Streetwear, workwear, спорт.",
+    desc: "ДНК снега и воды. Летние виды спорта, молодость, комфорт, воздушные ткани и яркие цветовые контрасты. Микс спорта с casual стилем.",
     img: "/images/coalition.avif",
   },
 ];
