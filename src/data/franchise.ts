@@ -27,7 +27,7 @@ export const plans: FranchisePlan[] = [
     name: "Реновация",
     tagline: "Переоборудование",
     desc: "Переоборудование существующего помещения под бренд Diverse.",
-    investment: "от 1 500 000 ₽",
+    investment: "от 1,5 млн ₽",
     details: [
       "Дизайн-проект переоборудования",
       "Брендирование фасада и витрин",
@@ -41,7 +41,7 @@ export const plans: FranchisePlan[] = [
     name: "Полный стандарт",
     tagline: "Магазин под ключ",
     desc: "Полноценный магазин по всем стандартам бренда Diverse.",
-    investment: "от 3 000 000 ₽",
+    investment: "от 3 млн ₽",
     details: [
       "Полный проект от ETOS S.A.",
       "Помещение от 60 м²",
