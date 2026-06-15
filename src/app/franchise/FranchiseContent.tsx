@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
 import Faq from "@/components/blocks/Faq";
-import { plans, benefits } from "@/data/franchise";
+import { plans, benefitsFull as benefits } from "@/data/franchise";
 import { CONTACTS } from "@/config/site";
 import { useUserCity } from "@/lib/user-city-context";
 import PhoneInput from "react-phone-number-input/react-hook-form";
