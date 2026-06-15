@@ -136,7 +136,7 @@ export default function WhyDiverse() {
               </div>
 
               {/* Scenarios */}
-              <div className="px-6 pb-4 flex flex-col gap-1 flex-1">
+              <div className="px-6 pb-4 flex flex-col gap-1 flex-1 min-w-0">
                 <span className={`text-[9px] tracking-[0.15em] uppercase font-semibold ${
                   card.accent ? "text-white/25" : "text-brand-gray-300"
                 }`}>
@@ -149,7 +149,7 @@ export default function WhyDiverse() {
                     return (
                       <div
                         key={s.label}
-                        className={`flex items-center justify-between gap-2 px-3 py-2 text-xs ${
+                        className={`flex items-center justify-between gap-1.5 px-2.5 py-1.5 text-[11px] leading-tight whitespace-nowrap ${
                           isBase
                             ? card.accent
                               ? "bg-white/[0.06] font-semibold text-white"
@@ -159,9 +159,9 @@ export default function WhyDiverse() {
                               : "text-brand-gray-400"
                         }`}
                       >
-                        <span className={isBase ? "" : "pl-3"}>{s.label}</span>
-                        <span className={isBase ? "" : "text-brand-gray-400"}>{formatPayoff(s.payoff)}</span>
-                        <span className={isBase ? "text-brand-accent font-bold" : `font-medium ${card.accent ? "text-white/30" : "text-brand-gray-300"}`}>
+                        <span className="truncate">{s.label}</span>
+                        <span className={`shrink-0 ${isBase ? "" : "text-brand-gray-400"}`}>{formatPayoff(s.payoff)}</span>
+                        <span className={`shrink-0 ${isBase ? "text-brand-accent font-bold" : `font-medium ${card.accent ? "text-white/30" : "text-brand-gray-300"}`}`}>
                           {s.months}
                         </span>
                       </div>
@@ -177,23 +177,23 @@ export default function WhyDiverse() {
 
               <div className="px-6 pt-3 pb-5 flex items-center justify-between gap-3">
                 <div>
-                  <span className={`text-2xl font-bold leading-none ${
+                  <span className={`text-xl md:text-2xl font-bold leading-none ${
                     card.accent ? "text-white" : "text-brand-black"
                   }`}>
                     {formatBig(card.revenue)}
                   </span>
-                  <span className={`block text-[10px] mt-0.5 ${
+                  <span className={`block text-[11px] mt-0.5 ${
                     card.accent ? "text-white/25" : "text-brand-gray-300"
                   }`}>
                     выручка / мес
                   </span>
                 </div>
-                <div className="text-right text-[10px] leading-tight">
+                <div className="text-right text-xs leading-snug">
                   <span className="font-semibold text-brand-accent">0 ₽ взнос</span>
                   <br />
                   <span className="font-semibold text-brand-accent">0% роялти</span>
                   <br />
-                  <span className={card.accent ? "text-white/30" : "text-brand-gray-400"}>{card.area}</span>
+                  <span className={card.accent ? "text-white/40" : "text-brand-gray-400"}>{card.area}</span>
                 </div>
               </div>
             </motion.div>
