@@ -136,14 +136,14 @@ export default function WhyDiverse() {
               </div>
 
               {/* Scenarios */}
-              <div className="px-6 pb-4 flex flex-col gap-1 flex-1 min-w-0">
+              <div className="px-6 pb-6 flex flex-col gap-2 flex-1 min-w-0">
                 <span className={`text-[11px] tracking-[0.15em] uppercase font-semibold ${
                   card.accent ? "text-white/30" : "text-brand-gray-400"
                 }`}>
                   Сценарии окупаемости
                 </span>
 
-                <div className="space-y-px">
+                <div className="space-y-1">
                   {card.scenarios.map((s, si) => {
                     const isBase = si === 1;
                     return (
@@ -175,7 +175,7 @@ export default function WhyDiverse() {
                 card.accent ? "bg-white/[0.06]" : "bg-brand-gray-200"
               }`} />
 
-              <div className="px-6 pt-3 pb-5 flex items-center justify-between gap-3">
+              <div className="px-6 pt-4 pb-6 flex items-center justify-between gap-3">
                 <div>
                   <span className={`text-xl md:text-2xl font-bold leading-none ${
                     card.accent ? "text-white" : "text-brand-black"
