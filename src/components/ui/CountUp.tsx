@@ -35,11 +35,6 @@ export default function CountUp({
 
   useEffect(() => { setMounted(true); }, []);
 
-  // SSR fallback — отдаём финальное значение сразу
-  if (!mounted) {
-    return <span className={className}>{prefix}{to}{suffix}</span>;
-  }
-
   // IntersectionObserver для триггера анимации
   useEffect(() => {
     const el = ref.current;
@@ -74,6 +69,11 @@ export default function CountUp({
       count.set(0);
     }
   }, [inView, once, count]);
+
+  // SSR fallback — отдаём финальное значение сразу
+  if (!mounted) {
+    return <span className={className}>{prefix}{to}{suffix}</span>;
+  }
 
   return (
     <span ref={ref} className={className}>

@@ -139,7 +139,7 @@ export default function Header() {
           <button
             onClick={() => setIsMobileOpen(!isMobileOpen)}
             className={`flex flex-col gap-1.5 p-2 transition-colors ${menuColor}`}
-            aria-label={isMobileOpen ? "Закрыть меню" : "Открыть меню"}
+            aria-label={isMobileOpen ? "Жакрыть меню" : "Открыть меню"}
           >
           <span
             className={`block w-6 h-px bg-current transition-all duration-300 ${

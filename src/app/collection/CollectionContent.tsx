@@ -180,7 +180,7 @@ export default function CollectionContent() {
                   <span className="text-white/30">чем одежда</span>
                 </h1>
                 <p className="text-base md:text-lg text-white/50 max-w-xl mt-4 md:mt-6 leading-relaxed">
-                  За каждой коллекцией — своя история, своя атмосфера, свой мир.
+                  Жа каждой коллекцией — своя история, своя атмосфера, свой мир.
                   От улиц больших городов до ралли Дакар.
                 </p>
               </motion.div>

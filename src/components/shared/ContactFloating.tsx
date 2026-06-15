@@ -31,7 +31,7 @@ export default function ContactFloating() {
       const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: "Заказ звонка", phone, message: "Обратный звонок", city }),
+        body: JSON.stringify({ name: "Жаказ звонка", phone, message: "Обратный звонок", city }),
       });
       if (!res.ok) throw new Error();
       setStatus("success");
@@ -162,7 +162,7 @@ export default function ContactFloating() {
                       />
 
                       {status === "success" && (
-                        <p className="text-xs text-green-600 text-center">✓ Заявка отправлена</p>
+                        <p className="text-xs text-green-600 text-center">✓ Жаявка отправлена</p>
                       )}
                       {status === "error" && (
                         <p className="text-xs text-brand-accent text-center">Ошибка. Попробуйте позже.</p>

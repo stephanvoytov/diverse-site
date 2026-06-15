@@ -117,7 +117,7 @@ function StepFormat({
                 selected === null ? "text-brand-accent font-semibold" : "text-brand-gray-400"
               }`}
             >
-              Затрудняюсь ответить / нужна консультация
+              Жатрудняюсь ответить / нужна консультация
             </span>
             <span
               className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${
@@ -446,7 +446,7 @@ export default function ContactModal() {
             <button
               onClick={close}
               className="absolute top-4 right-4 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full border border-brand-gray-200 text-brand-gray-400 hover:text-brand-black hover:border-brand-gray-400 transition-colors bg-white z-10 cursor-pointer"
-              aria-label="Закрыть"
+              aria-label="Жакрыть"
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
                 <path d="M1 1l12 12M13 1L1 13" />

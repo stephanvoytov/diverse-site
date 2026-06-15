@@ -33,7 +33,7 @@ export default function CaseStudies() {
         </motion.div>
 
         {/* Cards */}
-        <div className="grid md:grid-cols-3 gap-5 md:gap-6 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-5 md:gap-6 max-w-6xl mx-auto">
           {caseStudies.map((cs, i) => {
             const isVideo = videoOpen === cs.id;
 

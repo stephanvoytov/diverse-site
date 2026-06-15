@@ -16,7 +16,7 @@ import { faqItems } from "@/data/franchise";
 const StoresMap = dynamic(() => import("@/components/shared/StoresMap"), {
   loading: () => (
     <div className="flex items-center justify-center h-[400px] bg-brand-gray-100 text-brand-gray-400 text-sm">
-      Загрузка карты…
+      Жагрузка карты…
     </div>
   ),
 });

@@ -77,7 +77,7 @@ function buildMessage(data: LeadData, isCallback: boolean): string {
   const parsed = parseMessage(data.message);
   const lines: string[] = [`📩 <b>Новая заявка</b>`, ``];
 
-  if (data.name && data.name !== "Заказ звонка") {
+  if (data.name && data.name !== "Жаказ звонка") {
     lines.push(`<b>Имя:</b> ${escapeHtml(data.name)}`);
   }
   lines.push(`<b>Телефон:</b> ${escapeHtml(data.phone)}`);
