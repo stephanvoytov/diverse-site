@@ -139,7 +139,7 @@ export default function CollectionContent() {
   const { open: openModal } = useModal();
   return (
     <>
-      <Header />
+      <Header transparent />
       <main className="bg-black snap-y snap-mandatory">
         {/* Hero */}
         <section className="relative h-dvh w-full overflow-hidden snap-start bg-black">

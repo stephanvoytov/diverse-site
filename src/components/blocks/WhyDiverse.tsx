@@ -38,23 +38,18 @@ export default function WhyDiverse() {
               transition={{ duration: 0.5, delay: i * 0.1 }}
               className={`relative rounded-sm overflow-hidden flex flex-col ${
                 card.accent
-                  ? "bg-white text-brand-black border border-brand-accent shadow-lg shadow-brand-accent/5"
-                  : "bg-white text-brand-black border border-brand-gray-200"
+                  ? "bg-white text-brand-black border-2 border-brand-accent shadow-lg shadow-brand-accent/5"
+                  : "bg-white text-brand-black border-2 border-brand-gray-300 shadow-sm"
               }`}
             >
-              {/* Accent top strip */}
-              {card.accent && <div className="shrink-0 h-1 bg-brand-accent" />}
+              {/* Top strip */}
+              <div className={`shrink-0 h-1 ${card.accent ? "bg-brand-accent" : "bg-brand-gray-300"}`} />
 
               {/* Header */}
               <div className="px-6 pt-6 pb-3">
                 <span className="text-[11px] tracking-[0.2em] uppercase font-semibold text-brand-accent">
                   {card.tagline}
                 </span>
-                {card.accent && (
-                  <span className="ml-2 inline-block text-[10px] tracking-[0.15em] uppercase font-semibold text-brand-accent border border-brand-accent/30 rounded-sm px-1.5 py-0.5 align-middle">
-                    Рекомендуем
-                  </span>
-                )}
                 <h3 className="text-xl font-bold mt-1 text-brand-black">
                   {card.name}
                 </h3>

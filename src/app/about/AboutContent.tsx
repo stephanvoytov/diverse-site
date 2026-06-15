@@ -1,11 +1,11 @@
 ﻿"use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { asset } from "@/lib/path";
 import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
 import { useModal } from "@/lib/modal-context";
-import { asset } from "@/lib/path";
 import PartnerTicker from "@/components/blocks/PartnerTicker";
 import CountUp from "@/components/ui/CountUp";
 
@@ -26,28 +26,29 @@ const milestones: Milestone[] = [
   { year: "2023", title: "30 лет на рынке", desc: "Подтверждение лидерства. Diverse Extreme Team расширяет партнёрства: 24h Le Mans, официальные коллекции, DEXT TECH." },
 ];
 
-
-
-/* ——— Representatives ——— */
-
 export default function AboutContent() {
   const { open: openModal } = useModal();
+  const { scrollY } = useScroll();
+  const bgY = useTransform(scrollY, [0, 800], [0, 200]);
+  const fade = useTransform(scrollY, [0, 400], [1, 0]);
   return (
     <>
       <Header />
       <main>
-        {/* Hero */}
-        <section data-header="dark" className="relative bg-brand-black pt-28 pb-20 md:pt-36 md:pb-28 overflow-hidden">
-          <div className="absolute inset-0 opacity-20">
-            <Image
-              src={asset("/images/diverse.avif")}
-              alt="Diverse — польский бренд одежды с 30-летней историей"
-              fill
-              className="object-cover"
-              sizes="100vw"
-            />
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/80" />
+        {/* ===== 1. Hero ===== */}
+        <section data-header="dark" className="relative bg-brand-black pt-32 pb-24 md:pt-40 md:pb-32 overflow-hidden">
+          <motion.div className="absolute inset-0" style={{ y: bgY, willChange: "transform" }}>
+            <div className="absolute inset-0 opacity-50">
+              <Image
+                src={asset("/images/about-hero.webp")}
+                alt="Diverse — польский бренд одежды"
+                fill
+                className="object-cover object-[center_30%]"
+                sizes="100vw"
+              />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60" />
+          </motion.div>
 
           <div className="container-brand relative z-10 text-center">
             <motion.p
@@ -59,12 +60,12 @@ export default function AboutContent() {
               О бренде
             </motion.p>
             <motion.h1
-              className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-4"
+              className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-5"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              Diverse<span className="whitespace-nowrap"> —{" "}<span className="text-brand-accent">30+ лет</span> истории</span>
+              <span className="text-brand-accent">30 лет</span> европейского качества
             </motion.h1>
             <motion.p
               className="text-base md:text-lg text-white/60 max-w-2xl mx-auto"
@@ -72,26 +73,52 @@ export default function AboutContent() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              Польский бренд с 30-летней историей. 400+ магазинов в 20+ странах. Партнёр Dakar Rally и 24h Le Mans.
+              Польский бренд одежды №1 для европейского стиля жизни
             </motion.p>
           </div>
         </section>
 
-        {/* Partners — сразу после Hero */}
+        {/* ===== 2. Stats — цифры сразу после Hero ===== */}
+        <section data-header="light" className="bg-white py-16 md:py-20">
+          <div className="container-brand">
+            <div className="flex flex-nowrap justify-center gap-6 md:gap-20 text-center">
+              {[
+                { num: 30, suffix: "+", label: "Лет на рынке" },
+                { num: 400, suffix: "+", label: "Магазинов в Европе" },
+                { num: 3, suffix: "", label: "Собственных бренда", accent: true },
+              ].map((s, i) => (
+                <motion.div
+                  key={s.label}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.08 }}
+                >
+                  <p className={`text-5xl md:text-6xl font-bold ${s.accent ? "text-brand-accent" : "text-brand-black"}`}>
+                    <CountUp to={s.num} suffix={s.suffix} className="" />
+                  </p>
+                  <p className="text-[10px] md:text-xs tracking-[0.15em] uppercase text-brand-gray-400 mt-1 md:mt-2">{s.label}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ===== 3. PartnerTicker ===== */}
         <PartnerTicker simple />
 
-        {/* Philosophy */}
-        <section data-header="light" className="bg-white py-20 md:py-28">
+        {/* ===== 4. О бренде (бывшая Philosophy) ===== */}
+        <section data-header="light" className="bg-brand-gray-100 py-20 md:py-28">
           <div className="container-brand max-w-4xl">
             <motion.div
-              className="text-center mb-12"
+              className="text-center mb-14"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">Философия</p>
-              <h2 className="text-3xl md:text-5xl font-bold text-brand-black leading-[1.1] mb-6">
-                Для кого <span className="text-brand-accent">Diverse</span>
+              <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">О бренде</p>
+              <h2 className="text-3xl md:text-5xl font-bold text-brand-black leading-[1.1]">
+                Идеология <span className="text-brand-accent">Diverse</span>
               </h2>
             </motion.div>
 
@@ -101,7 +128,7 @@ export default function AboutContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
-                Diverse — один из крупнейших и наиболее динамично развивающихся брендов одежды в Польше. Мы ежедневно работаем над созданием сильного и последовательного имиджа, разрабатывая одежду в соответствии с последними мировыми трендами.
+                Diverse — один из крупнейших и наиболее динамично развивающихся брендов одежды в Польше. Бренд ежедневно работает над созданием сильного и последовательного имиджа, разрабатывая одежду в соответствии с последними мировыми трендами.
               </motion.p>
               <motion.p
                 initial={{ opacity: 0, y: 15 }}
@@ -111,19 +138,69 @@ export default function AboutContent() {
               >
                 На протяжении более 30 лет бренд страстно исследует мир моды, прислушиваясь к потребностям клиентов и отвечая на их меняющиеся ожидания. Продукция Diverse отличается инновационным подходом, функциональностью, прочностью и исключительным комфортом носки.
               </motion.p>
+              {/* Divider */}
+              <div className="py-4">
+                <div className="w-12 h-0.5 bg-brand-accent/40 mx-auto" />
+              </div>
               <motion.p
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
               >
-                <span className="text-brand-black">Diverse</span> — бренд, вдохновлённый образом жизни городских жителей. Сегодня это один из самых узнаваемых брендов Польши. Руководствуясь концепцией «Generation to Generation», Diverse создаёт вневременную одежду, которая может служить долгие годы. Коллекции отличаются превосходным качеством исполнения, вниманием к деталям и высококачественными материалами.
+                Diverse — бренд, вдохновлённый образом жизни городских жителей. Сегодня это один из самых узнаваемых брендов Польши. Руководствуясь концепцией «Generation to Generation», Diverse создаёт вневременную одежду, которая может служить долгие годы. Коллекции отличаются превосходным качеством исполнения, вниманием к деталям и высококачественными материалами.
               </motion.p>
             </div>
           </div>
         </section>
 
-        {/* Timeline */}
+        {/* ===== 5. Европейское качество — 3 колонки ===== */}
+        <section data-header="light" className="bg-white py-20 md:py-28">
+          <div className="container-brand">
+            <motion.div
+              className="text-center mb-14"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">Преимущества</p>
+              <h2 className="text-3xl md:text-5xl font-bold text-brand-black leading-[1.1]">
+                Европейское качество. <span className="text-brand-accent">Проверено годами</span>
+              </h2>
+            </motion.div>
+
+            <div className="grid md:grid-cols-3 gap-8 md:gap-12">
+              {[
+                {
+                  title: "Польское происхождение",
+                  desc: "Бренд основан в Гданьске в 1993 году. Лекала, дизайн и контроль качества — из Польши, по стандартам Европейского союза.",
+                },
+                {
+                  title: "Собственная сеть",
+                  desc: "Более 400 магазинов в Польше и Европе. Розничная сеть с 30-летней историей продаж.",
+                },
+                {
+                  title: "Устойчивость к кризисам",
+                  desc: "Бренд работает с 1993 года. Пережил кризисы 1998, 2008, 2014, 2020 годов. Доказал, что модель стабильна в любые времена.",
+                },
+              ].map((col, i) => (
+                <motion.div
+                  key={col.title}
+                  className="border border-brand-gray-200 rounded-lg p-8 text-center"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.1 }}
+                >
+                  <h3 className="text-lg font-bold text-brand-black mb-3">{col.title}</h3>
+                  <p className="text-sm text-brand-gray-400 leading-relaxed">{col.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ===== 6. Timeline + Collections ===== */}
         <section data-header="light" className="bg-brand-gray-100 py-20 md:py-28">
           <div className="container-brand">
             <motion.div
@@ -139,7 +216,6 @@ export default function AboutContent() {
             </motion.div>
 
             <div className="relative max-w-3xl mx-auto">
-              {/* Vertical line */}
               <div className="absolute left-[19px] top-0 bottom-0 w-px bg-brand-gray-300 md:left-1/2 md:-translate-x-px" />
 
               {milestones.map((m, i) => {
@@ -155,14 +231,12 @@ export default function AboutContent() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: i * 0.1 }}
                   >
-                    {/* Dot */}
                     <div className="relative z-10 shrink-0 md:absolute md:left-1/2 md:-translate-x-1/2">
                       <div className="w-[38px] h-[38px] rounded-full bg-white border-2 border-brand-accent flex items-center justify-center">
                         <div className="w-2 h-2 rounded-full bg-brand-accent" />
                       </div>
                     </div>
 
-                    {/* Content */}
                     <div className={`max-md:flex-1 md:flex-none md:w-[calc(50%-28px)] ${isLeft ? "md:pr-12 md:text-right" : "md:pl-12 md:text-left"}`}>
                       <span className="inline-block text-sm font-bold text-brand-accent mb-1">{m.year}</span>
                       <h3 className="text-xl font-bold text-brand-black mb-2">{m.title}</h3>
@@ -172,80 +246,61 @@ export default function AboutContent() {
                 );
               })}
             </div>
-          </div>
-        </section>
 
-        {/* Link to collections */}
-        <motion.div
-          className="text-center -mt-8 pb-12"
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-        >
-          <a
-            href="/collection/"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-brand-accent hover:text-brand-accent-hover transition-colors group"
-          >
-            Посмотреть коллекции
-            <span className="group-hover:translate-x-1 transition-transform">→</span>
-          </a>
-        </motion.div>
-
-        {/* Stats */}
-        <section data-header="light" className="bg-brand-gray-100 py-20 md:py-28">
-          <div className="container-brand">
-            <div className="flex flex-wrap justify-center gap-8 md:gap-16 text-center">
-              {[
-                { num: 30, suffix: "+", label: "Лет на рынке" },
-                { num: 400, suffix: "+", label: "Магазинов в мире" },
-                { num: 20, suffix: "+", label: "Стран присутствия" },
-                { num: 3, suffix: "", label: "Суббренда", accent: true },
-              ].map((s, i) => (
-                <motion.div
-                  key={s.label}
-                  initial={{ opacity: 0, y: 15 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: i * 0.08 }}
-                >
-                  <p className={`text-4xl md:text-5xl font-bold ${s.accent ? "text-brand-accent" : "text-brand-black"}`}>
-                    <CountUp to={s.num} suffix={s.suffix} className="" />
-                  </p>
-                  <p className="text-xs tracking-[0.15em] uppercase text-brand-gray-400 mt-2">{s.label}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Representative */}
-        <section data-header="light" className="bg-white py-20 md:py-28">
-          <div className="container-brand max-w-4xl text-center">
+            {/* Collections link */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              className="text-center mt-16 pt-10 border-t border-brand-gray-200"
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
+              transition={{ duration: 0.4 }}
             >
-              <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">Представитель в России</p>
-              <h2 className="text-3xl md:text-5xl font-bold text-brand-black leading-[1.1] mb-6">
-                ООО «ХАУС» — официальный дистрибьютор
-              </h2>
-              <p className="text-base md:text-lg text-brand-gray-400 leading-relaxed max-w-2xl mx-auto mb-8">
-                Мы являемся официальными представителями марки Diverse на территории России и стран СНГ. 
-                Запустили 11 магазинов в РФ и Казахстане. Наша задача — сделать европейское качество доступным для партнёров по всей стране.
+              <p className="text-sm text-brand-gray-400 mb-4">
+                Узнайте больше о продукте
               </p>
-              <div className="inline-flex items-center gap-2 text-sm text-brand-gray-400">
-                <span className="w-2 h-2 rounded-full bg-brand-accent" />
-                ИНН 3907201307
-                <span className="w-2 h-2 rounded-full bg-brand-accent" />
-                Калининград, пл. Победы, 4
-              </div>
+              <a
+                href="/collection/"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-brand-accent hover:text-brand-accent-hover transition-colors group"
+              >
+                Посмотреть коллекции
+                <span className="group-hover:translate-x-1 transition-transform">→</span>
+              </a>
             </motion.div>
           </div>
         </section>
 
-        {/* CTA */}
+        {/* ===== 7. Representative ===== */}
+        <section data-header="light" className="bg-white py-20 md:py-28">
+          <div className="container-brand max-w-4xl">
+            <div className="relative border border-brand-gray-200 rounded-lg pt-10 pb-12 px-8 md:px-14">
+              <div className="absolute top-0 left-8 right-8 h-1 bg-brand-accent rounded-t-lg" />
+
+              <motion.div
+                className="text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">Представитель в России</p>
+                <h2 className="text-3xl md:text-5xl font-bold text-brand-black leading-[1.1] mb-6">
+                  ООО «ХАУС» — официальный дистрибьютор
+                </h2>
+                <p className="text-base md:text-lg text-brand-gray-400 leading-relaxed max-w-2xl mx-auto mb-8">
+                  Мы являемся официальными представителями марки Diverse на территории России и стран СНГ. 
+                  Запустили 11 магазинов в РФ и Казахстане. Наша задача — сделать европейское качество доступным для партнёров по всей стране.
+                </p>
+                <div className="inline-flex items-center gap-2 text-sm text-brand-gray-400">
+                  <span className="w-2 h-2 rounded-full bg-brand-accent" />
+                  ИНН 3907201307
+                  <span className="w-2 h-2 rounded-full bg-brand-accent" />
+                  Калининград, пл. Победы, 4
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== 8. CTA ===== */}
         <section data-header="dark" className="bg-brand-black py-16 md:py-20 text-center">
           <div className="container-brand">
             <motion.h2

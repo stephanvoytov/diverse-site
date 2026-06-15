@@ -94,8 +94,8 @@ export default function Hero() {
           {city
             ? `Откройте Diverse в ${city} — рядом с вами уже 11 магазинов сети`
             : <>
-                <span className="max-sm:hidden">Один из самых популярных брендов в Европе. Сильный характер, уверенность, свежесть. Партнёр Dakar Rally.</span>
-                <span className="sm:hidden">Один из самых популярных брендов в Европе. Партнёр Dakar Rally.</span>
+                <span className="max-sm:hidden">Готовая модель бизнеса в сегменте масс-маркет/мидл. Один из самых популярных брендов в Европе. Партнёр Dakar Rally.</span>
+                <span className="sm:hidden">Готовая модель бизнеса в сегменте масс-маркет/мидл. Один из самых популярных брендов в Европе.</span>
               </>}
         </motion.p>
 

@@ -21,6 +21,7 @@ export const collections: Collection[] = [
     colorFrom: "#1a1a2e",
     colorTo: "#16213e",
     image: "diverse.jpg",
+    bgPosition: "60% center",
   },
   {
     id: "dakar",
@@ -32,6 +33,8 @@ export const collections: Collection[] = [
     colorFrom: "#e94560",
     colorTo: "#533483",
     image: "dakar.jpg",
+    bgPosition: "55% center",
+
   },
   {
     id: "denim",
@@ -43,6 +46,7 @@ export const collections: Collection[] = [
     colorFrom: "#c0392b",
     colorTo: "#f39c12",
     image: "denim.jpg",
+
   },
   {
     id: "lemans",
@@ -54,6 +58,8 @@ export const collections: Collection[] = [
     colorFrom: "#0f3460",
     colorTo: "#1a1a2e",
     image: "leman.jpg",
+    bgPosition: "20% 10%",
+
   },
   {
     id: "dext",
@@ -77,6 +83,8 @@ export const collections: Collection[] = [
     colorFrom: "#6c5ce7",
     colorTo: "#a29bfe",
     image: "coalition.jpg",
+    bgPosition: "65% center",
+
   },
   {
     id: "evo",
@@ -88,6 +96,8 @@ export const collections: Collection[] = [
     colorFrom: "#00b894",
     colorTo: "#00cec9",
     image: "evo.jpg",
+    bgPosition: "center 10%",
+
   },
   {
     id: "open",
@@ -110,5 +120,6 @@ export const collections: Collection[] = [
     colorFrom: "#2c3e50",
     colorTo: "#95a5a6",
     image: "athletics.jpg",
+    bgPosition: "70% center",
   },
 ];

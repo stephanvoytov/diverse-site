@@ -1,24 +1,23 @@
 ﻿"use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "@/components/ui/Button";
 import { navLinks } from "@/data/navigation";
+import { contactSocials } from "@/data/socials";
 import Image from "next/image";
 import { asset } from "@/lib/path";
 import { useModal } from "@/lib/modal-context";
 import { CONTACTS } from "@/config/site";
+import { formatPhone } from "@/lib/phone";
 
-export default function Header() {
+export default function Header({ transparent }: { transparent?: boolean }) {
   const { open: openModal } = useModal();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDarkBg, setIsDarkBg] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [currentPath, setCurrentPath] = useState("");
-
-  useEffect(() => {
-    setCurrentPath(window.location.pathname);
-  }, []);
+  const currentPath = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,22 +58,22 @@ export default function Header() {
     return currentPath.startsWith(href.replace(/\/$/, ""));
   };
 
-  const headerBg = !isScrolled
+  const headerBg = transparent || !isScrolled
     ? "bg-transparent"
     : isDarkBg
       ? "bg-brand-black/95"
       : "bg-white/95 shadow-sm";
-  const navColor = !isScrolled
+  const navColor = transparent || !isScrolled
     ? "text-white/80 hover:text-white"
     : isDarkBg
       ? "text-white/50 hover:text-white"
       : "text-brand-gray-400 hover:text-brand-black";
-  const menuColor = !isScrolled
+  const menuColor = transparent || !isScrolled
     ? "text-white"
     : isDarkBg
       ? "text-white"
       : "text-brand-black";
-  const btnVariant = isDarkBg ? "outline-white" : "accent";
+  const btnVariant = transparent ? "accent" : isDarkBg ? "outline-white" : "accent";
 
   const closeMenu = () => setIsMobileOpen(false);
 
@@ -87,11 +86,9 @@ export default function Header() {
         <a href="/" className="flex-shrink-0 relative z-50">
           <Image
             src={asset(
-              !isScrolled
+              transparent || !isScrolled
                 ? "/brand/logo-light.svg"
-                : isDarkBg
-                  ? "/brand/logo-light.svg"
-                  : "/brand/logo-dark.svg"
+                : "/brand/logo-dark.svg"
             )}
             alt="Diverse"
             width={120}
@@ -138,84 +135,111 @@ export default function Header() {
           {/* Hamburger */}
           <button
             onClick={() => setIsMobileOpen(!isMobileOpen)}
-            className={`flex flex-col gap-1.5 p-2 transition-colors ${menuColor}`}
+            className={`flex flex-col gap-1 p-2 transition-colors ${menuColor}`}
             aria-label={isMobileOpen ? "Закрыть меню" : "Открыть меню"}
           >
           <span
-            className={`block w-6 h-px bg-current transition-all duration-300 ${
-              isMobileOpen ? "rotate-45 translate-y-[5px]" : ""
+            className={`block w-6 h-[1.5px] bg-current transition-all duration-300 ${
+              isMobileOpen ? "rotate-45 translate-y-[5.5px]" : ""
             }`}
           />
           <span
-            className={`block w-6 h-px bg-current transition-all duration-300 ${
+            className={`block w-6 h-[1.5px] bg-current transition-all duration-300 ${
               isMobileOpen ? "opacity-0 scale-x-0" : ""
             }`}
           />
           <span
-            className={`block w-6 h-px bg-current transition-all duration-300 ${
-              isMobileOpen ? "-rotate-45 -translate-y-[5px]" : ""
+            className={`block w-6 h-[1.5px] bg-current transition-all duration-300 ${
+              isMobileOpen ? "-rotate-45 -translate-y-[5.5px]" : ""
             }`}
           />
         </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu — side panel */}
       <AnimatePresence>
         {isMobileOpen && (
           <>
             {/* Backdrop */}
             <motion.div
-              className="lg:hidden fixed inset-0 bg-black/40 z-30"
+              className="lg:hidden fixed inset-0 bg-black/40 z-[60]"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.2 }}
               onClick={closeMenu}
             />
 
             {/* Panel */}
             <motion.div
-              className="lg:hidden fixed inset-y-0 right-0 z-40 w-full max-w-sm bg-white shadow-2xl overflow-y-auto"
+              className="lg:hidden fixed inset-y-0 right-0 z-[61] w-full max-w-sm bg-white flex flex-col"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 30, stiffness: 300 }}
+              transition={{ duration: 0.25, ease: "easeInOut" }}
             >
-              <div className="flex flex-col justify-center min-h-full px-10 py-24">
-                <nav className="flex flex-col gap-6">
-                  {navLinks.map((link, i) => (
-                    <motion.a
-                      key={link.href}
-                      href={link.href}
-                      className={`relative text-2xl uppercase tracking-[0.15em] font-light transition-colors duration-300 ${
-                        isActive(link.href)
-                          ? "text-brand-accent"
-                          : "text-brand-black hover:text-brand-accent"
-                      }`}
-                      onClick={closeMenu}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -20 }}
-                      transition={{ duration: 0.3, delay: 0.1 + i * 0.05 }}
-                    >
-                      {isActive(link.href) && (
-                        <span className="absolute -left-4 top-1/2 -translate-y-1/2 w-1 h-6 bg-brand-accent rounded-full" />
-                      )}
-                      {link.label}
-                    </motion.a>
-                  ))}
-                </nav>
+              {/* Top bar: logo + close */}
+              <div className="flex items-center justify-between px-6 h-16 md:h-20">
+                <Image
+                  src={asset("/brand/logo-dark.svg")}
+                  alt="Diverse"
+                  width={100}
+                  height={16}
+                  className="h-4 md:h-5 w-auto"
+                />
+                <button
+                  onClick={closeMenu}
+                  className="p-2 text-brand-black"
+                  aria-label="Закрыть меню"
+                >
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+                    <path d="M18 6L6 18M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
 
-                <div className="mt-12 pt-8 border-t border-brand-gray-200">
-                  <Button
-                    variant="accent"
-                    size="lg"
-                    className="w-full"
-                    onClick={() => { openModal(); closeMenu(); }}
+              {/* Nav links */}
+              <nav className="flex-1 flex flex-col justify-center px-10 gap-8">
+                {navLinks.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className={`text-2xl font-light transition-colors ${
+                      isActive(link.href)
+                        ? "text-brand-accent"
+                        : "text-brand-black hover:text-brand-accent"
+                    }`}
+                    onClick={closeMenu}
                   >
-                    Оставить заявку
-                  </Button>
+                    {link.label}
+                  </a>
+                ))}
+              </nav>
+
+              {/* Contacts + socials */}
+              <div className="px-10 py-8 text-sm text-brand-gray-400 space-y-5">
+                <div className="space-y-1.5">
+                  <a href={`tel:${CONTACTS.phoneRaw}`} className="block hover:text-brand-accent transition-colors">
+                    {formatPhone()}
+                  </a>
+                  <a href={`mailto:${CONTACTS.email}`} className="block hover:text-brand-accent transition-colors">
+                    {CONTACTS.email}
+                  </a>
+                </div>
+                <div className="flex items-center gap-4">
+                  {contactSocials.map((s) => (
+                    <a
+                      key={s.label}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-brand-gray-400 hover:text-brand-accent transition-colors"
+                      aria-label={s.label}
+                    >
+                      {s.icon}
+                    </a>
+                  ))}
                 </div>
               </div>
             </motion.div>

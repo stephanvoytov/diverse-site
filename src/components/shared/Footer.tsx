@@ -12,7 +12,7 @@ import { formatPhone } from "@/lib/phone";
 export default function Footer() {
   const { open: openModal } = useModal();
   return (
-    <footer className="bg-brand-black">
+    <footer data-header="dark" className="bg-brand-black">
       <div className="container-brand py-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-y-10 md:gap-x-6">
           {/* Logo + описание */}
