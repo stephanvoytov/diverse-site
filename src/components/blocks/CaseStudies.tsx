@@ -28,7 +28,7 @@ export default function CaseStudies() {
             Кейсы действующих <span className="text-brand-accent">франчайзи</span>
           </h2>
           <p className="text-base md:text-lg text-brand-gray-400 max-w-xl mx-auto">
-            11 магазинов в России и СНГ — от Калининграда до Якутска и Алматы
+             Реальные истории партнёров — от Калининграда до Алматы
           </p>
         </motion.div>
 

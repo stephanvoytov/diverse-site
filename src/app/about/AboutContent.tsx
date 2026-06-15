@@ -103,7 +103,7 @@ export default function AboutContent() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              Польский бренд №1. 400+ магазинов в 20+ странах. Партнёр Dakar Rally и 24h Le Mans.
+              Польский бренд с 30-летней историей. 400+ магазинов в 20+ странах. Партнёр Dakar Rally и 24h Le Mans.
             </motion.p>
           </div>
         </section>
