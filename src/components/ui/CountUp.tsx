@@ -29,8 +29,16 @@ export default function CountUp({
   const ref = useRef<HTMLSpanElement>(null);
   const [inView, setInView] = useState(false);
   const [done, setDone] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const count = useMotionValue(0);
   const rounded = useTransform(count, (v) => Math.round(v));
+
+  useEffect(() => { setMounted(true); }, []);
+
+  // SSR fallback — отдаём финальное значение сразу
+  if (!mounted) {
+    return <span className={className}>{prefix}{to}{suffix}</span>;
+  }
 
   // IntersectionObserver для триггера анимации
   useEffect(() => {

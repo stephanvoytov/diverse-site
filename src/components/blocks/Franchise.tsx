@@ -103,6 +103,7 @@ export default function Franchise() {
                   <p className="text-[11px] text-white/30 tracking-wide">
                     Прибыль / мес
                   </p>
+                  <p className="text-[10px] text-white/20 mt-0.5">*оценка</p>
                 </div>
               </div>
             </motion.div>
