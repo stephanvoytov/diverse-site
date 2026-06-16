@@ -70,7 +70,7 @@ export default function About() {
               transition={{ duration: 0.6, delay: 0.1 }}
         
             >
-              Diverse — <br />
+              Diverse: <br />
               <span className="text-brand-accent">30+ лет</span> истории
             </motion.h2>
           </div>

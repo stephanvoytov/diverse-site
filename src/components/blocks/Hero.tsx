@@ -58,7 +58,7 @@ export default function Hero() {
 
       {/* Layer 4: Content */}
       <motion.div
-        className="relative z-10 flex flex-col justify-center items-center text-center h-full px-6 max-sm:pt-12 pt-14 md:pt-16"
+        className="relative z-10 flex flex-col justify-center items-center text-center h-full px-[5vw] max-sm:pt-12 pt-14 md:pt-16"
         style={{ y: textY, opacity }}
       >
         {/* Tagline */}
@@ -73,7 +73,7 @@ export default function Hero() {
 
         {/* Main Heading — smoother progression */}
         <motion.h1
-          className="flex flex-col max-sm:text-[3.25rem] sm:text-5xl md:text-6xl lg:text-8xl font-bold text-white uppercase leading-none max-w-5xl"
+          className="flex flex-col max-md:text-[13vw] md:text-8xl lg:text-9xl font-bold text-white uppercase leading-none max-w-5xl"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
