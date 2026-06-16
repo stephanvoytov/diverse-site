@@ -8,17 +8,17 @@ export const subbrands: Subbrand[] = [
   {
     name: "Diverse",
     desc: "Флагманская линия для тех, кто ищет разнообразие и живёт активно. Одежда — манифест образа жизни: открытость, спонтанность, уверенность.",
-    img: "/images/diverse.avif",
+    img: "/images/about/diverse.jpg",
   },
   {
     name: "Diverse Extreme Team",
     desc: "Сила, адреналин, ломание барьеров. Спонсор Night of the Jumps и технический партнёр Dakar Rally. Для тех, кто пересекает внутренние границы.",
-    img: "/images/etremeteam.avif",
+    img: "/images/about/dext.avif",
   },
   {
     name: "Coalition",
     desc: "ДНК снега и воды. Летние виды спорта, молодость, комфорт, воздушные ткани и яркие цветовые контрасты. Микс спорта с casual стилем.",
-    img: "/images/coalition.avif",
+    img: "/images/about/coalition.avif",
   },
 ];
 

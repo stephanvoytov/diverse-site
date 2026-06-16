@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     title: "Франшиза Diverse в РФ и СНГ",
     description:
       "Станьте партнёром культового польского бренда. Полное сопровождение 24/7 — от поиска помещения до открытия.",
-    images: [`${basePath}/images/hero.webp`],
+    images: [`${basePath}/images/hero/og.webp`],
   },
   openGraph: {
     title: "Франшиза Diverse",
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: `${basePath}/images/hero.webp`,
+        url: `${basePath}/images/hero/og.webp`,
         width: 1920,
         height: 1080,
         alt: "Франшиза Diverse — официальный представитель в России",

@@ -40,7 +40,7 @@ export default function AboutContent() {
           <motion.div className="absolute inset-0" style={{ y: bgY, willChange: "transform" }}>
             <div className="absolute inset-0 opacity-50">
               <Image
-                src={asset("/images/about-hero.webp")}
+                src={asset("/images/hero/about.jpg")}
                 alt="Diverse — польский бренд одежды"
                 fill
                 className="object-cover object-[center_30%]"

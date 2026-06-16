@@ -6,17 +6,17 @@ const stats = [
   {
     value: "4+ трлн ₽",
     label: "Годовой объём рынка одежды в России",
-    img: "/images/market-scale.avif",
+    img: "/images/market/scale.avif",
   },
   {
     value: "3,1 тыс. ₽",
     label: "Средний чек покупки одежды",
-    img: "/images/market-checkout.jpg",
+    img: "/images/market/checkout.jpg",
   },
   {
     value: "Средний",
     label: "Массовый ценовой сегмент рынка",
-    img: "/images/market-street.jpg",
+    img: "/images/market/street.jpg",
   },
 ] as const;
 

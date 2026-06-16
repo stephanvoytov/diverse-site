@@ -43,14 +43,28 @@ export default function Hero() {
         className="absolute inset-0 overflow-hidden"
         style={{ y: backgroundY }}
       >
-        <Image
-          src={asset("/images/hero.webp")}
-          alt="Франшиза Diverse — официальный представитель бренда в России"
-          fill
-          className="object-cover object-center max-md:object-[65%_center]"
-          priority
-          sizes="100vw"
-        />
+        {/* Desktop photo */}
+        <div className="max-md:hidden absolute inset-0">
+          <Image
+            src={asset("/images/hero/main.jpg")}
+            alt="Франшиза Diverse — официальный представитель бренда в России"
+            fill
+            className="object-cover object-[50%_20%]"
+            priority
+            sizes="100vw"
+          />
+        </div>
+        {/* Mobile photo (9:16) */}
+        <div className="md:hidden absolute inset-0">
+          <Image
+            src={asset("/images/hero/main-mobile.png")}
+            alt="Франшиза Diverse — официальный представитель бренда в России"
+            fill
+            className="object-cover object-center"
+            priority
+            sizes="100vw"
+          />
+        </div>
       </motion.div>
 
       {/* Layer 3: Dark overlay for text readability */}

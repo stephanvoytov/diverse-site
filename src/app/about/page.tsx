@@ -11,13 +11,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Diverse — история бренда",
     description: "30 лет. От Гданьска до мировых столиц моды. Философия Generation to Generation.",
-    images: [{ url: `${basePath}/images/diverse.avif`, width: 1200, height: 800 }],
+    images: [{ url: `${basePath}/images/about/diverse.jpg`, width: 1200, height: 800 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "О бренде Diverse",
     description: "Создан в 1993 году в Гданьске. Сегодня — 400+ магазинов в 9+ странах и партнёр Dakar Rally.",
-    images: [`${basePath}/images/diverse.avif`],
+    images: [`${basePath}/images/about/diverse.jpg`],
   },
   alternates: {
     canonical: `${siteUrl}${basePath}/about/`,
