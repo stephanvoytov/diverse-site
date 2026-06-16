@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
 import Faq from "@/components/blocks/Faq";
+import StoreGallery from "@/components/blocks/StoreGallery";
 import { plans, benefitsFull as benefits } from "@/data/franchise";
 import { comparisonRows } from "@/data/formats";
 import { CONTACTS, FORMAT_OPTIONS } from "@/config/site";
@@ -452,6 +453,15 @@ function ContactSection() {
 
 /* ——— Page ——— */
 
+const galleryImages = [
+  { src: "/images/franchise/gallery/gallery-1.jpg", alt: "Витрина магазина Diverse в ТЦ Мега Уфа" },
+  { src: "/images/franchise/gallery/gallery-2.jpg", alt: "Кассовая зона Diverse" },
+  { src: "/images/franchise/gallery/gallery-3.jpg", alt: "Манекены и одежда Diverse" },
+  { src: "/images/franchise/gallery/gallery-4.jpg", alt: "Одежда Diverse в магазине" },
+  { src: "/images/franchise/gallery/gallery-5.jpg", alt: "Одежда Diverse на вешалках" },
+  { src: "/images/franchise/gallery/gallery-6.jpg", alt: "Интерьер магазина Diverse" },
+];
+
 export default function FranchiseContent() {
   return (
     <>
@@ -519,6 +529,7 @@ export default function FranchiseContent() {
         <PlansSection />
         <ComparisonTable />
         <BenefitsSection />
+        <div id="gallery"><StoreGallery images={galleryImages} /></div>
         <Faq />
         <ContactSection />
       </main>

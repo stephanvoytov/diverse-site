@@ -151,18 +151,26 @@ export default function Franchise() {
             visible: { transition: { staggerChildren: 0.08 } },
           }}
         >
-          {/* Ссылка на страницу франшизы */}
+          {/* Ссылки */}
           <motion.div
             variants={{
               hidden: { opacity: 0, y: 10 },
               visible: { opacity: 1, y: 0 },
             }}
+            className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3"
           >
             <a
               href="/franchise/"
               className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors group"
             >
               Все условия франшизы
+              <span className="group-hover:translate-x-1 transition-transform">→</span>
+            </a>
+            <a
+              href="/franchise/#gallery"
+              className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors group"
+            >
+              Посмотреть пример магазина
               <span className="group-hover:translate-x-1 transition-transform">→</span>
             </a>
           </motion.div>

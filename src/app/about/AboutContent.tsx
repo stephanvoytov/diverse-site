@@ -1,8 +1,6 @@
 ﻿"use client";
 
-import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { asset } from "@/lib/path";
+import { motion } from "framer-motion";
 import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
 import { useModal } from "@/lib/modal-context";
@@ -28,29 +26,13 @@ const milestones: Milestone[] = [
 
 export default function AboutContent() {
   const { open: openModal } = useModal();
-  const { scrollY } = useScroll();
-  const bgY = useTransform(scrollY, [0, 800], [0, 200]);
-  const fade = useTransform(scrollY, [0, 400], [1, 0]);
   return (
     <>
       <Header />
       <main>
         {/* ===== 1. Hero ===== */}
-        <section data-header="dark" className="relative bg-brand-black pt-32 pb-24 md:pt-40 md:pb-32 overflow-hidden">
-          <motion.div className="absolute inset-0" style={{ y: bgY, willChange: "transform" }}>
-            <div className="absolute inset-0 opacity-50">
-              <Image
-                src={asset("/images/hero/about.jpg")}
-                alt="Diverse — польский бренд одежды"
-                fill
-                className="object-cover object-[center_30%]"
-                sizes="100vw"
-              />
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60" />
-          </motion.div>
-
-          <div className="container-brand relative z-10 text-center">
+        <section data-header="dark" className="relative bg-brand-black pt-20 pb-16 md:pt-40 md:pb-32">
+          <div className="container-brand text-center">
             <motion.p
               className="text-xs tracking-[0.3em] uppercase text-brand-gray-300 mb-4"
               initial={{ opacity: 0, y: 15 }}

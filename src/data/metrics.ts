@@ -55,7 +55,7 @@ export const caseStudies: CaseStudy[] = [
     id: "ufa-mega",
     city: "Уфа",
     mall: "ТЦ «Мега-Уфа»",
-    photo: "/images/stores/ufa-mega.jpg",
+    photo: "/images/stores/ufa-mega.webp",
     opened: "2022",
     area: "—",
     format: "Полный стандарт",

@@ -6,6 +6,7 @@ import Image from "next/image";
 import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
 import { useModal } from "@/lib/modal-context";
+import { useUserCity } from "@/lib/user-city-context";
 import { stores } from "@/data/stores";
 import { asset } from "@/lib/path";
 
@@ -14,6 +15,7 @@ const kzStores = stores.filter((s) => s.country === "Казахстан");
 
 export default function StoresContent() {
   const { open: openModal } = useModal();
+  const { city } = useUserCity();
   return (
     <>
       <Header />
@@ -132,7 +134,7 @@ export default function StoresContent() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              Нет магазина в вашем городе?
+              {city ? `Нет магазина в ${city}?` : "Нет магазина в вашем городе?"}
             </motion.h2>
             <motion.p
               className="text-base md:text-lg text-white/60 max-w-xl mx-auto mb-8"
@@ -141,7 +143,9 @@ export default function StoresContent() {
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
             >
-              Откройте его по франшизе — станьте первым в своём городе
+              {city
+                ? `Откройте Diverse по франшизе — станьте первым в ${city}`
+                : "Откройте его по франшизе — станьте первым в своём городе"}
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 15 }}
