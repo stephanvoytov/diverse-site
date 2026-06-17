@@ -193,6 +193,7 @@ function StoreCard({ store, index }: { store: (typeof stores)[0]; index: number 
             height={300}
             className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
             onError={() => setImgFailed(true)}
+            priority={index === 0}
           />
         )}
       </div>

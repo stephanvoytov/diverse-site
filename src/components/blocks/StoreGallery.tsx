@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { asset } from "@/lib/path";
@@ -26,6 +26,30 @@ export default function StoreGallery({ images }: Props) {
     if (selected === null) return;
     setSelected((selected - 1 + images.length) % images.length);
   }, [selected, images.length]);
+
+  // Touch swipe for lightbox
+  const touchX = useRef<number | null>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = overlayRef.current;
+    if (!el) return;
+    const onTouchStart = (e: TouchEvent) => { touchX.current = e.touches[0].clientX; };
+    const onTouchEnd = (e: TouchEvent) => {
+      if (touchX.current === null) return;
+      const dx = e.changedTouches[0].clientX - touchX.current;
+      touchX.current = null;
+      if (Math.abs(dx) > 50) {
+        e.preventDefault();
+        if (dx < 0) next(); else prev();
+      }
+    };
+    el.addEventListener("touchstart", onTouchStart, { passive: true });
+    el.addEventListener("touchend", onTouchEnd, { passive: false });
+    return () => {
+      el.removeEventListener("touchstart", onTouchStart);
+      el.removeEventListener("touchend", onTouchEnd);
+    };
+  }, [selected, next, prev]);
 
   if (!images.length) return null;
 
@@ -121,6 +145,7 @@ export default function StoreGallery({ images }: Props) {
       <AnimatePresence>
         {selected !== null && (
           <motion.div
+            ref={overlayRef}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

@@ -39,6 +39,7 @@ export default function Faq() {
             return (
               <motion.article
                 key={i}
+                layout="position"
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
