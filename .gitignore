@@ -37,3 +37,6 @@ next-env.d.ts
 AUDIT.md
 # Screenshots and audit
 /opisanie-saita/
+
+# Agent instructions (local, do not commit)
+AGENTS.md
