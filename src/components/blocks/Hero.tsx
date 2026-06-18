@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Button from "@/components/ui/Button";
 import CountUp from "@/components/ui/CountUp";
@@ -43,28 +42,17 @@ export default function Hero() {
         className="absolute inset-0 overflow-hidden"
         style={{ y: backgroundY }}
       >
-        {/* Desktop photo */}
-        <div className="max-md:hidden absolute inset-0">
-          <Image
+        {/* Picture: browser loads only matching media — no double download */}
+        <picture>
+          <source media="(max-width: 767px)" srcSet={asset("/images/hero/main-mobile.png")} />
+          <source media="(min-width: 768px)" srcSet={asset("/images/hero/main.jpg")} />
+          <img
             src={asset("/images/hero/main.jpg")}
             alt="Франшиза Diverse — официальный представитель бренда в России"
-            fill
-            className="object-cover object-[50%_20%]"
-            priority
-            sizes="100vw"
+            className="absolute inset-0 w-full h-full object-cover object-[50%_20%]"
+            fetchPriority="high"
           />
-        </div>
-        {/* Mobile photo (9:16) */}
-        <div className="md:hidden absolute inset-0">
-          <Image
-            src={asset("/images/hero/main-mobile.png")}
-            alt="Франшиза Diverse — официальный представитель бренда в России"
-            fill
-            className="object-cover object-center"
-            priority
-            sizes="100vw"
-          />
-        </div>
+        </picture>
       </motion.div>
 
       {/* Layer 3: Dark overlay for text readability */}

@@ -54,7 +54,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Франшиза Diverse",
     description:
-      "Польский бренд №1 с 30-летней историей. 400+ магазинов, партнёр Dakar Rally и 24h Le Mans. Три формата на выбор.",
+      "Польский fashion-бренд с 30-летней историей. 400+ магазинов, партнёр Dakar Rally и 24h Le Mans. Три формата на выбор.",
     siteName: "Diverse Россия",
     locale: "ru_RU",
     type: "website",

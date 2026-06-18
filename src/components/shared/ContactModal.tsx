@@ -271,6 +271,7 @@ function StepContact({
             value={phone}
             onChange={onPhoneChange}
             defaultCountry="RU"
+            countries={["RU", "KZ", "BY"]}
             placeholder="+7 (999) 123-45-67"
             className="phone-input-accent"
           />

@@ -46,7 +46,7 @@ export default function ContactFloating() {
       {/* FAB trigger */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed right-5 bottom-5 z-50 flex items-center justify-center w-11 h-11 rounded-full bg-brand-accent text-white shadow-lg hover:shadow-xl active:scale-95 transition-all duration-200 cursor-pointer"
+        className="fixed right-5 bottom-5 z-50 flex items-center justify-center w-11 h-11 rounded-full bg-brand-accent text-white shadow-lg hover:shadow-xl active:scale-95 transition-shadow duration-200 cursor-pointer"
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 2, duration: 0.4, ease: "easeOut" }}
@@ -157,6 +157,7 @@ export default function ContactFloating() {
                         value={phone}
                         onChange={setPhone}
                         defaultCountry="RU"
+                        countries={["RU", "KZ", "BY"]}
                         placeholder="+7 (999) 123-45-67"
                         className="phone-input-accent"
                       />

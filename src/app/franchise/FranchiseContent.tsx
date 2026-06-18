@@ -60,7 +60,7 @@ function PlansSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className={`rounded-sm overflow-hidden transition-all duration-500 ${
+                className={`rounded-sm overflow-hidden transition-[background-color,border-color,box-shadow] duration-500 ${
                   isOpen
                     ? "bg-white border-2 border-brand-accent/40 shadow-lg"
                     : "bg-brand-gray-100 border border-brand-gray-200 hover:border-brand-gray-300 cursor-pointer"
@@ -221,6 +221,132 @@ function ComparisonTable() {
   );
 }
 
+/* ——— Financial model ——— */
+
+function FinancialModel() {
+  return (
+    <section data-header="light" className="bg-brand-gray-100 py-20 md:py-28">
+      <div className="container-brand">
+        <motion.div
+          className="text-center mb-14"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">Экономика</p>
+          <h2 className="text-3xl md:text-5xl font-bold text-brand-black leading-[1.1] mb-4">
+            Финансовая модель <span className="text-brand-accent">«Реновация»</span>
+          </h2>
+          <p className="text-base md:text-lg text-brand-gray-400 max-w-2xl mx-auto">
+            Пример расчёта для формата с готовым помещением. Цифры — оценочные, точный расчёт под вашу локацию — на консультации.
+          </p>
+        </motion.div>
+
+        <div className="max-w-3xl mx-auto">
+          <motion.div
+            className="bg-white border border-brand-gray-200 rounded-sm overflow-hidden"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            {/* Table */}
+            <div className="divide-y divide-brand-gray-100">
+              {[
+                { label: "Выручка / мес", value: "~1 000 000 ₽", accent: false },
+                { label: "Себестоимость товара (COGS)", value: "~500 000 ₽", detail: "Маржа ~50%", accent: false },
+                { label: "Аренда + коммунальные", value: "~150 000 ₽", accent: false },
+                { label: "ФОТ (2–3 сотрудника)", value: "~150 000 ₽", accent: false },
+                { label: "Маркетинг / прочие", value: "~50 000 ₽", accent: false },
+                { label: "Операционная прибыль / мес", value: "~150 000 ₽", accent: true },
+                { label: "Инвестиции (вход)", value: "от 1,5 млн ₽", accent: false },
+                { label: "Точка безубыточности", value: "~700 000 ₽/мес", detail: "Порог выручки для покрытия всех расходов", accent: false },
+                { label: "Срок окупаемости", value: "~12–14 мес", detail: "С учётом сезонности", accent: false },
+              ].map((row, i) => (
+                <div
+                  key={i}
+                  className={`flex items-center justify-between gap-4 px-6 md:px-8 py-4 ${
+                    row.accent ? "bg-brand-accent/[0.04]" : ""
+                  }`}
+                >
+                  <div>
+                    <span className={`text-sm md:text-base ${
+                      row.accent ? "font-semibold text-brand-black" : "text-brand-gray-400"
+                    }`}>
+                      {row.label}
+                    </span>
+                    {row.detail && (
+                      <span className="block text-xs text-brand-gray-300 mt-0.5">{row.detail}</span>
+                    )}
+                  </div>
+                  <span className={`text-sm md:text-base font-bold whitespace-nowrap ${
+                    row.accent ? "text-brand-accent" : "text-brand-black"
+                  }`}>
+                    {row.value}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/*
+          <motion.div
+            className="bg-white border border-brand-gray-200 rounded-sm overflow-hidden mt-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
+            <div className="px-6 md:px-8 py-5 border-b border-brand-gray-100">
+              <h3 className="text-base font-bold text-brand-black">
+                Из чего складываются инвестиции
+              </h3>
+            </div>
+            <div className="divide-y divide-brand-gray-100">
+              {[
+                { label: "Стартовый товарный запас", value: "~800 000 ₽" },
+                { label: "Торговое оборудование + свет", value: "~350 000 ₽" },
+                { label: "Дизайн-проект + брендирование", value: "~200 000 ₽" },
+                { label: "Прочее (обучение, запуск)", value: "~150 000 ₽" },
+              ].map((row, i) => (
+                <div
+                  key={i}
+                  className="flex items-center justify-between gap-4 px-6 md:px-8 py-3.5"
+                >
+                  <span className="text-sm text-brand-gray-400">{row.label}</span>
+                  <span className="text-sm font-bold text-brand-black">{row.value}</span>
+                </div>
+              ))}
+              <div className="flex items-center justify-between gap-4 px-6 md:px-8 py-3.5 bg-brand-accent/[0.04]">
+                <span className="text-sm font-semibold text-brand-black">Итого</span>
+                <span className="text-sm font-bold text-brand-accent">от 1,5 млн ₽</span>
+              </div>
+            </div>
+          </motion.div>
+          */}
+
+          {/* Seasonality note */}
+          <motion.div
+            className="mt-6 flex items-start gap-3 text-sm text-brand-gray-400 leading-relaxed"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="shrink-0 mt-0.5 text-brand-accent">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 16v-4M12 8h.01" />
+            </svg>
+            <p>
+              <strong className="text-brand-black">Сезонность:</strong> пик продаж — осень (сентябрь–ноябрь) и весна (март–май). Спад — январь–февраль. 
+              В расчёте точки безубыточности учитывается неравномерность спроса в течение года.
+            </p>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ——— Benefits ——— */
 
 function BenefitsSection() {
@@ -367,6 +493,7 @@ function ContactSection() {
                     name="phone"
                     control={control}
                     defaultCountry="RU"
+                    countries={["RU", "KZ", "BY"]}
                     placeholder="+7 (999) 123-45-67"
                     className=""
                   />
@@ -528,6 +655,7 @@ export default function FranchiseContent() {
 
         <PlansSection />
         <ComparisonTable />
+        <FinancialModel />
         <BenefitsSection />
         <div id="gallery"><StoreGallery images={galleryImages} /></div>
         <Faq />

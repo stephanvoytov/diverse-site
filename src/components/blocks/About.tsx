@@ -45,8 +45,8 @@ function ParallaxCard({ item }: { item: (typeof subbrands)[0] }) {
 
 export default function About() {
   return (
-    <section data-header="light" className="min-h-screen bg-white">
-      <div className="container-brand py-6 md:py-8">
+    <section data-header="light" className="bg-white">
+      <div className="container-brand py-5 md:py-8">
         {/* Header */}
         <div
           className="grid md:grid-cols-2 gap-8 md:gap-12 mb-8"
@@ -83,14 +83,14 @@ export default function About() {
               transition={{ duration: 0.6, delay: 0.2 }}
         
             >
-              Один из крупнейших fashion-брендов Восточной Европы. Сильный характер, уверенность, позитивная энергия — личность бренда для тех, кто живёт активно и ищет разнообразие. Более 400 магазинов в 9+ странах мира.
+              Польский fashion-бренд с характером: сильный дизайн, европейское качество, дерзкая энергия. Рождён в Гданьске, вдохновлён уличной культурой и спортом.
             </motion.p>
           </div>
         </div>
 
         {/* Stats */}
         <motion.div
-          className="flex gap-5 md:gap-16 mb-6 pb-6 border-b border-brand-gray-200 max-md:justify-between"
+          className="flex gap-5 md:gap-16 mb-4 max-md:justify-between"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-60px" }}
@@ -126,6 +126,7 @@ export default function About() {
         </motion.div>
 
         {/* Sub-brand cards */}
+        {/*
         <div
           className="grid md:grid-cols-3 gap-4 md:gap-5"
         >
@@ -133,10 +134,11 @@ export default function About() {
             <ParallaxCard key={item.name} item={item} />
           ))}
         </div>
+        */}
 
         {/* Links */}
         <motion.div
-          className="mt-8 md:mt-10 flex max-sm:flex-col items-center gap-3 md:gap-6"
+          className="mt-4 md:mt-10 flex max-sm:flex-col items-center gap-3 md:gap-6"
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}

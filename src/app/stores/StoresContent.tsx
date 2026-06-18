@@ -178,7 +178,7 @@ function StoreCard({ store, index }: { store: (typeof stores)[0]; index: number 
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay: (index % 6) * 0.06 }}
-      className="group rounded-sm overflow-hidden bg-brand-gray-100 border border-brand-gray-200 hover:border-brand-gray-300 transition-all duration-300"
+      className="group rounded-sm overflow-hidden bg-brand-gray-100 border border-brand-gray-200 hover:border-brand-gray-300 transition-colors duration-300"
     >
       <div className="aspect-[4/3] bg-brand-gray-200 overflow-hidden">
         {imgFailed ? (

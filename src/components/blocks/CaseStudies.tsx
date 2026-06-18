@@ -29,12 +29,12 @@ export default function CaseStudies() {
             Кейсы действующих <span className="text-brand-accent">франчайзи</span>
           </h2>
           <p className="text-base md:text-lg text-brand-gray-400 max-w-xl mx-auto">
-             Реальные истории партнёров — от Калининграда до Алматы
+             Реальные истории партнёров — от Калининграда до Уфы
           </p>
         </motion.div>
 
-        {/* Cards */}
-        <div className="grid md:grid-cols-3 gap-5 md:gap-6 max-w-6xl mx-auto">
+         {/* Cards */}
+        <div className="grid md:grid-cols-2 gap-5 md:gap-6 max-w-4xl mx-auto">
           {caseStudies.map((cs, i) => {
             const isVideo = videoOpen === cs.id;
 
@@ -46,7 +46,9 @@ export default function CaseStudies() {
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
               style={{ willChange: "transform, opacity" }}
-              className="group rounded-sm overflow-hidden border border-brand-gray-200 bg-white hover:border-brand-gray-300 hover:shadow-sm transition-[border-color,box-shadow] duration-300"
+              className={`group rounded-sm overflow-hidden border border-brand-gray-200 bg-white hover:border-brand-gray-300 hover:shadow-sm transition-[border-color,box-shadow] duration-300 ${
+                i >= 2 ? 'hidden' : ''
+              }`}
             >
               {/* Photo / Video */}
               <div className="aspect-[4/3] bg-brand-gray-100 overflow-hidden relative">

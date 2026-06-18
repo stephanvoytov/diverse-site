@@ -5,7 +5,6 @@ import About from "@/components/blocks/About";
 import MarketBlock from "@/components/blocks/MarketBlock";
 import Franchise from "@/components/blocks/Franchise";
 import TrustModel from "@/components/blocks/TrustModel";
-import WhyDiverse from "@/components/blocks/WhyDiverse";
 import Roadmap from "@/components/blocks/Roadmap";
 import CaseStudies from "@/components/blocks/CaseStudies";
 import Faq from "@/components/blocks/Faq";
@@ -43,10 +42,9 @@ export default function Home() {
       <main>
         <Hero />
         <About />
-        <MarketBlock />
         <Franchise />
+        <MarketBlock />
         <TrustModel />
-        <WhyDiverse />
         <Roadmap />
         <CaseStudies />
         <StoresMap />

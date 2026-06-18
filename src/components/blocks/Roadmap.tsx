@@ -21,7 +21,7 @@ export default function Roadmap() {
           </p>
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-brand-black leading-[1.1] mb-4">
             От заявки до открытия —{" "}
-            <span className="text-brand-accent">30 дней</span>
+            <span className="text-brand-accent">от 45 до 60 дней</span>
           </h2>
           <p className="text-base md:text-lg text-brand-gray-400 max-w-xl mx-auto">
             Проверенный процесс, который мы отработали на всех запусках сети

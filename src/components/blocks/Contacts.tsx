@@ -121,6 +121,7 @@ export default function Contacts() {
                   name="phone"
                   control={control}
                   defaultCountry="RU"
+                  countries={["RU", "KZ", "BY"]}
                   placeholder="+7 (999) 123-45-67"
                   className="phone-input-dark"
                 />

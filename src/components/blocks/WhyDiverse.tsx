@@ -27,8 +27,8 @@ export default function WhyDiverse() {
           </p>
         </motion.div>
 
-        {/* Cards */}
-        <div className="grid md:grid-cols-3 gap-5 md:gap-6 max-w-6xl mx-auto">
+        {/* Cards: horizontal swipe on mobile, grid on desktop */}
+        <div className="md:grid md:grid-cols-3 flex gap-3 md:gap-6 max-w-6xl mx-auto overflow-x-auto snap-x snap-mandatory scrollbar-none pb-2 md:pb-0">
           {formatCards.map((card, i) => (
             <motion.div
               key={card.id}
@@ -36,7 +36,7 @@ export default function WhyDiverse() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className={`relative rounded-sm overflow-hidden flex flex-col ${
+              className={`relative rounded-sm overflow-hidden flex flex-col min-w-[72vw] md:min-w-0 snap-center shrink-0 first:ml-6 last:mr-6 md:first:ml-0 md:last:mr-0 ${
                 card.accent
                   ? "bg-white text-brand-black border-2 border-brand-accent shadow-lg shadow-brand-accent/5"
                   : "bg-white text-brand-black border-2 border-brand-gray-300 shadow-sm"
