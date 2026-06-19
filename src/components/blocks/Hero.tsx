@@ -65,7 +65,7 @@ export default function Hero() {
       >
         {/* Tagline */}
         <motion.p
-          className="text-xs md:text-sm tracking-[0.3em] uppercase text-white/60 max-sm:mb-4 mb-5"
+          className="text-xs md:text-sm eyebrow text-white/60 max-sm:mb-4 mb-5"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -88,7 +88,7 @@ export default function Hero() {
 
         {/* Description */}
         <motion.p
-          className="max-sm:mt-4 mt-5 max-sm:text-xs text-base md:text-lg text-white/70 max-w-2xl leading-relaxed"
+          className="max-sm:mt-4 mt-5 max-sm:text-xs body-text text-white/70 max-w-2xl leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
@@ -103,7 +103,7 @@ export default function Hero() {
 
         {/* Pricing — separate, more prominent on mobile */}
         <motion.p
-          className="max-sm:mt-3 mt-3 max-sm:text-sm text-base md:text-lg text-white/90 font-medium max-w-2xl leading-snug"
+          className="max-sm:mt-3 mt-3 max-sm:text-sm body-text text-white/90 font-medium max-w-2xl leading-snug"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.7 }}
@@ -142,7 +142,7 @@ export default function Hero() {
             <p className="max-sm:text-xl text-2xl md:text-3xl font-bold text-white">
               <CountUp to={30} suffix="+" className="max-sm:text-xl text-2xl md:text-3xl font-bold text-white" />
             </p>
-            <p className="text-xs tracking-[0.15em] uppercase text-white/50 mt-1">
+            <p className="text-xs label text-white/50 mt-1">
               Лет на рынке
             </p>
           </div>
@@ -151,7 +151,7 @@ export default function Hero() {
             <p className="max-sm:text-xl text-2xl md:text-3xl font-bold text-white">
               <CountUp to={400} suffix="+" className="max-sm:text-xl text-2xl md:text-3xl font-bold text-white" />
             </p>
-            <p className="text-xs tracking-[0.15em] uppercase text-white/50 mt-1">
+            <p className="text-xs label text-white/50 mt-1">
               Магазинов в мире
             </p>
           </div>
@@ -160,7 +160,7 @@ export default function Hero() {
             <p className="max-sm:text-xl text-2xl md:text-3xl font-bold text-brand-accent">
               <CountUp to={11} className="max-sm:text-xl text-2xl md:text-3xl font-bold text-brand-accent" />
             </p>
-            <p className="text-xs tracking-[0.15em] uppercase text-white/50 mt-1">
+            <p className="text-xs label text-white/50 mt-1">
               В РФ и Казахстане
             </p>
           </div>

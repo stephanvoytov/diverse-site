@@ -171,7 +171,7 @@ export default function CollectionContent() {
                 transition={{ duration: 0.8, ease: "easeOut" }}
                 className="max-w-3xl"
               >
-                <span className="text-xs tracking-[0.3em] uppercase text-brand-accent font-semibold mb-4 block">
+                <span className="text-xs eyebrow text-brand-accent font-semibold mb-4 block">
                   Collections
                 </span>
                 <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.05] tracking-[-0.02em]">
@@ -179,7 +179,7 @@ export default function CollectionContent() {
                   <br />
                   <span className="text-white/30">чем одежда</span>
                 </h1>
-                <p className="text-base md:text-lg text-white/50 max-w-xl mt-4 md:mt-6 leading-relaxed">
+                <p className="body-text text-white/50 max-w-xl mt-4 md:mt-6 leading-relaxed">
                   За каждой коллекцией — своя история, своя атмосфера, свой мир.
                   От улиц больших городов до ралли Дакар.
                 </p>
@@ -217,7 +217,7 @@ export default function CollectionContent() {
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
             >
-              <span className="text-xs tracking-[0.3em] uppercase text-brand-accent font-semibold mb-4 block">
+              <span className="text-xs eyebrow text-brand-accent font-semibold mb-4 block">
                 Franchise
               </span>
               <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-4">
@@ -225,7 +225,7 @@ export default function CollectionContent() {
                 <br />
                 <span className="text-brand-accent">Diverse</span>
               </h2>
-              <p className="text-white/50 text-base md:text-lg max-w-md mx-auto mb-8 leading-relaxed">
+              <p className="text-white/50 body-text max-w-md mx-auto mb-8 leading-relaxed">
                 Открой магазин Diverse в своём городе. Полная поддержка на всех
                 этапах — от поиска помещения до открытия.
               </p>

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import SectionHeader from "@/components/shared/SectionHeader";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -35,20 +36,12 @@ function PlansSection() {
   return (
     <section data-header="light" className="bg-white py-20 md:py-28">
       <div className="container-brand">
-        <motion.div
-          className="text-center mb-14"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+        <SectionHeader
+          eyebrow="Варианты"
+          desc="Три варианта сотрудничества под любой бюджет и локацию"
         >
-          <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">Варианты</p>
-          <h2 className="text-3xl md:text-5xl font-bold text-brand-black leading-[1.1] mb-4">
-            Выберите свой <span className="text-brand-accent">формат</span>
-          </h2>
-          <p className="text-base md:text-lg text-brand-gray-400 max-w-xl mx-auto">
-            Три варианта сотрудничества под любой бюджет и локацию
-          </p>
-        </motion.div>
+          Выберите свой <span className="text-brand-accent">формат</span>
+        </SectionHeader>
 
         <div className="grid md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto">
           {plans.map((plan, i) => {
@@ -78,7 +71,7 @@ function PlansSection() {
                   <p className="text-xl font-bold text-brand-accent mb-3">{plan.investment}</p>
 
                   <div className="flex items-center justify-between">
-                    <span className="text-xs tracking-[0.15em] uppercase text-brand-gray-400">
+                    <span className="text-xs label text-brand-gray-400">
                       {isOpen ? "Свернуть" : "Подробнее"}
                     </span>
                     <motion.span
@@ -131,17 +124,11 @@ function ComparisonTable() {
   return (
     <section data-header="light" className="bg-brand-gray-100 py-20 md:py-28">
       <div className="container-brand">
-        <motion.div
-          className="text-center mb-14"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+        <SectionHeader
+          eyebrow="Сравнение"
         >
-          <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">Сравнение</p>
-          <h2 className="text-3xl md:text-5xl font-bold text-brand-black leading-[1.1]">
-            Что входит в каждый <span className="text-brand-accent">вариант</span>
-          </h2>
-        </motion.div>
+          Что входит в каждый <span className="text-brand-accent">вариант</span>
+        </SectionHeader>
 
         {/* Desktop: полноценная таблица */}
         <motion.div
@@ -154,7 +141,7 @@ function ComparisonTable() {
           <table className="w-full text-sm border-collapse">
             <thead>
               <tr>
-                <th className="text-left py-4 pr-6 text-xs tracking-[0.15em] uppercase text-brand-gray-400 font-medium w-[140px]">
+                <th className="text-left py-4 pr-6 text-xs label text-brand-gray-400 font-medium w-[140px]">
                   Параметр
                 </th>
                 {plans.map((p) => (
@@ -227,20 +214,13 @@ function FinancialModel() {
   return (
     <section data-header="light" className="bg-brand-gray-100 py-20 md:py-28">
       <div className="container-brand">
-        <motion.div
-          className="text-center mb-14"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+        <SectionHeader
+          eyebrow="Экономика"
+          desc="Пример расчёта для формата с готовым помещением. Цифры — оценочные, точный расчёт под вашу локацию — на консультации."
+          descClassName="body-text text-brand-gray-400 max-w-2xl mx-auto"
         >
-          <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">Экономика</p>
-          <h2 className="text-3xl md:text-5xl font-bold text-brand-black leading-[1.1] mb-4">
-            Финансовая модель <span className="text-brand-accent">«Реновация»</span>
-          </h2>
-          <p className="text-base md:text-lg text-brand-gray-400 max-w-2xl mx-auto">
-            Пример расчёта для формата с готовым помещением. Цифры — оценочные, точный расчёт под вашу локацию — на консультации.
-          </p>
-        </motion.div>
+          Финансовая модель <span className="text-brand-accent">«Реновация»</span>
+        </SectionHeader>
 
         <div className="max-w-3xl mx-auto">
           <motion.div
@@ -353,17 +333,11 @@ function BenefitsSection() {
   return (
     <section className="bg-white py-20 md:py-28">
       <div className="container-brand">
-        <motion.div
-          className="text-center mb-14"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+        <SectionHeader
+          eyebrow="Преимущества"
         >
-          <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">Преимущества</p>
-          <h2 className="text-3xl md:text-5xl font-bold text-brand-black leading-[1.1] mb-4">
-            Почему <span className="text-brand-accent">Diverse</span>
-          </h2>
-        </motion.div>
+          Почему <span className="text-brand-accent">Diverse</span>
+        </SectionHeader>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
           {benefits.map((b, i) => (
@@ -437,19 +411,11 @@ function ContactSection() {
   return (
     <section data-header="light" className="bg-brand-gray-100 py-20 md:py-28">
       <div className="container-brand">
-        <motion.div
-          className="text-center mb-14"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+        <SectionHeader
+          desc="Оставьте заявку — мы ответим на все вопросы"
         >
-          <h2 className="text-3xl md:text-5xl font-bold text-brand-black leading-[1.1] mb-4">
-            Начните <span className="text-brand-accent">свой бизнес</span>
-          </h2>
-          <p className="text-base md:text-lg text-brand-gray-400 max-w-xl mx-auto">
-            Оставьте заявку — мы ответим на все вопросы
-          </p>
-        </motion.div>
+          Начните <span className="text-brand-accent">свой бизнес</span>
+        </SectionHeader>
 
         <motion.div
           className="max-w-2xl mx-auto"
@@ -465,7 +431,7 @@ function ContactSection() {
           >
             <div className="space-y-5">
               <div>
-                <label htmlFor="franchise-name" className="block text-xs tracking-[0.15em] uppercase text-brand-gray-500 mb-2">
+                <label htmlFor="franchise-name" className="block text-xs label text-brand-gray-500 mb-2">
                   Имя <span className="text-brand-accent">*</span>
                 </label>
                 <input
@@ -486,7 +452,7 @@ function ContactSection() {
 
               <div className="grid sm:grid-cols-2 gap-5">
                 <div>
-                  <label htmlFor="franchise-phone" className="block text-xs tracking-[0.15em] uppercase text-brand-gray-500 mb-2">
+                  <label htmlFor="franchise-phone" className="block text-xs label text-brand-gray-500 mb-2">
                     Телефон <span className="text-brand-accent">*</span>
                   </label>
                   <PhoneInput
@@ -502,7 +468,7 @@ function ContactSection() {
                   )}
                 </div>
                 <div>
-                  <label htmlFor="franchise-format" className="block text-xs tracking-[0.15em] uppercase text-brand-gray-500 mb-2">
+                  <label htmlFor="franchise-format" className="block text-xs label text-brand-gray-500 mb-2">
                     Формат
                   </label>
                   <select
@@ -520,7 +486,7 @@ function ContactSection() {
               </div>
 
               <div>
-                <label htmlFor="franchise-city" className="block text-xs tracking-[0.15em] uppercase text-brand-gray-500 mb-2">
+                <label htmlFor="franchise-city" className="block text-xs label text-brand-gray-500 mb-2">
                   Город
                 </label>
                 <input
@@ -533,7 +499,7 @@ function ContactSection() {
               </div>
 
               <div>
-                <label htmlFor="franchise-message" className="block text-xs tracking-[0.15em] uppercase text-brand-gray-500 mb-2">
+                <label htmlFor="franchise-message" className="block text-xs label text-brand-gray-500 mb-2">
                   Комментарий
                 </label>
                 <textarea
@@ -604,7 +570,7 @@ export default function FranchiseContent() {
 
           <div className="container-brand relative z-10 text-center">
             <motion.p
-              className="text-xs tracking-[0.3em] uppercase text-brand-gray-300 mb-4"
+              className="text-xs eyebrow text-brand-gray-300 mb-4"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
@@ -620,7 +586,7 @@ export default function FranchiseContent() {
               Откройте магазин <span className="text-brand-accent">Diverse</span>
             </motion.h1>
             <motion.p
-              className="text-base md:text-lg text-white/60 max-w-2xl mx-auto mb-10"
+              className="body-text text-white/60 max-w-2xl mx-auto mb-10"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -637,17 +603,17 @@ export default function FranchiseContent() {
             >
               <div className="text-center">
                 <p className="text-3xl md:text-4xl font-bold text-white">0 ₽</p>
-                <p className="text-xs tracking-[0.15em] uppercase text-white/50 mt-1">Взнос</p>
+                <p className="text-xs label text-white/50 mt-1">Взнос</p>
               </div>
               <div className="w-px bg-white/15" />
               <div className="text-center">
                 <p className="text-3xl md:text-4xl font-bold text-white">0%</p>
-                <p className="text-xs tracking-[0.15em] uppercase text-white/50 mt-1">Роялти</p>
+                <p className="text-xs label text-white/50 mt-1">Роялти</p>
               </div>
               <div className="w-px bg-white/15" />
               <div className="text-center">
                 <p className="text-3xl md:text-4xl font-bold text-brand-accent">11</p>
-                <p className="text-xs tracking-[0.15em] uppercase text-white/50 mt-1">Магазинов</p>
+                <p className="text-xs label text-white/50 mt-1">Магазинов</p>
               </div>
             </motion.div>
           </div>

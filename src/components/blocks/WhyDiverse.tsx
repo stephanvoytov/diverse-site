@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import SectionHeader from "@/components/shared/SectionHeader";
 import { formatCards, type FormatCard } from "@/data/formats";
 import { formatBig, formatPayoff } from "@/lib/format";
 
@@ -9,23 +10,15 @@ export default function WhyDiverse() {
     <section data-header="light" className="bg-white py-16 md:py-24">
       <div className="container-brand">
         {/* Header */}
-        <motion.div
-          className="text-center mb-14 md:mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5 }}
+        <SectionHeader
+          eyebrow="Эффективность"
+          desc="Три сценария — от консервативного до агрессивного"
+          descClassName="body-text text-brand-gray-400 max-w-2xl mx-auto"
+          className="mb-14 md:mb-16"
+          margin
         >
-          <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">
-            Эффективность
-          </p>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-brand-black leading-[1.1] mb-4">
-            Сколько приносит <span className="text-brand-accent">каждый формат</span>
-          </h2>
-          <p className="text-base md:text-lg text-brand-gray-400 max-w-2xl mx-auto">
-            Три сценария — от консервативного до агрессивного
-          </p>
-        </motion.div>
+          Сколько приносит <span className="text-brand-accent">каждый формат</span>
+        </SectionHeader>
 
         {/* Cards: horizontal swipe on mobile, grid on desktop */}
         <div className="md:grid md:grid-cols-3 flex gap-3 md:gap-6 max-w-6xl mx-auto overflow-x-auto snap-x snap-mandatory scrollbar-none pb-2 md:pb-0">
@@ -57,7 +50,7 @@ export default function WhyDiverse() {
 
               {/* Scenarios */}
               <div className="px-6 pb-6 flex flex-col flex-1 min-w-0">
-                <span className="text-[11px] tracking-[0.15em] uppercase font-semibold mb-3 text-brand-gray-400">
+                <span className="text-[11px] label font-semibold mb-3 text-brand-gray-400">
                   Сценарии окупаемости
                 </span>
 

@@ -14,15 +14,15 @@ export default function PartnerTicker({ simple }: PartnerTickerProps) {
 
       <div className="container-brand text-center">
         {simple ? (
-          <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 pb-8 md:pb-12">
+          <p className="text-xs eyebrow text-brand-gray-400 pb-8 md:pb-12">
             Партнёры Diverse
           </p>
         ) : (
           <div className="pb-8 md:pb-12">
-            <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">
+            <p className="text-xs eyebrow text-brand-gray-400 mb-4">
               Партнёры бренда
             </p>
-            <h2 className="text-3xl md:text-5xl font-bold text-brand-black leading-[1.1]">
+            <h2 className="section-title text-brand-black">
               С кем сотрудничает{" "}
               <span className="text-brand-accent">Diverse</span>
             </h2>

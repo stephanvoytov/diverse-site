@@ -104,7 +104,7 @@ export default function Header({ transparent }: { transparent?: boolean }) {
             <Link
               key={link.href}
               href={link.href}
-              className={`text-xs tracking-[0.15em] uppercase font-light transition-colors duration-300 ${navColor} ${
+              className={`text-xs label font-light transition-colors duration-300 ${navColor} ${
                 isActive(link.href) ? "!text-brand-accent font-semibold" : ""
               }`}
             >

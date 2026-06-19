@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import SectionHeader from "@/components/shared/SectionHeader";
 import { faqItems } from "@/data/franchise";
 
 export default function Faq() {
@@ -11,25 +12,15 @@ export default function Faq() {
     <section data-header="light" className="bg-white overflow-hidden">
       <div className="container-brand py-16 md:py-24">
         {/* Header */}
-        <motion.div
-          className="text-center mb-12 md:mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5 }}
-          style={{ willChange: "transform, opacity" }}
+        <SectionHeader
+          eyebrow="Часто спрашивают"
+          desc="Собрали то, что обычно волнует перед открытием"
+          className="mb-12 md:mb-16"
+          margin
         >
-          <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">
-            Часто спрашивают
-          </p>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-brand-black leading-[1.1] mb-4">
-            Отвечаем на{" "}
-            <span className="text-brand-accent">главные вопросы</span>
-          </h2>
-          <p className="text-base md:text-lg text-brand-gray-400 max-w-xl mx-auto">
-            Собрали то, что обычно волнует перед открытием
-          </p>
-        </motion.div>
+          Отвечаем на{" "}
+          <span className="text-brand-accent">главные вопросы</span>
+        </SectionHeader>
 
         {/* Accordion */}
         <div className="max-w-3xl mx-auto space-y-3">

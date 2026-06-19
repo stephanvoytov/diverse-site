@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import SectionHeader from "@/components/shared/SectionHeader";
+import FadeIn from "@/components/shared/FadeIn";
 import { caseStudies } from "@/data/metrics";
 import { asset } from "@/lib/path";
 import YoutubeEmbed from "@/components/shared/YoutubeEmbed";
@@ -14,24 +16,14 @@ export default function CaseStudies() {
     <section id="section-cases" data-header="light" className="bg-white py-16 md:py-24">
       <div className="container-brand">
         {/* Header */}
-        <motion.div
-          className="text-center mb-12 md:mb-14"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5 }}
-          style={{ willChange: "transform, opacity" }}
+        <SectionHeader
+          eyebrow="Реальные результаты"
+          desc="Реальные истории партнёров — от Калининграда до Уфы"
+          className="mb-12 md:mb-14"
+          margin
         >
-          <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">
-            Реальные результаты
-          </p>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-brand-black leading-[1.1] mb-4">
-            Кейсы действующих <span className="text-brand-accent">франчайзи</span>
-          </h2>
-          <p className="text-base md:text-lg text-brand-gray-400 max-w-xl mx-auto">
-             Реальные истории партнёров — от Калининграда до Уфы
-          </p>
-        </motion.div>
+          Кейсы действующих <span className="text-brand-accent">франчайзи</span>
+        </SectionHeader>
 
          {/* Cards */}
         <div className="grid md:grid-cols-2 gap-5 md:gap-6 max-w-4xl mx-auto">
@@ -39,13 +31,13 @@ export default function CaseStudies() {
             const isVideo = videoOpen === cs.id;
 
             return (
-            <motion.article
+            <FadeIn
+              as="article"
               key={cs.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              style={{ willChange: "transform, opacity" }}
+              delay={i * 0.1}
+              duration={0.5}
+              y={30}
+              margin
               className={`group rounded-sm overflow-hidden border border-brand-gray-200 bg-white hover:border-brand-gray-300 hover:shadow-sm transition-[border-color,box-shadow] duration-300 ${
                 i >= 2 ? 'hidden' : ''
               }`}
@@ -134,7 +126,7 @@ export default function CaseStudies() {
                   </p>
                 )}
               </div>
-            </motion.article>
+            </FadeIn>
           );
         })}
         </div>

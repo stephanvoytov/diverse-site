@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import SectionHeader from "@/components/shared/SectionHeader";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -63,24 +64,15 @@ export default function Contacts() {
     <section id="section-contacts" data-header="dark" className="min-h-screen bg-brand-black">
       <div className="container-brand py-10 md:py-12">
         {/* Заголовок */}
-        <motion.div
-          className="text-center mb-10 md:mb-14"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5 }}
-          style={{ willChange: "transform, opacity" }}
+        <SectionHeader
+          eyebrow="Свяжитесь с нами"
+          desc="Откройте магазин Diverse по франшизе или задайте любой вопрос"
+          className="mb-10 md:mb-14"
+          margin
+          dark
         >
-          <p className="text-xs tracking-[0.3em] uppercase text-white/40 mb-4">
-            Свяжитесь с нами
-          </p>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-4">
-            Контакты
-          </h2>
-          <p className="text-base md:text-lg text-white/40 max-w-xl mx-auto">
-            Откройте магазин Diverse по франшизе или задайте любой вопрос
-          </p>
-        </motion.div>
+          Контакты
+        </SectionHeader>
 
         <motion.div
           className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16"
@@ -94,7 +86,7 @@ export default function Contacts() {
           <div>
             <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
               <div>
-                <label htmlFor="name" className="block text-xs tracking-[0.15em] uppercase text-white/50 mb-2">
+                <label htmlFor="name" className="block text-xs label text-white/50 mb-2">
                   Имя <span className="text-brand-accent">*</span>
                 </label>
                 <input
@@ -114,7 +106,7 @@ export default function Contacts() {
               </div>
 
               <div>
-                <label htmlFor="phone" className="block text-xs tracking-[0.15em] uppercase text-white/50 mb-2">
+                <label htmlFor="phone" className="block text-xs label text-white/50 mb-2">
                   Телефон <span className="text-brand-accent">*</span>
                 </label>
                 <PhoneInput
@@ -131,7 +123,7 @@ export default function Contacts() {
               </div>
 
               <div>
-                <label htmlFor="contacts-format" className="block text-xs tracking-[0.15em] uppercase text-white/50 mb-2">
+                <label htmlFor="contacts-format" className="block text-xs label text-white/50 mb-2">
                   Формат
                 </label>
                 <select
@@ -150,7 +142,7 @@ export default function Contacts() {
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-xs tracking-[0.15em] uppercase text-white/50 mb-2">
+                <label htmlFor="message" className="block text-xs label text-white/50 mb-2">
                   Сообщение
                 </label>
                 <textarea
@@ -196,7 +188,7 @@ export default function Contacts() {
             <div className="space-y-8">
               {/* Реквизиты */}
               <div>
-                <p className="text-xs tracking-[0.15em] uppercase text-white/40 mb-4">
+                <p className="text-xs label text-white/40 mb-4">
                   Реквизиты
                 </p>
                 <h3 className="text-xl font-bold text-white mb-1">ООО «ХАУС»</h3>
@@ -208,7 +200,7 @@ export default function Contacts() {
 
               {/* Email / Phone */}
               <div>
-                <p className="text-xs tracking-[0.15em] uppercase text-white/40 mb-4">
+                <p className="text-xs label text-white/40 mb-4">
                   Контакты
                 </p>
                 <ul className="space-y-3">
@@ -233,7 +225,7 @@ export default function Contacts() {
 
               {/* Соцсети */}
               <div>
-                <p className="text-xs tracking-[0.15em] uppercase text-white/40 mb-4">
+                <p className="text-xs label text-white/40 mb-4">
                   Социальные сети
                 </p>
                 <div className="flex flex-wrap gap-3">

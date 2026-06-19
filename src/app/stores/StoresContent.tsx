@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import SectionHeader from "@/components/shared/SectionHeader";
 import Image from "next/image";
 import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
@@ -29,7 +30,7 @@ export default function StoresContent() {
           />
           <div className="container-brand relative z-10 text-center">
             <motion.p
-              className="text-xs tracking-[0.3em] uppercase text-brand-gray-300 mb-4"
+              className="text-xs eyebrow text-brand-gray-300 mb-4"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
@@ -45,7 +46,7 @@ export default function StoresContent() {
               Партнёрская сеть <span className="text-brand-accent">ООО «ХАУС»</span>
             </motion.h1>
             <motion.p
-              className="text-base md:text-lg text-white/60 max-w-xl mx-auto mb-10"
+              className="section-desc  mb-10"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -61,17 +62,17 @@ export default function StoresContent() {
             >
               <div className="text-center">
                 <p className="text-4xl md:text-5xl font-bold text-white">11</p>
-                <p className="text-xs tracking-[0.15em] uppercase text-white/50 mt-1">Магазинов</p>
+                <p className="text-xs label text-white/50 mt-1">Магазинов</p>
               </div>
               <div className="w-px bg-white/15" />
               <div className="text-center">
                 <p className="text-4xl md:text-5xl font-bold text-brand-accent">10</p>
-                <p className="text-xs tracking-[0.15em] uppercase text-white/50 mt-1">Городов</p>
+                <p className="text-xs label text-white/50 mt-1">Городов</p>
               </div>
               <div className="w-px bg-white/15" />
               <div className="text-center">
                 <p className="text-4xl md:text-5xl font-bold text-white">2</p>
-                <p className="text-xs tracking-[0.15em] uppercase text-white/50 mt-1">Страны</p>
+                <p className="text-xs label text-white/50 mt-1">Страны</p>
               </div>
             </motion.div>
           </div>
@@ -80,20 +81,12 @@ export default function StoresContent() {
         {/* Store grid */}
         <section data-header="light" className="bg-white py-20 md:py-28">
           <div className="container-brand">
-            <motion.div
-              className="text-center mb-14"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+            <SectionHeader
+              eyebrow="Адреса"
+              desc="От Калининграда до Якутска и Алматы"
             >
-              <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">Адреса</p>
-              <h2 className="text-3xl md:text-5xl font-bold text-brand-black leading-[1.1] mb-4">
-                Все магазины <span className="text-brand-accent">Diverse</span>
-              </h2>
-              <p className="text-base md:text-lg text-brand-gray-400 max-w-xl mx-auto">
-                От Калининграда до Якутска и Алматы
-              </p>
-            </motion.div>
+              Все магазины <span className="text-brand-accent">Diverse</span>
+            </SectionHeader>
 
             {/* Россия */}
             <div className="mb-14">
@@ -129,7 +122,7 @@ export default function StoresContent() {
         <section data-header="dark" className="bg-brand-black py-16 md:py-20 text-center">
           <div className="container-brand">
             <motion.h2
-              className="text-3xl md:text-5xl font-bold text-white leading-[1.1] mb-4"
+              className="section-title "
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -137,7 +130,7 @@ export default function StoresContent() {
               {city ? `Нет магазина в ${city}?` : "Нет магазина в вашем городе?"}
             </motion.h2>
             <motion.p
-              className="text-base md:text-lg text-white/60 max-w-xl mx-auto mb-8"
+              className="section-desc  mb-8"
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -155,7 +148,7 @@ export default function StoresContent() {
             >
               <button
                 onClick={openModal}
-                className="inline-flex items-center justify-center px-8 py-4 text-sm tracking-[0.2em] font-semibold uppercase text-white bg-brand-accent hover:bg-brand-accent-hover transition-all duration-300 rounded-sm cursor-pointer"
+                className="btn-accent"
               >
                 Стать партнёром
               </button>

@@ -26,7 +26,7 @@ export default function Franchise() {
         {/* Header */}
         <div className="text-center mb-12">
           <motion.p
-            className="text-xs tracking-[0.3em] uppercase text-brand-gray-300 mb-4"
+            className="text-xs eyebrow text-brand-gray-300 mb-4"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
@@ -36,7 +36,7 @@ export default function Franchise() {
             Франшиза
           </motion.p>
           <motion.h2
-            className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-4"
+            className="section-title "
             initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
@@ -47,7 +47,7 @@ export default function Franchise() {
             <span className="text-brand-accent">Diverse</span>
           </motion.h2>
           <motion.p
-            className="text-base md:text-lg text-white/50 max-w-xl mx-auto"
+            className="section-desc "
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
@@ -212,7 +212,7 @@ export default function Franchise() {
           >
             <button
               onClick={openModal}
-              className="inline-flex items-center justify-center px-8 py-4 text-sm tracking-[0.2em] font-semibold uppercase text-white bg-brand-accent hover:bg-brand-accent-hover transition-all duration-300 rounded-sm cursor-pointer"
+              className="btn-accent"
             >
               Стать партнёром
             </button>

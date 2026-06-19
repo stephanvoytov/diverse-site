@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import SectionHeader from "@/components/shared/SectionHeader";
 
 const reasons = [
   "Освобождение ниш после 2022 года — международные сети ушли, их место заняли локальные бренды",
@@ -15,24 +16,15 @@ export default function MarketBlock() {
     <section data-header="light" className="bg-brand-gray-100 py-16 md:py-24">
       <div className="container-brand">
         {/* Header */}
-        <motion.div
-          className="text-center mb-12 md:mb-14"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5 }}
+        <SectionHeader
+          eyebrow="Почему сейчас"
+          className="mb-12 md:mb-14"
+          desc="Рынок одежды в России переживает структурные изменения — это создаёт окно возможностей для новых игроков"
+          margin
         >
-          <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">
-            Почему сейчас
-          </p>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-brand-black leading-[1.1] mb-4">
-            Выгодное время для{" "}
-            <span className="text-brand-accent">открытия магазина</span>
-          </h2>
-          <p className="text-base md:text-lg text-brand-gray-400 max-w-xl mx-auto">
-            Рынок одежды в России переживает структурные изменения — это создаёт окно возможностей для новых игроков
-          </p>
-        </motion.div>
+          Выгодное время для{" "}
+          <span className="text-brand-accent">открытия магазина</span>
+        </SectionHeader>
 
         {/* Reasons list */}
         <div className="max-w-3xl mx-auto space-y-5">
@@ -46,7 +38,7 @@ export default function MarketBlock() {
               className="flex items-start gap-4"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-brand-accent shrink-0 mt-2.5" />
-              <p className="text-base md:text-lg text-brand-gray-500 leading-relaxed">
+              <p className="body-text text-brand-gray-500 leading-relaxed">
                 {reason}
               </p>
             </motion.div>

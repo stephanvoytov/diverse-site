@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import { motion } from "framer-motion";
+import SectionHeader from "@/components/shared/SectionHeader";
 import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
 import { useModal } from "@/lib/modal-context";
@@ -34,7 +35,7 @@ export default function AboutContent() {
         <section data-header="dark" className="relative bg-brand-black pt-20 pb-16 md:pt-40 md:pb-32">
           <div className="container-brand text-center">
             <motion.p
-              className="text-xs tracking-[0.3em] uppercase text-brand-gray-300 mb-4"
+              className="text-xs eyebrow text-brand-gray-300 mb-4"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
@@ -50,7 +51,7 @@ export default function AboutContent() {
               <span className="text-brand-accent">30 лет</span> европейского качества
             </motion.h1>
             <motion.p
-              className="text-base md:text-lg text-white/60 max-w-2xl mx-auto"
+              className="body-text text-white/60 max-w-2xl mx-auto"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -79,7 +80,7 @@ export default function AboutContent() {
                   <p className={`text-5xl md:text-6xl font-bold ${s.accent ? "text-brand-accent" : "text-brand-black"}`}>
                     <CountUp to={s.num} suffix={s.suffix} className="" />
                   </p>
-                  <p className="text-[10px] md:text-xs tracking-[0.15em] uppercase text-brand-gray-400 mt-1 md:mt-2">{s.label}</p>
+                  <p className="text-[10px] md:text-xs label text-brand-gray-400 mt-1 md:mt-2">{s.label}</p>
                 </motion.div>
               ))}
             </div>
@@ -92,19 +93,13 @@ export default function AboutContent() {
         {/* ===== 4. О бренде (бывшая Philosophy) ===== */}
         <section data-header="light" className="bg-brand-gray-100 py-20 md:py-28">
           <div className="container-brand max-w-4xl">
-            <motion.div
-              className="text-center mb-14"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+            <SectionHeader
+              eyebrow="О бренде"
             >
-              <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">О бренде</p>
-              <h2 className="text-3xl md:text-5xl font-bold text-brand-black leading-[1.1]">
-                Идеология <span className="text-brand-accent">Diverse</span>
-              </h2>
-            </motion.div>
+              Идеология <span className="text-brand-accent">Diverse</span>
+            </SectionHeader>
 
-            <div className="space-y-6 text-base md:text-lg text-brand-gray-400 leading-relaxed">
+            <div className="space-y-6 body-text text-brand-gray-400 leading-relaxed">
               <motion.p
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -139,17 +134,11 @@ export default function AboutContent() {
         {/* ===== 5. Европейское качество — 3 колонки ===== */}
         <section data-header="light" className="bg-white py-20 md:py-28">
           <div className="container-brand">
-            <motion.div
-              className="text-center mb-14"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+            <SectionHeader
+              eyebrow="Преимущества"
             >
-              <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">Преимущества</p>
-              <h2 className="text-3xl md:text-5xl font-bold text-brand-black leading-[1.1]">
-                Европейское качество. <span className="text-brand-accent">Проверено годами</span>
-              </h2>
-            </motion.div>
+              Европейское качество. <span className="text-brand-accent">Проверено годами</span>
+            </SectionHeader>
 
             <div className="grid md:grid-cols-3 gap-8 md:gap-12">
               {[
@@ -185,17 +174,11 @@ export default function AboutContent() {
         {/* ===== 6. Timeline + Collections ===== */}
         <section data-header="light" className="bg-brand-gray-100 py-20 md:py-28">
           <div className="container-brand">
-            <motion.div
-              className="text-center mb-16"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+            <SectionHeader
+              eyebrow="История"
             >
-              <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">История</p>
-              <h2 className="text-3xl md:text-5xl font-bold text-brand-black leading-[1.1]">
-                От Гданьска до <span className="text-brand-accent">мировых столиц</span>
-              </h2>
-            </motion.div>
+              От Гданьска до <span className="text-brand-accent">мировых столиц</span>
+            </SectionHeader>
 
             <div className="relative max-w-3xl mx-auto">
               <div className="absolute left-[19px] top-0 bottom-0 w-px bg-brand-gray-300 md:left-1/2 md:-translate-x-px" />
@@ -263,11 +246,11 @@ export default function AboutContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
-                <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">Представитель в России</p>
-                <h2 className="text-3xl md:text-5xl font-bold text-brand-black leading-[1.1] mb-6">
+                <p className="text-xs eyebrow text-brand-gray-400 mb-4">Представитель в России</p>
+                <h2 className="section-title text-brand-black mb-6">
                   ООО «ХАУС» — официальный дистрибьютор
                 </h2>
-                <p className="text-base md:text-lg text-brand-gray-400 leading-relaxed max-w-2xl mx-auto mb-8">
+                <p className="body-text text-brand-gray-400 leading-relaxed max-w-2xl mx-auto mb-8">
                   Мы — официальные представители марки Diverse в России и странах СНГ. 
                   Запустили 11 магазинов в РФ и Казахстане. Наша задача — сделать европейское качество доступным для партнёров по всей стране.
                 </p>
@@ -286,7 +269,7 @@ export default function AboutContent() {
         <section data-header="dark" className="bg-brand-black py-16 md:py-20 text-center">
           <div className="container-brand">
             <motion.h2
-              className="text-3xl md:text-5xl font-bold text-white leading-[1.1] mb-6"
+              className="section-title text-white mb-6"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -301,7 +284,7 @@ export default function AboutContent() {
             >
               <button
                 onClick={openModal}
-                className="inline-flex items-center justify-center px-8 py-4 text-sm tracking-[0.2em] font-semibold uppercase text-white bg-brand-accent hover:bg-brand-accent-hover transition-all duration-300 rounded-sm cursor-pointer"
+                className="btn-accent"
               >
                 Стать партнёром
               </button>

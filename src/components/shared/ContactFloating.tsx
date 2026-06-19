@@ -172,7 +172,7 @@ export default function ContactFloating() {
                       <button
                         type="submit"
                         disabled={status === "sending" || status === "success"}
-                        className="w-full py-2.5 bg-brand-accent text-white text-xs tracking-[0.15em] uppercase font-semibold rounded-sm hover:bg-brand-accent-hover transition-colors disabled:opacity-50 cursor-pointer"
+                        className="w-full py-2.5 bg-brand-accent text-white text-xs label font-semibold rounded-sm hover:bg-brand-accent-hover transition-colors disabled:opacity-50 cursor-pointer"
                       >
                         {status === "sending" ? "Отправка…" : status === "success" ? "Отправлено ✓" : "Перезвоните"}
                       </button>

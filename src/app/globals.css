@@ -45,6 +45,76 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Number utility: плотный трекинг для цифр (как в OpenDesign) */
+.num {
+  letter-spacing: -0.02em;
+}
+
+/* Eyebrow — секционная метка над заголовком */
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+}
+
+/* Label — универсальная подпись (под цифрами, лейблы форм) */
+.label {
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+/* Section title — заголовок секции */
+.section-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+@media (min-width: 768px) {
+  .section-title { font-size: 3rem; }
+}
+@media (min-width: 1024px) {
+  .section-title { font-size: 3.75rem; }
+}
+
+/* Section subtitle — подзаголовок секции */
+.section-desc {
+  font-size: 1rem;
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (min-width: 768px) {
+  .section-desc { font-size: 1.125rem; }
+}
+
+/* Body text — параграф текста */
+.body-text {
+  font-size: 1rem;
+}
+@media (min-width: 768px) {
+  .body-text { font-size: 1.125rem; }
+}
+
+/* CTA accent button */
+.btn-accent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2rem;
+  font-size: 0.875rem;
+  letter-spacing: 0.2em;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: white;
+  background-color: var(--color-brand-accent);
+  transition: all 0.3s;
+  border-radius: 0.125rem;
+  cursor: pointer;
+}
+.btn-accent:hover {
+  background-color: var(--color-brand-accent-hover);
+}
+
 /* Ghost marker pulse animation */
 @keyframes ghostPulse {
   0%   { box-shadow: 0 0 0 0 rgba(209,32,38,0.6); }

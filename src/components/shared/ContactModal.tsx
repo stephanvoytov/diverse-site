@@ -522,7 +522,7 @@ export default function ContactModal() {
                     </button>
                     <button
                       onClick={handleStep2Next}
-                      className="flex-[2] py-3 bg-brand-accent text-white text-xs tracking-[0.15em] uppercase font-semibold rounded-sm hover:bg-brand-accent-hover transition-colors cursor-pointer"
+                      className="flex-[2] py-3 bg-brand-accent text-white text-xs label font-semibold rounded-sm hover:bg-brand-accent-hover transition-colors cursor-pointer"
                     >
                       Далее
                     </button>

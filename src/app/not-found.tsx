@@ -26,7 +26,7 @@ export default function NotFound() {
         {/* CTA */}
         <Link
           href="/"
-          className="inline-flex items-center justify-center px-8 py-4 text-sm tracking-[0.2em] uppercase font-semibold bg-brand-accent text-white hover:bg-brand-accent-hover transition-colors rounded-sm"
+          className="btn-accent"
         >
           На главную
         </Link>

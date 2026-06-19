@@ -289,13 +289,13 @@ export default function Stores() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">
+          <p className="text-xs eyebrow text-brand-gray-400 mb-4">
             Магазины
           </p>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-brand-black leading-[1.1] mb-4">
+          <h2 className="section-title ">
             Партнёрская сеть <span className="text-brand-accent">ООО «ХАУС»</span>
           </h2>
-          <p className="text-base md:text-lg text-brand-gray-400 max-w-xl mx-auto">
+          <p className="section-desc ">
             11 магазинов Diverse в 10 городах России и Казахстана
           </p>
 
@@ -306,7 +306,7 @@ export default function Stores() {
                 <span className="block text-3xl md:text-4xl font-bold text-brand-accent leading-none mb-1">
                   {s.count}
                 </span>
-                <span className="text-[11px] tracking-[0.15em] uppercase text-brand-gray-400">
+                <span className="text-[11px] label text-brand-gray-400">
                   {s.label}
                 </span>
               </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import SectionHeader from "@/components/shared/SectionHeader";
 import { trustPoints } from "@/data/brand";
 
 export default function TrustModel() {
@@ -8,23 +9,14 @@ export default function TrustModel() {
     <section data-header="light" className="bg-brand-gray-100 py-16 md:py-24">
       <div className="container-brand">
         {/* Header */}
-        <motion.div
-          className="text-center mb-12 md:mb-14"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5 }}
+        <SectionHeader
+          eyebrow="Как устроена модель"
+          desc="Никаких скрытых платежей и минимальных объёмов"
+          className="mb-12 md:mb-14"
+          margin
         >
-          <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">
-            Как устроена модель
-          </p>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-brand-black leading-[1.1] mb-4">
-            Прозрачная <span className="text-brand-accent">финансовая модель</span>
-          </h2>
-          <p className="text-base md:text-lg text-brand-gray-400 max-w-xl mx-auto">
-            Никаких скрытых платежей и минимальных объёмов
-          </p>
-        </motion.div>
+          Прозрачная <span className="text-brand-accent">финансовая модель</span>
+        </SectionHeader>
 
         {/* Trust cards */}
         <div className="grid md:grid-cols-2 gap-5 md:gap-6 max-w-4xl mx-auto">

@@ -3,6 +3,7 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import SectionHeader from "@/components/shared/SectionHeader";
 import { asset } from "@/lib/path";
 
 interface GalleryImage {
@@ -57,22 +58,13 @@ export default function StoreGallery({ images }: Props) {
     <>
       <section data-header="light" className="bg-white py-20 md:py-28">
         <div className="container-brand">
-          <motion.div
-            className="text-center mb-14"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+          <SectionHeader
+            eyebrow="Галерея"
+            desc="Реальные фото магазина в ТЦ «Мега Уфа»"
+            className="mb-14"
           >
-            <p className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4">
-              Галерея
-            </p>
-            <h2 className="text-3xl md:text-5xl font-bold text-brand-black leading-[1.1] mb-4">
-              Как выглядят магазины <span className="text-brand-accent">Diverse</span>
-            </h2>
-            <p className="text-base md:text-lg text-brand-gray-400 max-w-xl mx-auto">
-              Реальные фото магазина в ТЦ «Мега Уфа»
-            </p>
-          </motion.div>
+            Как выглядят магазины <span className="text-brand-accent">Diverse</span>
+          </SectionHeader>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-5xl mx-auto">
             <motion.button

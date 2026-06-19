@@ -93,7 +93,7 @@ export default function PrivacyPage() {
     <>
       <header className="bg-brand-black py-16 md:py-20">
         <div className="container-brand">
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1]">
+          <h1 className="section-title text-white">
             Политика
             <br />
             <span className="text-brand-accent">конфиденциальности</span>

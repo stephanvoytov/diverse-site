@@ -53,7 +53,7 @@ export default function About() {
         >
           <div>
             <motion.p
-              className="text-xs tracking-[0.3em] uppercase text-brand-gray-400 mb-4"
+              className="text-xs eyebrow text-brand-gray-400 mb-4"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
@@ -63,7 +63,7 @@ export default function About() {
               О бренде
             </motion.p>
             <motion.h2
-              className="text-3xl md:text-5xl lg:text-6xl font-bold text-brand-black leading-[1.1]"
+              className="section-title text-brand-black"
               initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
@@ -76,7 +76,7 @@ export default function About() {
           </div>
           <div className="flex flex-col justify-end">
             <motion.p
-              className="text-base md:text-lg text-brand-gray-400 leading-relaxed"
+              className="body-text text-brand-gray-400 leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
@@ -118,7 +118,7 @@ export default function About() {
                   return <CountUp to={Number(digits)} suffix={suffix} className={`text-3xl md:text-4xl font-bold ${stat.accent ? "text-brand-accent" : "text-brand-black"}`} />;
                 })()}
               </p>
-              <p className="text-xs tracking-[0.15em] uppercase text-brand-gray-400 mt-1">
+              <p className="text-xs label text-brand-gray-400 mt-1">
                 {stat.label}
               </p>
             </motion.div>
