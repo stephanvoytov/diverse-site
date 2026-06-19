@@ -25,10 +25,10 @@ export default function Roadmap() {
             <motion.div
               key={step.number}
               className="relative flex gap-5 md:gap-8 pb-8 md:pb-10 last:pb-0"
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              transition={{ duration: 0.4, delay: i * 0.08, ease: [0.25, 0.1, 0.25, 1] }}
     
             >
               {/* Number circle + line */}

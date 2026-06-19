@@ -36,25 +36,25 @@ export default function AboutContent() {
           <div className="container-brand text-center">
             <motion.p
               className="text-xs eyebrow text-brand-gray-300 mb-4"
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
             >
               О бренде
             </motion.p>
             <motion.h1
               className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-5"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              transition={{ duration: 0.5, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
             >
               <span className="text-brand-accent">30 лет</span> европейского качества
             </motion.h1>
             <motion.p
               className="body-text text-white/60 max-w-2xl mx-auto"
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.4, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
             >
               Польский бренд одежды для европейского стиля жизни
             </motion.p>
@@ -72,10 +72,10 @@ export default function AboutContent() {
               ].map((s, i) => (
                 <motion.div
                   key={s.label}
-                  initial={{ opacity: 0, y: 15 }}
+                  initial={{ opacity: 0, y: 12 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: i * 0.08 }}
+                  transition={{ duration: 0.35, delay: i * 0.06, ease: [0.25, 0.1, 0.25, 1] }}
                 >
                   <p className={`text-5xl md:text-6xl font-bold ${s.accent ? "text-brand-accent" : "text-brand-black"}`}>
                     <CountUp to={s.num} suffix={s.suffix} className="" />
@@ -101,17 +101,18 @@ export default function AboutContent() {
 
             <div className="space-y-6 body-text text-brand-gray-400 leading-relaxed">
               <motion.p
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
+                transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
               >
                 Diverse — один из крупнейших и наиболее динамично развивающихся брендов одежды в Польше. Бренд ежедневно работает над созданием сильного и последовательного имиджа, разрабатывая одежду в соответствии с последними мировыми трендами.
               </motion.p>
               <motion.p
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
+                transition={{ delay: 0.1, duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
               >
                 На протяжении более 30 лет бренд страстно исследует мир моды, прислушиваясь к потребностям клиентов и отвечая на их меняющиеся ожидания. Продукция Diverse отличается инновационным подходом, функциональностью, прочностью и исключительным комфортом носки.
               </motion.p>
@@ -120,10 +121,10 @@ export default function AboutContent() {
                 <div className="w-12 h-0.5 bg-brand-accent/40 mx-auto" />
               </div>
               <motion.p
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
+                transition={{ delay: 0.2, duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
               >
                 Diverse — бренд, вдохновлённый образом жизни городских жителей. Сегодня это один из самых узнаваемых брендов Польши. Руководствуясь концепцией «Generation to Generation», Diverse создаёт вневременную одежду, которая может служить долгие годы. Коллекции отличаются превосходным качеством исполнения, вниманием к деталям и высококачественными материалами.
               </motion.p>
@@ -158,10 +159,10 @@ export default function AboutContent() {
                 <motion.div
                   key={col.title}
                   className="border border-brand-gray-200 rounded-lg p-8 text-center"
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 15 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: i * 0.1 }}
+                  transition={{ duration: 0.35, delay: i * 0.08, ease: [0.25, 0.1, 0.25, 1] }}
                 >
                   <h3 className="text-lg font-bold text-brand-black mb-3">{col.title}</h3>
                   <p className="text-sm text-brand-gray-400 leading-relaxed">{col.desc}</p>
@@ -191,10 +192,10 @@ export default function AboutContent() {
                     className={`relative flex items-start gap-6 pb-12 last:pb-0 md:gap-0 ${
                       isLeft ? "md:flex-row" : "md:flex-row-reverse"
                     }`}
-                    initial={{ opacity: 0, y: 25 }}
+                    initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: i * 0.1 }}
+                    transition={{ duration: 0.4, delay: i * 0.08, ease: [0.25, 0.1, 0.25, 1] }}
                   >
                     <div className="relative z-10 shrink-0 md:absolute md:left-1/2 md:-translate-x-1/2">
                       <div className="w-[38px] h-[38px] rounded-full bg-white border-2 border-brand-accent flex items-center justify-center">
@@ -213,13 +214,13 @@ export default function AboutContent() {
             </div>
 
             {/* Collections link */}
-            <motion.div
-              className="text-center mt-16 pt-10 border-t border-brand-gray-200"
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4 }}
-            >
+              <motion.div
+                className="text-center mt-16 pt-10 border-t border-brand-gray-200"
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
+              >
               <p className="text-sm text-brand-gray-400 mb-4">
                 Узнайте больше о продукте
               </p>
@@ -242,9 +243,10 @@ export default function AboutContent() {
 
               <motion.div
                 className="text-center"
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
+                transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
               >
                 <p className="text-xs eyebrow text-brand-gray-400 mb-4">Представитель в России</p>
                 <h2 className="section-title text-brand-black mb-6">
@@ -270,17 +272,18 @@ export default function AboutContent() {
           <div className="container-brand">
             <motion.h2
               className="section-title text-white mb-6"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
+              transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
             >
               Хотите стать партнёром <span className="text-brand-accent">Diverse</span>?
             </motion.h2>
             <motion.div
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
+              transition={{ delay: 0.1, duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
             >
               <button
                 onClick={openModal}

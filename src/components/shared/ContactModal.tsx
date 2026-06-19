@@ -47,10 +47,10 @@ function StepFormat({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, x: 30 }}
+      initial={{ opacity: 0, x: 24 }}
       animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -30 }}
-      transition={{ duration: 0.3 }}
+      exit={{ opacity: 0, x: -24 }}
+      transition={{ duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
     >
       <p className="text-xs tracking-[0.2em] uppercase text-brand-gray-400 mb-1">
         Шаг 1 из 3
@@ -154,10 +154,10 @@ function StepCity({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, x: 30 }}
+      initial={{ opacity: 0, x: 24 }}
       animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -30 }}
-      transition={{ duration: 0.3 }}
+      exit={{ opacity: 0, x: -24 }}
+      transition={{ duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
     >
       <p className="text-xs tracking-[0.2em] uppercase text-brand-gray-400 mb-1">
         Шаг 2 из 3
@@ -233,10 +233,10 @@ function StepContact({
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 30 }}
+      initial={{ opacity: 0, x: 24 }}
       animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -30 }}
-      transition={{ duration: 0.3 }}
+      exit={{ opacity: 0, x: -24 }}
+      transition={{ duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
     >
       <p className="text-xs tracking-[0.2em] uppercase text-brand-gray-400 mb-1">
         Шаг 3 из 3
@@ -510,9 +510,10 @@ export default function ContactModal() {
                 {step === 2 && (
                   <motion.div
                     className="flex gap-3 mt-6"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
                   >
                     <button
                       onClick={() => setStep(1)}

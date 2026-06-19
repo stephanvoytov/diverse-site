@@ -31,10 +31,10 @@ export default function MarketBlock() {
           {reasons.map((reason, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
+              transition={{ duration: 0.35, delay: i * 0.06, ease: [0.25, 0.1, 0.25, 1] }}
               className="flex items-start gap-4"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-brand-accent shrink-0 mt-2.5" />

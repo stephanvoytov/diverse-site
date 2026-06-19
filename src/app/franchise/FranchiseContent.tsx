@@ -49,10 +49,10 @@ function PlansSection() {
             return (
               <motion.div
                 key={plan.id}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
+                transition={{ duration: 0.4, delay: i * 0.08, ease: [0.25, 0.1, 0.25, 1] }}
                 className={`rounded-sm overflow-hidden transition-[background-color,border-color,box-shadow] duration-500 ${
                   isOpen
                     ? "bg-white border-2 border-brand-accent/40 shadow-lg"
@@ -76,6 +76,7 @@ function PlansSection() {
                     </span>
                     <motion.span
                       animate={{ rotate: isOpen ? 45 : 0 }}
+                      transition={{ duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
                       className="w-6 h-6 rounded-full border flex items-center justify-center text-sm"
                     >
                       <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -91,7 +92,7 @@ function PlansSection() {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.35 }}
+                      transition={{ duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
                       className="overflow-hidden"
                     >
                       <div className="px-6 md:px-8 pb-6 md:pb-8 border-t border-brand-gray-200 pt-5">
@@ -131,13 +132,13 @@ function ComparisonTable() {
         </SectionHeader>
 
         {/* Desktop: полноценная таблица */}
-        <motion.div
-          className="hidden md:block max-w-4xl mx-auto overflow-x-auto"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-        >
+          <motion.div
+            className="hidden md:block max-w-4xl mx-auto overflow-x-auto"
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1, duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+          >
           <table className="w-full text-sm border-collapse">
             <thead>
               <tr>
@@ -225,9 +226,10 @@ function FinancialModel() {
         <div className="max-w-3xl mx-auto">
           <motion.div
             className="bg-white border border-brand-gray-200 rounded-sm overflow-hidden"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
           >
             {/* Table */}
             <div className="divide-y divide-brand-gray-100">
@@ -310,7 +312,7 @@ function FinancialModel() {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.2, duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="shrink-0 mt-0.5 text-brand-accent">
               <circle cx="12" cy="12" r="10" />
@@ -343,10 +345,10 @@ function BenefitsSection() {
           {benefits.map((b, i) => (
             <motion.div
               key={b}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.07 }}
+              transition={{ duration: 0.35, delay: i * 0.06, ease: [0.25, 0.1, 0.25, 1] }}
               className="flex items-start gap-4 p-5 bg-brand-gray-100 rounded-sm"
             >
               <span className="w-2 h-2 rounded-full bg-brand-accent mt-2 shrink-0" />
@@ -419,10 +421,10 @@ function ContactSection() {
 
         <motion.div
           className="max-w-2xl mx-auto"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
+          transition={{ delay: 0.1, duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
         >
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -571,25 +573,25 @@ export default function FranchiseContent() {
           <div className="container-brand relative z-10 text-center">
             <motion.p
               className="text-xs eyebrow text-brand-gray-300 mb-4"
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
             >
               Франшиза
             </motion.p>
             <motion.h1
               className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-4"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              transition={{ duration: 0.5, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
             >
               Откройте магазин <span className="text-brand-accent">Diverse</span>
             </motion.h1>
             <motion.p
               className="body-text text-white/60 max-w-2xl mx-auto mb-10"
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.4, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
             >
               Культовый польский бренд: сотни магазинов по всему миру. В России и Казахстане — пока единицы. Рынок почти свободен.
             </motion.p>
@@ -597,9 +599,9 @@ export default function FranchiseContent() {
             {/* Key numbers */}
             <motion.div
               className="flex justify-center gap-8 md:gap-16"
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              transition={{ duration: 0.4, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
             >
               <div className="text-center">
                 <p className="text-3xl md:text-4xl font-bold text-white">0 ₽</p>

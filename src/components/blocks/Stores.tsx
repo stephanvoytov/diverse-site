@@ -325,7 +325,7 @@ export default function Stores() {
           {/* Список магазинов */}
           <div
             ref={sidebarRef}
-            className="order-2 lg:order-1 overflow-y-auto border-t lg:border-t-0 lg:border-r border-brand-gray-200 max-h-[320px] lg:max-h-[480px] bg-white"
+            className="order-1 lg:order-1 overflow-y-auto border-t lg:border-t-0 lg:border-r border-brand-gray-200 max-h-[320px] lg:max-h-[480px] bg-white"
           >
             <>
               <div className="px-4 py-3.5 border-l-2 border-brand-accent/40 bg-brand-accent/[0.02]">
@@ -402,7 +402,7 @@ export default function Stores() {
           </div>
 
           {/* Карта */}
-          <div className="order-1 lg:order-2" style={{ isolation: "isolate" }}>
+          <div className="order-2 lg:order-2" style={{ isolation: "isolate" }}>
             <div ref={containerRef} className="h-[320px] md:h-[480px] w-full" />
           </div>
         </motion.div>

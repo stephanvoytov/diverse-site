@@ -9,7 +9,7 @@ export default function Faq() {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
 
   return (
-    <section data-header="light" className="bg-white overflow-hidden">
+    <section data-header="light" className="bg-brand-gray-100 overflow-hidden">
       <div className="container-brand py-16 md:py-24">
         {/* Header */}
         <SectionHeader
@@ -34,7 +34,7 @@ export default function Faq() {
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.06 }}
+                transition={{ duration: 0.35, delay: i * 0.05, ease: [0.25, 0.1, 0.25, 1] }}
                 className={`rounded-sm overflow-hidden transition-[background-color,border-color,box-shadow] duration-300 ${
                   isOpen
                     ? "bg-white shadow-md border border-brand-accent/20"
@@ -52,7 +52,7 @@ export default function Faq() {
                   </span>
                   <motion.span
                     animate={{ rotate: isOpen ? 45 : 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    transition={{ duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
                     className="shrink-0 w-6 h-6 rounded-full border border-brand-gray-300 flex items-center justify-center text-brand-gray-500 text-sm"
                   >
                     <svg
@@ -77,7 +77,7 @@ export default function Faq() {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
+                      transition={{ duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
                       className="overflow-hidden"
                     >
                       <div className="px-5 md:px-7 pb-5 md:pb-6 border-t border-brand-gray-100 pt-4">

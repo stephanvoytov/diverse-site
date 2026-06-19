@@ -54,21 +54,19 @@ export default function About() {
           <div>
             <motion.p
               className="text-xs eyebrow text-brand-gray-400 mb-4"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5 }}
-        
+              transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
             >
               О бренде
             </motion.p>
             <motion.h2
               className="section-title text-brand-black"
-              initial={{ opacity: 0, y: 25 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-        
+              transition={{ duration: 0.5, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
             >
               Diverse: <br />
               <span className="text-brand-accent">30+ лет</span> истории
@@ -77,11 +75,10 @@ export default function About() {
           <div className="flex flex-col justify-end">
             <motion.p
               className="body-text text-brand-gray-400 leading-relaxed"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-        
+              transition={{ duration: 0.45, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
             >
               Польский fashion-бренд с характером: сильный дизайн, европейское качество, дерзкая энергия. Рождён в Гданьске, вдохновлён уличной культурой и спортом.
             </motion.p>
@@ -100,11 +97,10 @@ export default function About() {
           {aboutStats.map((stat, i) => (
             <motion.div
               key={stat.num}
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.4, delay: 0.35 + i * 0.1 }}
-        
+              transition={{ duration: 0.35, delay: 0.3 + i * 0.08, ease: [0.25, 0.1, 0.25, 1] }}
             >
               <p
                 className={`text-3xl md:text-4xl font-bold ${
@@ -139,11 +135,10 @@ export default function About() {
         {/* Links */}
         <motion.div
           className="mt-4 md:mt-10 flex max-sm:flex-col items-center gap-3 md:gap-6"
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.4, delay: 0.3 }}
-    
+          transition={{ duration: 0.35, delay: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
         >
           <a
             href="/about/"

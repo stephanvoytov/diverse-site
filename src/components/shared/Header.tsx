@@ -80,14 +80,14 @@ export default function Header({ transparent }: { transparent?: boolean }) {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-[1000] transition-all duration-500 ${headerBg}`}
+      className={`fixed top-0 left-0 right-0 z-[1000] transition-all duration-300 ${headerBg}`}
     >
       <div className="container-brand flex items-center justify-between h-16 md:h-20">
         {/* Logo */}
         <Link href="/" className="flex-shrink-0 relative z-50">
           <Image
             src={asset(
-              transparent || !isScrolled
+              transparent || !isScrolled || isDarkBg
                 ? "/brand/logo-light.svg"
                 : "/brand/logo-dark.svg"
             )}
@@ -136,7 +136,7 @@ export default function Header({ transparent }: { transparent?: boolean }) {
           {/* Hamburger */}
           <button
             onClick={() => setIsMobileOpen(!isMobileOpen)}
-            className={`flex flex-col gap-1 p-2 transition-colors ${menuColor}`}
+            className={`flex flex-col items-center justify-center w-11 h-11 gap-1 transition-colors ${menuColor}`}
             aria-label={isMobileOpen ? "Закрыть меню" : "Открыть меню"}
           >
           <span

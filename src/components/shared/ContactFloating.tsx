@@ -12,7 +12,20 @@ export default function ContactFloating() {
   const [callbackOpen, setCallbackOpen] = useState(false);
   const [phone, setPhone] = useState<string | undefined>();
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [hasScrolled, setHasScrolled] = useState(false);
   const { city } = useUserCity();
+
+  // Show FAB after first scroll
+  useEffect(() => {
+    const onScroll = () => {
+      if (window.scrollY > 300) {
+        setHasScrolled(true);
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   // Close on Escape
   useEffect(() => {
@@ -48,8 +61,8 @@ export default function ContactFloating() {
         onClick={() => setIsOpen(!isOpen)}
         className="fixed right-5 bottom-5 z-50 flex items-center justify-center w-11 h-11 rounded-full bg-brand-accent text-white shadow-lg hover:shadow-xl active:scale-95 transition-shadow duration-200 cursor-pointer"
         initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 2, duration: 0.4, ease: "easeOut" }}
+        animate={hasScrolled ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
+        transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
         aria-label="Связаться"
       >
         <svg

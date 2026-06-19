@@ -6,7 +6,7 @@ import { trustPoints } from "@/data/brand";
 
 export default function TrustModel() {
   return (
-    <section data-header="light" className="bg-brand-gray-100 py-16 md:py-24">
+    <section data-header="light" className="bg-white py-16 md:py-24">
       <div className="container-brand">
         {/* Header */}
         <SectionHeader
@@ -23,10 +23,10 @@ export default function TrustModel() {
           {trustPoints.map((point, i) => (
             <motion.div
               key={point.title}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              transition={{ duration: 0.4, delay: i * 0.08, ease: [0.25, 0.1, 0.25, 1] }}
               className="bg-white border border-brand-gray-200 rounded-sm p-6 md:p-8"
             >
               <h3 className="text-lg md:text-xl font-bold text-brand-black mb-2">

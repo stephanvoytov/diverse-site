@@ -31,25 +31,25 @@ export default function StoresContent() {
           <div className="container-brand relative z-10 text-center">
             <motion.p
               className="text-xs eyebrow text-brand-gray-300 mb-4"
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
             >
               Магазины
             </motion.p>
             <motion.h1
               className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-4"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              transition={{ duration: 0.5, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
             >
               Партнёрская сеть <span className="text-brand-accent">ООО «ХАУС»</span>
             </motion.h1>
             <motion.p
               className="section-desc  mb-10"
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.4, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
             >
               11 магазинов Diverse в 10 городах России и Казахстана
             </motion.p>
@@ -58,7 +58,7 @@ export default function StoresContent() {
               className="flex justify-center gap-8 md:gap-16"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
             >
               <div className="text-center">
                 <p className="text-4xl md:text-5xl font-bold text-white">11</p>
@@ -123,28 +123,29 @@ export default function StoresContent() {
           <div className="container-brand">
             <motion.h2
               className="section-title "
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
+              transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
             >
               {city ? `Нет магазина в ${city}?` : "Нет магазина в вашем городе?"}
             </motion.h2>
             <motion.p
               className="section-desc  mb-8"
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
+              transition={{ delay: 0.1, duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
             >
               {city
                 ? `Откройте Diverse по франшизе — станьте первым в ${city}`
                 : "Откройте его по франшизе — станьте первым в своём городе"}
             </motion.p>
             <motion.div
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
+              transition={{ delay: 0.2, duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
             >
               <button
                 onClick={openModal}
@@ -167,10 +168,10 @@ function StoreCard({ store, index }: { store: (typeof stores)[0]; index: number 
   const [imgFailed, setImgFailed] = useState(false);
   return (
     <motion.article
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.4, delay: (index % 6) * 0.06 }}
+      transition={{ duration: 0.35, delay: (index % 6) * 0.05, ease: [0.25, 0.1, 0.25, 1] }}
       className="group rounded-sm overflow-hidden bg-brand-gray-100 border border-brand-gray-200 hover:border-brand-gray-300 transition-colors duration-300"
     >
       <div className="aspect-[4/3] bg-brand-gray-200 overflow-hidden">

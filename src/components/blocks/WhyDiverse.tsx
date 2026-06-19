@@ -21,7 +21,8 @@ export default function WhyDiverse() {
         </SectionHeader>
 
         {/* Cards: horizontal swipe on mobile, grid on desktop */}
-        <div className="md:grid md:grid-cols-3 flex gap-3 md:gap-6 max-w-6xl mx-auto overflow-x-auto snap-x snap-mandatory scrollbar-none pb-2 md:pb-0">
+        <div className="relative max-w-6xl mx-auto">
+          <div className="md:grid md:grid-cols-3 flex gap-3 md:gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-2 md:pb-0">
           {formatCards.map((card, i) => (
             <motion.div
               key={card.id}
@@ -102,6 +103,9 @@ export default function WhyDiverse() {
             </motion.div>
           ))}
         </div>
+        {/* Scroll hint gradient on mobile */}
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent md:hidden" />
+      </div>
 
         {/* Single link to franchise page */}
         <motion.div

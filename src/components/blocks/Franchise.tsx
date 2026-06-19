@@ -27,32 +27,29 @@ export default function Franchise() {
         <div className="text-center mb-12">
           <motion.p
             className="text-xs eyebrow text-brand-gray-300 mb-4"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.5 }}
-            style={{ willChange: "transform, opacity" }}
+            transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
           >
             Франшиза
           </motion.p>
           <motion.h2
-            className="section-title "
-            initial={{ opacity: 0, y: 25 }}
+            className="section-title text-white"
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            style={{ willChange: "transform, opacity" }}
+            transition={{ duration: 0.5, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
           >
             Откройте магазин{" "}
             <span className="text-brand-accent">Diverse</span>
           </motion.h2>
           <motion.p
-            className="section-desc "
-            initial={{ opacity: 0, y: 15 }}
+            className="section-desc text-white/50"
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            style={{ willChange: "transform, opacity" }}
+            transition={{ duration: 0.4, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
           >
             Три формата на выбор. Без паушального взноса и роялти.
           </motion.p>
@@ -60,7 +57,7 @@ export default function Franchise() {
 
         {/* Cards — тизер: имя, описание и инвестиции */}
         <motion.div
-          className="grid md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto"
+          className="grid md:grid-cols-3 gap-[4px] max-w-5xl mx-auto"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
@@ -75,32 +72,37 @@ export default function Franchise() {
                 hidden: { opacity: 0, y: 24 },
                 visible: { opacity: 1, y: 0 },
               }}
-              className="bg-white/5 border border-white/10 rounded-sm p-6 md:p-8 flex flex-col"
+              whileHover={{ y: -4 }}
+              className={`rounded-sm p-6 md:p-8 flex flex-col transition-colors duration-300 ${
+                plan.id === 'renovation'
+                  ? 'border border-brand-accent bg-brand-accent/6 hover:bg-brand-accent/10'
+                  : 'border border-white/10 bg-white/5 hover:bg-white/[0.07] hover:border-white/15'
+              }`}
             >
-              <p className="text-xs tracking-[0.2em] uppercase text-brand-accent mb-2">
+              <p className="text-[10px] tracking-[0.15em] uppercase text-brand-accent mb-3">
                 {plan.tagline}
               </p>
-              <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">
+              <h3 className="text-2xl font-bold text-white mb-3 tracking-[-0.01em]">
                 {plan.name}
               </h3>
-              <p className="text-sm text-white/50 leading-relaxed">
+              <p className="text-[13px] text-white/45 leading-relaxed mb-6">
                 {plan.desc}
               </p>
-              {/* Investment + Profit */}
-              <div className="mt-auto pt-5 flex items-end justify-between gap-2">
+              {/* Investment + Profit — stacked vertically */}
+              <div className="mt-auto pt-5 space-y-3">
                 <div>
-                  <p className="text-lg md:text-xl font-bold text-brand-accent">
+                  <p className="text-[28px] font-bold text-brand-accent mb-0.5">
                     {plan.investment}
                   </p>
-                  <p className="text-[11px] text-white/30 tracking-wide">
+                  <p className="text-[11px] text-white/30 tracking-[0.1em] uppercase">
                     Инвестиции
                   </p>
                 </div>
-                <div className="text-right">
-                  <p className="text-lg md:text-xl font-bold text-white">
+                <div>
+                  <p className="text-lg font-bold text-white">
                     {cardProfit[plan.id]}
                   </p>
-                  <p className="text-[11px] text-white/30 tracking-wide">
+                  <p className="text-[11px] text-white/30 tracking-[0.1em] uppercase">
                     Прибыль / мес
                   </p>
                 </div>
@@ -134,8 +136,8 @@ export default function Franchise() {
                   visible: { opacity: 1, x: 0 },
                 }}
               >
-                <span className="w-1 h-1 rounded-full bg-brand-accent shrink-0" />
-                <span className="text-sm text-white/60">{b}</span>
+                <span className="w-[6px] h-[6px] rounded-full bg-brand-accent shrink-0" />
+                <span className="text-[13px] text-white/60">{b}</span>
               </motion.div>
             ))}
           </motion.div>

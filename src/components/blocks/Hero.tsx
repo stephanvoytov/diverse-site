@@ -66,9 +66,9 @@ export default function Hero() {
         {/* Tagline */}
         <motion.p
           className="text-xs md:text-sm eyebrow text-white/60 max-sm:mb-4 mb-5"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
         >
           Официальный представитель бренда в России
         </motion.p>
@@ -76,9 +76,9 @@ export default function Hero() {
         {/* Main Heading — smoother progression */}
         <motion.h1
           className="flex flex-col max-md:text-[13vw] md:text-8xl lg:text-9xl font-bold text-white uppercase leading-none max-w-5xl"
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{ duration: 0.7, delay: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
         >
           <span>Франшиза</span>
           <span className="text-brand-accent -mt-1 sm:-mt-2 md:-mt-3 leading-none">
@@ -89,24 +89,21 @@ export default function Hero() {
         {/* Description */}
         <motion.p
           className="max-sm:mt-4 mt-5 max-sm:text-xs body-text text-white/70 max-w-2xl leading-relaxed"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
+          transition={{ duration: 0.6, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
         >
           {city
             ? `Откройте Diverse в ${city} — рядом с вами уже 11 магазинов сети`
-            : <>
-                <span className="max-sm:hidden">Готовая модель бизнеса в сегменте масс-маркет/мидл. Один из самых популярных брендов в Европе. Партнёр Dakar Rally.</span>
-                <span className="sm:hidden">Готовая модель бизнеса в сегменте масс-маркет/мидл. Один из самых популярных брендов в Европе. Партнёр Dakar Rally.</span>
-              </>}
+            : "Готовая модель бизнеса в сегменте масс-маркет/мидл. Один из самых популярных брендов в Европе. Партнёр Dakar Rally."}
         </motion.p>
 
         {/* Pricing — separate, more prominent on mobile */}
         <motion.p
           className="max-sm:mt-3 mt-3 max-sm:text-sm body-text text-white/90 font-medium max-w-2xl leading-snug"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.7 }}
+          transition={{ duration: 0.6, delay: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
         >
           0&nbsp;₽ паушальный взнос&nbsp;·&nbsp;0%&nbsp;роялти&nbsp;·&nbsp;от&nbsp;800&nbsp;000&nbsp;₽
         </motion.p>
@@ -114,29 +111,29 @@ export default function Hero() {
         {/* CTA Buttons */}
         <motion.div
           className="max-sm:mt-6 mt-8 flex flex-col sm:flex-row max-sm:gap-3 gap-3"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
+          transition={{ duration: 0.6, delay: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <Button variant="accent" size="md" className="sm:px-8 sm:py-4" onClick={openModal}>
+          <Button variant="accent" size="md" className="max-sm:py-[14px] sm:px-8 sm:py-4" onClick={openModal}>
             Получить консультацию
           </Button>
           <Button
             variant="outline"
             size="md"
             onClick={() => document.getElementById("section-cases")?.scrollIntoView({ behavior: "smooth" })}
-            className="border-white text-white hover:bg-white hover:text-black sm:px-8 sm:py-4"
+            className="border-white text-white hover:bg-white hover:text-black max-sm:py-[14px] sm:px-8 sm:py-4"
           >
             Посмотреть кейсы
           </Button>
         </motion.div>
 
-        {/* Stats row */}
+          {/* Stats row */}
         <motion.div
           className="max-sm:mt-6 mt-8 md:mt-10 flex max-sm:gap-2 gap-4 md:gap-10 text-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1 }}
+          transition={{ duration: 0.7, delay: 0.8 }}
         >
           <div>
             <p className="max-sm:text-xl text-2xl md:text-3xl font-bold text-white">

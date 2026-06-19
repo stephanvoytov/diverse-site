@@ -38,7 +38,7 @@ export default function CaseStudies() {
               duration={0.5}
               y={30}
               margin
-              className={`group rounded-sm overflow-hidden border border-brand-gray-200 bg-white hover:border-brand-gray-300 hover:shadow-sm transition-[border-color,box-shadow] duration-300 ${
+              className={`group rounded-sm overflow-hidden border border-brand-gray-200 bg-white hover:border-[rgba(0,0,0,0.15)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.06)] transition-[border-color,box-shadow] duration-300 ${
                 i >= 2 ? 'hidden' : ''
               }`}
             >
@@ -52,12 +52,13 @@ export default function CaseStudies() {
                     alt={`Магазин Diverse в ${cs.city}`}
                     width={500}
                     height={375}
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     priority={i === 0}
-                    className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 )}
                 {/* Badge */}
-                <div className="absolute top-3 left-3 bg-brand-accent text-white text-[10px] font-bold px-2.5 py-1 rounded-sm uppercase tracking-wide">
+                <div className="absolute top-3 left-3 bg-brand-accent text-white text-[9px] font-bold px-2.5 py-1 rounded-sm uppercase tracking-[0.08em]">
                   {cs.format}
                 </div>
                 {cs.youtubeId && !isVideo && (
@@ -95,7 +96,7 @@ export default function CaseStudies() {
                 </div>
 
                 {/* Quote */}
-                <p className="text-sm text-brand-gray-500 leading-relaxed italic border-l-2 border-brand-accent/30 pl-3">
+                <p className="text-[13px] text-brand-gray-500 leading-relaxed italic pt-3 border-t border-brand-gray-200">
                   &laquo;{cs.quote}&raquo;
                 </p>
 
@@ -103,18 +104,18 @@ export default function CaseStudies() {
                 <div className="h-px bg-brand-gray-200" />
 
                 {/* Financial metrics */}
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-3 gap-2">
                   <div>
                     <p className="text-base font-bold text-brand-black">{cs.paybackPeriod}</p>
-                    <p className="text-[11px] text-brand-gray-400">Окупаемость</p>
+                    <p className="text-[10px] text-brand-gray-400 tracking-[0.05em] uppercase">Окупаемость</p>
                   </div>
                   <div>
                     <p className="text-base font-bold text-brand-accent">{cs.profitMonth}</p>
-                    <p className="text-[11px] text-brand-gray-400">Прибыль / мес</p>
+                    <p className="text-[10px] text-brand-gray-400 tracking-[0.05em] uppercase">Прибыль / мес</p>
                   </div>
                   <div>
                     <p className="text-base font-bold text-brand-gray-500">{cs.investment}</p>
-                    <p className="text-[11px] text-brand-gray-400">Инвестиции</p>
+                    <p className="text-[10px] text-brand-gray-400 tracking-[0.05em] uppercase">Инвестиции</p>
                   </div>
                 </div>
 
