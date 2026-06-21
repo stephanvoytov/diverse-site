@@ -1,4 +1,5 @@
 ﻿import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Политика конфиденциальности | Diverse",
@@ -127,9 +128,9 @@ export default function PrivacyPage() {
 
       <footer className="border-t border-brand-gray-200 bg-white">
         <div className="container-brand py-5 text-center">
-          <a href="/" className="text-sm text-brand-gray-400 hover:text-brand-accent transition-colors">
+          <Link href="/" className="text-sm text-brand-gray-400 hover:text-brand-accent transition-colors">
             &larr; Вернуться на главную
-          </a>
+          </Link>
         </div>
       </footer>
     </>

@@ -1,160 +1,121 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import CountUp from "@/components/ui/CountUp";
-import { subbrands, aboutStats } from "@/data/brand";
-import { asset } from "@/lib/path";
+import { aboutStats } from "@/data/brand";
 
-function ParallaxCard({ item }: { item: (typeof subbrands)[0] }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0, transition: { duration: 0.6 } }}
-      viewport={{ once: true, margin: "-60px" }}
+const easeInOut: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
 
-      className="group relative rounded-sm overflow-hidden aspect-[7/8] cursor-pointer"
-      whileHover={{ scale: 1.02, transition: { duration: 0.4 } }}
-    >
-      <Image
-        src={asset(item.img)}
-        alt={item.name}
-        fill
-        className="absolute inset-0 object-cover object-center"
-        sizes="(max-width: 768px) 100vw, 33vw"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent group-hover:from-black/90 transition-all duration-500" />
-      <div className="absolute bottom-0 left-0 right-0 p-6">
-          <motion.h3
-            className="text-xl md:text-2xl font-bold text-white mb-2"
-            initial={{ opacity: 0, x: -10 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ delay: 0.2 }}
-      
-          >
-          {item.name}
-        </motion.h3>
-        <p className="text-sm text-white/70 leading-relaxed">
-          {item.desc}
-        </p>
-      </div>
-    </motion.div>
-  );
-}
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: easeInOut } },
+};
+
+const stagger = {
+  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.3 } },
+};
 
 export default function About() {
   return (
     <section data-header="light" className="bg-white">
       <div className="container-brand py-5 md:py-8">
-        {/* Header */}
-        <div
+        {/* Header — один observer на всю группу */}
+        <motion.div
           className="grid md:grid-cols-2 gap-8 md:gap-12 mb-8"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={{
+            visible: { transition: { staggerChildren: 0.1 } },
+          }}
         >
-          <div>
-            <motion.p
-              className="text-xs eyebrow text-brand-gray-400 mb-4"
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-            >
+          <motion.div variants={fadeUp}>
+            <p className="text-xs eyebrow text-brand-gray-400 mb-4">
               О бренде
-            </motion.p>
-            <motion.h2
-              className="section-title text-brand-black"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-            >
+            </p>
+            <h2 className="section-title text-brand-black">
               Diverse: <br />
               <span className="text-brand-accent">30+ лет</span> истории
-            </motion.h2>
-          </div>
-          <div className="flex flex-col justify-end">
-            <motion.p
-              className="body-text text-brand-gray-400 leading-relaxed"
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.45, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
-            >
+            </h2>
+          </motion.div>
+          <motion.div variants={fadeUp} className="flex flex-col justify-end">
+            <p className="body-text text-brand-gray-400 leading-relaxed">
               Польский fashion-бренд с характером: сильный дизайн, европейское качество, дерзкая энергия. Рождён в Гданьске, вдохновлён уличной культурой и спортом.
-            </motion.p>
-          </div>
-        </div>
-
-        {/* Stats */}
-        <motion.div
-          className="flex gap-5 md:gap-16 mb-4 max-md:justify-between"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-
-        >
-          {aboutStats.map((stat, i) => (
-            <motion.div
-              key={stat.num}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.35, delay: 0.3 + i * 0.08, ease: [0.25, 0.1, 0.25, 1] }}
-            >
-              <p
-                className={`text-3xl md:text-4xl font-bold ${
-                  stat.accent ? "text-brand-accent" : "text-brand-black"
-                }`}
-              >
-                {(() => {
-                  const match = stat.num.match(/^(\d+)(.*)$/);
-                  if (!match) return stat.num;
-                  const [, digits, suffix] = match;
-                  return <CountUp to={Number(digits)} suffix={suffix} className={`text-3xl md:text-4xl font-bold ${stat.accent ? "text-brand-accent" : "text-brand-black"}`} />;
-                })()}
-              </p>
-              <p className="text-xs label text-brand-gray-400 mt-1">
-                {stat.label}
-              </p>
-            </motion.div>
-          ))}
+            </p>
+          </motion.div>
         </motion.div>
 
-        {/* Sub-brand cards */}
-        {/*
-        <div
-          className="grid md:grid-cols-3 gap-4 md:gap-5"
+        {/* Stats — один observer, дети через stagger */}
+        <motion.div
+          className="flex gap-5 md:gap-16 mb-4 max-md:justify-between"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={stagger}
         >
-          {subbrands.map((item, i) => (
-            <ParallaxCard key={item.name} item={item} />
-          ))}
-        </div>
-        */}
+          {aboutStats.map((stat) => {
+            const match = stat.num.match(/^(\d+)(.*)$/);
+            const countUp = match ? (
+              <CountUp
+                to={Number(match[1])}
+                suffix={match[2]}
+                className={`text-3xl md:text-4xl font-bold ${stat.accent ? "text-brand-accent" : "text-brand-black"}`}
+              />
+            ) : (
+              stat.num
+            );
 
-        {/* Links */}
+            return (
+              <motion.div
+                key={stat.num}
+                variants={{
+                  hidden: { opacity: 0, y: 12 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+              >
+                <p className={`text-3xl md:text-4xl font-bold ${stat.accent ? "text-brand-accent" : "text-brand-black"}`}>
+                  {countUp}
+                </p>
+                <p className="text-xs label text-brand-gray-400 mt-1">
+                  {stat.label}
+                </p>
+              </motion.div>
+            );
+          })}
+        </motion.div>
+
+        {/* Links — один observer */}
         <motion.div
           className="mt-4 md:mt-10 flex max-sm:flex-col items-center gap-3 md:gap-6"
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.35, delay: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
+          variants={{
+            visible: { transition: { staggerChildren: 0.1 } },
+          }}
         >
-          <a
-            href="/about/"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-brand-black hover:text-brand-accent transition-colors group"
-          >
-            Подробнее о бренде
-            <span className="group-hover:translate-x-1 transition-transform">→</span>
-          </a>
-          <span className="max-sm:hidden w-px h-4 bg-brand-gray-200" />
-          <a
-            href="/collection/"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-brand-black hover:text-brand-accent transition-colors group"
-          >
-            Посмотреть коллекции
-            <span className="group-hover:translate-x-1 transition-transform">→</span>
-          </a>
+          <motion.div variants={fadeUp}>
+            <a
+              href="/about/"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-brand-black hover:text-brand-accent transition-colors group"
+            >
+              Подробнее о бренде
+              <span className="group-hover:translate-x-1 transition-transform">→</span>
+            </a>
+          </motion.div>
+          <motion.span
+            variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
+            className="max-sm:hidden w-px h-4 bg-brand-gray-200"
+          />
+          <motion.div variants={fadeUp}>
+            <a
+              href="/collection/"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-brand-black hover:text-brand-accent transition-colors group"
+            >
+              Посмотреть коллекции
+              <span className="group-hover:translate-x-1 transition-transform">→</span>
+            </a>
+          </motion.div>
         </motion.div>
       </div>
     </section>

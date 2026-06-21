@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { motion } from "framer-motion";
 import SectionHeader from "@/components/shared/SectionHeader";
@@ -7,6 +7,8 @@ import Footer from "@/components/shared/Footer";
 import { useModal } from "@/lib/modal-context";
 import PartnerTicker from "@/components/blocks/PartnerTicker";
 import CountUp from "@/components/ui/CountUp";
+import Image from "next/image";
+import { asset } from "@/lib/path";
 
 /* ——— Timeline data ——— */
 
@@ -25,6 +27,19 @@ const milestones: Milestone[] = [
   { year: "2023", title: "30 лет на рынке", desc: "Подтверждение лидерства. Diverse Extreme Team расширяет партнёрства: 24h Le Mans, официальные коллекции, DEXT TECH." },
 ];
 
+const easeOut: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
+const fadeUp = {
+  hidden: { opacity: 0, y: 15 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: easeOut } },
+};
+const fadeUp12 = {
+  hidden: { opacity: 0, y: 12 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: easeOut } },
+};
+const stagger = {
+  visible: { transition: { staggerChildren: 0.08 } },
+};
+
 export default function AboutContent() {
   const { open: openModal } = useModal();
   return (
@@ -38,7 +53,7 @@ export default function AboutContent() {
               className="text-xs eyebrow text-brand-gray-300 mb-4"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+              transition={{ duration: 0.4, ease: easeOut }}
             >
               О бренде
             </motion.p>
@@ -46,7 +61,7 @@ export default function AboutContent() {
               className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-5"
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
+              transition={{ duration: 0.5, delay: 0.1, ease: easeOut }}
             >
               <span className="text-brand-accent">30 лет</span> европейского качества
             </motion.h1>
@@ -54,94 +69,97 @@ export default function AboutContent() {
               className="body-text text-white/60 max-w-2xl mx-auto"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+              transition={{ duration: 0.4, delay: 0.2, ease: easeOut }}
             >
               Польский бренд одежды для европейского стиля жизни
             </motion.p>
           </div>
         </section>
 
-        {/* ===== 2. Stats — цифры сразу после Hero ===== */}
+        {/* ===== 2. Stats ===== */}
         <section data-header="light" className="bg-white py-16 md:py-20">
           <div className="container-brand">
-            <div className="flex flex-nowrap justify-center gap-6 md:gap-20 text-center">
+            <motion.div
+              className="flex flex-nowrap justify-center gap-6 md:gap-20 text-center"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={stagger}
+            >
               {[
                 { num: 30, suffix: "+", label: "Лет на рынке" },
                 { num: 400, suffix: "+", label: "Магазинов в мире" },
                 { num: 3, suffix: "", label: "Суббренда", accent: true },
-              ].map((s, i) => (
-                <motion.div
-                  key={s.label}
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.35, delay: i * 0.06, ease: [0.25, 0.1, 0.25, 1] }}
-                >
+              ].map((s) => (
+                <motion.div key={s.label} variants={fadeUp12}>
                   <p className={`text-5xl md:text-6xl font-bold ${s.accent ? "text-brand-accent" : "text-brand-black"}`}>
                     <CountUp to={s.num} suffix={s.suffix} className="" />
                   </p>
                   <p className="text-[10px] md:text-xs label text-brand-gray-400 mt-1 md:mt-2">{s.label}</p>
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </section>
 
         {/* ===== 3. PartnerTicker ===== */}
         <PartnerTicker simple />
 
-        {/* ===== 4. О бренде (бывшая Philosophy) ===== */}
+        {/* ===== 4. О бренде — философия + фото бренда ===== */}
         <section data-header="light" className="bg-brand-gray-100 py-20 md:py-28">
           <div className="container-brand max-w-4xl">
-            <SectionHeader
-              eyebrow="О бренде"
-            >
+            <SectionHeader eyebrow="О бренде">
               Идеология <span className="text-brand-accent">Diverse</span>
             </SectionHeader>
 
-            <div className="space-y-6 body-text text-brand-gray-400 leading-relaxed">
-              <motion.p
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-              >
+            <motion.div
+              className="space-y-8 body-text text-brand-gray-400 leading-relaxed"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={{
+                visible: { transition: { staggerChildren: 0.1 } },
+              }}
+            >
+              <motion.p variants={fadeUp}>
                 Diverse — один из крупнейших и наиболее динамично развивающихся брендов одежды в Польше. Бренд ежедневно работает над созданием сильного и последовательного имиджа, разрабатывая одежду в соответствии с последними мировыми трендами.
               </motion.p>
-              <motion.p
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1, duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-              >
-                На протяжении более 30 лет бренд страстно исследует мир моды, прислушиваясь к потребностям клиентов и отвечая на их меняющиеся ожидания. Продукция Diverse отличается инновационным подходом, функциональностью, прочностью и исключительным комфортом носки.
+
+              {/* Фото бренда — разбивает текст */}
+              <motion.div variants={fadeUp} className="not-prose">
+                <div className="relative aspect-[2/1] md:aspect-[3/1] rounded-sm overflow-hidden">
+                  <Image
+                    src={asset("/images/about/diverse.jpg")}
+                    alt="Diverse — бренд одежды"
+                    fill
+                    className="object-cover object-center"
+                    sizes="(max-width: 768px) 100vw, 896px"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                </div>
+              </motion.div>
+
+              <motion.p variants={fadeUp}>
+                На протяжении более 30 лет бренд исследует мир моды, прислушиваясь к потребностям клиентов. Продукция Diverse отличается инновационным подходом, функциональностью и исключительным комфортом. Сегодня Diverse — один из самых узнаваемых брендов Польши, вдохновлённый образом жизни городских жителей. Руководствуясь концепцией «Generation to Generation», бренд создаёт вневременную одежду, которая служит долгие годы.
               </motion.p>
-              {/* Divider */}
-              <div className="py-4">
-                <div className="w-12 h-0.5 bg-brand-accent/40 mx-auto" />
-              </div>
-              <motion.p
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2, duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-              >
-                Diverse — бренд, вдохновлённый образом жизни городских жителей. Сегодня это один из самых узнаваемых брендов Польши. Руководствуясь концепцией «Generation to Generation», Diverse создаёт вневременную одежду, которая может служить долгие годы. Коллекции отличаются превосходным качеством исполнения, вниманием к деталям и высококачественными материалами.
-              </motion.p>
-            </div>
+            </motion.div>
           </div>
         </section>
 
-        {/* ===== 5. Европейское качество — 3 колонки ===== */}
+        {/* ===== 5. Европейское качество ===== */}
         <section data-header="light" className="bg-white py-20 md:py-28">
           <div className="container-brand">
-            <SectionHeader
-              eyebrow="Преимущества"
-            >
+            <SectionHeader eyebrow="Преимущества">
               Европейское качество. <span className="text-brand-accent">Проверено годами</span>
             </SectionHeader>
 
-            <div className="grid md:grid-cols-3 gap-8 md:gap-12">
+            <motion.div
+              className="grid md:grid-cols-3 gap-8 md:gap-12"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={stagger}
+            >
               {[
                 {
                   title: "Польское происхождение",
@@ -155,33 +173,36 @@ export default function AboutContent() {
                   title: "Устойчивость к кризисам",
                   desc: "Бренд работает с 1993 года. Пережил кризисы 1998, 2008, 2014, 2020 годов. Доказал, что модель стабильна в любые времена.",
                 },
-              ].map((col, i) => (
+              ].map((col) => (
                 <motion.div
                   key={col.title}
+                  variants={fadeUp}
                   className="border border-brand-gray-200 rounded-lg p-8 text-center"
-                  initial={{ opacity: 0, y: 15 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.35, delay: i * 0.08, ease: [0.25, 0.1, 0.25, 1] }}
                 >
                   <h3 className="text-lg font-bold text-brand-black mb-3">{col.title}</h3>
                   <p className="text-sm text-brand-gray-400 leading-relaxed">{col.desc}</p>
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </section>
 
-        {/* ===== 6. Timeline + Collections ===== */}
+        {/* ===== 6. Timeline ===== */}
         <section data-header="light" className="bg-brand-gray-100 py-20 md:py-28">
           <div className="container-brand">
-            <SectionHeader
-              eyebrow="История"
-            >
+            <SectionHeader eyebrow="История">
               От Гданьска до <span className="text-brand-accent">мировых столиц</span>
             </SectionHeader>
 
-            <div className="relative max-w-3xl mx-auto">
+            <motion.div
+              className="relative max-w-3xl mx-auto"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={{
+                visible: { transition: { staggerChildren: 0.08 } },
+              }}
+            >
               <div className="absolute left-[19px] top-0 bottom-0 w-px bg-brand-gray-300 md:left-1/2 md:-translate-x-px" />
 
               {milestones.map((m, i) => {
@@ -189,13 +210,10 @@ export default function AboutContent() {
                 return (
                   <motion.div
                     key={m.year}
+                    variants={fadeUp}
                     className={`relative flex items-start gap-6 pb-12 last:pb-0 md:gap-0 ${
                       isLeft ? "md:flex-row" : "md:flex-row-reverse"
                     }`}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: i * 0.08, ease: [0.25, 0.1, 0.25, 1] }}
                   >
                     <div className="relative z-10 shrink-0 md:absolute md:left-1/2 md:-translate-x-1/2">
                       <div className="w-[38px] h-[38px] rounded-full bg-white border-2 border-brand-accent flex items-center justify-center">
@@ -211,16 +229,16 @@ export default function AboutContent() {
                   </motion.div>
                 );
               })}
-            </div>
+            </motion.div>
 
             {/* Collections link */}
-              <motion.div
-                className="text-center mt-16 pt-10 border-t border-brand-gray-200"
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
-              >
+            <motion.div
+              className="text-center mt-16 pt-10 border-t border-brand-gray-200"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeUp}
+            >
               <p className="text-sm text-brand-gray-400 mb-4">
                 Узнайте больше о продукте
               </p>
@@ -243,25 +261,27 @@ export default function AboutContent() {
 
               <motion.div
                 className="text-center"
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial="hidden"
+                whileInView="visible"
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+                variants={{
+                  visible: { transition: { staggerChildren: 0.1 } },
+                }}
               >
-                <p className="text-xs eyebrow text-brand-gray-400 mb-4">Представитель в России</p>
-                <h2 className="section-title text-brand-black mb-6">
+                <motion.p variants={fadeUp} className="text-xs eyebrow text-brand-gray-400 mb-4">Представитель в России</motion.p>
+                <motion.h2 variants={fadeUp} className="section-title text-brand-black mb-6">
                   ООО «ХАУС» — официальный дистрибьютор
-                </h2>
-                <p className="body-text text-brand-gray-400 leading-relaxed max-w-2xl mx-auto mb-8">
+                </motion.h2>
+                <motion.p variants={fadeUp} className="body-text text-brand-gray-400 leading-relaxed max-w-2xl mx-auto mb-8">
                   Мы — официальные представители марки Diverse в России и странах СНГ. 
                   Запустили 11 магазинов в РФ и Казахстане. Наша задача — сделать европейское качество доступным для партнёров по всей стране.
-                </p>
-                <div className="inline-flex items-center gap-2 text-sm text-brand-gray-400">
+                </motion.p>
+                <motion.div variants={fadeUp} className="inline-flex items-center gap-2 text-sm text-brand-gray-400">
                   <span className="w-2 h-2 rounded-full bg-brand-accent" />
                   ИНН 3907201307
                   <span className="w-2 h-2 rounded-full bg-brand-accent" />
                   Калининград, пл. Победы, 4
-                </div>
+                </motion.div>
               </motion.div>
             </div>
           </div>
@@ -270,27 +290,28 @@ export default function AboutContent() {
         {/* ===== 8. CTA ===== */}
         <section data-header="dark" className="bg-brand-black py-16 md:py-20 text-center">
           <div className="container-brand">
-            <motion.h2
-              className="section-title text-white mb-6"
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-            >
-              Хотите стать партнёром <span className="text-brand-accent">Diverse</span>?
-            </motion.h2>
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial="hidden"
+              whileInView="visible"
               viewport={{ once: true }}
-              transition={{ delay: 0.1, duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
+              variants={{
+                visible: { transition: { staggerChildren: 0.1 } },
+              }}
             >
-              <button
-                onClick={openModal}
-                className="btn-accent"
+              <motion.h2
+                variants={fadeUp}
+                className="section-title text-white mb-6"
               >
-                Стать партнёром
-              </button>
+                Хотите стать партнёром <span className="text-brand-accent">Diverse</span>?
+              </motion.h2>
+              <motion.div variants={fadeUp12}>
+                <button
+                  onClick={openModal}
+                  className="btn-accent"
+                >
+                  Стать партнёром
+                </button>
+              </motion.div>
             </motion.div>
           </div>
         </section>

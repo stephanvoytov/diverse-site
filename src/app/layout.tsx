@@ -36,6 +36,9 @@ export const metadata: Metadata = {
     ],
   },
   manifest: `${basePath}/site.webmanifest`,
+  verification: {
+    google: "8eXeN44ZaQUhjbkHLQnGVvGGpuwkewh5SftUgjeFzCM",
+  },
   appleWebApp: {
     title: "Diverse Russia",
     statusBarStyle: "black-translucent",
@@ -125,6 +128,16 @@ export default function RootLayout({
   return (
     <html lang="ru" className={inter.variable} data-scroll-behavior="smooth">
       <body>
+        {/* Hero entrance animation — inline чтобы работала сразу, без ожидания CSS файла */}
+        <style>{`
+          @keyframes hero-fade-up { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+          @keyframes hero-fade-lg { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
+          @keyframes hero-fade-in { from { opacity: 0; } to { opacity: 1; } }
+          .hero-a { animation: hero-fade-up 0.6s ease-out forwards; }
+          .hero-a-lg { animation: hero-fade-lg 0.7s ease-out forwards; }
+          .hero-a-in { animation: hero-fade-in 0.7s ease-out forwards; }
+          @media (prefers-reduced-motion: reduce) { .hero-a, .hero-a-lg, .hero-a-in { animation: none; opacity: 1; } }
+        `}</style>
         <JsonLd data={organizationSchema} />
         <JsonLd data={websiteSchema} />
         <JsonLd data={breadcrumbSchema} />
@@ -166,6 +179,7 @@ export default function RootLayout({
 
         <noscript>
           <div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="https://mc.yandex.ru/watch/${ymId}" style={{position:"absolute",left:-9999}} alt="" />
           </div>
         </noscript>

@@ -43,16 +43,24 @@ function PlansSection() {
           Выберите свой <span className="text-brand-accent">формат</span>
         </SectionHeader>
 
-        <div className="grid md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto">
-          {plans.map((plan, i) => {
+        <motion.div
+          className="grid md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={{
+            visible: { transition: { staggerChildren: 0.08 } },
+          }}
+        >
+          {plans.map((plan) => {
             const isOpen = openId === plan.id;
             return (
               <motion.div
                 key={plan.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.08, ease: [0.25, 0.1, 0.25, 1] }}
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] } },
+                }}
                 className={`rounded-sm overflow-hidden transition-[background-color,border-color,box-shadow] duration-500 ${
                   isOpen
                     ? "bg-white border-2 border-brand-accent/40 shadow-lg"
@@ -111,7 +119,7 @@ function PlansSection() {
               </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -153,7 +161,7 @@ function ComparisonTable() {
               </tr>
             </thead>
             <tbody>
-              {comparisonRows.map((row, i) => (
+              {comparisonRows.map((row) => (
                 <tr key={row.label} className="border-t border-brand-gray-200">
                   <td className="py-4 pr-6 text-brand-gray-500 font-medium">{row.label}</td>
                   {row.values.map((val, vi) => (
@@ -225,11 +233,19 @@ function FinancialModel() {
 
         <div className="max-w-3xl mx-auto">
           <motion.div
-            className="bg-white border border-brand-gray-200 rounded-sm overflow-hidden"
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
-            transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+            variants={{
+              visible: { transition: { staggerChildren: 0.15 } },
+            }}
+          >
+          <motion.div
+            className="bg-white border border-brand-gray-200 rounded-sm overflow-hidden"
+            variants={{
+              hidden: { opacity: 0, y: 15 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] } },
+            }}
           >
             {/* Table */}
             <div className="divide-y divide-brand-gray-100">
@@ -270,49 +286,12 @@ function FinancialModel() {
             </div>
           </motion.div>
 
-          {/*
-          <motion.div
-            className="bg-white border border-brand-gray-200 rounded-sm overflow-hidden mt-6"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-          >
-            <div className="px-6 md:px-8 py-5 border-b border-brand-gray-100">
-              <h3 className="text-base font-bold text-brand-black">
-                Из чего складываются инвестиции
-              </h3>
-            </div>
-            <div className="divide-y divide-brand-gray-100">
-              {[
-                { label: "Стартовый товарный запас", value: "~800 000 ₽" },
-                { label: "Торговое оборудование + свет", value: "~350 000 ₽" },
-                { label: "Дизайн-проект + брендирование", value: "~200 000 ₽" },
-                { label: "Прочее (обучение, запуск)", value: "~150 000 ₽" },
-              ].map((row, i) => (
-                <div
-                  key={i}
-                  className="flex items-center justify-between gap-4 px-6 md:px-8 py-3.5"
-                >
-                  <span className="text-sm text-brand-gray-400">{row.label}</span>
-                  <span className="text-sm font-bold text-brand-black">{row.value}</span>
-                </div>
-              ))}
-              <div className="flex items-center justify-between gap-4 px-6 md:px-8 py-3.5 bg-brand-accent/[0.04]">
-                <span className="text-sm font-semibold text-brand-black">Итого</span>
-                <span className="text-sm font-bold text-brand-accent">от 1,5 млн ₽</span>
-              </div>
-            </div>
-          </motion.div>
-          */}
-
-          {/* Seasonality note */}
           <motion.div
             className="mt-6 flex items-start gap-3 text-sm text-brand-gray-400 leading-relaxed"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
+            variants={{
+              hidden: { opacity: 0, y: 10 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: [0.25, 0.1, 0.25, 1] } },
+            }}
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="shrink-0 mt-0.5 text-brand-accent">
               <circle cx="12" cy="12" r="10" />
@@ -323,6 +302,7 @@ function FinancialModel() {
               В расчёте точки безубыточности учитывается неравномерность спроса в течение года.
             </p>
           </motion.div>
+        </motion.div>
         </div>
       </div>
     </section>
@@ -341,21 +321,29 @@ function BenefitsSection() {
           Почему <span className="text-brand-accent">Diverse</span>
         </SectionHeader>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
-          {benefits.map((b, i) => (
+        <motion.div
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={{
+            visible: { transition: { staggerChildren: 0.06 } },
+          }}
+        >
+          {benefits.map((b) => (
             <motion.div
               key={b}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.35, delay: i * 0.06, ease: [0.25, 0.1, 0.25, 1] }}
+              variants={{
+                hidden: { opacity: 0, y: 15 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: [0.25, 0.1, 0.25, 1] } },
+              }}
               className="flex items-start gap-4 p-5 bg-brand-gray-100 rounded-sm"
             >
               <span className="w-2 h-2 rounded-full bg-brand-accent mt-2 shrink-0" />
               <span className="text-sm md:text-base text-brand-black font-medium">{b}</span>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -95,11 +95,19 @@ export default function StoresContent() {
                 Россия
                 <span className="text-sm font-normal text-brand-gray-400">({russianStores.length} магазинов)</span>
               </h3>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+              <motion.div
+                className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={{
+                  visible: { transition: { staggerChildren: 0.05 } },
+                }}
+              >
                 {russianStores.map((store, i) => (
                   <StoreCard key={`ru-${i}`} store={store} index={i} />
                 ))}
-              </div>
+              </motion.div>
             </div>
 
             {/* Казахстан */}
@@ -109,11 +117,19 @@ export default function StoresContent() {
                 Казахстан
                 <span className="text-sm font-normal text-brand-gray-400">({kzStores.length} магазина)</span>
               </h3>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+              <motion.div
+                className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={{
+                  visible: { transition: { staggerChildren: 0.05 } },
+                }}
+              >
                 {kzStores.map((store, i) => (
                   <StoreCard key={`kz-${i}`} store={store} index={i} />
                 ))}
-              </div>
+              </motion.div>
             </div>
           </div>
         </section>
@@ -121,31 +137,39 @@ export default function StoresContent() {
         {/* CTA */}
         <section data-header="dark" className="bg-brand-black py-16 md:py-20 text-center">
           <div className="container-brand">
-            <motion.h2
-              className="section-title "
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
               viewport={{ once: true }}
-              transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+              variants={{
+                visible: { transition: { staggerChildren: 0.1 } },
+              }}
+            >
+            <motion.h2
+              className="section-title"
+              variants={{
+                hidden: { opacity: 0, y: 15 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] } },
+              }}
             >
               {city ? `Нет магазина в ${city}?` : "Нет магазина в вашем городе?"}
             </motion.h2>
             <motion.p
               className="section-desc  mb-8"
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1, duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
+              variants={{
+                hidden: { opacity: 0, y: 12 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: [0.25, 0.1, 0.25, 1] } },
+              }}
             >
               {city
                 ? `Откройте Diverse по франшизе — станьте первым в ${city}`
                 : "Откройте его по франшизе — станьте первым в своём городе"}
             </motion.p>
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
+              variants={{
+                hidden: { opacity: 0, y: 12 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: [0.25, 0.1, 0.25, 1] } },
+              }}
             >
               <button
                 onClick={openModal}
@@ -153,6 +177,7 @@ export default function StoresContent() {
               >
                 Стать партнёром
               </button>
+            </motion.div>
             </motion.div>
           </div>
         </section>
@@ -168,10 +193,10 @@ function StoreCard({ store, index }: { store: (typeof stores)[0]; index: number 
   const [imgFailed, setImgFailed] = useState(false);
   return (
     <motion.article
-      initial={{ opacity: 0, y: 15 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.35, delay: (index % 6) * 0.05, ease: [0.25, 0.1, 0.25, 1] }}
+      variants={{
+        hidden: { opacity: 0, y: 15 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: [0.25, 0.1, 0.25, 1] } },
+      }}
       className="group rounded-sm overflow-hidden bg-brand-gray-100 border border-brand-gray-200 hover:border-brand-gray-300 transition-colors duration-300"
     >
       <div className="aspect-[4/3] bg-brand-gray-200 overflow-hidden">
@@ -185,6 +210,7 @@ function StoreCard({ store, index }: { store: (typeof stores)[0]; index: number 
             alt={`${store.city} — ${store.mall || store.address}`}
             width={400}
             height={300}
+            sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
             className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
             onError={() => setImgFailed(true)}
             priority={index === 0}

@@ -80,7 +80,7 @@ export default function Header({ transparent }: { transparent?: boolean }) {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-[1000] transition-all duration-300 ${headerBg}`}
+      className={`fixed top-0 left-0 right-0 z-[1000] transition-colors duration-300 ${headerBg}`}
     >
       <div className="container-brand flex items-center justify-between h-16 md:h-20">
         {/* Logo */}

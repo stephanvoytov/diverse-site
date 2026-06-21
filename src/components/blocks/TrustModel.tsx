@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { trustPoints } from "@/data/brand";
 
+const easeOut: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
+
 export default function TrustModel() {
   return (
     <section data-header="light" className="bg-white py-16 md:py-24">
@@ -18,15 +20,23 @@ export default function TrustModel() {
           Прозрачная <span className="text-brand-accent">финансовая модель</span>
         </SectionHeader>
 
-        {/* Trust cards */}
-        <div className="grid md:grid-cols-2 gap-5 md:gap-6 max-w-4xl mx-auto">
-          {trustPoints.map((point, i) => (
+        {/* Trust cards — 1 observer вместо 4 */}
+        <motion.div
+          className="grid md:grid-cols-2 gap-5 md:gap-6 max-w-4xl mx-auto"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={{
+            visible: { transition: { staggerChildren: 0.08 } },
+          }}
+        >
+          {trustPoints.map((point) => (
             <motion.div
               key={point.title}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.4, delay: i * 0.08, ease: [0.25, 0.1, 0.25, 1] }}
+              variants={{
+                hidden: { opacity: 0, y: 15 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: easeOut } },
+              }}
               className="bg-white border border-brand-gray-200 rounded-sm p-6 md:p-8"
             >
               <h3 className="text-lg md:text-xl font-bold text-brand-black mb-2">
@@ -37,7 +47,7 @@ export default function TrustModel() {
               </p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

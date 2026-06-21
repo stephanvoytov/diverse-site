@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { roadmapSteps } from "@/data/franchise";
 
+const easeOut: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
+
 export default function Roadmap() {
   return (
     <section data-header="light" className="bg-brand-gray-100">
@@ -19,17 +21,24 @@ export default function Roadmap() {
           <span className="text-brand-accent">от 45 до 60 дней</span>
         </SectionHeader>
 
-        {/* Timeline */}
-        <div className="relative max-w-4xl mx-auto">
+        {/* Timeline — 1 observer вместо 6 */}
+        <motion.div
+          className="relative max-w-4xl mx-auto"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={{
+            visible: { transition: { staggerChildren: 0.08 } },
+          }}
+        >
           {roadmapSteps.map((step, i) => (
             <motion.div
               key={step.number}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: easeOut } },
+              }}
               className="relative flex gap-5 md:gap-8 pb-8 md:pb-10 last:pb-0"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.4, delay: i * 0.08, ease: [0.25, 0.1, 0.25, 1] }}
-    
             >
               {/* Number circle + line */}
               <div className="flex flex-col items-center shrink-0">
@@ -58,8 +67,7 @@ export default function Roadmap() {
               </div>
             </motion.div>
           ))}
-        </div>
-
+        </motion.div>
       </div>
     </section>
   );

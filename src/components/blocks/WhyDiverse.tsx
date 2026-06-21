@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import SectionHeader from "@/components/shared/SectionHeader";
-import { formatCards, type FormatCard } from "@/data/formats";
+import { formatCards } from "@/data/formats";
 import { formatBig, formatPayoff } from "@/lib/format";
 
 export default function WhyDiverse() {

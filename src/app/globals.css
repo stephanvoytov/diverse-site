@@ -198,14 +198,6 @@ body {
   to { transform: translateX(-50%); }
 }
 
-/* Scrollbar hide — для горизонтального свайпа на мобильных */
-.scrollbar-none {
-  scrollbar-width: none;
-}
-.scrollbar-none::-webkit-scrollbar {
-  display: none;
-}
-
 /* ============================================
    Utility Classes
    ============================================ */

@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { faqItems } from "@/data/franchise";
 
+const easeOut: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
+
 export default function Faq() {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
 
@@ -22,8 +24,16 @@ export default function Faq() {
           <span className="text-brand-accent">главные вопросы</span>
         </SectionHeader>
 
-        {/* Accordion */}
-        <div className="max-w-3xl mx-auto space-y-3">
+        {/* Accordion — 1 observer вместо 5 */}
+        <motion.div
+          className="max-w-3xl mx-auto space-y-3"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={{
+            visible: { transition: { staggerChildren: 0.05 } },
+          }}
+        >
           {faqItems.map((item, i) => {
             const isOpen = openIdx === i;
 
@@ -31,10 +41,10 @@ export default function Faq() {
               <motion.article
                 key={i}
                 layout="position"
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.35, delay: i * 0.05, ease: [0.25, 0.1, 0.25, 1] }}
+                variants={{
+                  hidden: { opacity: 0, y: 15 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: easeOut } },
+                }}
                 className={`rounded-sm overflow-hidden transition-[background-color,border-color,box-shadow] duration-300 ${
                   isOpen
                     ? "bg-white shadow-md border border-brand-accent/20"
@@ -52,7 +62,7 @@ export default function Faq() {
                   </span>
                   <motion.span
                     animate={{ rotate: isOpen ? 45 : 0 }}
-                    transition={{ duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+                    transition={{ duration: 0.2, ease: easeOut }}
                     className="shrink-0 w-6 h-6 rounded-full border border-brand-gray-300 flex items-center justify-center text-brand-gray-500 text-sm"
                   >
                     <svg
@@ -77,7 +87,7 @@ export default function Faq() {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+                      transition={{ duration: 0.2, ease: easeOut }}
                       className="overflow-hidden"
                     >
                       <div className="px-5 md:px-7 pb-5 md:pb-6 border-t border-brand-gray-100 pt-4">
@@ -91,8 +101,7 @@ export default function Faq() {
               </motion.article>
             );
           })}
-        </div>
-
+        </motion.div>
       </div>
     </section>
   );

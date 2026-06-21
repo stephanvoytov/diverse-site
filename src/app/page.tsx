@@ -13,6 +13,8 @@ import Footer from "@/components/shared/Footer";
 import JsonLd from "@/components/shared/JsonLd";
 import { faqItems } from "@/data/franchise";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 const StoresMap = dynamic(() => import("@/components/shared/StoresMap"), {
   loading: () => (
     <div className="flex items-center justify-center h-[400px] bg-brand-gray-100 text-brand-gray-400 text-sm">
@@ -37,6 +39,11 @@ export default function Home() {
 
   return (
     <>
+      {/* Prefetch ключевых страниц — браузер загрузит при простое сети */}
+      <link rel="prefetch" href={`${basePath}/about/`} />
+      <link rel="prefetch" href={`${basePath}/franchise/`} />
+      <link rel="prefetch" href={`${basePath}/collection/`} />
+      <link rel="prefetch" href={`${basePath}/stores/`} />
       <JsonLd data={faqSchema} />
       <Header />
       <main>
