@@ -11,7 +11,7 @@ import { useUserCity } from "@/lib/user-city-context";
 
 export default function Hero() {
   const { open: openModal } = useModal();
-  const { city, loading } = useUserCity();
+  const { city } = useUserCity();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -158,31 +158,6 @@ export default function Hero() {
         </motion.div>
 
       </section>
-
-      {/* Sticky city bar — появляется при скролле ниже Hero */}
-      {!loading && city && (
-        <motion.div
-          className="fixed top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-sm border-b border-brand-gray-200 shadow-xs"
-          style={{
-            opacity: useTransform(scrollYProgress, [0.85, 0.95], [0, 1]),
-            y: useTransform(scrollYProgress, [0.85, 0.95], [-20, 0]),
-            pointerEvents: useTransform(scrollYProgress, [0.85, 0.95], ['none' as any, 'auto' as any]),
-          }}
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-12 flex items-center justify-between">
-            <p className="text-sm font-medium text-brand-black truncate">
-              Откройте Diverse в <span className="text-brand-accent font-semibold">{city}</span>
-            </p>
-            <button
-              onClick={openModal}
-              className="shrink-0 ml-4 px-4 py-1.5 bg-brand-accent text-white text-xs font-semibold tracking-wider uppercase rounded-sm hover:bg-brand-accent-hover transition-colors"
-            >
-              Получить расчёт
-            </button>
-          </div>
-        </motion.div>
-      )}
-
     </>
   );
 }
