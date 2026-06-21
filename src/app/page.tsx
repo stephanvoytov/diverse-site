@@ -23,6 +23,8 @@ const StoresMap = dynamic(() => import("@/components/shared/StoresMap"), {
   ),
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://diversebrand.ru";
+
 export default function Home() {
   const faqSchema = {
     "@context": "https://schema.org",
@@ -37,6 +39,15 @@ export default function Home() {
     })),
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    name: "Навигационная цепочка",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Главная", item: siteUrl + basePath },
+    ],
+  };
+
   return (
     <>
       {/* Prefetch ключевых страниц — браузер загрузит при простое сети */}
@@ -45,6 +56,7 @@ export default function Home() {
       <link rel="prefetch" href={`${basePath}/collection/`} />
       <link rel="prefetch" href={`${basePath}/stores/`} />
       <JsonLd data={faqSchema} />
+      <JsonLd data={breadcrumbSchema} />
       <Header />
       <main>
         <Hero />

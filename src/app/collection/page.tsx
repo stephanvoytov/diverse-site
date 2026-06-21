@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import CollectionContent from "./CollectionContent";
+import JsonLd from "@/components/shared/JsonLd";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://diversebrand.ru";
@@ -27,5 +28,20 @@ export const metadata: Metadata = {
 };
 
 export default function CollectionPage() {
-  return <CollectionContent />;
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    name: "Навигационная цепочка",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Главная", item: siteUrl + basePath },
+      { "@type": "ListItem", position: 2, name: "Коллекции", item: `${siteUrl}${basePath}/collection/` },
+    ],
+  };
+
+  return (
+    <>
+      <JsonLd data={breadcrumbSchema} />
+      <CollectionContent />
+    </>
+  );
 }

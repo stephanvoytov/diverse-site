@@ -7,6 +7,41 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
+        userAgent: "GPTBot",
+        allow: "/",
+        disallow: ["/privacy/"],
+      },
+      {
+        userAgent: "ClaudeBot",
+        allow: "/",
+        disallow: ["/privacy/"],
+      },
+      {
+        userAgent: "Claude-Web",
+        allow: "/",
+        disallow: ["/privacy/"],
+      },
+      {
+        userAgent: "CCBot",
+        allow: "/",
+        disallow: ["/privacy/"],
+      },
+      {
+        userAgent: "Applebot",
+        allow: "/",
+        disallow: ["/privacy/"],
+      },
+      {
+        userAgent: "GoogleExtended",
+        allow: "/",
+        disallow: ["/privacy/"],
+      },
+      {
+        userAgent: "PerplexityBot",
+        allow: "/",
+        disallow: ["/privacy/"],
+      },
+      {
         userAgent: "*",
         allow: "/",
         disallow: ["/privacy/"],

@@ -111,15 +111,6 @@ const websiteSchema = {
   inLanguage: "ru",
 };
 
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  name: "Навигационная цепочка",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Главная", item: siteUrl + basePath },
-  ],
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -145,7 +136,6 @@ export default function RootLayout({
         `}</style>
         <JsonLd data={organizationSchema} />
         <JsonLd data={websiteSchema} />
-        <JsonLd data={breadcrumbSchema} />
         <UserCityProvider>
           <ModalProvider>
             {children}
