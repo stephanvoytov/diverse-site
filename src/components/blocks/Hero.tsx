@@ -48,15 +48,16 @@ export default function Hero() {
         >
           {/* Picture: browser loads only matching media — no double download */}
           <picture>
-            <source media="(max-width: 767px)" srcSet={asset("/images/hero/main-mobile.webp")} type="image/webp" />
-            <source media="(min-width: 768px)" srcSet={asset("/images/hero/main.webp")} type="image/webp" />
-            <source media="(max-width: 767px)" srcSet={asset("/images/hero/main-mobile.png")} />
-            <source media="(min-width: 768px)" srcSet={asset("/images/hero/main.jpg")} />
+            <source media="(max-width: 767px)" srcSet={asset("/images/hero/main-mobile.webp")} type="image/webp" sizes="100vw" />
+            <source media="(min-width: 768px)" srcSet={asset("/images/hero/main.webp")} type="image/webp" sizes="100vw" />
+            <source media="(max-width: 767px)" srcSet={asset("/images/hero/main-mobile.png")} sizes="100vw" />
+            <source media="(min-width: 768px)" srcSet={asset("/images/hero/main.jpg")} sizes="100vw" />
             <img
               src={asset("/images/hero/main.jpg")}
               alt="Франшиза Diverse — официальный представитель бренда в России"
               className="absolute inset-0 w-full h-full object-cover object-[50%_20%]"
               fetchPriority="high"
+              sizes="100vw"
             />
           </picture>
         </motion.div>

@@ -26,14 +26,14 @@ export default function Footer() {
                 className="h-4 md:h-5 w-auto"
               />
             </Link>
-            <p className="text-sm text-white/40 leading-relaxed max-w-[260px]">
+            <p className="text-sm text-white/55 leading-relaxed max-w-[260px]">
               Официальный дистрибьютор марки Diverse в&nbsp;России и&nbsp;СНГ
             </p>
           </div>
 
           {/* Навигация */}
           <div className="md:col-span-2">
-            <p className="text-[11px] tracking-[0.2em] uppercase text-white/30 mb-5">
+            <p className="text-[11px] tracking-[0.2em] uppercase text-white/50 mb-5">
               Навигация
             </p>
             <ul className="space-y-3">
@@ -52,13 +52,13 @@ export default function Footer() {
 
           {/* Контакты */}
           <div className="md:col-span-3">
-            <p className="text-[11px] tracking-[0.2em] uppercase text-white/30 mb-5">
+            <p className="text-[11px] tracking-[0.2em] uppercase text-white/50 mb-5">
               Контакты
             </p>
             <ul className="space-y-3">
               <li>
                 <p className="text-sm text-white/80 font-medium">ООО «ХАУС»</p>
-                <p className="text-xs text-white/40 mt-0.5">ИНН 3907201307</p>
+                <p className="text-xs text-white/50 mt-0.5">ИНН 3907201307</p>
               </li>
               <li>
                 <p className="text-sm text-white/50 leading-relaxed">
@@ -88,7 +88,7 @@ export default function Footer() {
 
           {/* Быстрая заявка + Соцсети */}
           <div className="md:col-span-3">
-            <p className="text-[11px] tracking-[0.2em] uppercase text-white/30 mb-4">
+            <p className="text-[11px] tracking-[0.2em] uppercase text-white/50 mb-4">
               Готовы начать?
             </p>
             <button
@@ -98,7 +98,7 @@ export default function Footer() {
               Оставить заявку
             </button>
 
-            <p className="text-[11px] tracking-[0.2em] uppercase text-white/30 mb-3">
+            <p className="text-[11px] tracking-[0.2em] uppercase text-white/50 mb-3">
               Соцсети
             </p>
             <div className="flex flex-wrap gap-2">
@@ -122,18 +122,18 @@ export default function Footer() {
       {/* Нижняя плашка */}
       <div className="border-t border-white/5">
         <div className="container-brand py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-white/25">
+          <p className="text-xs text-white/45">
             &copy; {new Date().getFullYear()} ООО «ХАУС». Все права защищены.
           </p>
           <div className="flex items-center gap-4">
             <Link
               href="/privacy/"
-              className="text-xs text-white/30 hover:text-white/60 transition-colors"
+              className="text-xs text-white/50 hover:text-white/60 transition-colors"
             >
               Политика конфиденциальности
             </Link>
-            <span className="text-xs text-white/20" aria-hidden="true">|</span>
-            <span className="text-xs text-white/20">
+            <span className="text-xs text-white/35" aria-hidden="true">|</span>
+            <span className="text-xs text-white/35">
               Diverse — официальный партнёр
             </span>
           </div>

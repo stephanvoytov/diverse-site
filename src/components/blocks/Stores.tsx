@@ -93,7 +93,7 @@ const cityRu: Record<string, string> = {
 /** Ghost marker: pulsing plus icon */
 function ghostIcon(): L.DivIcon {
   return L.divIcon({
-    html: `<div style="
+    html: `<div role="img" aria-label="Ваш магазин Diverse" style="
       width:36px;height:36px;border-radius:50%;
       background:#fff;border:2px solid #D12026;
       display:flex;align-items:center;justify-content:center;
@@ -188,9 +188,9 @@ export default function Stores() {
       maxZoom: 10,
     }).addTo(map);
 
-    function diverseMarker(): L.DivIcon {
+    function diverseMarker(label: string): L.DivIcon {
       return L.divIcon({
-        html: `<div style="display:flex;align-items:center;justify-content:center;width:28px;height:36px;">
+        html: `<div role="img" aria-label="Магазин Diverse в ${label}" style="display:flex;align-items:center;justify-content:center;width:28px;height:36px;">
           <svg width="28" height="36" viewBox="0 0 27 33" fill="none">
             <path d="M4.3,22.6C-0.7,17.6-0.7,9.5,4.3,4.6C6.8,2.2,10,0.8,13.5,0.8s6.7,1.3,9.2,3.7c5.1,5,5.1,13.1,0,18l-9.2,9L4.3,22.6z" fill="#D12026"/>
             <path d="M13.5,1.1c3.4,0,6.6,1.3,9.1,3.7c2.4,2.4,3.8,5.5,3.8,8.9s-1.3,6.5-3.8,8.9l-9.1,8.9l-9.1-8.9c-2.4-2.4-3.8-5.5-3.8-8.9s1.3-6.5,3.8-8.9C6.9,2.4,10.1,1.1,13.5,1.1z" fill="#a0101e" opacity="0.4"/>
@@ -212,7 +212,7 @@ export default function Stores() {
       iconCreateFunction: (cluster) => {
         const count = cluster.getChildCount();
         return L.divIcon({
-          html: `<div style="
+          html: `<div role="img" aria-label="${count} магазина(ов)" style="
             width:40px;height:40px;border-radius:50%;
             background:#D12026;color:#fff;
             display:flex;align-items:center;justify-content:center;
@@ -229,7 +229,7 @@ export default function Stores() {
 
     stores.forEach((store, i) => {
       const marker = L.marker(ll(store.coords), {
-        icon: diverseMarker(),
+        icon: diverseMarker(store.city),
       })
         .bindPopup(popupHtml(store), {
           maxWidth: 260,

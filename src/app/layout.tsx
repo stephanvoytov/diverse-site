@@ -128,6 +128,10 @@ export default function RootLayout({
   return (
     <html lang="ru" className={inter.variable} data-scroll-behavior="smooth">
       <body>
+        {/* Preconnects для третьих сторон */}
+        <link rel="preconnect" href="https://tile.openstreetmap.org" />
+        <link rel="dns-prefetch" href="https://tile.openstreetmap.org" />
+
         {/* Hero entrance animation — inline чтобы работала сразу, без ожидания CSS файла */}
         <style>{`
           @keyframes hero-fade-up { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }

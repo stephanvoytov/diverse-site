@@ -94,6 +94,7 @@ export default function Header({ transparent }: { transparent?: boolean }) {
             alt="Diverse — логотип"
             width={120}
             height={20}
+            priority
             className="h-4 md:h-5 w-auto transition-opacity"
           />
         </Link>
