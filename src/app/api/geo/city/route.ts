@@ -7,12 +7,16 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(req: NextRequest) {
   const token = process.env.DADATA_API_KEY;
   if (!token) {
-    return NextResponse.json({ city: null }, { status: 200 });
+    return NextResponse.json({ city: null, lat: null, lon: null, ip: null }, { status: 200 });
   }
 
-  // IP клиента (X-Forwarded-For или реальный remote)
-  const forwarded = req.headers.get("x-forwarded-for");
-  const ip = forwarded?.split(",")[0]?.trim() || "178.248.238.0";
+  // IP клиента: на Vercel пробрасывается через x-forwarded-for.
+  // На localhost заголовка нет — пропускаем гео.
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
+
+  if (!ip) {
+    return NextResponse.json({ city: null, lat: null, lon: null, ip: null }, { status: 200 });
+  }
 
   try {
     const res = await fetch(
@@ -25,12 +29,15 @@ export async function GET(req: NextRequest) {
       }
     );
     const body = await res.json();
+    const data = body?.location?.data;
 
-    const city = body?.location?.data?.city ?? null;
+    const city = data?.city ?? null;
+    const lat = data?.geo_lat ? parseFloat(data.geo_lat) : null;
+    const lon = data?.geo_lon ? parseFloat(data.geo_lon) : null;
 
-    return NextResponse.json({ city });
+    return NextResponse.json({ city, lat, lon, ip });
   } catch {
     // dadata недоступен — возвращаем null
-    return NextResponse.json({ city: null }, { status: 200 });
+    return NextResponse.json({ city: null, lat: null, lon: null, ip }, { status: 200 });
   }
 }

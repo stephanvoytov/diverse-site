@@ -25,8 +25,8 @@ export default function Hero() {
   return (
     <>
       {/* Preload Hero image — браузер начинает загрузку до парсинга CSS/JS */}
-      <link rel="preload" as="image" href={asset("/images/hero/main.webp")} media="(min-width: 768px)" />
-      <link rel="preload" as="image" href={asset("/images/hero/main-mobile.webp")} media="(max-width: 767px)" />
+      <link rel="preload" as="image" href={asset("/images/hero/main.webp")} media="(min-width: 768px)" type="image/webp" />
+      <link rel="preload" as="image" href={asset("/images/hero/main-mobile.webp")} media="(max-width: 767px)" type="image/webp" />
       <section
         ref={ref}
         data-header="light"

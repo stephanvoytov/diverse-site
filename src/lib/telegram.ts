@@ -33,6 +33,7 @@ export async function sendLeadToTelegram(data: LeadData): Promise<void> {
 
   const url = `${TELEGRAM_API}/bot${token}/sendMessage`;
   const errors: string[] = [];
+  let successCount = 0;
 
   for (const chatId of chatIds) {
     try {
@@ -49,14 +50,20 @@ export async function sendLeadToTelegram(data: LeadData): Promise<void> {
       if (!res.ok) {
         const body = await res.text();
         errors.push(`chat ${chatId}: ${res.status} ${body}`);
+      } else {
+        successCount++;
       }
     } catch (e) {
       errors.push(`chat ${chatId}: ${e}`);
     }
   }
 
-  if (errors.length > 0) {
+  // Считаем успехом, если хотя бы один чат получил сообщение
+  if (successCount === 0 && errors.length > 0) {
     throw new Error(`Telegram send errors: ${errors.join("; ")}`);
+  }
+  if (errors.length > 0) {
+    console.warn("Telegram partial failures:", errors.join("; "));
   }
 }
 

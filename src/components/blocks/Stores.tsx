@@ -28,68 +28,6 @@ function popupHtml(s: Store): string {
 
 const ll = (c: [number, number]): [number, number] => [c[1], c[0]];
 
-/** Перевод городов с английского на русский */
-const cityRu: Record<string, string> = {
-  "Moscow": "Москва",
-  "Saint Petersburg": "Санкт-Петербург",
-  "Nizhny Novgorod": "Нижний Новгород",
-  "Rostov-on-Don": "Ростов-на-Дону",
-  "Yekaterinburg": "Екатеринбург",
-  "Novosibirsk": "Новосибирск",
-  "Kazan": "Казань",
-  "Chelyabinsk": "Челябинск",
-  "Omsk": "Омск",
-  "Samara": "Самара",
-  "Ufa": "Уфа",
-  "Krasnoyarsk": "Красноярск",
-  "Perm": "Пермь",
-  "Voronezh": "Воронеж",
-  "Volgograd": "Волгоград",
-  "Krasnodar": "Краснодар",
-  "Saratov": "Саратов",
-  "Tyumen": "Тюмень",
-  "Tolyatti": "Тольятти",
-  "Izhevsk": "Ижевск",
-  "Barnaul": "Барнаул",
-  "Ulyanovsk": "Ульяновск",
-  "Irkutsk": "Иркутск",
-  "Khabarovsk": "Хабаровск",
-  "Yaroslavl": "Ярославль",
-  "Vladivostok": "Владивосток",
-  "Makhachkala": "Махачкала",
-  "Tomsk": "Томск",
-  "Orenburg": "Оренбург",
-  "Kemerovo": "Кемерово",
-  "Novokuznetsk": "Новокузнецк",
-  "Ryazan": "Рязань",
-  "Astrakhan": "Астрахань",
-  "Naberezhnye Chelny": "Набережные Челны",
-  "Penza": "Пенза",
-  "Lipetsk": "Липецк",
-  "Kirov": "Киров",
-  "Cheboksary": "Чебоксары",
-  "Kaliningrad": "Калининград",
-  "Kursk": "Курск",
-  "Magnitogorsk": "Магнитогорск",
-  "Tver": "Тверь",
-  "Ivanovo": "Иваново",
-  "Bryansk": "Брянск",
-  "Surgut": "Сургут",
-  "Vladimir": "Владимир",
-  "Simferopol": "Симферополь",
-  "Yakutsk": "Якутск",
-  "Almaty": "Алматы",
-  "Nur-Sultan": "Нур-Султан",
-  "Astana": "Астана",
-  "Shymkent": "Шымкент",
-  "Karagandy": "Караганда",
-  "Aktobe": "Актобе",
-  "Taraz": "Тараз",
-  "Pavlodar": "Павлодар",
-  "Semey": "Семей",
-  "Ust-Kamenogorsk": "Усть-Каменогорск",
-};
-
 /** Ghost marker: pulsing plus icon */
 function ghostIcon(): L.DivIcon {
   return L.divIcon({
@@ -147,22 +85,20 @@ export default function Stores() {
   }
 
   // IP → город пользователя + ghost на карте
-  // При падении (CORS, блокировка) — просто не показываем метку,
-  // блок «откройте по франшизе» всё равно виден
+  // Используем наш DaData-прокси (геолокация по IP).
+  // При падении — просто не показываем метку.
   useEffect(() => {
-    fetch("https://ipinfo.io/json")
+    fetch("/api/geo/city")
       .then((r) => r.json())
       .then((data) => {
-        if (!data?.loc || !data?.city) return;
-        const [lat, lng] = data.loc.split(",").map(Number);
-        if (isNaN(lat) || isNaN(lng)) return;
-        setUserCity(cityRu[data.city] ?? data.city);
+        if (!data?.lat || !data?.lon || !data?.city) return;
+        setUserCity(data.city);
         if (mapRef.current) {
-          addGhostToMap(mapRef.current, lat, lng);
+          addGhostToMap(mapRef.current, data.lat, data.lon);
         } else {
           const interval = setInterval(() => {
             if (mapRef.current) {
-              addGhostToMap(mapRef.current, lat, lng);
+              addGhostToMap(mapRef.current, data.lat, data.lon);
               clearInterval(interval);
             }
           }, 200);

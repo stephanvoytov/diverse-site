@@ -3,12 +3,14 @@
 import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useModal } from "@/lib/modal-context";
+import { useUserCity } from "@/lib/user-city-context";
 
 const STORAGE_KEY = "exit-intent-dismissed";
 
 export default function ExitIntentPopup() {
   const [show, setShow] = useState(false);
   const { open: openModal } = useModal();
+  const { city: detectedCity, loading } = useUserCity();
 
   const dismiss = useCallback(() => {
     setShow(false);
@@ -91,10 +93,14 @@ export default function ExitIntentPopup() {
               </div>
 
               <h3 className="text-xl md:text-2xl font-bold text-brand-black mb-2 leading-[1.2]">
-                Уже уходите?
+                {!loading && detectedCity
+                  ? `Уже уходите? Откройте Diverse в ${detectedCity}!`
+                  : "Уже уходите?"}
               </h3>
               <p className="text-sm text-brand-gray-400 mb-6 leading-relaxed">
-                Не упустите возможность. Мы бесплатно проконсультируем вас по открытию магазина Diverse.
+                {!loading && detectedCity
+                  ? `Мы бесплатно проконсультируем вас по открытию магазина Diverse в ${detectedCity}.`
+                  : "Не упустите возможность. Мы бесплатно проконсультируем вас по открытию магазина Diverse."}
               </p>
 
               {/* Value props */}
