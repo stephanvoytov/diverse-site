@@ -29,7 +29,7 @@ export default function Hero() {
       <link rel="preload" as="image" href={asset("/images/hero/main-mobile.webp")} media="(max-width: 767px)" type="image/webp" />
       <section
         ref={ref}
-        data-header="light"
+        data-header="dark"
         className="relative h-dvh min-h-[600px] overflow-hidden bg-black"
       >
         {/* Layer 1: Fallback gradient (always on) */}

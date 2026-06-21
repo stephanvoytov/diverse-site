@@ -172,12 +172,14 @@ export default function RootLayout({
           </Script>
         )}
 
-        <noscript>
-          <div>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="https://mc.yandex.ru/watch/${ymId}" style={{position:"absolute",left:-9999}} alt="" />
-          </div>
-        </noscript>
+        {ymId && (
+          <noscript>
+            <div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={`https://mc.yandex.ru/watch/${ymId}`} style={{position:"absolute",left:-9999}} alt="" />
+            </div>
+          </noscript>
+        )}
       </body>
     </html>
   );
