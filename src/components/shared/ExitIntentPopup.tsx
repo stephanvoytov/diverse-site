@@ -30,17 +30,36 @@ export default function ExitIntentPopup() {
     }
 
     let mounted = true;
+    let timer: ReturnType<typeof setTimeout>;
 
-    const handleMouseLeave = (e: MouseEvent) => {
-      if (e.clientY > 0) return;
+    const openPopup = () => {
       if (!mounted) return;
       setShow(true);
     };
 
+    // 1. Курсор ушёл за верхнюю границу окна (основной триггер)
+    const handleMouseLeave = (e: MouseEvent) => {
+      if (e.clientY > 0) return;
+      openPopup();
+    };
+
+    // 2. mouseout — альтернатива для браузеров, где mouseleave на document нестабилен
+    const handleMouseOut = (e: MouseEvent) => {
+      if (e.clientY > 0) return;
+      if (e.relatedTarget) return; // мышь перешла на другой элемент
+      openPopup();
+    };
+
+    // 3. Запасной таймер — покажем через 60 с, если ни один из триггеров не сработал
+    timer = setTimeout(openPopup, 60_000);
+
     document.addEventListener("mouseleave", handleMouseLeave);
+    document.addEventListener("mouseout", handleMouseOut);
     return () => {
       mounted = false;
+      clearTimeout(timer);
       document.removeEventListener("mouseleave", handleMouseLeave);
+      document.removeEventListener("mouseout", handleMouseOut);
     };
   }, []);
 
