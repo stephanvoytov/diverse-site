@@ -95,6 +95,7 @@ export default function Header({ transparent }: { transparent?: boolean }) {
             width={120}
             height={20}
             priority
+            fetchPriority="high"
             className="h-4 md:h-5 w-auto transition-opacity"
           />
         </Link>

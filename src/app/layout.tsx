@@ -128,7 +128,8 @@ export default function RootLayout({
   return (
     <html lang="ru" className={inter.variable} data-scroll-behavior="smooth">
       <body>
-        {/* Preconnects для третьих сторон */}
+        {/* Preloads — начинаем загрузку до CSS/JS */}
+        <link rel="preload" as="image" href={`${basePath}/brand/logo-light.svg`} />
         <link rel="preconnect" href="https://tile.openstreetmap.org" />
         <link rel="dns-prefetch" href="https://tile.openstreetmap.org" />
 
