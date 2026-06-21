@@ -5,6 +5,9 @@ const nextConfig = {
   basePath,
   assetPrefix: basePath,
   trailingSlash: true,
+  experimental: {
+    inlineCss: true,
+  },
 };
 
 export default nextConfig;

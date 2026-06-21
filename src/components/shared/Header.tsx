@@ -7,7 +7,6 @@ import Button from "@/components/ui/Button";
 import Link from "next/link";
 import { navLinks } from "@/data/navigation";
 import { contactSocials } from "@/data/socials";
-import Image from "next/image";
 import { asset } from "@/lib/path";
 import { useModal } from "@/lib/modal-context";
 import { CONTACTS } from "@/config/site";
@@ -85,7 +84,8 @@ export default function Header({ transparent }: { transparent?: boolean }) {
       <div className="container-brand flex items-center justify-between h-16 md:h-20">
         {/* Logo */}
         <Link href="/" className="flex-shrink-0 relative z-50">
-          <Image
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src={asset(
               transparent || !isScrolled || isDarkBg
                 ? "/brand/logo-light.svg"
@@ -94,7 +94,6 @@ export default function Header({ transparent }: { transparent?: boolean }) {
             alt="Diverse — логотип"
             width={120}
             height={20}
-            priority
             fetchPriority="high"
             className="h-4 md:h-5 w-auto transition-opacity"
           />
@@ -184,7 +183,8 @@ export default function Header({ transparent }: { transparent?: boolean }) {
             >
               {/* Top bar: logo + close */}
               <div className="flex items-center justify-between px-6 h-16 md:h-20">
-                <Image
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
                   src={asset("/brand/logo-dark.svg")}
                   alt="Diverse — логотип"
                   width={100}
