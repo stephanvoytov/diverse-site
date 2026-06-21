@@ -23,19 +23,17 @@ export function UserCityProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     let cancelled = false;
 
-    // Сначала проверяем localStorage
+    // Сначала показываем кэшированный город (быстрый рендер)
     try {
       const cached = localStorage.getItem(CITY_STORAGE_KEY);
       if (cached) {
         setCity(cached);
-        setLoading(false);
-        return; // Есть кэш — не дёргаем API
       }
     } catch {
       // localStorage недоступен — игнорируем
     }
 
-    // Нет кэша — определяем город через dadata
+    // Всегда свежий запрос к DaData (перезатрёт кэш, если он устарел)
     fetch("/api/geo/city")
       .then((r) => r.json())
       .then((data) => {
