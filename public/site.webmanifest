@@ -7,6 +7,6 @@
   "background_color": "#ffffff",
   "description": "Франшиза культового польского бренда Diverse. 0₽ паушальный взнос, 0% роялти.",
   "icons": [
-    { "src": "/brand/logo-dark.svg", "sizes": "any", "type": "image/svg+xml" }
+    { "src": "/favicon.ico", "sizes": "any" }
   ]
 }

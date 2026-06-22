@@ -31,7 +31,6 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: `${basePath}/favicon.ico`, sizes: "any" },
-      { url: `${basePath}/brand/logo-dark.svg`, type: "image/svg+xml" },
     ],
     shortcut: `${basePath}/favicon.ico`,
     apple: [
