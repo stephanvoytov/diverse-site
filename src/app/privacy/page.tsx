@@ -1,6 +1,8 @@
 ﻿import type { Metadata } from "next";
 import Link from "next/link";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 export const metadata: Metadata = {
   title: "Политика конфиденциальности | Diverse",
   description:
@@ -8,6 +10,22 @@ export const metadata: Metadata = {
   robots: {
     index: false,
     follow: true,
+  },
+  openGraph: {
+    title: "Политика конфиденциальности | Diverse",
+    description:
+      "Политика обработки персональных данных ООО «ХАУС» — официального представителя бренда Diverse в России.",
+    siteName: "Diverse Россия",
+    locale: "ru_RU",
+    type: "website",
+    images: [{ url: `${basePath}/images/hero/main.jpg`, width: 1920, height: 1080 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Политика конфиденциальности | Diverse",
+    description:
+      "Политика обработки персональных данных ООО «ХАУС».",
+    images: [`${basePath}/images/hero/main.jpg`],
   },
 };
 

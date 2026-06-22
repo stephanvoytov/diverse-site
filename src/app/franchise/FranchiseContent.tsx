@@ -148,6 +148,7 @@ function ComparisonTable() {
             transition={{ delay: 0.1, duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
           >
           <table className="w-full text-sm border-collapse">
+            <caption className="sr-only">Сравнение форматов франшизы Diverse: Торговый остров, Реновация, Полный стандарт</caption>
             <thead>
               <tr>
                 <th className="text-left py-4 pr-6 text-xs label text-brand-gray-400 font-medium w-[140px]">
@@ -199,6 +200,7 @@ function ComparisonTable() {
           {/* Карточка параметров */}
           <div className="bg-white rounded-sm overflow-hidden border border-brand-gray-200">
             <table className="w-full text-sm">
+              <caption className="sr-only">Параметры выбранного формата франшизы</caption>
               <tbody>
                 {comparisonRows.map((row) => (
                   <tr key={row.label} className="border-b border-brand-gray-100 last:border-b-0">

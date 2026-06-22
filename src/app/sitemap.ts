@@ -12,7 +12,6 @@ const routes = [
   { path: "/franchise", priority: 0.9 },
   { path: "/collection", priority: 0.6 },
   { path: "/stores", priority: 0.7 },
-  { path: "/privacy", priority: 0.3 },
 ] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {

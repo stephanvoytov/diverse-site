@@ -61,6 +61,7 @@ export const metadata: Metadata = {
     title: "Франшиза Diverse",
     description:
       "Польский fashion-бренд с 30-летней историей. 400+ магазинов, партнёр Dakar Rally и 24h Le Mans. Три формата на выбор.",
+    url: `${siteUrl}${basePath}/`,
     siteName: "Diverse Россия",
     locale: "ru_RU",
     type: "website",

@@ -12,6 +12,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Diverse — история бренда",
     description: "30 лет. От Гданьска до мировых столиц моды. Философия Generation to Generation.",
+    url: `${siteUrl}${basePath}/about/`,
+    siteName: "Diverse Россия",
+    locale: "ru_RU",
+    type: "website",
     images: [{ url: `${basePath}/images/about/diverse.jpg`, width: 1200, height: 800 }],
   },
   twitter: {

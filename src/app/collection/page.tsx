@@ -13,6 +13,10 @@ export const metadata: Metadata = {
     title: "Коллекции Diverse — каждая со своим характером",
     description:
       "От флагманской линии до официальной коллекции 24H Le Mans и технологичной DEXT TECH II.",
+    url: `${siteUrl}${basePath}/collection/`,
+    siteName: "Diverse Россия",
+    locale: "ru_RU",
+    type: "website",
     images: [{ url: `${basePath}/images/diverse.avif`, width: 1200, height: 800 }],
   },
   twitter: {

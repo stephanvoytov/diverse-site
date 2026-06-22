@@ -13,6 +13,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Магазины Diverse — адреса в РФ и Казахстане",
     description: "11 магазинов в 10 городах. От Калининграда до Якутска и Алматы. Работаем по всей стране.",
+    url: `${siteUrl}${basePath}/stores/`,
+    siteName: "Diverse Россия",
+    locale: "ru_RU",
+    type: "website",
     images: [{ url: `${basePath}/images/stores/kaliningrad.jpg`, width: 1200, height: 800 }],
   },
     twitter: {

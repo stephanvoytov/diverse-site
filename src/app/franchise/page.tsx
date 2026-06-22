@@ -14,6 +14,10 @@ export const metadata: Metadata = {
     title: "Франшиза Diverse — бизнес с европейским брендом",
     description:
       "Польский fashion-бренд с 30-летней историей ищет партнёров в РФ и СНГ. 11 магазинов уже работают.",
+    url: `${siteUrl}${basePath}/franchise/`,
+    siteName: "Diverse Россия",
+    locale: "ru_RU",
+    type: "website",
     images: [{ url: `${basePath}/images/hero/main.jpg`, width: 1920, height: 1080 }],
   },
   twitter: {
