@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sendLead } from "@/lib/mail";
 import { sendLeadToTelegram } from "@/lib/telegram";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { checkRateLimit, rateLimitResponse } from "@/lib/rate-limit";
+import logger from "@/lib/logger";
 
 export async function POST(req: NextRequest) {
   try {
@@ -10,11 +11,9 @@ export async function POST(req: NextRequest) {
       req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
       req.headers.get("x-real-ip") ||
       "unknown";
-    if (!checkRateLimit(ip, 5, 60_000)) {
-      return NextResponse.json(
-        { error: "Слишком много запросов. Попробуйте через минуту." },
-        { status: 429 },
-      );
+    const rl = checkRateLimit(ip, 5, 60_000);
+    if (!rl.allowed) {
+      return rateLimitResponse(rl);
     }
 
     const body = await req.json();
@@ -40,11 +39,15 @@ export async function POST(req: NextRequest) {
     const smtpOk = smtpRes.status === "fulfilled";
     const tgOk = tgRes.status === "fulfilled";
 
-    if (!smtpOk) console.warn("SMTP error:", (smtpRes as PromiseRejectedResult).reason);
-    if (!tgOk) console.warn("Telegram error:", (tgRes as PromiseRejectedResult).reason);
+    if (!smtpOk) {
+      logger.warn({ err: (smtpRes as PromiseRejectedResult).reason }, "SMTP error");
+    }
+    if (!tgOk) {
+      logger.warn({ err: (tgRes as PromiseRejectedResult).reason }, "Telegram error");
+    }
 
     if (!smtpOk && !tgOk) {
-      console.error("Both SMTP and Telegram failed");
+      logger.error("Both SMTP and Telegram failed");
       return NextResponse.json(
         { error: "Ошибка отправки. Каналы недоступны." },
         { status: 500 }
@@ -53,7 +56,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ ok: true });
   } catch (err) {
-    console.error("Lead API error:", err);
+    logger.error({ err }, "Lead API error");
     return NextResponse.json(
       { error: "Ошибка отправки. Попробуйте позже." },
       { status: 500 }

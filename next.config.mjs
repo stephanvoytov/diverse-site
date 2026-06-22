@@ -15,6 +15,7 @@ const nextConfig = {
   basePath,
   assetPrefix: basePath,
   trailingSlash: true,
+  poweredByHeader: false,
   experimental: {
     inlineCss: true,
   },

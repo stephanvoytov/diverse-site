@@ -1,4 +1,6 @@
-﻿const TELEGRAM_API = "https://api.telegram.org";
+﻿import logger from "@/lib/logger";
+
+const TELEGRAM_API = "https://api.telegram.org";
 
 export interface LeadData {
   name: string;
@@ -63,7 +65,7 @@ export async function sendLeadToTelegram(data: LeadData): Promise<void> {
     throw new Error(`Telegram send errors: ${errors.join("; ")}`);
   }
   if (errors.length > 0) {
-    console.warn("Telegram partial failures:", errors.join("; "));
+    logger.warn({ errors: errors.join("; ") }, "Telegram partial failures");
   }
 }
 
