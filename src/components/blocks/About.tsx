@@ -19,11 +19,23 @@ const stagger = {
 
 export default function About() {
   return (
-    <section data-header="light" className="bg-white">
+    <section data-header="light" className="relative overflow-hidden bg-white">
+      {/* Фоновое фото — затемнённый градиент слева */}
+      <div className="absolute inset-0 -z-10">
+        <Image
+          src={asset("/images/about/diverse.jpg")}
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover object-[center_30%] opacity-[0.07]"
+          priority
+        />
+      </div>
+
       <div className="container-brand py-5 md:py-8">
-        {/* Header — два текстовых блока + фото, все в одной сетке */}
+        {/* Header — два текстовых блока */}
         <motion.div
-          className="grid md:grid-cols-[1fr_1fr_auto] gap-6 md:gap-10 mb-8"
+          className="grid md:grid-cols-2 gap-8 md:gap-12 mb-8"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
@@ -40,22 +52,10 @@ export default function About() {
               <span className="text-brand-accent">30+ лет</span> истории
             </h2>
           </motion.div>
-
           <motion.div variants={fadeUp} className="flex flex-col justify-end">
             <p className="body-text text-brand-gray-400 leading-relaxed">
               Польский fashion-бренд с характером: сильный дизайн, европейское качество, дерзкая энергия. Рождён в Гданьске, вдохновлён уличной культурой и спортом.
             </p>
-          </motion.div>
-
-          <motion.div variants={fadeUp} className="flex items-center justify-end md:justify-center">
-            <Image
-              src={asset("/images/about/diverse.jpg")}
-              alt="Магазин Diverse"
-              width={180}
-              height={116}
-              sizes="180px"
-              className="rounded-sm object-cover"
-            />
           </motion.div>
         </motion.div>
 
