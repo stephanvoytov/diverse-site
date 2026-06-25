@@ -215,7 +215,7 @@ export default function Stores() {
   }
 
   return (
-    <section data-header="light" className="min-h-screen bg-brand-gray-100">
+    <section data-header="light" className="min-h-screen bg-white">
       <div className="container-brand py-10 md:py-12">
         {/* ——— Шапка ——— */}
         <motion.div

@@ -1,8 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import CountUp from "@/components/ui/CountUp";
 import { aboutStats } from "@/data/brand";
+import { asset } from "@/lib/path";
 
 const easeInOut: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
 
@@ -19,9 +21,9 @@ export default function About() {
   return (
     <section data-header="light" className="bg-white">
       <div className="container-brand py-5 md:py-8">
-        {/* Header — один observer на всю группу */}
+        {/* Header — два текстовых блока + фото, все в одной сетке */}
         <motion.div
-          className="grid md:grid-cols-2 gap-8 md:gap-12 mb-8"
+          className="grid md:grid-cols-[1fr_1fr_auto] gap-6 md:gap-10 mb-8"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
@@ -38,10 +40,22 @@ export default function About() {
               <span className="text-brand-accent">30+ лет</span> истории
             </h2>
           </motion.div>
+
           <motion.div variants={fadeUp} className="flex flex-col justify-end">
             <p className="body-text text-brand-gray-400 leading-relaxed">
               Польский fashion-бренд с характером: сильный дизайн, европейское качество, дерзкая энергия. Рождён в Гданьске, вдохновлён уличной культурой и спортом.
             </p>
+          </motion.div>
+
+          <motion.div variants={fadeUp} className="flex items-center justify-end md:justify-center">
+            <Image
+              src={asset("/images/about/diverse.jpg")}
+              alt="Магазин Diverse"
+              width={180}
+              height={116}
+              sizes="180px"
+              className="rounded-sm object-cover"
+            />
           </motion.div>
         </motion.div>
 

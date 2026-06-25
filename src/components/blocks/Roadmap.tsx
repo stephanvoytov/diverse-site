@@ -8,7 +8,7 @@ const easeOut: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
 
 export default function Roadmap() {
   return (
-    <section data-header="light" className="bg-brand-gray-100">
+    <section data-header="light" className="bg-white">
       <div className="container-brand py-16 md:py-24">
         {/* Header */}
         <SectionHeader

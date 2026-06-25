@@ -15,7 +15,7 @@ const easeOut: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
 
 export default function MarketBlock() {
   return (
-    <section data-header="light" className="bg-brand-gray-100 py-16 md:py-24">
+    <section data-header="light" className="bg-white py-16 md:py-24">
       <div className="container-brand">
         {/* Header */}
         <SectionHeader

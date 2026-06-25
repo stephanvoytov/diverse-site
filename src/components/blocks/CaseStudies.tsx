@@ -12,7 +12,7 @@ export default function CaseStudies() {
   const [videoOpen, setVideoOpen] = useState<string | null>(null);
 
   return (
-    <section id="section-cases" data-header="light" className="bg-white py-16 md:py-24">
+    <section id="section-cases" data-header="light" className="bg-brand-gray-100 py-16 md:py-24">
       <div className="container-brand">
         {/* Header */}
         <SectionHeader
