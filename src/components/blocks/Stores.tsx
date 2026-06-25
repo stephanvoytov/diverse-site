@@ -10,6 +10,7 @@ import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import type { Store } from "@/data/stores";
 import { stores, citiesSummary } from "@/data/stores";
 import { asset } from "@/lib/path";
+import { useUserCity } from "@/lib/user-city-context";
 
 function popupHtml(s: Store): string {
   return `<div style="width:240px;font-family:Inter,sans-serif;line-height:1.5;border-radius:4px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.15);">
@@ -64,7 +65,7 @@ export default function Stores() {
   const sidebarRef = useRef<HTMLDivElement>(null);
   const ghostAddedRef = useRef(false);
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
-  const [userCity, setUserCity] = useState<string | null>(null);
+  const { city: userCity, lat, lon } = useUserCity();
 
   function addGhostToMap(map: L.Map, lat: number, lng: number) {
     if (ghostAddedRef.current) return;
@@ -85,28 +86,21 @@ export default function Stores() {
   }
 
   // IP → город пользователя + ghost на карте
-  // Используем наш DaData-прокси (геолокация по IP).
-  // При падении — просто не показываем метку.
+  // Берём координаты из UserCityContext (один fetch на сессию)
   useEffect(() => {
-    fetch("/api/geo/city")
-      .then((r) => r.json())
-      .then((data) => {
-        if (!data?.lat || !data?.lon || !data?.city) return;
-        setUserCity(data.city);
+    if (!lat || !lon || !userCity) return;
+    if (mapRef.current) {
+      addGhostToMap(mapRef.current, lat, lon);
+    } else {
+      const interval = setInterval(() => {
         if (mapRef.current) {
-          addGhostToMap(mapRef.current, data.lat, data.lon);
-        } else {
-          const interval = setInterval(() => {
-            if (mapRef.current) {
-              addGhostToMap(mapRef.current, data.lat, data.lon);
-              clearInterval(interval);
-            }
-          }, 200);
-          setTimeout(() => clearInterval(interval), 10000);
+          addGhostToMap(mapRef.current, lat, lon);
+          clearInterval(interval);
         }
-      })
-      .catch(() => {});
-  }, []);
+      }, 200);
+      setTimeout(() => clearInterval(interval), 10000);
+    }
+  }, [lat, lon, userCity]);
 
   // Карта
   useEffect(() => {
