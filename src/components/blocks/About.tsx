@@ -19,24 +19,11 @@ const stagger = {
 
 export default function About() {
   return (
-    <section data-header="light" className="relative overflow-hidden">
-      {/* Фоновое фото — справа, скрыто слева градиентом */}
-      <div className="absolute inset-0">
-        <Image
-          src={asset("/images/about/diverse.jpg")}
-          alt=""
-          fill
-          sizes="100vw"
-          className="object-cover object-[center_30%]"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 from-50% to-white/60" />
-      </div>
-
-      <div className="container-brand relative z-10 py-5 md:py-8">
-        {/* Header — два текстовых блока */}
+    <section data-header="light" className="bg-white">
+      <div className="container-brand py-5 md:py-8">
+        {/* Header */}
         <motion.div
-          className="grid md:grid-cols-2 gap-8 md:gap-12 mb-8"
+          className="flex flex-col md:flex-row gap-8 md:gap-12 mb-8"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
@@ -44,7 +31,7 @@ export default function About() {
             visible: { transition: { staggerChildren: 0.1 } },
           }}
         >
-          <motion.div variants={fadeUp}>
+          <motion.div variants={fadeUp} className="md:flex-1">
             <p className="text-xs eyebrow text-brand-gray-400 mb-4">
               О бренде
             </p>
@@ -53,10 +40,25 @@ export default function About() {
               <span className="text-brand-accent">30+ лет</span> истории
             </h2>
           </motion.div>
-          <motion.div variants={fadeUp} className="flex flex-col justify-end">
+          <motion.div variants={fadeUp} className="flex flex-col justify-end md:flex-1">
             <p className="body-text text-brand-gray-400 leading-relaxed">
               Польский fashion-бренд с характером: сильный дизайн, европейское качество, дерзкая энергия. Рождён в Гданьске, вдохновлён уличной культурой и спортом.
             </p>
+          </motion.div>
+
+          {/* Фото — справа, компактно, без растягивания */}
+          <motion.div
+            variants={fadeUp}
+            className="flex items-start shrink-0"
+          >
+            <Image
+              src={asset("/images/about/diverse.jpg")}
+              alt="Магазин Diverse"
+              width={300}
+              height={194}
+              sizes="300px"
+              className="rounded-sm object-cover w-[300px] h-auto"
+            />
           </motion.div>
         </motion.div>
 
