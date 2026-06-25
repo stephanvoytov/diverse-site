@@ -65,37 +65,7 @@ export default function Franchise() {
           </motion.p>
         </motion.div>
 
-        {/* Trust badges: Топ-8 + benefits — перед карточками */}
-        <div className="max-w-5xl mx-auto mb-8 md:mb-10 text-center space-y-6 md:space-y-8">
-          {/* Бейдж Комсомольской правды */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.5, delay: 0.1, ease: easeOut }}
-          >
-            <a
-              href="https://www.kp.ru/money/biznes/luchshie-franshizy-magazinov-odezhdy-v-rossii/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-5 py-3 border border-white/10 rounded-sm hover:bg-white/[0.04] transition-colors group"
-            >
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="shrink-0">
-                <path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.33L10 13.13 5.23 15.72l.91-5.33L2.27 6.62l5.34-.78L10 1z" fill="#D12026"/>
-              </svg>
-              <span className="text-sm text-white/50 group-hover:text-white/80 transition-colors">
-                <span className="text-white/80 font-medium">Топ-8</span> лучших франшиз магазинов одежды —{" "}
-                <span className="text-white/60">рейтинг </span>
-                <span className="font-medium text-white/80">«Комсомольской правды»</span>
-                <span className="text-white/40 ml-1">2026</span>
-              </span>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="shrink-0 text-white/30 group-hover:text-white/50 transition-colors">
-                <path d="M3.5 10.5L10.5 3.5M10.5 3.5H4.5M10.5 3.5V9.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </a>
-          </motion.div>
-
-        </div>
+        {/* Cards — тизер: имя, описание и инвестиции */}
 
         {/* Cards — тизер: имя, описание и инвестиции */}
         <motion.div

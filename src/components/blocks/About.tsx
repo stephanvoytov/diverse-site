@@ -17,7 +17,7 @@ const stagger = {
 
 export default function About() {
   return (
-    <section data-header="light" className="bg-white">
+    <section data-header="light" className="bg-brand-gray-100">
       <div className="container-brand py-5 md:py-8">
         {/* Header — два текстовых блока */}
         <motion.div

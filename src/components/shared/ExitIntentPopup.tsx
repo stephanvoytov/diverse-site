@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useModal } from "@/lib/modal-context";
 import { useUserCity } from "@/lib/user-city-context";
 
-const STORAGE_KEY = "exit-intent-dismissed";
+const STORAGE_KEY = "exit-intent-dismissed-v2";
 
 export default function ExitIntentPopup() {
   const [show, setShow] = useState(false);
@@ -15,51 +15,44 @@ export default function ExitIntentPopup() {
   const dismiss = useCallback(() => {
     setShow(false);
     try {
-      sessionStorage.setItem(STORAGE_KEY, "1");
+      localStorage.setItem(STORAGE_KEY, "1");
     } catch {
       // storage unavailable
     }
   }, []);
 
   useEffect(() => {
-    // Не показываем, если уже закрыли в этой сессии
+    // Не показываем, если уже закрыли (localStorage — навсегда)
     try {
-      if (sessionStorage.getItem(STORAGE_KEY)) return;
+      if (localStorage.getItem(STORAGE_KEY)) return;
     } catch {
       // storage unavailable
     }
 
     let mounted = true;
-    let timer: ReturnType<typeof setTimeout>;
+    let canShow = false;
+
+    // Минимум 30 секунд на странице, прежде чем показывать
+    const readyTimer = setTimeout(() => {
+      canShow = true;
+    }, 30_000);
 
     const openPopup = () => {
-      if (!mounted) return;
+      if (!mounted || !canShow) return;
       setShow(true);
     };
 
-    // 1. Курсор ушёл за верхнюю границу окна (основной триггер)
+    // Курсор ушёл за верхнюю границу окна
     const handleMouseLeave = (e: MouseEvent) => {
       if (e.clientY > 0) return;
       openPopup();
     };
 
-    // 2. mouseout — альтернатива для браузеров, где mouseleave на document нестабилен
-    const handleMouseOut = (e: MouseEvent) => {
-      if (e.clientY > 0) return;
-      if (e.relatedTarget) return; // мышь перешла на другой элемент
-      openPopup();
-    };
-
-    // 3. Запасной таймер — покажем через 60 с, если ни один из триггеров не сработал
-    timer = setTimeout(openPopup, 60_000);
-
     document.addEventListener("mouseleave", handleMouseLeave);
-    document.addEventListener("mouseout", handleMouseOut);
     return () => {
       mounted = false;
-      clearTimeout(timer);
+      clearTimeout(readyTimer);
       document.removeEventListener("mouseleave", handleMouseLeave);
-      document.removeEventListener("mouseout", handleMouseOut);
     };
   }, []);
 

@@ -9,7 +9,7 @@ const easeOut: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
 
 export default function KpRating() {
   return (
-    <section data-header="light" className="bg-brand-gray-100 py-16 md:py-24">
+    <section data-header="light" className="bg-white py-16 md:py-24">
       <div className="container-brand">
         <SectionHeader
           eyebrow="Экспертная оценка"
@@ -52,10 +52,6 @@ export default function KpRating() {
                 <p className="text-xs text-brand-gray-400">лучших франшиз магазинов одежды в России — 2026</p>
               </div>
             </a>
-
-            <p className="body-text text-brand-gray-400 leading-relaxed">
-              «Комсомольская правда» — крупнейшее издательство России с аудиторией более 40 млн человек. Ежегодный рейтинг франшиз составляется на основе анализа десятков параметров: от финансовой устойчивости до качества поддержки партнёров.
-            </p>
 
             <p className="body-text text-brand-gray-400 leading-relaxed">
               Попадание в Топ-8 подтверждает, что модель Diverse признана одной из самых надёжных и перспективных на рынке франчайзинга.
