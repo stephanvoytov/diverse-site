@@ -71,7 +71,7 @@ export const formatCards: FormatCard[] = [
 /* ——— Прибыль по форматам для главной ——— */
 
 export const cardProfit: Record<FormatId, string> = {
-  island: "от 200 тыс ₽",
+  island: "от 150 тыс ₽",
   renovation: "от 300 тыс ₽",
   standard: "от 300 тыс ₽",
 };
