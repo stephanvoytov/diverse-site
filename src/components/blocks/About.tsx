@@ -21,7 +21,28 @@ export default function About() {
   return (
     <section data-header="light" className="bg-white">
       <div className="container-brand py-5 md:py-8">
-        {/* Фото с текстом поверх — максимум 620px (родной размер) */}
+        {/* Header — заголовок как обычно */}
+        <motion.div
+          className="grid md:grid-cols-2 gap-8 md:gap-12 mb-8"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={{
+            visible: { transition: { staggerChildren: 0.1 } },
+          }}
+        >
+          <motion.div variants={fadeUp}>
+            <p className="text-xs eyebrow text-brand-gray-400 mb-4">
+              О бренде
+            </p>
+            <h2 className="section-title text-brand-black">
+              Diverse: <br />
+              <span className="text-brand-accent">30+ лет</span> истории
+            </h2>
+          </motion.div>
+        </motion.div>
+
+        {/* Фото с описанием поверх — макс 620px (родной размер) */}
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -31,7 +52,6 @@ export default function About() {
           }}
           className="relative rounded-sm overflow-hidden max-w-[620px] mx-auto mb-8"
         >
-          {/* Фото */}
           <motion.div variants={fadeUp}>
             <Image
               src={asset("/images/about/diverse.jpg")}
@@ -43,25 +63,17 @@ export default function About() {
             />
           </motion.div>
 
-          {/* Тёмный градиент */}
+          {/* Тёмный градиент слева */}
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
 
-          {/* Текст поверх фото */}
+          {/* Только описание на фото */}
           <motion.div
             variants={fadeUp}
             className="absolute inset-0 flex items-center px-6 md:px-8"
           >
-            <div className="max-w-xs">
-              <p className="text-[10px] uppercase tracking-[0.15em] text-white/60 mb-2">
-                О бренде
-              </p>
-              <h2 className="text-2xl md:text-3xl font-bold text-white leading-[1.15] mb-2">
-                Diverse: <span className="text-brand-accent">30+ лет</span> истории
-              </h2>
-              <p className="text-xs md:text-sm text-white/70 leading-relaxed">
-                Польский fashion-бренд с характером: сильный дизайн, европейское качество, дерзкая энергия.
-              </p>
-            </div>
+            <p className="text-xs md:text-sm text-white/70 leading-relaxed max-w-xs">
+              Польский fashion-бренд с характером: сильный дизайн, европейское качество, дерзкая энергия. Рождён в Гданьске, вдохновлён уличной культурой и спортом.
+            </p>
           </motion.div>
         </motion.div>
 
