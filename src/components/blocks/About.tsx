@@ -19,20 +19,21 @@ const stagger = {
 
 export default function About() {
   return (
-    <section data-header="light" className="relative overflow-hidden bg-white">
-      {/* Фоновое фото — затемнённый градиент слева */}
-      <div className="absolute inset-0 -z-10">
+    <section data-header="light" className="relative overflow-hidden">
+      {/* Фоновое фото — справа, скрыто слева градиентом */}
+      <div className="absolute inset-0">
         <Image
           src={asset("/images/about/diverse.jpg")}
           alt=""
           fill
           sizes="100vw"
-          className="object-cover object-[center_30%] opacity-[0.07]"
+          className="object-cover object-[center_30%]"
           priority
         />
+        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 from-50% to-white/60" />
       </div>
 
-      <div className="container-brand py-5 md:py-8">
+      <div className="container-brand relative z-10 py-5 md:py-8">
         {/* Header — два текстовых блока */}
         <motion.div
           className="grid md:grid-cols-2 gap-8 md:gap-12 mb-8"
