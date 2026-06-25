@@ -148,7 +148,7 @@ function ComparisonTable() {
             transition={{ delay: 0.1, duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
           >
           <table className="w-full text-sm border-collapse">
-            <caption className="sr-only">Сравнение форматов франшизы Diverse: Торговый остров, Реновация, Полный стандарт</caption>
+            <caption className="sr-only">Сравнение форматов франшизы Diverse: POP-UP STORE, Реновация, Полный стандарт</caption>
             <thead>
               <tr>
                 <th className="text-left py-4 pr-6 text-xs label text-brand-gray-400 font-medium w-[140px]">
@@ -257,7 +257,7 @@ function FinancialModel() {
                 { label: "Аренда + коммунальные", value: "~150 000 ₽", accent: false },
                 { label: "ФОТ (2–3 сотрудника)", value: "~150 000 ₽", accent: false },
                 { label: "Маркетинг / прочие", value: "~50 000 ₽", accent: false },
-                { label: "Операционная прибыль / мес", value: "~150 000 ₽", accent: true },
+                { label: "Операционная прибыль / мес", value: "от 300 000 ₽", accent: true },
                 { label: "Инвестиции (вход)", value: "от 1,5 млн ₽", accent: false },
                 { label: "Точка безубыточности", value: "~700 000 ₽/мес", detail: "Порог выручки для покрытия всех расходов", accent: false },
                 { label: "Срок окупаемости", value: "~12–14 мес", detail: "С учётом сезонности", accent: false },

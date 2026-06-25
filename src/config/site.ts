@@ -36,7 +36,7 @@ export const SOCIALS = {
 /* ===== Форматы франшизы (для форм) ===== */
 
 export const FORMAT_OPTIONS = [
-  { id: "island" as const,     label: "Торговый остров",   desc: "от 800 тыс ₽, от 12 м²" },
+  { id: "island" as const,     label: "POP-UP STORE",      desc: "от 800 тыс ₽, от 20 м²" },
   { id: "renovation" as const, label: "Реновация",         desc: "от 1,5 млн ₽, готовое помещение" },
   { id: "standard" as const,   label: "Полный стандарт",   desc: "от 3 млн ₽, от 60 м²" },
 ] as const;
