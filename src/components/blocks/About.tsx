@@ -1,10 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import CountUp from "@/components/ui/CountUp";
 import { aboutStats } from "@/data/brand";
-import { asset } from "@/lib/path";
 
 const easeInOut: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
 
@@ -21,9 +19,9 @@ export default function About() {
   return (
     <section data-header="light" className="bg-white">
       <div className="container-brand py-5 md:py-8">
-        {/* Header — заголовок как обычно */}
+        {/* Header — два текстовых блока */}
         <motion.div
-          className="grid md:grid-cols-2 gap-8 md:gap-12 mb-8"
+          className="grid md:grid-cols-2 gap-6 md:gap-10 mb-8"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
@@ -40,44 +38,16 @@ export default function About() {
               <span className="text-brand-accent">30+ лет</span> истории
             </h2>
           </motion.div>
-        </motion.div>
 
-        {/* Фото с описанием поверх — макс 620px (родной размер) */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          variants={{
-            visible: { transition: { staggerChildren: 0.1 } },
-          }}
-          className="relative rounded-sm overflow-hidden max-w-[620px] mx-auto mb-8"
-        >
-          <motion.div variants={fadeUp}>
-            <Image
-              src={asset("/images/about/diverse.jpg")}
-              alt="Магазин Diverse"
-              width={620}
-              height={400}
-              sizes="(max-width: 620px) 100vw, 620px"
-              className="w-full h-auto object-cover"
-            />
-          </motion.div>
-
-          {/* Тёмный градиент слева */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
-
-          {/* Только описание на фото */}
-          <motion.div
-            variants={fadeUp}
-            className="absolute inset-0 flex items-center px-6 md:px-8"
-          >
-            <p className="text-xs md:text-sm text-white/70 leading-relaxed max-w-xs">
+          <motion.div variants={fadeUp} className="flex flex-col justify-end">
+            <p className="body-text text-brand-gray-400 leading-relaxed">
               Польский fashion-бренд с характером: сильный дизайн, европейское качество, дерзкая энергия. Рождён в Гданьске, вдохновлён уличной культурой и спортом.
             </p>
           </motion.div>
+
         </motion.div>
 
-        {/* Stats */}
+        {/* Stats — один observer, дети через stagger */}
         <motion.div
           className="flex gap-5 md:gap-16 mb-4 max-md:justify-between"
           initial="hidden"
@@ -116,7 +86,7 @@ export default function About() {
           })}
         </motion.div>
 
-        {/* Links */}
+        {/* Links — один observer */}
         <motion.div
           className="mt-4 md:mt-10 flex max-sm:flex-col items-center gap-3 md:gap-6"
           initial="hidden"
