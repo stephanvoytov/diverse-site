@@ -72,7 +72,7 @@ export default function KpRating() {
             </a>
           </motion.div>
 
-          {/* Правая колонка — фото статьи КП */}
+          {/* Правая колонка — логотип КП */}
           <motion.div
             variants={{
               hidden: { opacity: 0, x: 20 },
@@ -84,17 +84,16 @@ export default function KpRating() {
               href="https://www.kp.ru/money/biznes/luchshie-franshizy-magazinov-odezhdy-v-rossii/"
               target="_blank"
               rel="noopener noreferrer"
-              className="block relative aspect-[4/3] bg-brand-gray-100 rounded-sm overflow-hidden border border-brand-gray-200 hover:border-brand-accent/40 transition-colors group"
+              className="block relative bg-white rounded-sm overflow-hidden border border-brand-gray-200 hover:border-brand-accent/40 transition-colors group"
             >
               <Image
                 src={asset("/images/kp-rating.jpg")}
-                alt="Скриншот рейтинга франшиз Комсомольской правды — Diverse в Топ-8"
-                width={600}
-                height={450}
+                alt="Комсомольская правда — логотип издания"
+                width={1254}
+                height={705}
                 sizes="(max-width: 768px) 100vw, 50vw"
-                className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                className="w-full h-auto group-hover:scale-[1.01] transition-transform duration-500"
               />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/[0.02] transition-colors" />
             </a>
             <p className="text-xs text-brand-gray-300 mt-3 text-center">
               Источник: kp.ru · рейтинг лучших франшиз магазинов одежды 2026
