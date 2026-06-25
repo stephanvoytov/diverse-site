@@ -30,7 +30,6 @@ export const metadata: Metadata = {
     "Франшиза культового польского бренда Diverse. 0₽ паушальный взнос, 0% роялти. 11 магазинов уже открыты. Станьте партнёром в своём городе.",
   icons: {
     icon: [
-      { url: `${basePath}/favicon.svg`, type: "image/svg+xml" },
       { url: `${basePath}/favicon-96x96.png`, sizes: "96x96", type: "image/png" },
       { url: `${basePath}/favicon.ico`, sizes: "any" },
     ],
