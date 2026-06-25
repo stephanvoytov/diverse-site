@@ -2,6 +2,7 @@
 import Header from "@/components/shared/Header";
 import Hero from "@/components/blocks/Hero";
 import About from "@/components/blocks/About";
+import KpRating from "@/components/blocks/KpRating";
 import MarketBlock from "@/components/blocks/MarketBlock";
 import Franchise from "@/components/blocks/Franchise";
 import TrustModel from "@/components/blocks/TrustModel";
@@ -61,6 +62,7 @@ export default function Home() {
       <main>
         <Hero />
         <About />
+        <KpRating />
         <Franchise />
         <MarketBlock />
         <TrustModel />
