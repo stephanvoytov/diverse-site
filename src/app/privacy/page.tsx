@@ -4,17 +4,17 @@ import Link from "next/link";
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 export const metadata: Metadata = {
-  title: "Политика конфиденциальности | Diverse",
+  title: "Политика конфиденциальности",
   description:
-    "Политика обработки персональных данных ООО «ХАУС» — официального представителя бренда Diverse в России.",
+    "Политика конфиденциальности и условия обработки персональных данных сайта Diverse.",
   robots: {
     index: false,
     follow: true,
   },
   openGraph: {
-    title: "Политика конфиденциальности | Diverse",
+    title: "Политика конфиденциальности",
     description:
-      "Политика обработки персональных данных ООО «ХАУС» — официального представителя бренда Diverse в России.",
+      "Политика конфиденциальности и условия обработки персональных данных сайта Diverse.",
     siteName: "Diverse Россия",
     locale: "ru_RU",
     type: "website",
@@ -22,9 +22,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Политика конфиденциальности | Diverse",
+    title: "Политика конфиденциальности",
     description:
-      "Политика обработки персональных данных ООО «ХАУС».",
+      "Политика конфиденциальности и условия обработки персональных данных сайта Diverse.",
     images: [`${basePath}/images/hero/main.jpg`],
   },
 };

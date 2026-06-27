@@ -6,13 +6,13 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://diversebrand.ru";
 
 export const metadata: Metadata = {
-  title: "Коллекции одежды Diverse — от DENIM до DEXT TECH",
+  title: "Коллекции Diverse — одежда для города, спорта и путешествий",
   description:
-    "9 коллекций: Diverse, Dakar, DENIM, 24H Le Mans, DEXT, Coalition, EVO Series, OPEN, Athletics. От городской классики до технологичной экипировки для экстрима.",
+    "Изучите коллекции Diverse: городской стиль, технологичные линии и одежда для активного образа жизни. Полная презентация бренда и его направлений.",
   openGraph: {
-    title: "Коллекции Diverse — каждая со своим характером",
+    title: "Коллекции Diverse — одежда для города, спорта и путешествий",
     description:
-      "От флагманской линии до официальной коллекции 24H Le Mans и технологичной DEXT TECH II.",
+      "Изучите коллекции Diverse: городской стиль, технологичные линии и одежда для активного образа жизни.",
     url: `${siteUrl}${basePath}/collection/`,
     siteName: "Diverse Россия",
     locale: "ru_RU",
@@ -21,16 +21,14 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Коллекции Diverse",
+    title: "Коллекции Diverse — одежда для города, спорта и путешествий",
     description:
-      "9 коллекций: от Diverse и Dakar до DENIM и DEXT TECH — каждая со своим характером.",
+      "Изучите коллекции Diverse: городской стиль, технологичные линии и одежда для активного образа жизни.",
     images: [`${basePath}/images/diverse.avif`],
   },
   keywords: [
-    "коллекции Diverse", "Dakar одежда", "DENIM коллекция",
-    "24H Le Mans одежда", "DEXT TECH",
-    "бренд Diverse коллекции", "мужская одежда бренд",
-    "польская одежда бренд",
+    "коллекции Diverse", "Dakar одежда",
+    "DEXT TECH", "бренд Diverse коллекции",
   ],
   alternates: {
     canonical: `${siteUrl}${basePath}/collection/`,

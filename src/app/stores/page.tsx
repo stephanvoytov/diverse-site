@@ -7,12 +7,12 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://diversebrand.ru";
 
 export const metadata: Metadata = {
-  title: "Магазины Diverse в России и Казахстане — адреса и контакты",
+  title: "Магазины Diverse — адреса, города и контакты",
   description:
-    "11 магазинов Diverse в 10 городах. Россия: Калининград, Уфа, Сургут, Красноярск, Симферополь, Якутск, Саратов. Казахстан: Алматы, Щучинск.",
+    "Найдите магазин Diverse в вашем городе: 11 точек в России и Казахстане. Адреса, контакты и часы работы.",
   openGraph: {
-    title: "Магазины Diverse — адреса в РФ и Казахстане",
-    description: "11 магазинов в 10 городах. От Калининграда до Якутска и Алматы. Работаем по всей стране.",
+    title: "Магазины Diverse — адреса, города и контакты",
+    description: "Найдите магазин Diverse в вашем городе: 11 точек в России и Казахстане. Адреса и контакты.",
     url: `${siteUrl}${basePath}/stores/`,
     siteName: "Diverse Россия",
     locale: "ru_RU",
@@ -21,8 +21,8 @@ export const metadata: Metadata = {
   },
     twitter: {
     card: "summary_large_image",
-    title: "Адреса магазинов Diverse",
-    description: "11 магазинов в России и Казахстане: Калининград, Уфа, Красноярск, Сургут, Алматы и другие города.",
+    title: "Магазины Diverse — адреса, города и контакты",
+    description: "Найдите магазин Diverse в вашем городе: 11 точек в России и Казахстане. Адреса и контакты.",
     images: [`${basePath}/images/stores/kaliningrad.jpg`],
   },
   alternates: {

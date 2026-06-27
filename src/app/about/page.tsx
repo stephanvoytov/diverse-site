@@ -6,12 +6,12 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://diversebrand.ru";
 
 export const metadata: Metadata = {
-  title: "О бренде Diverse — история, философия, три линии",
+  title: "О бренде Diverse — история, коллекции и философия",
   description:
-    "Польский бренд Diverse основан в 1993 году. 30+ лет, 400+ магазинов, партнёр Dakar Rally и 24h Le Mans. Три линии: Diverse, DEXT, Coalition.",
+    "Diverse — польский бренд одежды с 30-летней историей. Более 400 магазинов в 9 странах, партнёр Dakar Rally. Коллекции, направления и факты о бренде.",
   openGraph: {
-    title: "Diverse — история бренда",
-    description: "30 лет. От Гданьска до мировых столиц моды. Философия Generation to Generation.",
+    title: "О бренде Diverse — история, коллекции и философия",
+    description: "Diverse — польский бренд одежды с 30-летней историей. Более 400 магазинов в 9 странах, партнёр Dakar Rally.",
     url: `${siteUrl}${basePath}/about/`,
     siteName: "Diverse Россия",
     locale: "ru_RU",
@@ -20,14 +20,14 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "О бренде Diverse",
-    description: "Создан в 1993 году в Гданьске. Сегодня — 400+ магазинов в 9+ странах и партнёр Dakar Rally.",
+    title: "О бренде Diverse — история, коллекции и философия",
+    description: "Diverse — польский бренд одежды с 30-летней историей. Более 400 магазинов в 9 странах, партнёр Dakar Rally.",
     images: [`${basePath}/images/about/diverse.jpg`],
   },
   keywords: [
-    "бренд Diverse", "история Diverse", "Diverse 1993",
-    "польский бренд одежды", "DEXT", "Coalition",
-    "Dakar Rally одежда", "24H Le Mans коллекция",
+    "бренд Diverse", "польский бренд одежды",
+    "DEXT", "Coalition",
+    "Dakar Rally одежда",
   ],
   alternates: {
     canonical: `${siteUrl}${basePath}/about/`,
