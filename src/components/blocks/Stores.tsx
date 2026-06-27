@@ -86,17 +86,25 @@ export default function Stores() {
     ghost.addTo(map);
   }
 
-  // Ghost marker — срабатывает когда карта готова и известны координаты города.
-  // Если геолокация недоступна (DaData без ключа), ставим метку в центр карты.
+  // Ghost marker — срабатывает когда карта готова.
+  // Сначала пробуем координаты из DaData (lat/lon).
+  // Если DaData не дал координаты, но город известен (из кеша) — ищем его среди магазинов.
+  // Если ничего не известно — ставим метку в центр карты.
   useEffect(() => {
     if (!mapReady) return;
     const map = mapRef.current!;
     if (lat && lon && userCity) {
       addGhostToMap(map, lat, lon);
+    } else if (userCity) {
+      const store = stores.find((s) => s.city === userCity);
+      if (store) {
+        const [clat, clng] = ll(store.coords);
+        addGhostToMap(map, clat, clng);
+      } else {
+        addGhostToMap(map, map.getCenter().lat, map.getCenter().lng);
+      }
     } else {
-      // fallback — центр карты (среднее между магазинами)
-      const center = map.getCenter();
-      addGhostToMap(map, center.lat, center.lng);
+      addGhostToMap(map, map.getCenter().lat, map.getCenter().lng);
     }
   }, [mapReady, lat, lon, userCity]);
 
