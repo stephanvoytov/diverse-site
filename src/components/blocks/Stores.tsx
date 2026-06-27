@@ -65,6 +65,7 @@ export default function Stores() {
   const sidebarRef = useRef<HTMLDivElement>(null);
   const ghostAddedRef = useRef(false);
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
+  const [mapReady, setMapReady] = useState(false);
   const { city: userCity, lat, lon } = useUserCity();
 
   function addGhostToMap(map: L.Map, lat: number, lng: number) {
@@ -85,23 +86,11 @@ export default function Stores() {
     ghost.addTo(map);
   }
 
-  // IP → город пользователя + ghost на карте
-  // Берём координаты из UserCityContext (один fetch на сессию)
-  // Срабатывает когда данные контекста загрузились и карта готова
+  // Ghost marker — срабатывает когда и карта, и геоданные готовы
   useEffect(() => {
-    if (!lat || !lon || !userCity) return;
-    if (mapRef.current) {
-      addGhostToMap(mapRef.current, lat, lon);
-    } else {
-      const interval = setInterval(() => {
-        if (mapRef.current) {
-          addGhostToMap(mapRef.current, lat, lon);
-          clearInterval(interval);
-        }
-      }, 200);
-      setTimeout(() => clearInterval(interval), 10000);
-    }
-  }, [lat, lon, userCity]);
+    if (!mapReady || !lat || !lon || !userCity) return;
+    addGhostToMap(mapRef.current!, lat, lon);
+  }, [mapReady, lat, lon, userCity]);
 
   // Карта
   useEffect(() => {
@@ -186,11 +175,13 @@ export default function Stores() {
     map.fitBounds(bounds, { padding: [60, 60], maxZoom: 5 });
 
     mapRef.current = map;
+    setMapReady(true);
 
     return () => {
       map.remove();
       mapRef.current = null;
       ghostAddedRef.current = false;
+      setMapReady(false);
     };
   }, []);
 
