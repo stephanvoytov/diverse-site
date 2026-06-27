@@ -41,7 +41,7 @@ export default function About() {
 
           <motion.div variants={fadeUp} className="flex flex-col justify-end">
             <p className="body-text text-brand-gray-400 leading-relaxed">
-              Польский fashion-бренд с характером: сильный дизайн, европейское качество, дерзкая энергия. Рождён в Гданьске, вдохновлён уличной культурой и спортом.
+              Польский бренд одежды с характером: сильный дизайн, европейское качество, дерзкая энергия. Рождён в Гданьске, вдохновлён уличной культурой и спортом.
             </p>
           </motion.div>
 

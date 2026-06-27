@@ -24,6 +24,11 @@ export const metadata: Metadata = {
     description: "Создан в 1993 году в Гданьске. Сегодня — 400+ магазинов в 9+ странах и партнёр Dakar Rally.",
     images: [`${basePath}/images/about/diverse.jpg`],
   },
+  keywords: [
+    "бренд Diverse", "история Diverse", "Diverse 1993",
+    "польский бренд одежды", "DEXT", "Coalition",
+    "Dakar Rally одежда", "24H Le Mans коллекция",
+  ],
   alternates: {
     canonical: `${siteUrl}${basePath}/about/`,
   },

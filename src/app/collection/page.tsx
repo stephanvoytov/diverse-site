@@ -26,6 +26,12 @@ export const metadata: Metadata = {
       "9 коллекций: от Diverse и Dakar до DENIM и DEXT TECH — каждая со своим характером.",
     images: [`${basePath}/images/diverse.avif`],
   },
+  keywords: [
+    "коллекции Diverse", "Dakar одежда", "DENIM коллекция",
+    "24H Le Mans одежда", "DEXT TECH",
+    "бренд Diverse коллекции", "мужская одежда бренд",
+    "польская одежда бренд",
+  ],
   alternates: {
     canonical: `${siteUrl}${basePath}/collection/`,
   },

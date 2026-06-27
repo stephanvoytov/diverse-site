@@ -98,7 +98,7 @@ export default function Hero() {
             className="hero-a opacity-0 max-sm:mt-4 mt-5 max-sm:text-xs body-text text-white/70 max-w-2xl leading-relaxed"
             style={{ animationDelay: '0.5s' }}
           >
-            Готовая модель бизнеса в сегменте масс-маркет/мидл. Ведущий польский fashion-бренд с 30-летней историей. Партнёр Dakar Rally.
+            Готовая модель бизнеса в сегменте масс-маркет/мидл. Ведущий польский бренд одежды с 30-летней историей. Партнёр Dakar Rally.
           </p>
 
           {/* Pricing — separate, more prominent on mobile */}
