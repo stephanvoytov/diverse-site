@@ -69,7 +69,14 @@ export default function Stores() {
   const { city: userCity, lat, lon } = useUserCity();
 
   function addGhostToMap(map: L.Map, lat: number, lng: number) {
-    if (ghostAddedRef.current) return;
+    // Если метка уже стоит — удаляем, чтобы обновить позицию
+    if (ghostAddedRef.current) {
+      const existing = document.querySelector<HTMLElement>('[aria-label="Ваш магазин Diverse"]');
+      if (existing) {
+        const parent = existing.closest('.leaflet-marker-icon') as any;
+        if (parent) map.removeLayer(parent);
+      }
+    }
     ghostAddedRef.current = true;
     const ghost = L.marker([lat, lng], {
       icon: ghostIcon(),
@@ -86,17 +93,18 @@ export default function Stores() {
     ghost.addTo(map);
   }
 
-  // Ghost marker — после сборки карты + когда есть координаты города
+  // Ghost marker — срабатывает когда карта готова.
+  // Сначала пробуем точные координаты из контекста (DaData/кеш).
+  // Если их нет, но город известен — ищем координаты в списке магазинов.
+  // Иначе — центр карты.
+  // При повторном вызове (когда подгрузятся lat/lon) старый маркер удаляется
+  // и создаётся новый на правильных координатах.
   useEffect(() => {
     if (!mapReady) return;
     const map = mapRef.current!;
     if (lat && lon && userCity) {
-      // eslint-disable-next-line no-console
-      console.log("[ghost] geo", { lat, lon, userCity });
       addGhostToMap(map, lat, lon);
     } else if (userCity) {
-      // eslint-disable-next-line no-console
-      console.log("[ghost] store-fallback", { userCity, stores: stores.map(s => s.city) });
       const store = stores.find((s) => s.city === userCity);
       if (store) {
         const [clat, clng] = ll(store.coords);
@@ -105,8 +113,6 @@ export default function Stores() {
         addGhostToMap(map, map.getCenter().lat, map.getCenter().lng);
       }
     } else {
-      // eslint-disable-next-line no-console
-      console.log("[ghost] center-fallback", { mapReady, lat, lon, userCity });
       addGhostToMap(map, map.getCenter().lat, map.getCenter().lng);
     }
   }, [mapReady, lat, lon, userCity]);
