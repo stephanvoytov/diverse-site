@@ -86,16 +86,17 @@ export default function Stores() {
     ghost.addTo(map);
   }
 
-  // Ghost marker — срабатывает когда карта готова.
-  // Сначала пробуем координаты из DaData (lat/lon).
-  // Если DaData не дал координаты, но город известен (из кеша) — ищем его среди магазинов.
-  // Если ничего не известно — ставим метку в центр карты.
+  // Ghost marker — после сборки карты + когда есть координаты города
   useEffect(() => {
     if (!mapReady) return;
     const map = mapRef.current!;
     if (lat && lon && userCity) {
+      // eslint-disable-next-line no-console
+      console.log("[ghost] geo", { lat, lon, userCity });
       addGhostToMap(map, lat, lon);
     } else if (userCity) {
+      // eslint-disable-next-line no-console
+      console.log("[ghost] store-fallback", { userCity, stores: stores.map(s => s.city) });
       const store = stores.find((s) => s.city === userCity);
       if (store) {
         const [clat, clng] = ll(store.coords);
@@ -104,6 +105,8 @@ export default function Stores() {
         addGhostToMap(map, map.getCenter().lat, map.getCenter().lng);
       }
     } else {
+      // eslint-disable-next-line no-console
+      console.log("[ghost] center-fallback", { mapReady, lat, lon, userCity });
       addGhostToMap(map, map.getCenter().lat, map.getCenter().lng);
     }
   }, [mapReady, lat, lon, userCity]);
