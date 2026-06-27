@@ -66,8 +66,6 @@ export default function Stores() {
   const ghostAddedRef = useRef(false);
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
   const { city: userCity, lat, lon } = useUserCity();
-  const geoRef = useRef({ lat, lon, userCity });
-  geoRef.current = { lat, lon, userCity };
 
   function addGhostToMap(map: L.Map, lat: number, lng: number) {
     if (ghostAddedRef.current) return;
@@ -89,23 +87,21 @@ export default function Stores() {
 
   // IP → город пользователя + ghost на карте
   // Берём координаты из UserCityContext (один fetch на сессию)
-  // Используем ref для чтения актуальных значений без изменения deps (HMR-safe)
+  // Срабатывает когда данные контекста загрузились и карта готова
   useEffect(() => {
-    const { lat, lon, userCity } = geoRef.current;
     if (!lat || !lon || !userCity) return;
     if (mapRef.current) {
       addGhostToMap(mapRef.current, lat, lon);
     } else {
       const interval = setInterval(() => {
-        const { lat, lon } = geoRef.current;
-        if (mapRef.current && lat && lon) {
+        if (mapRef.current) {
           addGhostToMap(mapRef.current, lat, lon);
           clearInterval(interval);
         }
       }, 200);
       setTimeout(() => clearInterval(interval), 10000);
     }
-  }, []);
+  }, [lat, lon, userCity]);
 
   // Карта
   useEffect(() => {
