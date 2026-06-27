@@ -289,7 +289,7 @@ function StepContact({
         </button>
 
         <p className="text-xs text-brand-gray-300 text-center leading-relaxed">
-          Бесплатно · Без обязательств · Ответим за 15–30 мин
+          Бесплатно · Без обязательств
         </p>
         <p className="text-[10px] text-brand-gray-300 text-center leading-relaxed mt-3">
           Нажимая «Получить расчёт», вы соглашаетесь на обработку персональных данных
