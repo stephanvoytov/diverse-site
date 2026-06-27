@@ -97,7 +97,7 @@ export default function Franchise() {
               <h3 className="text-2xl font-bold text-white mb-3 tracking-[-0.01em]">
                 {plan.name}
               </h3>
-              <p className="text-[13px] text-white/45 leading-relaxed mb-6">
+              <p className="text-[13px] text-white/60 leading-relaxed mb-6">
                 {plan.desc}
               </p>
               {/* Investment + Profit — stacked vertically */}
@@ -106,7 +106,7 @@ export default function Franchise() {
                   <p className="text-[28px] font-bold text-brand-accent mb-0.5">
                     {plan.investment}
                   </p>
-                  <p className="text-[11px] text-white/30 tracking-[0.1em] uppercase">
+                  <p className="text-[11px] text-white/50 tracking-[0.1em] uppercase">
                     Инвестиции
                   </p>
                 </div>
@@ -114,7 +114,7 @@ export default function Franchise() {
                   <p className="text-lg font-bold text-white">
                     {cardProfit[plan.id]}
                   </p>
-                  <p className="text-[11px] text-white/30 tracking-[0.1em] uppercase">
+                  <p className="text-[11px] text-white/50 tracking-[0.1em] uppercase">
                     Прибыль / мес
                   </p>
                 </div>
