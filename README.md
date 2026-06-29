@@ -6,7 +6,7 @@
 
 **Видео-обзор сайта:**
 
-<video src="https://github.com/stephanvoytov/diverse-site/raw/main/site-demo.mp4" controls width="100%" style="max-width:720px"></video>
+https://github.com/stephanvoytov/diverse-site/raw/main/site-demo.mp4
 
 ---
 
