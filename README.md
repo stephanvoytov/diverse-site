@@ -6,7 +6,7 @@
 
 **Видео-обзор сайта:**
 
-<video src="https://github.com/stephanvoytov/diverse-site/raw/main/site-demo.mp4" controls width="100%" style="max-width:720px" poster="https://diversebrand.vercel.app/images/hero/main.webp"></video>
+[![Видео-обзор сайта Diverse](https://img.youtube.com/vi/wUpwKDFlilI/maxresdefault.jpg)](https://www.youtube.com/watch?v=wUpwKDFlilI)
 
 ---
 
