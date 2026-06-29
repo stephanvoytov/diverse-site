@@ -1,6 +1,6 @@
 # Diverse — сайт франшизы
 
-Франшизный сайт польского бренда одежды **Diverse**. Привлечение партнёров в России и СНГ.
+Реальный проект: лендинг для привлечения партнёров по франшизе польского бренда одежды **Diverse** (основан в 1993, 400+ магазинов в мире). Сайт используется официальным представителем бренда в России — компанией ООО «ХАУС».
 
 **Домен:** [diversebrand.vercel.app](https://diversebrand.vercel.app)
 
@@ -21,23 +21,6 @@
 | DaData API | Геолокация по IP |
 | Nodemailer (SMTP) | Email-уведомления |
 | Telegram Bot API | Уведомления в Telegram |
-
----
-
-## Быстрый старт
-
-```bash
-cp .env.example .env.local
-npm install
-npm run dev      # http://localhost:3000
-```
-
-Сборка:
-
-```bash
-npm run build
-npm run start
-```
 
 ---
 
