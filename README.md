@@ -4,9 +4,7 @@
 
 **Домен:** [diversebrand.vercel.app](https://diversebrand.vercel.app)
 
-**Видео-обзор сайта:**
-
-https://github.com/stephanvoytov/diverse-site/raw/main/site-demo.mp4
+**Видео-обзор сайта:** ▶ [Смотреть](site-demo.mp4)
 
 ---
 
