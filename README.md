@@ -2,7 +2,11 @@
 
 Сайт для привлечения партнёров по франшизе **Diverse** (польский бренд одежды, основан в 1993, 400+ магазинов в 9 странах).
 
-**Домен:** [diverse-russia.ru](https://diverse-russia.ru)
+**Домен:** [diversebrand.vercel.app](https://diversebrand.vercel.app)
+
+**Видео-обзор сайта:**
+
+<video src="https://github.com/stephanvoytov/diverse-site/raw/main/site-demo.mp4" controls width="100%" style="max-width:720px"></video>
 
 ---
 
