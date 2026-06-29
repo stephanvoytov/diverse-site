@@ -46,7 +46,7 @@ export default function StoresContent() {
               Партнёрская сеть <span className="text-brand-accent">ООО «ХАУС»</span>
             </motion.h1>
             <motion.p
-              className="section-desc  mb-10"
+              className="section-desc text-white/60 mb-10"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
@@ -155,7 +155,7 @@ export default function StoresContent() {
               {city ? `Нет магазина в ${city}?` : "Нет магазина в вашем городе?"}
             </motion.h2>
             <motion.p
-              className="section-desc  mb-8"
+              className="section-desc text-white/60 mb-8"
               variants={{
                 hidden: { opacity: 0, y: 12 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: [0.25, 0.1, 0.25, 1] } },
