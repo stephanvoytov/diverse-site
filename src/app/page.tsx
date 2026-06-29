@@ -11,6 +11,7 @@ import CaseStudies from "@/components/blocks/CaseStudies";
 import Faq from "@/components/blocks/Faq";
 import Contacts from "@/components/blocks/Contacts";
 import Footer from "@/components/shared/Footer";
+import FadeIn from "@/components/shared/FadeIn";
 import JsonLd from "@/components/shared/JsonLd";
 import { faqItems } from "@/data/franchise";
 
@@ -61,16 +62,16 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <About />
-        <KpRating />
-        <Franchise />
-        <MarketBlock />
-        <TrustModel />
-        <Roadmap />
-        <CaseStudies />
-        <StoresMap />
-        <Faq />
-        <Contacts />
+        <FadeIn><About /></FadeIn>
+        <FadeIn><KpRating /></FadeIn>
+        <FadeIn><Franchise /></FadeIn>
+        <FadeIn><MarketBlock /></FadeIn>
+        <FadeIn><TrustModel /></FadeIn>
+        <FadeIn><Roadmap /></FadeIn>
+        <FadeIn margin><CaseStudies /></FadeIn>
+        <FadeIn><StoresMap /></FadeIn>
+        <FadeIn><Faq /></FadeIn>
+        <FadeIn margin><Contacts /></FadeIn>
       </main>
       <Footer />
     </>
