@@ -8,6 +8,15 @@ import { caseStudies } from "@/data/metrics";
 import { asset } from "@/lib/path";
 import YoutubeEmbed from "@/components/shared/YoutubeEmbed";
 
+/** Склонение названий городов для предлога «в» (предложный падеж) */
+function inCity(city: string): string {
+  const map: Record<string, string> = {
+    "Калининград": "Калининграде",
+    "Уфа": "Уфе",
+  };
+  return map[city] ?? city;
+}
+
 export default function CaseStudies() {
   const [videoOpen, setVideoOpen] = useState<string | null>(null);
 
@@ -48,7 +57,7 @@ export default function CaseStudies() {
                 ) : (
                   <Image
                     src={asset(cs.photo)}
-                    alt={`Магазин Diverse в ${cs.city}`}
+                    alt={`Магазин Diverse в ${inCity(cs.city)}`}
                     width={500}
                     height={375}
                     sizes="(max-width: 768px) 100vw, 50vw"

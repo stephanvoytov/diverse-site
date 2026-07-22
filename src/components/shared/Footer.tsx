@@ -122,7 +122,7 @@ export default function Footer() {
       {/* Нижняя плашка */}
       <div className="border-t border-white/5">
         <div className="container-brand py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-white/45">
+          <p className="text-xs text-white/50">
             &copy; {new Date().getFullYear()} ООО «ХАУС». Все права защищены.
           </p>
           <div className="flex items-center gap-4">
@@ -132,8 +132,8 @@ export default function Footer() {
             >
               Политика конфиденциальности
             </Link>
-            <span className="text-xs text-white/35" aria-hidden="true">|</span>
-            <span className="text-xs text-white/35">
+            <span className="text-xs text-white/45" aria-hidden="true">|</span>
+            <span className="text-xs text-white/50">
               Diverse — официальный партнёр
             </span>
           </div>

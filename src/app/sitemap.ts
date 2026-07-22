@@ -1,11 +1,14 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/config/site";
 
 export const dynamic = "force-static";
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL
-  || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://diversebrand.ru");
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
+// /privacy не включён намеренно: страница политики конфиденциальности —
+// юридический документ, не релевантный для поискового индексирования.
+// Google не ранжирует privacy-страницы, а их включение в sitemap
+// может размыть сигнал релевантности других страниц.
 const routes = [
   { path: "", priority: 1.0 },
   { path: "/about", priority: 0.7 },
@@ -16,7 +19,7 @@ const routes = [
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return routes.map(({ path, priority }) => ({
-    url: `${baseUrl}${basePath}${path}/`,
+    url: `${SITE_URL}${basePath}${path}/`,
     lastModified: new Date(),
     changeFrequency: path === "" ? "weekly" : "monthly",
     priority,
