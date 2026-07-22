@@ -129,13 +129,7 @@ export default function Contacts() {
                   id="contacts-format"
                   {...register("format")}
                   defaultValue=""
-                  className="w-full px-4 py-3 text-sm bg-white/10 border border-white/20 rounded-sm outline-none focus:border-white transition-colors text-white appearance-none"
-                  style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.5)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`,
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "right 14px center",
-                    backgroundSize: "14px",
-                  }}
+                  className="w-full px-4 py-3 text-sm bg-white/10 border border-white/20 rounded-sm outline-none focus:border-white transition-colors text-white appearance-none select-arrow-light"
                 >
                   <option value="" disabled className="text-brand-gray-400">Выберите формат</option>
                   {FORMAT_OPTIONS.map((f) => (

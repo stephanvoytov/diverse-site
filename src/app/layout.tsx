@@ -8,6 +8,7 @@ import ContactModal from "@/components/shared/ContactModal";
 import ContactFloating from "@/components/shared/ContactFloating";
 import ExitIntentPopup from "@/components/shared/ExitIntentPopup";
 import JsonLd from "@/components/shared/JsonLd";
+import { asset } from "@/lib/path";
 import { CONTACTS, SITE } from "@/config/site";
 
 const ymId = process.env.NEXT_PUBLIC_YM_ID || "";
@@ -30,15 +31,15 @@ export const metadata: Metadata = {
     "Европейский бренд одежды Diverse: 3 формата франшизы, старт от 800 тыс ₽, без паушального взноса и роялти. Более 400 магазинов в мире. Узнайте условия.",
   icons: {
     icon: [
-      { url: `${basePath}/favicon-96x96.png`, sizes: "96x96", type: "image/png" },
-      { url: `${basePath}/favicon.ico`, sizes: "any" },
+      { url: asset("/favicon-96x96.png"), sizes: "96x96", type: "image/png" },
+      { url: asset("/favicon.ico"), sizes: "any" },
     ],
-    shortcut: `${basePath}/favicon.ico`,
+    shortcut: asset("/favicon.ico"),
     apple: [
-      { url: `${basePath}/apple-touch-icon.png`, sizes: "180x180", type: "image/png" },
+      { url: asset("/apple-touch-icon.png"), sizes: "180x180", type: "image/png" },
     ],
   },
-  manifest: `${basePath}/site.webmanifest`,
+  manifest: asset("/site.webmanifest"),
   verification: {
     google: "8eXeN44ZaQUhjbkHLQnGVvGGpuwkewh5SftUgjeFzCM",
   },
@@ -55,7 +56,7 @@ export const metadata: Metadata = {
     title: "Франшиза одежды Diverse — открыть магазин без взноса и роялти",
     description:
       "Франшиза одежды Diverse: 3 формата, старт от 800 тыс ₽, без паушального взноса и роялти. Полное сопровождение 24/7.",
-    images: [`${basePath}/images/hero/main.jpg`],
+    images: [asset("/images/hero/main.jpg")],
   },
   openGraph: {
     title: "Франшиза одежды Diverse — открыть магазин без взноса и роялти",
@@ -67,7 +68,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: `${basePath}/images/hero/main.jpg`,
+        url: asset("/images/hero/main.jpg"),
         width: 1920,
         height: 1080,
         alt: "Франшиза Diverse — официальный представитель в России",
@@ -131,7 +132,7 @@ export default function RootLayout({
     <html lang="ru" className={inter.variable} data-scroll-behavior="smooth">
       <body>
         {/* Preloads — начинаем загрузку до CSS/JS */}
-        <link rel="preload" as="image" href={`${basePath}/brand/logo-light.svg`} />
+        <link rel="preload" as="image" href={asset("/brand/logo-light.svg")} />
         <link rel="preconnect" href="https://tile.openstreetmap.org" />
         <link rel="dns-prefetch" href="https://tile.openstreetmap.org" />
 

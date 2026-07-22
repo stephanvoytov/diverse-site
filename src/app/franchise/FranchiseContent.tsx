@@ -467,7 +467,7 @@ function ContactSection() {
                     id="franchise-format"
                     {...register("format")}
                     defaultValue=""
-                    className="w-full px-4 py-3 text-sm bg-brand-gray-100 border border-brand-gray-200 rounded-sm outline-none focus:border-brand-black transition-colors appearance-none"
+                    className="w-full px-4 py-3 text-sm bg-brand-gray-100 border border-brand-gray-200 rounded-sm outline-none focus:border-brand-black transition-colors appearance-none select-arrow-dark"
                   >
                     <option value="" disabled>Выберите формат</option>
                     {FORMAT_OPTIONS.map((f) => (

@@ -1,4 +1,6 @@
 ﻿import logger from "@/lib/logger";
+import { escapeHtml } from "@/lib/html";
+import { parseMessagePairs } from "@/lib/message-parser";
 
 const TELEGRAM_API = "https://api.telegram.org";
 
@@ -119,46 +121,15 @@ function buildMessage(data: LeadData, isCallback: boolean): string {
 /**
  * Разбирает message в детали.
  *
- * Если сообщение похоже на "Формат: ... Город: ..." (структурированное,
- * все части содержат ":") — парсит в пары ключ-значение.
+ * Если сообщение похоже на "Формат: ... Город: ..." (структурированное) —
+ * парсит в пары ключ-значение.
  * Иначе — возвращает сырой текст как один блок.
  */
 function parseMessage(msg: string): { type: "pairs"; data: [string, string][] } | { type: "raw"; data: string } {
   if (!msg) return { type: "raw", data: "" };
-
-  const parts = msg.split(".").map((p) => p.trim()).filter(Boolean);
-
-  // Пробуем распарсить как ключ: значение
-  const pairs: [string, string][] = [];
-  let allStructured = true;
-
-  for (const part of parts) {
-    const idx = part.indexOf(":");
-    if (idx === -1) {
-      allStructured = false;
-      break;
-    }
-    const key = part.slice(0, idx).trim();
-    const val = part.slice(idx + 1).trim();
-    if (!val) {
-      allStructured = false;
-      break;
-    }
-    pairs.push([key, val]);
+  const pairs = parseMessagePairs(msg);
+  if (pairs) {
+    return { type: "pairs" as const, data: pairs };
   }
-
-  if (allStructured && pairs.length > 0) {
-    return { type: "pairs", data: pairs } as const;
-  }
-
-  // Сырой текст — показываем как есть
-  return { type: "raw", data: msg } as const;
-}
-
-function escapeHtml(str: string): string {
-  return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
+  return { type: "raw" as const, data: msg };
 }

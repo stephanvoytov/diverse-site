@@ -15,6 +15,11 @@ interface RateEntry {
 
 const rateMap = new Map<string, RateEntry>();
 
+// Автоматическая очистка устаревших записей — раз в 5 минут
+if (typeof setInterval !== "undefined") {
+  setInterval(() => pruneRateLimit(), 300_000);
+}
+
 export interface RateLimitResult {
   allowed: boolean;
   limit: number;

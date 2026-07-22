@@ -1,5 +1,7 @@
 import net from "node:net";
 import tls from "node:tls";
+import { escapeHtml } from "@/lib/html";
+import { parseMessagePairs } from "@/lib/message-parser";
 
 export interface LeadData {
   name: string;
@@ -92,40 +94,16 @@ async function smtpSend(
 /**
  * Разбирает message в HTML для письма.
  *
- * "Формат: ... Город: ..." → строки в виде таблицы
+ * "Формат: ... Город: ..." → строки в виде пар
  * Свободный текст           → просто текст
  */
 function formatDetails(msg: string): string {
   if (!msg) return "";
-
-  const parts = msg.split(".").map((p) => p.trim()).filter(Boolean);
-
-  // Пробуем как ключ: значение
-  const rows: string[] = [];
-  let allStructured = true;
-
-  for (const part of parts) {
-    const idx = part.indexOf(":");
-    if (idx === -1) { allStructured = false; break; }
-    const key = part.slice(0, idx).trim();
-    const val = part.slice(idx + 1).trim();
-    if (!val) { allStructured = false; break; }
-    rows.push(`${escapeHtml(key)}: ${escapeHtml(val)}`);
+  const pairs = parseMessagePairs(msg);
+  if (pairs) {
+    return pairs.map(([k, v]) => `${escapeHtml(k)}: ${escapeHtml(v)}`).join("<br>");
   }
-
-  if (allStructured && rows.length > 0) {
-    return rows.join("<br>");
-  }
-
   return escapeHtml(msg);
-}
-
-function escapeHtml(str: string): string {
-  return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
 }
 
 export async function sendLead(data: LeadData): Promise<void> {

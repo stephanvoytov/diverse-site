@@ -14,8 +14,7 @@ import Footer from "@/components/shared/Footer";
 import FadeIn from "@/components/shared/FadeIn";
 import JsonLd from "@/components/shared/JsonLd";
 import { faqItems } from "@/data/franchise";
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+import { asset } from "@/lib/path";
 
 const StoresMap = dynamic(() => import("@/components/shared/StoresMap"), {
   loading: () => (
@@ -46,17 +45,17 @@ export default function Home() {
     "@type": "BreadcrumbList",
     name: "Навигационная цепочка",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Главная", item: siteUrl + basePath },
+      { "@type": "ListItem", position: 1, name: "Главная", item: siteUrl + asset("/") },
     ],
   };
 
   return (
     <>
       {/* Prefetch ключевых страниц — браузер загрузит при простое сети */}
-      <link rel="prefetch" href={`${basePath}/about/`} />
-      <link rel="prefetch" href={`${basePath}/franchise/`} />
-      <link rel="prefetch" href={`${basePath}/collection/`} />
-      <link rel="prefetch" href={`${basePath}/stores/`} />
+      <link rel="prefetch" href={asset("/about/")} />
+      <link rel="prefetch" href={asset("/franchise/")} />
+      <link rel="prefetch" href={asset("/collection/")} />
+      <link rel="prefetch" href={asset("/stores/")} />
       <JsonLd data={faqSchema} />
       <JsonLd data={breadcrumbSchema} />
       <Header />

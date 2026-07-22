@@ -7,8 +7,7 @@ import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
 import { useModal } from "@/lib/modal-context";
 import { collections } from "@/data/collections";
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+import { asset } from "@/lib/path";
 
 function CollectionSection({
   item,
@@ -47,7 +46,7 @@ function CollectionSection({
       >
         {item.image ? (
           <Image
-            src={`${basePath}/images/collections/${item.image}`}
+            src={asset(`/images/collections/${item.image}`)}
             alt={`Коллекция ${item.name}`}
             fill
             className="object-cover"

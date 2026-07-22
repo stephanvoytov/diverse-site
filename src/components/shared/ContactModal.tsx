@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useModal } from "@/lib/modal-context";
 import { useUserCity } from "@/lib/user-city-context";
 import { queueLead } from "@/lib/lead-queue";
+import { lockBody, unlockBody } from "@/lib/body-scroll";
 import { FORMAT_OPTIONS, CONTACTS } from "@/config/site";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
@@ -349,11 +350,11 @@ export default function ContactModal() {
   // Блокировка прокрутки
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = "hidden";
+      lockBody();
     } else {
-      document.body.style.overflow = "";
+      unlockBody();
     }
-    return () => { document.body.style.overflow = ""; };
+    return () => { if (isOpen) unlockBody(); };
   }, [isOpen]);
 
   // Escape

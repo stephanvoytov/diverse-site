@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "@/components/ui/Button";
@@ -11,6 +11,7 @@ import { asset } from "@/lib/path";
 import { useModal } from "@/lib/modal-context";
 import { CONTACTS } from "@/config/site";
 import { formatPhone } from "@/lib/phone";
+import { lockBody, unlockBody } from "@/lib/body-scroll";
 
 export default function Header({ transparent }: { transparent?: boolean }) {
   const { open: openModal } = useModal();
@@ -18,39 +19,43 @@ export default function Header({ transparent }: { transparent?: boolean }) {
   const [isDarkBg, setIsDarkBg] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const currentPath = usePathname();
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+    // Scroll detection
+    const onScroll = () => setIsScrolled(window.scrollY > 50);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
 
-      // Определяем секцию в центре экрана и переключаем тему хедера
-      const sections = document.querySelectorAll<HTMLElement>("[data-header]");
-      const center = window.scrollY + window.innerHeight / 2;
-      let dark = false;
-      sections.forEach((el) => {
-        const top = el.offsetTop;
-        const bottom = top + el.offsetHeight;
-        if (center >= top && center < bottom) {
-          dark = el.getAttribute("data-header") === "dark";
+    // Section detection via IntersectionObserver (no forced layout)
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            setIsDarkBg(e.target.getAttribute("data-header") === "dark");
+          }
         }
-      });
-      setIsDarkBg(dark);
+      },
+      { rootMargin: "-50% 0px -50% 0px" }
+    );
+
+    const sections = document.querySelectorAll<HTMLElement>("[data-header]");
+    sections.forEach((el) => observerRef.current?.observe(el));
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      observerRef.current?.disconnect();
     };
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // Lock body scroll when menu open
   useEffect(() => {
     if (isMobileOpen) {
-      document.body.style.overflow = "hidden";
+      lockBody();
     } else {
-      document.body.style.overflow = "";
+      unlockBody();
     }
-    return () => {
-      document.body.style.overflow = "";
-    };
+    return () => unlockBody();
   }, [isMobileOpen]);
 
   const isActive = (href: string) => {

@@ -1,18 +1,23 @@
 const QUEUE_KEY = "lead_queue";
 
 interface QueuedLead {
+  id: string;
   name: string;
   phone: string;
   message: string;
   createdAt: number;
 }
 
+function generateId(): string {
+  return `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+}
+
 /** Сохранить лид в очередь (при ошибке отправки) */
-export function queueLead(data: QueuedLead): void {
+export function queueLead(data: Omit<QueuedLead, "id">): void {
   try {
     const raw = localStorage.getItem(QUEUE_KEY);
     const queue: QueuedLead[] = raw ? JSON.parse(raw) : [];
-    queue.push(data);
+    queue.push({ ...data, id: generateId() });
     localStorage.setItem(QUEUE_KEY, JSON.stringify(queue));
   } catch {
     // localStorage недоступен — тихо падаем
@@ -29,11 +34,12 @@ export function getQueuedLeads(): QueuedLead[] {
   }
 }
 
-/** Очистить отосланные лиды из очереди */
-export function clearQueuedLeads(ids: number[]): void {
+/** Очистить отосланные лиды из очереди по id */
+export function clearQueuedLeads(ids: string[]): void {
   try {
     const queue = getQueuedLeads();
-    const remaining = queue.filter((_, i) => !ids.includes(i));
+    const idSet = new Set(ids);
+    const remaining = queue.filter((lead) => !idSet.has(lead.id));
     if (remaining.length === 0) {
       localStorage.removeItem(QUEUE_KEY);
     } else {
@@ -44,36 +50,40 @@ export function clearQueuedLeads(ids: number[]): void {
   }
 }
 
-/** Попытаться отправить все накопившиеся лиды */
+/** Попытаться отправить все накопившиеся лиды (параллельно) */
 export async function flushQueue(endpoint: string): Promise<{ sent: number; failed: number }> {
   const queue = getQueuedLeads();
   if (queue.length === 0) return { sent: 0, failed: 0 };
 
-  let sent = 0;
+  const sentIds: string[] = [];
   let failed = 0;
-  const sentIndices: number[] = [];
 
-  for (let i = 0; i < queue.length; i++) {
-    try {
-      const res = await fetch(endpoint, {
+  const results = await Promise.allSettled(
+    queue.map((lead) =>
+      fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(queue[i]),
-      });
-      if (res.ok) {
-        sent++;
-        sentIndices.push(i);
-      } else {
+        body: JSON.stringify(lead),
+      }).then((res) => {
+        if (res.ok) {
+          sentIds.push(lead.id);
+        } else {
+          failed++;
+        }
+      }).catch(() => {
         failed++;
-      }
-    } catch {
-      failed++;
-    }
+      })
+    )
+  );
+
+  // Считаем упавшие промисы как ошибки
+  for (const r of results) {
+    if (r.status === "rejected") failed++;
   }
 
-  if (sentIndices.length > 0) {
-    clearQueuedLeads(sentIndices);
+  if (sentIds.length > 0) {
+    clearQueuedLeads(sentIds);
   }
 
-  return { sent, failed };
+  return { sent: sentIds.length, failed };
 }

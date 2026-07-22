@@ -6,6 +6,22 @@ import logger from "@/lib/logger";
 
 export async function POST(req: NextRequest) {
   try {
+    // Origin / Referer check (CSRF-защита)
+    const origin = req.headers.get("origin") || "";
+    const referer = req.headers.get("referer") || "";
+    const allowedOrigins = [
+      "https://diversebrand.ru",
+      "https://www.diversebrand.ru",
+      "https://diversebrand.vercel.app",
+      "http://localhost:3000",
+    ];
+    const allowed = allowedOrigins.some(
+      (a) => origin.startsWith(a) || referer.startsWith(a)
+    );
+    if (origin && !allowed) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
     // Rate limiting by IP (forwarded for or fallback)
     const ip =
       req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
