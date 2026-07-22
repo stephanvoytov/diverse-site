@@ -6,9 +6,12 @@ import SectionHeader from "@/components/shared/SectionHeader";
 import { faqItems } from "@/data/franchise";
 import { siteContent } from "@/data/site-content";
 
+const fallback = siteContent.faq;
+
 const easeOut: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
 
-export default function Faq() {
+export default function Faq({ data }: { data?: typeof fallback }) {
+  const s = data ?? fallback;
   const [openIdx, setOpenIdx] = useState<number | null>(null);
 
   return (
@@ -16,13 +19,13 @@ export default function Faq() {
       <div className="container-brand py-16 md:py-24">
         {/* Header */}
         <SectionHeader
-          eyebrow={siteContent.faq.eyebrow}
-          desc={siteContent.faq.desc}
+          eyebrow={s.eyebrow}
+          desc={s.desc}
           className="mb-12 md:mb-16"
           margin
         >
-          {siteContent.faq.headingBefore}{" "}
-          <span className="text-brand-accent">{siteContent.faq.headingAccent}</span>
+          {s.headingBefore}{" "}
+          <span className="text-brand-accent">{s.headingAccent}</span>
         </SectionHeader>
 
         {/* Accordion — 1 observer вместо 5 */}

@@ -5,6 +5,8 @@ import CountUp from "@/components/ui/CountUp";
 import { aboutStats } from "@/data/brand";
 import { siteContent } from "@/data/site-content";
 
+const fallback = siteContent.about;
+
 const easeInOut: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
 
 const fadeUp = {
@@ -16,7 +18,8 @@ const stagger = {
   visible: { transition: { staggerChildren: 0.08, delayChildren: 0.3 } },
 };
 
-export default function About() {
+export default function About({ data }: { data?: typeof fallback }) {
+  const s = data ?? fallback;
   return (
     <section data-header="light" className="bg-brand-gray-100">
       <div className="container-brand py-5 md:py-8">
@@ -32,18 +35,18 @@ export default function About() {
         >
           <motion.div variants={fadeUp}>
             <p className="text-xs eyebrow text-brand-gray-400 mb-4">
-              {siteContent.about.eyebrow}
+              {s.eyebrow}
             </p>
             <h2 className="section-title text-brand-black">
-              {siteContent.about.headingBefore} <br />
-              <span className="text-brand-accent">{siteContent.about.headingAccent}</span>{" "}
-              {siteContent.about.headingAfter}
+              {s.headingBefore} <br />
+              <span className="text-brand-accent">{s.headingAccent}</span>{" "}
+              {s.headingAfter}
             </h2>
           </motion.div>
 
           <motion.div variants={fadeUp} className="flex flex-col justify-end">
             <p className="body-text text-brand-gray-400 leading-relaxed">
-              {siteContent.about.body}
+              {s.body}
             </p>
           </motion.div>
 
@@ -103,7 +106,7 @@ export default function About() {
               href="/about/"
               className="inline-flex items-center gap-2 text-sm font-semibold text-brand-black hover:text-brand-accent transition-colors group"
             >
-              {siteContent.about.links.about}
+              {s.links.about}
               <span className="group-hover:translate-x-1 transition-transform">→</span>
             </a>
           </motion.div>
@@ -116,7 +119,7 @@ export default function About() {
               href="/collection/"
               className="inline-flex items-center gap-2 text-sm font-semibold text-brand-black hover:text-brand-accent transition-colors group"
             >
-              {siteContent.about.links.collection}
+              {s.links.collection}
               <span className="group-hover:translate-x-1 transition-transform">→</span>
             </a>
           </motion.div>

@@ -6,20 +6,23 @@ import { asset } from "@/lib/path";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { siteContent } from "@/data/site-content";
 
+const fallback = siteContent.kpRating;
+
 const easeOut: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
 
-export default function KpRating() {
+export default function KpRating({ data }: { data?: typeof fallback }) {
+  const s = data ?? fallback;
   return (
     <section data-header="light" className="bg-white py-16 md:py-24">
       <div className="container-brand">
         <SectionHeader
-          eyebrow={siteContent.kpRating.eyebrow}
-          desc={siteContent.kpRating.desc}
+          eyebrow={s.eyebrow}
+          desc={s.desc}
           className="mb-12"
           margin
         >
-          <span className="text-brand-accent">{siteContent.kpRating.headingAccent}</span>{" "}
-          {siteContent.kpRating.headingAfter}
+          <span className="text-brand-accent">{s.headingAccent}</span>{" "}
+          {s.headingAfter}
         </SectionHeader>
 
         <motion.div
@@ -50,13 +53,13 @@ export default function KpRating() {
                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#D12026"/>
               </svg>
               <div>
-                <p className="text-sm font-bold text-brand-black">{siteContent.kpRating.badge.rank}</p>
-                <p className="text-xs text-brand-gray-400">{siteContent.kpRating.badge.label}</p>
+                <p className="text-sm font-bold text-brand-black">{s.badge.rank}</p>
+                <p className="text-xs text-brand-gray-400">{s.badge.label}</p>
               </div>
             </a>
 
             <p className="body-text text-brand-gray-400 leading-relaxed">
-              {siteContent.kpRating.body}
+              {s.body}
             </p>
 
             <a
@@ -65,7 +68,7 @@ export default function KpRating() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm font-semibold text-brand-accent hover:text-brand-accent-hover transition-colors group"
             >
-              {siteContent.kpRating.cta}
+              {s.cta}
               <span className="group-hover:translate-x-1 transition-transform">→</span>
             </a>
           </motion.div>
@@ -86,7 +89,7 @@ export default function KpRating() {
             >
               <Image
                 src={asset("/images/kp-rating.jpg")}
-                alt={siteContent.kpRating.imageAlt}
+                alt={s.imageAlt}
                 width={1254}
                 height={705}
                 sizes="(max-width: 768px) 100vw, 50vw"
@@ -94,7 +97,7 @@ export default function KpRating() {
               />
             </a>
             <p className="text-xs text-brand-gray-300 mt-3 text-center">
-              {siteContent.kpRating.source}
+              {s.source}
             </p>
           </motion.div>
         </motion.div>

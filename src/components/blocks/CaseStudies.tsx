@@ -9,6 +9,8 @@ import { asset } from "@/lib/path";
 import YoutubeEmbed from "@/components/shared/YoutubeEmbed";
 import { siteContent } from "@/data/site-content";
 
+const fallback = siteContent.caseStudies;
+
 /** Склонение названий городов для предлога «в» (предложный падеж) */
 function inCity(city: string): string {
   const map: Record<string, string> = {
@@ -18,7 +20,8 @@ function inCity(city: string): string {
   return map[city] ?? city;
 }
 
-export default function CaseStudies() {
+export default function CaseStudies({ data }: { data?: typeof fallback }) {
+  const s = data ?? fallback;
   const [videoOpen, setVideoOpen] = useState<string | null>(null);
 
   return (
@@ -26,13 +29,13 @@ export default function CaseStudies() {
       <div className="container-brand">
         {/* Header */}
         <SectionHeader
-          eyebrow={siteContent.caseStudies.eyebrow}
-          desc={siteContent.caseStudies.desc}
+          eyebrow={s.eyebrow}
+          desc={s.desc}
           className="mb-12 md:mb-14"
           margin
         >
-          {siteContent.caseStudies.headingBefore}{" "}
-          <span className="text-brand-accent">{siteContent.caseStudies.headingAccent}</span>
+          {s.headingBefore}{" "}
+          <span className="text-brand-accent">{s.headingAccent}</span>
         </SectionHeader>
 
          {/* Cards */}
@@ -79,7 +82,7 @@ export default function CaseStudies() {
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M8 5v14l11-7z" />
                     </svg>
-                    {siteContent.caseStudies.labels.video}
+                    {s.labels.video}
                   </button>
                 )}
                 {isVideo && cs.youtubeId && (
@@ -90,7 +93,7 @@ export default function CaseStudies() {
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M6 18L18 6M6 6l12 12" />
                     </svg>
-                    {siteContent.caseStudies.labels.photo}
+                    {s.labels.photo}
                   </button>
                 )}
               </div>
@@ -117,22 +120,22 @@ export default function CaseStudies() {
                 <div className="grid grid-cols-3 gap-2">
                   <div>
                     <p className="text-base font-bold text-brand-black">{cs.paybackPeriod}</p>
-                    <p className="text-[10px] text-brand-gray-400 tracking-[0.05em] uppercase">{siteContent.caseStudies.labels.payback}</p>
+                    <p className="text-[10px] text-brand-gray-400 tracking-[0.05em] uppercase">{s.labels.payback}</p>
                   </div>
                   <div>
                     <p className="text-base font-bold text-brand-accent">{cs.profitMonth}</p>
-                    <p className="text-[10px] text-brand-gray-400 tracking-[0.05em] uppercase">{siteContent.caseStudies.labels.profitMonth}</p>
+                    <p className="text-[10px] text-brand-gray-400 tracking-[0.05em] uppercase">{s.labels.profitMonth}</p>
                   </div>
                   <div>
                     <p className="text-base font-bold text-brand-gray-500">{cs.investment}</p>
-                    <p className="text-[10px] text-brand-gray-400 tracking-[0.05em] uppercase">{siteContent.caseStudies.labels.investment}</p>
+                    <p className="text-[10px] text-brand-gray-400 tracking-[0.05em] uppercase">{s.labels.investment}</p>
                   </div>
                 </div>
 
                 {/* Opened */}
                 {cs.opened && (
                   <p className="text-xs text-brand-gray-400">
-                    {siteContent.caseStudies.openedPrefix} {cs.opened} {siteContent.caseStudies.openedSuffix}
+                    {s.openedPrefix} {cs.opened} {s.openedSuffix}
                     {cs.area !== "—" && ` · ${cs.area}`}
                   </p>
                 )}

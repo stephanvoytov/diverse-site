@@ -10,7 +10,10 @@ import { useModal } from "@/lib/modal-context";
 import { useUserCity } from "@/lib/user-city-context";
 import { siteContent } from "@/data/site-content";
 
-export default function Hero() {
+const fallback = siteContent.hero;
+
+export default function Hero({ data }: { data?: typeof fallback }) {
+  const s = data ?? fallback;
   const { open: openModal } = useModal();
   const { city } = useUserCity();
   const ref = useRef<HTMLDivElement>(null);
@@ -80,7 +83,7 @@ export default function Hero() {
             className="hero-a opacity-0 text-xs md:text-sm eyebrow text-white/60 max-sm:mb-4 mb-5"
             style={{ animationDelay: '0.2s' }}
           >
-            {siteContent.hero.tagline}
+            {s.tagline}
           </p>
 
           {/* Main Heading — smoother progression */}
@@ -88,7 +91,7 @@ export default function Hero() {
             className="hero-a-lg opacity-0 flex flex-col max-md:text-[13vw] md:text-8xl lg:text-9xl font-bold text-white uppercase leading-none max-w-5xl"
             style={{ animationDelay: '0.35s' }}
           >
-            <span>{siteContent.hero.heading}</span>
+            <span>{s.heading}</span>
             <span className="text-brand-accent -mt-1 sm:-mt-2 md:-mt-3 leading-none">
               <DiverseLogo className="h-[0.55em] w-auto block" />
             </span>
@@ -99,7 +102,7 @@ export default function Hero() {
             className="hero-a opacity-0 max-sm:mt-4 mt-5 max-sm:text-xs body-text text-white/70 max-w-2xl leading-relaxed"
             style={{ animationDelay: '0.5s' }}
           >
-            {siteContent.hero.description}
+            {s.description}
           </p>
 
           {/* Pricing — separate, more prominent on mobile */}
@@ -107,7 +110,7 @@ export default function Hero() {
             className="hero-a opacity-0 max-sm:mt-3 mt-3 max-sm:text-sm body-text text-white/90 font-medium max-w-2xl leading-snug"
             style={{ animationDelay: '0.6s' }}
           >
-            {siteContent.hero.pricing}
+            {s.pricing}
           </p>
 
           {/* CTA Buttons */}
@@ -116,7 +119,7 @@ export default function Hero() {
             style={{ animationDelay: '0.7s' }}
           >
             <Button variant="accent" size="md" className="max-sm:py-[14px] sm:px-8 sm:py-4" onClick={openModal}>
-              {siteContent.hero.cta.consultation}
+              {s.cta.consultation}
             </Button>
             <Button
               variant="outline"
@@ -124,7 +127,7 @@ export default function Hero() {
               onClick={() => document.getElementById("section-cases")?.scrollIntoView({ behavior: "smooth" })}
               className="border-white text-white hover:bg-white hover:text-black max-sm:py-[14px] sm:px-8 sm:py-4"
             >
-              {siteContent.hero.cta.cases}
+              {s.cta.cases}
             </Button>
           </div>
 
@@ -133,9 +136,9 @@ export default function Hero() {
             className="hero-a-in opacity-0 max-sm:mt-6 mt-8 md:mt-10 flex max-sm:gap-2 gap-4 md:gap-10 text-center"
             style={{ animationDelay: '0.8s' }}
           >
-            {siteContent.hero.stats.map((stat, i) => {
+            {s.stats.map((stat, i) => {
               const match = stat.value.match(/^(\d+)(.*)$/);
-              const isLast = i === siteContent.hero.stats.length - 1;
+              const isLast = i === s.stats.length - 1;
               return (
                 <Fragment key={stat.label}>
                   {i > 0 && <div className="w-px bg-white/20" />}

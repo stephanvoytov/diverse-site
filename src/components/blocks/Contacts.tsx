@@ -15,6 +15,8 @@ import PhoneInput from "react-phone-number-input/react-hook-form";
 import { siteContent } from "@/data/site-content";
 import "react-phone-number-input/style.css";
 
+const fallback = siteContent.contacts;
+
 const contactSchema = z.object({
   name: z.string().min(2, "Введите имя").max(50, "Слишком длинное имя"),
   phone: z.string().min(5, "Введите корректный телефон"),
@@ -24,7 +26,8 @@ const contactSchema = z.object({
 
 type ContactForm = z.infer<typeof contactSchema>;
 
-export default function Contacts() {
+export default function Contacts({ data }: { data?: typeof fallback }) {
+  const s = data ?? fallback;
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
   const { city: detectedCity } = useUserCity();
   const {
@@ -54,7 +57,7 @@ export default function Contacts() {
       queueLead({
         name: data.name,
         phone: data.phone,
-        message: data.message || siteContent.contacts.form.leadQueueFallback,
+        message: data.message || s.form.leadQueueFallback,
         createdAt: Date.now(),
       });
       setSubmitStatus("error");
@@ -66,13 +69,13 @@ export default function Contacts() {
       <div className="container-brand py-10 md:py-12">
         {/* Заголовок */}
         <SectionHeader
-          eyebrow={siteContent.contacts.eyebrow}
-          desc={siteContent.contacts.desc}
+          eyebrow={s.eyebrow}
+          desc={s.desc}
           className="mb-10 md:mb-14"
           margin
           dark
         >
-          {siteContent.contacts.heading}
+          {s.heading}
         </SectionHeader>
 
         <motion.div
@@ -87,12 +90,12 @@ export default function Contacts() {
             <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
               <div>
                 <label htmlFor="name" className="block text-xs label text-white/50 mb-2">
-                  {siteContent.contacts.form.name} <span className="text-brand-accent">*</span>
+                  {s.form.name} <span className="text-brand-accent">*</span>
                 </label>
                 <input
                   id="name"
                   type="text"
-                  placeholder={siteContent.contacts.form.namePlaceholder}
+                  placeholder={s.form.namePlaceholder}
                   {...register("name")}
                   className={`w-full px-4 py-3 text-sm bg-white/10 border rounded-sm outline-none transition-colors text-white placeholder:text-white/30 ${
                     errors.name
@@ -107,14 +110,14 @@ export default function Contacts() {
 
               <div>
                 <label htmlFor="phone" className="block text-xs label text-white/50 mb-2">
-                  {siteContent.contacts.form.phone} <span className="text-brand-accent">*</span>
+                  {s.form.phone} <span className="text-brand-accent">*</span>
                 </label>
                 <PhoneInput
                   name="phone"
                   control={control}
                   defaultCountry="RU"
                   countries={["RU", "KZ", "BY"]}
-                  placeholder={siteContent.contacts.form.phonePlaceholder}
+                  placeholder={s.form.phonePlaceholder}
                   className="phone-input-dark"
                 />
                 {errors.phone && (
@@ -124,7 +127,7 @@ export default function Contacts() {
 
               <div>
                 <label htmlFor="contacts-format" className="block text-xs label text-white/50 mb-2">
-                  {siteContent.contacts.form.format}
+                  {s.form.format}
                 </label>
                 <select
                   id="contacts-format"
@@ -132,7 +135,7 @@ export default function Contacts() {
                   defaultValue=""
                   className="w-full px-4 py-3 text-sm bg-white/10 border border-white/20 rounded-sm outline-none focus:border-white transition-colors text-white appearance-none select-arrow-light"
                 >
-                  <option value="" disabled className="text-brand-gray-400">{siteContent.contacts.form.formatPlaceholder}</option>
+                  <option value="" disabled className="text-brand-gray-400">{s.form.formatPlaceholder}</option>
                   {FORMAT_OPTIONS.map((f) => (
                     <option key={f.id} value={f.id} className="text-brand-black">
                       {f.label} — {f.desc}
@@ -143,12 +146,12 @@ export default function Contacts() {
 
               <div>
                 <label htmlFor="message" className="block text-xs label text-white/50 mb-2">
-                  {siteContent.contacts.form.message}
+                  {s.form.message}
                 </label>
                 <textarea
                   id="message"
                   rows={4}
-                  placeholder={siteContent.contacts.form.messagePlaceholder}
+                  placeholder={s.form.messagePlaceholder}
                   {...register("message")}
                   className="w-full px-4 py-3 text-sm bg-white/10 border border-white/20 rounded-sm outline-none focus:border-white transition-colors text-white placeholder:text-white/30 resize-none"
                 />
@@ -156,18 +159,18 @@ export default function Contacts() {
 
               {submitStatus === "success" && (
                 <p className="text-sm text-green-400 font-medium">
-                  {siteContent.contacts.form.success}
+                  {s.form.success}
                 </p>
               )}
               {submitStatus === "error" && (
                 <p className="text-sm text-brand-accent">
-                  {siteContent.contacts.form.error}{" "}
+                  {s.form.error}{" "}
                   <a href={CONTACTS.telegram} target="_blank" rel="noopener noreferrer" className="underline hover:no-underline font-semibold">
-                    {siteContent.contacts.form.telegram}
+                    {s.form.telegram}
                   </a>
-                  {" "}{siteContent.contacts.form.or}{" "}
+                  {" "}{s.form.or}{" "}
                   <a href="mailto:diverserussia@yandex.ru" className="underline hover:no-underline">
-                    {siteContent.contacts.form.mail}
+                    {s.form.mail}
                   </a>
                 </p>
               )}
@@ -177,7 +180,7 @@ export default function Contacts() {
                 disabled={isSubmitting || submitStatus === "success"}
                 className="w-full sm:w-auto px-8 py-3.5 bg-brand-accent text-white text-xs tracking-[0.2em] uppercase font-semibold rounded-sm hover:bg-brand-accent-hover transition-colors disabled:opacity-50"
               >
-                {isSubmitting ? siteContent.contacts.form.submitting : submitStatus === "success" ? siteContent.contacts.form.submitted : siteContent.contacts.form.submit}
+                {isSubmitting ? s.form.submitting : submitStatus === "success" ? s.form.submitted : s.form.submit}
               </button>
             </form>
           </div>
@@ -188,19 +191,19 @@ export default function Contacts() {
               {/* Реквизиты */}
               <div>
                 <p className="text-xs label text-white/40 mb-4">
-                  {siteContent.contacts.sections.details}
+                  {s.sections.details}
                 </p>
-                <h3 className="text-xl font-bold text-white mb-1">{siteContent.contacts.company.name}</h3>
-                <p className="text-sm text-white/40 mb-0.5">{siteContent.contacts.company.inn}</p>
+                <h3 className="text-xl font-bold text-white mb-1">{s.company.name}</h3>
+                <p className="text-sm text-white/40 mb-0.5">{s.company.inn}</p>
                 <p className="text-sm text-white/40">
-                  {siteContent.contacts.company.address}
+                  {s.company.address}
                 </p>
               </div>
 
               {/* Email / Phone */}
               <div>
                 <p className="text-xs label text-white/40 mb-4">
-                  {siteContent.contacts.sections.contacts}
+                  {s.sections.contacts}
                 </p>
                 <ul className="space-y-3">
                   <li>
@@ -225,7 +228,7 @@ export default function Contacts() {
               {/* Соцсети */}
               <div>
                 <p className="text-xs label text-white/40 mb-4">
-                  {siteContent.contacts.sections.socials}
+                  {s.sections.socials}
                 </p>
                 <div className="flex flex-wrap gap-3">
                   {contactSocials.map((s) => (
@@ -246,7 +249,7 @@ export default function Contacts() {
 
             {/* Нижний блок — можно добавить карту или что-то ещё */}
             <p className="text-xs text-white/40 leading-relaxed">
-              {siteContent.contacts.privacy}
+              {s.privacy}
             </p>
           </div>
         </motion.div>

@@ -4,21 +4,24 @@ import { motion } from "framer-motion";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { siteContent } from "@/data/site-content";
 
+const fallback = siteContent.marketBlock;
+
 const easeOut: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
 
-export default function MarketBlock() {
+export default function MarketBlock({ data }: { data?: typeof fallback }) {
+  const s = data ?? fallback;
   return (
     <section data-header="light" className="bg-white py-16 md:py-24">
       <div className="container-brand">
         {/* Header */}
         <SectionHeader
-          eyebrow={siteContent.marketBlock.eyebrow}
+          eyebrow={s.eyebrow}
           className="mb-12 md:mb-14"
-          desc={siteContent.marketBlock.desc}
+          desc={s.desc}
           margin
         >
-          {siteContent.marketBlock.headingBefore}{" "}
-          <span className="text-brand-accent">{siteContent.marketBlock.headingAccent}</span>
+          {s.headingBefore}{" "}
+          <span className="text-brand-accent">{s.headingAccent}</span>
         </SectionHeader>
 
         {/* Reasons list — 1 observer вместо 5 */}
@@ -31,7 +34,7 @@ export default function MarketBlock() {
             visible: { transition: { staggerChildren: 0.06 } },
           }}
         >
-          {siteContent.marketBlock.reasons.map((reason, i) => (
+          {s.reasons.map((reason, i) => (
             <motion.div
               key={i}
               variants={{

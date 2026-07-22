@@ -5,21 +5,24 @@ import SectionHeader from "@/components/shared/SectionHeader";
 import { trustPoints } from "@/data/brand";
 import { siteContent } from "@/data/site-content";
 
+const fallback = siteContent.trustModel;
+
 const easeOut: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
 
-export default function TrustModel() {
+export default function TrustModel({ data }: { data?: typeof fallback }) {
+  const s = data ?? fallback;
   return (
     <section data-header="light" className="bg-brand-gray-100 py-16 md:py-24">
       <div className="container-brand">
         {/* Header */}
         <SectionHeader
-          eyebrow={siteContent.trustModel.eyebrow}
-          desc={siteContent.trustModel.desc}
+          eyebrow={s.eyebrow}
+          desc={s.desc}
           className="mb-12 md:mb-14"
           margin
         >
-          {siteContent.trustModel.headingBefore}{" "}
-          <span className="text-brand-accent">{siteContent.trustModel.headingAccent}</span>
+          {s.headingBefore}{" "}
+          <span className="text-brand-accent">{s.headingAccent}</span>
         </SectionHeader>
 
         {/* Trust cards — 1 observer вместо 4 */}

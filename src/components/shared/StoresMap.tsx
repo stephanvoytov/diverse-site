@@ -6,6 +6,7 @@ const Stores = dynamic(() => import("@/components/blocks/Stores"), {
   ssr: false,
 });
 
-export default function StoresMap() {
-  return <Stores />;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function StoresMap({ data }: { data?: any }) {
+  return <Stores data={data} />;
 }

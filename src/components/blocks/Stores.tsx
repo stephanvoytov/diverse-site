@@ -13,6 +13,8 @@ import { asset } from "@/lib/path";
 import { useUserCity } from "@/lib/user-city-context";
 import { siteContent } from "@/data/site-content";
 
+const fallback = siteContent.stores;
+
 function popupHtml(s: Store): string {
   return `<div style="width:240px;font-family:Inter,sans-serif;line-height:1.5;border-radius:4px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.15);">
     <div style="width:100%;aspect-ratio:3/2;background:#f0f0f0;overflow:hidden;">
@@ -58,7 +60,8 @@ function ghostIcon(): L.DivIcon {
   });
 }
 
-export default function Stores() {
+export default function Stores({ data }: { data?: typeof fallback }) {
+  const s = data ?? fallback;
   const mapRef = useRef<L.Map | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const markersRef = useRef<L.Marker[]>([]);
@@ -78,7 +81,7 @@ export default function Stores() {
       icon: ghostIcon(),
       interactive: true,
     })
-      .bindTooltip(siteContent.stores.ghost.tooltip, {
+      .bindTooltip(s.ghost.tooltip, {
         direction: "top",
         offset: [0, -10],
         className: "ghost-tooltip",
@@ -234,13 +237,13 @@ export default function Stores() {
           transition={{ duration: 0.5 }}
         >
           <p className="text-xs eyebrow text-brand-gray-400 mb-4">
-            {siteContent.stores.eyebrow}
+            {s.eyebrow}
           </p>
           <h2 className="section-title ">
-            {siteContent.stores.heading}
+            {s.heading}
           </h2>
           <p className="section-desc ">
-            {siteContent.stores.desc}
+            {s.desc}
           </p>
 
           {/* Статистика */}
@@ -281,13 +284,13 @@ export default function Stores() {
                   </span>
                   <div className="min-w-0">
                     <div className="text-sm font-semibold text-brand-black">
-                      {userCity || siteContent.stores.ghost.sidebarYourCity}
+                      {userCity || s.ghost.sidebarYourCity}
                     </div>
                     <div className="text-xs text-brand-accent mt-0.5 font-medium">
-                      {siteContent.stores.ghost.sidebarCTA}
+                      {s.ghost.sidebarCTA}
                     </div>
                     <div className="text-xs text-brand-gray-400 mt-0.5">
-                      {siteContent.stores.ghost.sidebarSubtext}
+                      {s.ghost.sidebarSubtext}
                     </div>
                   </div>
                 </div>

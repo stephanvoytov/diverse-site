@@ -6,9 +6,12 @@ import { cardProfit } from "@/data/formats";
 import { useModal } from "@/lib/modal-context";
 import { siteContent } from "@/data/site-content";
 
+const fallback = siteContent.franchise;
+
 const easeOut: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
 
-export default function Franchise() {
+export default function Franchise({ data }: { data?: typeof fallback }) {
+  const s = data ?? fallback;
   const { open: openModal } = useModal();
   return (
     <section
@@ -43,7 +46,7 @@ export default function Franchise() {
             }}
             className="text-xs eyebrow text-brand-gray-300 mb-4"
           >
-            {siteContent.franchise.eyebrow}
+            {s.eyebrow}
           </motion.p>
           <motion.h2
             variants={{
@@ -52,7 +55,7 @@ export default function Franchise() {
             }}
             className="section-title text-white"
           >
-            {siteContent.franchise.heading}{" "}
+            {s.heading}{" "}
             <span className="text-brand-accent">Diverse</span>
           </motion.h2>
           <motion.p
@@ -62,7 +65,7 @@ export default function Franchise() {
             }}
             className="section-desc text-white/50"
           >
-            {siteContent.franchise.desc}
+            {s.desc}
           </motion.p>
         </motion.div>
 
@@ -108,7 +111,7 @@ export default function Franchise() {
                     {plan.investment}
                   </p>
                   <p className="text-[11px] text-white/50 tracking-[0.1em] uppercase">
-                    {siteContent.franchise.labels.investment}
+                    {s.labels.investment}
                   </p>
                 </div>
                 <div>
@@ -116,7 +119,7 @@ export default function Franchise() {
                     {cardProfit[plan.id]}
                   </p>
                   <p className="text-[11px] text-white/50 tracking-[0.1em] uppercase">
-                    {siteContent.franchise.labels.profitMonth}
+                    {s.labels.profitMonth}
                   </p>
                 </div>
               </div>
@@ -125,7 +128,7 @@ export default function Franchise() {
         </motion.div>
 
         {/* Disclaimer */}
-        <p className="text-center text-[10px] text-white/20 mt-4 md:mt-6">{siteContent.franchise.disclaimer}</p>
+        <p className="text-center text-[10px] text-white/20 mt-4 md:mt-6">{s.disclaimer}</p>
 
         {/* Bottom: CTA + links — компактно */}
         <motion.div
@@ -148,7 +151,7 @@ export default function Franchise() {
               onClick={openModal}
               className="btn-accent"
             >
-              {siteContent.franchise.cta}
+              {s.cta}
             </button>
           </motion.div>
 
@@ -164,14 +167,14 @@ export default function Franchise() {
               href="/franchise/"
               className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors group"
             >
-              {siteContent.franchise.links.allConditions}
+              {s.links.allConditions}
               <span className="group-hover:translate-x-1 transition-transform">→</span>
             </a>
             <a
               href="/franchise/#gallery"
               className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors group"
             >
-              {siteContent.franchise.links.example}
+              {s.links.example}
               <span className="group-hover:translate-x-1 transition-transform">→</span>
             </a>
           </motion.div>
