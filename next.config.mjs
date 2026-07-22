@@ -38,6 +38,10 @@ const nextConfig = {
         source: "/admin",
         destination: "/admin/index.html",
       },
+      {
+        source: "/admin/",
+        destination: "/admin/index.html",
+      },
     ];
   },
 };
