@@ -1,7 +1,6 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/config/site";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
-  || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://diversebrand.ru");
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 export default function robots(): MetadataRoute.Robots {
@@ -40,6 +39,6 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
       },
     ],
-    sitemap: `${siteUrl}${basePath}/sitemap.xml`,
+    sitemap: `${SITE_URL}${basePath}/sitemap.xml`,
   };
 }

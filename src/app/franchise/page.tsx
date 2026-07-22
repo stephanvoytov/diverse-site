@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import FranchiseContent from "./FranchiseContent";
 import JsonLd from "@/components/shared/JsonLd";
 import { formatCards } from "@/data/formats";
+import { SITE_URL } from "@/config/site";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://diversebrand.ru";
 
 export const metadata: Metadata = {
   title: "Франшиза одежды Diverse — условия, стоимость и форматы открытия",
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     title: "Франшиза одежды Diverse — условия, стоимость и форматы открытия",
     description:
       "Откройте магазин европейского бренда Diverse по франшизе. 3 формата, старт от 800 тыс ₽, без взноса и роялти.",
-    url: `${siteUrl}${basePath}/franchise/`,
+    url: `${SITE_URL}${basePath}/franchise/`,
     siteName: "Diverse Россия",
     locale: "ru_RU",
     type: "website",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     "паушальный взнос 0", "роялти 0%",
   ],
   alternates: {
-    canonical: `${siteUrl}${basePath}/franchise/`,
+    canonical: `${SITE_URL}${basePath}/franchise/`,
   },
 };
 
@@ -46,8 +46,8 @@ export default function Page() {
     "@type": "BreadcrumbList",
     name: "Навигационная цепочка",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Главная", item: siteUrl + basePath },
-      { "@type": "ListItem", position: 2, name: "Франшиза", item: `${siteUrl}${basePath}/franchise/` },
+      { "@type": "ListItem", position: 1, name: "Главная", item: SITE_URL + basePath },
+      { "@type": "ListItem", position: 2, name: "Франшиза", item: `${SITE_URL}${basePath}/franchise/` },
     ],
   };
 

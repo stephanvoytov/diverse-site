@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import CollectionContent from "./CollectionContent";
 import JsonLd from "@/components/shared/JsonLd";
+import { SITE_URL } from "@/config/site";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://diversebrand.ru";
 
 export const metadata: Metadata = {
   title: "Коллекции Diverse — одежда для города, спорта и путешествий",
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     title: "Коллекции Diverse — одежда для города, спорта и путешествий",
     description:
       "Изучите коллекции Diverse: городской стиль, технологичные линии и одежда для активного образа жизни.",
-    url: `${siteUrl}${basePath}/collection/`,
+    url: `${SITE_URL}${basePath}/collection/`,
     siteName: "Diverse Россия",
     locale: "ru_RU",
     type: "website",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     "DEXT TECH", "бренд Diverse коллекции",
   ],
   alternates: {
-    canonical: `${siteUrl}${basePath}/collection/`,
+    canonical: `${SITE_URL}${basePath}/collection/`,
   },
 };
 
@@ -41,8 +41,8 @@ export default function CollectionPage() {
     "@type": "BreadcrumbList",
     name: "Навигационная цепочка",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Главная", item: siteUrl + basePath },
-      { "@type": "ListItem", position: 2, name: "Коллекции", item: `${siteUrl}${basePath}/collection/` },
+      { "@type": "ListItem", position: 1, name: "Главная", item: SITE_URL + basePath },
+      { "@type": "ListItem", position: 2, name: "Коллекции", item: `${SITE_URL}${basePath}/collection/` },
     ],
   };
 

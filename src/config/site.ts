@@ -11,6 +11,9 @@ export const SITE = {
   url: "https://diversebrand.ru",
 } as const;
 
+/** Единый URL сайта — сначала NEXT_PUBLIC_SITE_URL, потом fallback */
+export const SITE_URL: string = process.env.NEXT_PUBLIC_SITE_URL || "https://diversebrand.ru";
+
 export const CONTACTS = {
   /** Телефон (сырой, для tel: ссылок) */
   phoneRaw: "+79062373561",

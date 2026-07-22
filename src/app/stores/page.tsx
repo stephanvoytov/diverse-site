@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import StoresContent from "./StoresContent";
 import JsonLd from "@/components/shared/JsonLd";
 import { stores } from "@/data/stores";
+import { SITE_URL } from "@/config/site";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://diversebrand.ru";
 
 export const metadata: Metadata = {
   title: "Магазины Diverse — адреса, города и контакты",
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Магазины Diverse — адреса, города и контакты",
     description: "Найдите магазин Diverse в вашем городе: 11 точек в России и Казахстане. Адреса и контакты.",
-    url: `${siteUrl}${basePath}/stores/`,
+    url: `${SITE_URL}${basePath}/stores/`,
     siteName: "Diverse Россия",
     locale: "ru_RU",
     type: "website",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     images: [`${basePath}/images/stores/kaliningrad.jpg`],
   },
   alternates: {
-    canonical: `${siteUrl}${basePath}/stores/`,
+    canonical: `${SITE_URL}${basePath}/stores/`,
   },
 };
 
@@ -36,8 +36,8 @@ export default function Page() {
     "@type": "BreadcrumbList",
     name: "Навигационная цепочка",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Главная", item: siteUrl + basePath },
-      { "@type": "ListItem", position: 2, name: "Магазины", item: `${siteUrl}${basePath}/stores/` },
+      { "@type": "ListItem", position: 1, name: "Главная", item: SITE_URL + basePath },
+      { "@type": "ListItem", position: 2, name: "Магазины", item: `${SITE_URL}${basePath}/stores/` },
     ],
   };
 
@@ -56,7 +56,7 @@ export default function Page() {
       parentOrganization: {
         "@type": "Organization",
         name: "Diverse Россия",
-        url: siteUrl,
+        url: SITE_URL,
       },
     })),
   };

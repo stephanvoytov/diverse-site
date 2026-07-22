@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import AboutContent from "./AboutContent";
 import JsonLd from "@/components/shared/JsonLd";
+import { SITE_URL } from "@/config/site";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://diversebrand.ru";
 
 export const metadata: Metadata = {
   title: "О бренде Diverse — история, коллекции и философия",
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "О бренде Diverse — история, коллекции и философия",
     description: "Diverse — польский бренд одежды с 30-летней историей. Более 400 магазинов в 9 странах, партнёр Dakar Rally.",
-    url: `${siteUrl}${basePath}/about/`,
+    url: `${SITE_URL}${basePath}/about/`,
     siteName: "Diverse Россия",
     locale: "ru_RU",
     type: "website",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     "Dakar Rally одежда",
   ],
   alternates: {
-    canonical: `${siteUrl}${basePath}/about/`,
+    canonical: `${SITE_URL}${basePath}/about/`,
   },
 };
 
@@ -40,8 +40,8 @@ export default function Page() {
     "@type": "BreadcrumbList",
     name: "Навигационная цепочка",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Главная", item: siteUrl + basePath },
-      { "@type": "ListItem", position: 2, name: "О бренде", item: `${siteUrl}${basePath}/about/` },
+      { "@type": "ListItem", position: 1, name: "Главная", item: SITE_URL + basePath },
+      { "@type": "ListItem", position: 2, name: "О бренде", item: `${SITE_URL}${basePath}/about/` },
     ],
   };
 

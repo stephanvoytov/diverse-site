@@ -15,6 +15,7 @@ import FadeIn from "@/components/shared/FadeIn";
 import JsonLd from "@/components/shared/JsonLd";
 import { faqItems } from "@/data/franchise";
 import { asset } from "@/lib/path";
+import { SITE_URL } from "@/config/site";
 
 const StoresMap = dynamic(() => import("@/components/shared/StoresMap"), {
   loading: () => (
@@ -23,8 +24,6 @@ const StoresMap = dynamic(() => import("@/components/shared/StoresMap"), {
     </div>
   ),
 });
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://diversebrand.ru";
 
 export default function Home() {
   const faqSchema = {
@@ -45,7 +44,7 @@ export default function Home() {
     "@type": "BreadcrumbList",
     name: "Навигационная цепочка",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Главная", item: siteUrl + asset("/") },
+      { "@type": "ListItem", position: 1, name: "Главная", item: SITE_URL + asset("/") },
     ],
   };
 

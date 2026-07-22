@@ -9,13 +9,13 @@ import ContactFloating from "@/components/shared/ContactFloating";
 import ExitIntentPopup from "@/components/shared/ExitIntentPopup";
 import JsonLd from "@/components/shared/JsonLd";
 import { asset } from "@/lib/path";
-import { CONTACTS, SITE } from "@/config/site";
+import { CONTACTS, SITE, SITE_URL } from "@/config/site";
 
 const ymId = process.env.NEXT_PUBLIC_YM_ID || "";
 const vkPixelId = process.env.NEXT_PUBLIC_VK_PIXEL_ID || "";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || SITE.url;
+const siteUrl = SITE_URL;
 
 const inter = Inter({
   subsets: ["cyrillic", "latin"],
