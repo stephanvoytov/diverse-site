@@ -7,18 +7,15 @@ const branch =
   "main";
 
 export default defineConfig({
-  /* ——— TinaCloud ——— */
   clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID!,
   token: process.env.TINA_TOKEN!,
   branch,
 
-  /* ——— Build output ——— */
   build: {
     outputFolder: "admin",
     publicFolder: "public",
   },
 
-  /* ——— Media ——— */
   media: {
     tina: {
       mediaRoot: "uploads",
@@ -26,7 +23,6 @@ export default defineConfig({
     },
   },
 
-  /* ——— Schema ——— */
   schema: {
     collections: [
       {
