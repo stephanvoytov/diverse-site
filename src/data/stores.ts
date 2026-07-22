@@ -21,8 +21,13 @@ export const stores: Store[] = [
   { city: "Алматы",       mall: "",                       address: "ул. Розыбакиева, 289, Блок 1",  coords: [76.8512, 43.222],  country: "Казахстан", photo: "/images/stores/almaty.jpg" },
 ];
 
+/** Вычисляется динамически — при изменении stores citiesSummary обновится автоматически */
+function uniqueCities(list: Store[], country: string): number {
+  return [...new Set(list.filter((s) => s.country === country).map((s) => s.city))].length;
+}
+
 export const citiesSummary = [
-  { label: "городов России", count: "8" },
-  { label: "города Казахстана", count: "2" },
-  { label: "магазинов", count: "11" },
+  { label: "городов России",     count: String(uniqueCities(stores, "Россия")) },
+  { label: "города Казахстана",  count: String(uniqueCities(stores, "Казахстан")) },
+  { label: "магазинов",          count: String(stores.length) },
 ];

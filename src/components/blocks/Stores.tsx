@@ -63,21 +63,16 @@ export default function Stores() {
   const markersRef = useRef<L.Marker[]>([]);
   const clustersRef = useRef<L.MarkerClusterGroup | null>(null);
   const sidebarRef = useRef<HTMLDivElement>(null);
-  const ghostAddedRef = useRef(false);
+  const ghostRef = useRef<L.Marker | null>(null);
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
   const [mapReady, setMapReady] = useState(false);
   const { city: userCity, lat, lon } = useUserCity();
 
   function addGhostToMap(map: L.Map, lat: number, lng: number) {
-    // Если метка уже стоит — удаляем, чтобы обновить позицию
-    if (ghostAddedRef.current) {
-      const existing = document.querySelector<HTMLElement>('[aria-label="Ваш магазин Diverse"]');
-      if (existing) {
-        const parent = existing.closest('.leaflet-marker-icon') as any;
-        if (parent) map.removeLayer(parent);
-      }
+    // Если метка уже стоит — удаляем через ref, чтобы обновить позицию
+    if (ghostRef.current) {
+      map.removeLayer(ghostRef.current);
     }
-    ghostAddedRef.current = true;
     const ghost = L.marker([lat, lng], {
       icon: ghostIcon(),
       interactive: true,
@@ -90,6 +85,7 @@ export default function Stores() {
       .on("click", () => {
         document.getElementById("section-contacts")?.scrollIntoView({ behavior: "smooth" });
       });
+    ghostRef.current = ghost;
     ghost.addTo(map);
   }
 
@@ -130,7 +126,7 @@ export default function Stores() {
     });
 
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 10,
+      maxZoom: 18,
     }).addTo(map);
 
     function diverseMarker(label: string): L.DivIcon {
@@ -205,7 +201,7 @@ export default function Stores() {
     return () => {
       map.remove();
       mapRef.current = null;
-      ghostAddedRef.current = false;
+      ghostRef.current = null;
       setMapReady(false);
     };
   }, []);

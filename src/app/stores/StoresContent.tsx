@@ -14,6 +14,23 @@ import { asset } from "@/lib/path";
 const russianStores = stores.filter((s) => s.country === "Россия");
 const kzStores = stores.filter((s) => s.country === "Казахстан");
 
+/** Склонение названий городов для предлога «в» (предложный падеж) */
+function inCity(city: string): string {
+  const map: Record<string, string> = {
+    "Калининград": "Калининграде",
+    "Уфа": "Уфе",
+    "Зеленоградск": "Зеленоградске",
+    "Сургут": "Сургуте",
+    "Красноярск": "Красноярске",
+    "Симферополь": "Симферополе",
+    "Якутск": "Якутске",
+    "Саратов": "Саратове",
+    "Щучинск": "Щучинске",
+    "Алматы": "Алматы",
+  };
+  return map[city] ?? city;
+}
+
 export default function StoresContent() {
   const { open: openModal } = useModal();
   const { city } = useUserCity();
@@ -152,7 +169,7 @@ export default function StoresContent() {
                 visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] } },
               }}
             >
-              {city ? `Нет магазина в ${city}?` : "Нет магазина в вашем городе?"}
+              {city ? `Нет магазина в ${inCity(city)}?` : "Нет магазина в вашем городе?"}
             </motion.h2>
             <motion.p
               className="section-desc text-white/60 mb-8"
@@ -162,7 +179,7 @@ export default function StoresContent() {
               }}
             >
               {city
-                ? `Откройте Diverse по франшизе — станьте первым в ${city}`
+                ? `Откройте Diverse по франшизе — станьте первым в ${inCity(city)}`
                 : "Откройте его по франшизе — станьте первым в своём городе"}
             </motion.p>
             <motion.div
