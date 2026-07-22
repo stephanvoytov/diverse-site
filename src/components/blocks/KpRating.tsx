@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { asset } from "@/lib/path";
 import SectionHeader from "@/components/shared/SectionHeader";
+import { siteContent } from "@/data/site-content";
 
 const easeOut: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
 
@@ -12,12 +13,13 @@ export default function KpRating() {
     <section data-header="light" className="bg-white py-16 md:py-24">
       <div className="container-brand">
         <SectionHeader
-          eyebrow="Экспертная оценка"
-          desc="Независимый рейтинг крупнейшего издательства России"
+          eyebrow={siteContent.kpRating.eyebrow}
+          desc={siteContent.kpRating.desc}
           className="mb-12"
           margin
         >
-          <span className="text-brand-accent">Топ-8</span> лучших франшиз
+          <span className="text-brand-accent">{siteContent.kpRating.headingAccent}</span>{" "}
+          {siteContent.kpRating.headingAfter}
         </SectionHeader>
 
         <motion.div
@@ -48,13 +50,13 @@ export default function KpRating() {
                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#D12026"/>
               </svg>
               <div>
-                <p className="text-sm font-bold text-brand-black">Топ-8</p>
-                <p className="text-xs text-brand-gray-400">лучших франшиз магазинов одежды в России — 2026</p>
+                <p className="text-sm font-bold text-brand-black">{siteContent.kpRating.badge.rank}</p>
+                <p className="text-xs text-brand-gray-400">{siteContent.kpRating.badge.label}</p>
               </div>
             </a>
 
             <p className="body-text text-brand-gray-400 leading-relaxed">
-              Попадание в Топ-8 подтверждает, что модель Diverse признана одной из самых надёжных и перспективных на рынке франчайзинга.
+              {siteContent.kpRating.body}
             </p>
 
             <a
@@ -63,7 +65,7 @@ export default function KpRating() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm font-semibold text-brand-accent hover:text-brand-accent-hover transition-colors group"
             >
-              Читать полный обзор
+              {siteContent.kpRating.cta}
               <span className="group-hover:translate-x-1 transition-transform">→</span>
             </a>
           </motion.div>
@@ -84,7 +86,7 @@ export default function KpRating() {
             >
               <Image
                 src={asset("/images/kp-rating.jpg")}
-                alt="Комсомольская правда — логотип издания"
+                alt={siteContent.kpRating.imageAlt}
                 width={1254}
                 height={705}
                 sizes="(max-width: 768px) 100vw, 50vw"
@@ -92,7 +94,7 @@ export default function KpRating() {
               />
             </a>
             <p className="text-xs text-brand-gray-300 mt-3 text-center">
-              Источник: kp.ru · рейтинг лучших франшиз магазинов одежды 2026
+              {siteContent.kpRating.source}
             </p>
           </motion.div>
         </motion.div>

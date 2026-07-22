@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { faqItems } from "@/data/franchise";
+import { siteContent } from "@/data/site-content";
 
 const easeOut: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
 
@@ -15,13 +16,13 @@ export default function Faq() {
       <div className="container-brand py-16 md:py-24">
         {/* Header */}
         <SectionHeader
-          eyebrow="Часто спрашивают"
-          desc="Собрали то, что обычно волнует перед открытием"
+          eyebrow={siteContent.faq.eyebrow}
+          desc={siteContent.faq.desc}
           className="mb-12 md:mb-16"
           margin
         >
-          Отвечаем на{" "}
-          <span className="text-brand-accent">главные вопросы</span>
+          {siteContent.faq.headingBefore}{" "}
+          <span className="text-brand-accent">{siteContent.faq.headingAccent}</span>
         </SectionHeader>
 
         {/* Accordion — 1 observer вместо 5 */}

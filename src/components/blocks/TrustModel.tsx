@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { trustPoints } from "@/data/brand";
+import { siteContent } from "@/data/site-content";
 
 const easeOut: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
 
@@ -12,12 +13,13 @@ export default function TrustModel() {
       <div className="container-brand">
         {/* Header */}
         <SectionHeader
-          eyebrow="Как устроена модель"
-          desc="Никаких скрытых платежей и минимальных объёмов"
+          eyebrow={siteContent.trustModel.eyebrow}
+          desc={siteContent.trustModel.desc}
           className="mb-12 md:mb-14"
           margin
         >
-          Прозрачная <span className="text-brand-accent">финансовая модель</span>
+          {siteContent.trustModel.headingBefore}{" "}
+          <span className="text-brand-accent">{siteContent.trustModel.headingAccent}</span>
         </SectionHeader>
 
         {/* Trust cards — 1 observer вместо 4 */}

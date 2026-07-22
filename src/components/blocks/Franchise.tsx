@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { plans } from "@/data/franchise";
 import { cardProfit } from "@/data/formats";
 import { useModal } from "@/lib/modal-context";
+import { siteContent } from "@/data/site-content";
 
 const easeOut: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
 
@@ -42,7 +43,7 @@ export default function Franchise() {
             }}
             className="text-xs eyebrow text-brand-gray-300 mb-4"
           >
-            Франшиза
+            {siteContent.franchise.eyebrow}
           </motion.p>
           <motion.h2
             variants={{
@@ -51,7 +52,7 @@ export default function Franchise() {
             }}
             className="section-title text-white"
           >
-            Откройте магазин{" "}
+            {siteContent.franchise.heading}{" "}
             <span className="text-brand-accent">Diverse</span>
           </motion.h2>
           <motion.p
@@ -61,7 +62,7 @@ export default function Franchise() {
             }}
             className="section-desc text-white/50"
           >
-            Три формата на выбор. Без паушального взноса и роялти.
+            {siteContent.franchise.desc}
           </motion.p>
         </motion.div>
 
@@ -107,7 +108,7 @@ export default function Franchise() {
                     {plan.investment}
                   </p>
                   <p className="text-[11px] text-white/50 tracking-[0.1em] uppercase">
-                    Инвестиции
+                    {siteContent.franchise.labels.investment}
                   </p>
                 </div>
                 <div>
@@ -115,7 +116,7 @@ export default function Franchise() {
                     {cardProfit[plan.id]}
                   </p>
                   <p className="text-[11px] text-white/50 tracking-[0.1em] uppercase">
-                    Прибыль / мес
+                    {siteContent.franchise.labels.profitMonth}
                   </p>
                 </div>
               </div>
@@ -124,7 +125,7 @@ export default function Franchise() {
         </motion.div>
 
         {/* Disclaimer */}
-        <p className="text-center text-[10px] text-white/20 mt-4 md:mt-6">* Все цифры — оценочные, точный расчёт под ваш формат на консультации</p>
+        <p className="text-center text-[10px] text-white/20 mt-4 md:mt-6">{siteContent.franchise.disclaimer}</p>
 
         {/* Bottom: CTA + links — компактно */}
         <motion.div
@@ -147,7 +148,7 @@ export default function Franchise() {
               onClick={openModal}
               className="btn-accent"
             >
-              Стать партнёром
+              {siteContent.franchise.cta}
             </button>
           </motion.div>
 
@@ -163,14 +164,14 @@ export default function Franchise() {
               href="/franchise/"
               className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors group"
             >
-              Все условия франшизы
+              {siteContent.franchise.links.allConditions}
               <span className="group-hover:translate-x-1 transition-transform">→</span>
             </a>
             <a
               href="/franchise/#gallery"
               className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors group"
             >
-              Посмотреть пример магазина
+              {siteContent.franchise.links.example}
               <span className="group-hover:translate-x-1 transition-transform">→</span>
             </a>
           </motion.div>

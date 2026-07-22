@@ -1,0 +1,173 @@
+fragment HeroParts on Hero {
+  __typename
+  tagline
+  heading
+  description
+  pricing
+  cta {
+    __typename
+    consultation
+    cases
+  }
+  stats {
+    __typename
+    value
+    label
+  }
+}
+
+fragment AboutParts on About {
+  __typename
+  eyebrow
+  headingBefore
+  headingAccent
+  headingAfter
+  body
+  links {
+    __typename
+    about
+    collection
+  }
+}
+
+fragment FranchiseParts on Franchise {
+  __typename
+  eyebrow
+  heading
+  desc
+  cta
+  labels {
+    __typename
+    investment
+    profitMonth
+  }
+  links {
+    __typename
+    allConditions
+    example
+  }
+  disclaimer
+}
+
+fragment MarketBlockParts on MarketBlock {
+  __typename
+  eyebrow
+  headingBefore
+  headingAccent
+  desc
+  reasons
+}
+
+fragment TrustModelParts on TrustModel {
+  __typename
+  eyebrow
+  headingBefore
+  headingAccent
+  desc
+}
+
+fragment RoadmapParts on Roadmap {
+  __typename
+  eyebrow
+  headingBefore
+  headingAccent
+  desc
+}
+
+fragment CaseStudiesParts on CaseStudies {
+  __typename
+  eyebrow
+  headingBefore
+  headingAccent
+  desc
+  labels {
+    __typename
+    payback
+    profitMonth
+    investment
+    video
+    photo
+  }
+  openedPrefix
+  openedSuffix
+}
+
+fragment FaqParts on Faq {
+  __typename
+  eyebrow
+  headingBefore
+  headingAccent
+  desc
+}
+
+fragment ContactsParts on Contacts {
+  __typename
+  eyebrow
+  heading
+  desc
+  form {
+    __typename
+    name
+    namePlaceholder
+    phone
+    phonePlaceholder
+    format
+    formatPlaceholder
+    message
+    messagePlaceholder
+    submit
+    submitting
+    submitted
+    success
+    error
+    telegram
+    or
+    mail
+    leadQueueFallback
+  }
+  company {
+    __typename
+    name
+    inn
+    address
+  }
+  sections {
+    __typename
+    details
+    contacts
+    socials
+  }
+  privacy
+}
+
+fragment StoresParts on Stores {
+  __typename
+  eyebrow
+  heading
+  desc
+  ghost {
+    __typename
+    label
+    tooltip
+    sidebarYourCity
+    sidebarCTA
+    sidebarSubtext
+  }
+}
+
+fragment KpRatingParts on KpRating {
+  __typename
+  eyebrow
+  headingAccent
+  headingAfter
+  desc
+  badge {
+    __typename
+    rank
+    label
+  }
+  body
+  cta
+  source
+  imageAlt
+}

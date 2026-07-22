@@ -1,0 +1,15 @@
+{
+  "eyebrow": "Реальные результаты",
+  "headingBefore": "Кейсы действующих",
+  "headingAccent": "франчайзи",
+  "desc": "Реальные истории партнёров — от Калининграда до Уфы",
+  "labels": {
+    "payback": "Окупаемость",
+    "profitMonth": "Прибыль / мес",
+    "investment": "Инвестиции",
+    "video": "Видео",
+    "photo": "Фото"
+  },
+  "openedPrefix": "Открыт в",
+  "openedSuffix": "году"
+}

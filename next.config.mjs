@@ -5,9 +5,9 @@ const csp = [
   `img-src 'self' data: https://mc.yandex.ru https://vk.com https://tile.openstreetmap.org https://purecatamphetamine.github.io`,
   `script-src 'self' 'unsafe-eval' 'unsafe-inline' https://mc.yandex.ru https://vk.com`,
   `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com`,
-  `font-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com`,
-  `frame-src 'none'`,
-  `connect-src 'self' https://mc.yandex.ru https://vk.com https://tile.openstreetmap.org`,
+  `font-src 'self' data: https://fonts.gstatic.com https://fonts.googleapis.com`,
+  `frame-src 'self' https://*.tina.io https://*.tinajs.io`,
+  `connect-src 'self' https://mc.yandex.ru https://vk.com https://tile.openstreetmap.org https://*.tinajs.io https://content.tinajs.io https://identity.tinajs.io https://assets.tinajs.io https://app.tina.io`,
   `form-action 'self'`,
 ].join("; ");
 
@@ -29,6 +29,14 @@ const nextConfig = {
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
         ],
+      },
+    ];
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/admin",
+        destination: "/admin/index.html",
       },
     ];
   },

@@ -12,6 +12,7 @@ import { formatPhone } from "@/lib/phone";
 import { useUserCity } from "@/lib/user-city-context";
 import { queueLead } from "@/lib/lead-queue";
 import PhoneInput from "react-phone-number-input/react-hook-form";
+import { siteContent } from "@/data/site-content";
 import "react-phone-number-input/style.css";
 
 const contactSchema = z.object({
@@ -53,7 +54,7 @@ export default function Contacts() {
       queueLead({
         name: data.name,
         phone: data.phone,
-        message: data.message || "Запрос с главной (секция Контакты)",
+        message: data.message || siteContent.contacts.form.leadQueueFallback,
         createdAt: Date.now(),
       });
       setSubmitStatus("error");
@@ -65,13 +66,13 @@ export default function Contacts() {
       <div className="container-brand py-10 md:py-12">
         {/* Заголовок */}
         <SectionHeader
-          eyebrow="Свяжитесь с нами"
-          desc="Откройте магазин Diverse по франшизе или задайте любой вопрос"
+          eyebrow={siteContent.contacts.eyebrow}
+          desc={siteContent.contacts.desc}
           className="mb-10 md:mb-14"
           margin
           dark
         >
-          Контакты
+          {siteContent.contacts.heading}
         </SectionHeader>
 
         <motion.div
@@ -86,12 +87,12 @@ export default function Contacts() {
             <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
               <div>
                 <label htmlFor="name" className="block text-xs label text-white/50 mb-2">
-                  Имя <span className="text-brand-accent">*</span>
+                  {siteContent.contacts.form.name} <span className="text-brand-accent">*</span>
                 </label>
                 <input
                   id="name"
                   type="text"
-                  placeholder="Ваше имя"
+                  placeholder={siteContent.contacts.form.namePlaceholder}
                   {...register("name")}
                   className={`w-full px-4 py-3 text-sm bg-white/10 border rounded-sm outline-none transition-colors text-white placeholder:text-white/30 ${
                     errors.name
@@ -106,14 +107,14 @@ export default function Contacts() {
 
               <div>
                 <label htmlFor="phone" className="block text-xs label text-white/50 mb-2">
-                  Телефон <span className="text-brand-accent">*</span>
+                  {siteContent.contacts.form.phone} <span className="text-brand-accent">*</span>
                 </label>
                 <PhoneInput
                   name="phone"
                   control={control}
                   defaultCountry="RU"
                   countries={["RU", "KZ", "BY"]}
-                  placeholder="+7 (999) 123-45-67"
+                  placeholder={siteContent.contacts.form.phonePlaceholder}
                   className="phone-input-dark"
                 />
                 {errors.phone && (
@@ -123,7 +124,7 @@ export default function Contacts() {
 
               <div>
                 <label htmlFor="contacts-format" className="block text-xs label text-white/50 mb-2">
-                  Формат
+                  {siteContent.contacts.form.format}
                 </label>
                 <select
                   id="contacts-format"
@@ -131,7 +132,7 @@ export default function Contacts() {
                   defaultValue=""
                   className="w-full px-4 py-3 text-sm bg-white/10 border border-white/20 rounded-sm outline-none focus:border-white transition-colors text-white appearance-none select-arrow-light"
                 >
-                  <option value="" disabled className="text-brand-gray-400">Выберите формат</option>
+                  <option value="" disabled className="text-brand-gray-400">{siteContent.contacts.form.formatPlaceholder}</option>
                   {FORMAT_OPTIONS.map((f) => (
                     <option key={f.id} value={f.id} className="text-brand-black">
                       {f.label} — {f.desc}
@@ -142,12 +143,12 @@ export default function Contacts() {
 
               <div>
                 <label htmlFor="message" className="block text-xs label text-white/50 mb-2">
-                  Сообщение
+                  {siteContent.contacts.form.message}
                 </label>
                 <textarea
                   id="message"
                   rows={4}
-                  placeholder="Какой формат интересует? Есть ли помещение?"
+                  placeholder={siteContent.contacts.form.messagePlaceholder}
                   {...register("message")}
                   className="w-full px-4 py-3 text-sm bg-white/10 border border-white/20 rounded-sm outline-none focus:border-white transition-colors text-white placeholder:text-white/30 resize-none"
                 />
@@ -155,19 +156,18 @@ export default function Contacts() {
 
               {submitStatus === "success" && (
                 <p className="text-sm text-green-400 font-medium">
-                  ✓ Спасибо! Мы получили заявку.
+                  {siteContent.contacts.form.success}
                 </p>
               )}
               {submitStatus === "error" && (
                 <p className="text-sm text-brand-accent">
-                  ✕ Ошибка отправки.
-                  Напишите нам в{" "}
+                  {siteContent.contacts.form.error}{" "}
                   <a href={CONTACTS.telegram} target="_blank" rel="noopener noreferrer" className="underline hover:no-underline font-semibold">
-                    Telegram
+                    {siteContent.contacts.form.telegram}
                   </a>
-                  {" "}или на{" "}
+                  {" "}{siteContent.contacts.form.or}{" "}
                   <a href="mailto:diverserussia@yandex.ru" className="underline hover:no-underline">
-                    почту
+                    {siteContent.contacts.form.mail}
                   </a>
                 </p>
               )}
@@ -177,7 +177,7 @@ export default function Contacts() {
                 disabled={isSubmitting || submitStatus === "success"}
                 className="w-full sm:w-auto px-8 py-3.5 bg-brand-accent text-white text-xs tracking-[0.2em] uppercase font-semibold rounded-sm hover:bg-brand-accent-hover transition-colors disabled:opacity-50"
               >
-                {isSubmitting ? "Отправка…" : submitStatus === "success" ? "Отправлено ✓" : "Отправить"}
+                {isSubmitting ? siteContent.contacts.form.submitting : submitStatus === "success" ? siteContent.contacts.form.submitted : siteContent.contacts.form.submit}
               </button>
             </form>
           </div>
@@ -188,19 +188,19 @@ export default function Contacts() {
               {/* Реквизиты */}
               <div>
                 <p className="text-xs label text-white/40 mb-4">
-                  Реквизиты
+                  {siteContent.contacts.sections.details}
                 </p>
-                <h3 className="text-xl font-bold text-white mb-1">ООО «ХАУС»</h3>
-                <p className="text-sm text-white/40 mb-0.5">ИНН 3907201307</p>
+                <h3 className="text-xl font-bold text-white mb-1">{siteContent.contacts.company.name}</h3>
+                <p className="text-sm text-white/40 mb-0.5">{siteContent.contacts.company.inn}</p>
                 <p className="text-sm text-white/40">
-                  236022, Калининград, пл. Победы, 4, оф. 210
+                  {siteContent.contacts.company.address}
                 </p>
               </div>
 
               {/* Email / Phone */}
               <div>
                 <p className="text-xs label text-white/40 mb-4">
-                  Контакты
+                  {siteContent.contacts.sections.contacts}
                 </p>
                 <ul className="space-y-3">
                   <li>
@@ -225,7 +225,7 @@ export default function Contacts() {
               {/* Соцсети */}
               <div>
                 <p className="text-xs label text-white/40 mb-4">
-                  Социальные сети
+                  {siteContent.contacts.sections.socials}
                 </p>
                 <div className="flex flex-wrap gap-3">
                   {contactSocials.map((s) => (
@@ -246,7 +246,7 @@ export default function Contacts() {
 
             {/* Нижний блок — можно добавить карту или что-то ещё */}
             <p className="text-xs text-white/40 leading-relaxed">
-              Нажимая «Отправить», вы соглашаетесь на обработку персональных данных.
+              {siteContent.contacts.privacy}
             </p>
           </div>
         </motion.div>

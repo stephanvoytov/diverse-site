@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, Fragment } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Button from "@/components/ui/Button";
 import CountUp from "@/components/ui/CountUp";
@@ -8,6 +8,7 @@ import DiverseLogo from "@/components/shared/DiverseLogo";
 import { asset } from "@/lib/path";
 import { useModal } from "@/lib/modal-context";
 import { useUserCity } from "@/lib/user-city-context";
+import { siteContent } from "@/data/site-content";
 
 export default function Hero() {
   const { open: openModal } = useModal();
@@ -79,7 +80,7 @@ export default function Hero() {
             className="hero-a opacity-0 text-xs md:text-sm eyebrow text-white/60 max-sm:mb-4 mb-5"
             style={{ animationDelay: '0.2s' }}
           >
-            Официальный представитель бренда в России
+            {siteContent.hero.tagline}
           </p>
 
           {/* Main Heading — smoother progression */}
@@ -87,7 +88,7 @@ export default function Hero() {
             className="hero-a-lg opacity-0 flex flex-col max-md:text-[13vw] md:text-8xl lg:text-9xl font-bold text-white uppercase leading-none max-w-5xl"
             style={{ animationDelay: '0.35s' }}
           >
-            <span>Франшиза</span>
+            <span>{siteContent.hero.heading}</span>
             <span className="text-brand-accent -mt-1 sm:-mt-2 md:-mt-3 leading-none">
               <DiverseLogo className="h-[0.55em] w-auto block" />
             </span>
@@ -98,7 +99,7 @@ export default function Hero() {
             className="hero-a opacity-0 max-sm:mt-4 mt-5 max-sm:text-xs body-text text-white/70 max-w-2xl leading-relaxed"
             style={{ animationDelay: '0.5s' }}
           >
-            Готовая модель бизнеса в сегменте масс-маркет/мидл. Ведущий польский бренд одежды с 30-летней историей. Партнёр Dakar Rally.
+            {siteContent.hero.description}
           </p>
 
           {/* Pricing — separate, more prominent on mobile */}
@@ -106,7 +107,7 @@ export default function Hero() {
             className="hero-a opacity-0 max-sm:mt-3 mt-3 max-sm:text-sm body-text text-white/90 font-medium max-w-2xl leading-snug"
             style={{ animationDelay: '0.6s' }}
           >
-            0&nbsp;₽ паушальный взнос&nbsp;·&nbsp;0%&nbsp;роялти&nbsp;·&nbsp;от&nbsp;800&nbsp;000&nbsp;₽
+            {siteContent.hero.pricing}
           </p>
 
           {/* CTA Buttons */}
@@ -115,7 +116,7 @@ export default function Hero() {
             style={{ animationDelay: '0.7s' }}
           >
             <Button variant="accent" size="md" className="max-sm:py-[14px] sm:px-8 sm:py-4" onClick={openModal}>
-              Получить консультацию
+              {siteContent.hero.cta.consultation}
             </Button>
             <Button
               variant="outline"
@@ -123,7 +124,7 @@ export default function Hero() {
               onClick={() => document.getElementById("section-cases")?.scrollIntoView({ behavior: "smooth" })}
               className="border-white text-white hover:bg-white hover:text-black max-sm:py-[14px] sm:px-8 sm:py-4"
             >
-              Посмотреть кейсы
+              {siteContent.hero.cta.cases}
             </Button>
           </div>
 
@@ -132,32 +133,23 @@ export default function Hero() {
             className="hero-a-in opacity-0 max-sm:mt-6 mt-8 md:mt-10 flex max-sm:gap-2 gap-4 md:gap-10 text-center"
             style={{ animationDelay: '0.8s' }}
           >
-            <div>
-              <p className="max-sm:text-xl text-2xl md:text-3xl font-bold text-white">
-                <CountUp to={30} suffix="+" className="max-sm:text-xl text-2xl md:text-3xl font-bold text-white" />
-              </p>
-              <p className="text-xs label text-white/50 mt-1">
-                Лет на рынке
-              </p>
-            </div>
-            <div className="w-px bg-white/20" />
-            <div>
-              <p className="max-sm:text-xl text-2xl md:text-3xl font-bold text-white">
-                <CountUp to={400} suffix="+" className="max-sm:text-xl text-2xl md:text-3xl font-bold text-white" />
-              </p>
-              <p className="text-xs label text-white/50 mt-1">
-                Магазинов в мире
-              </p>
-            </div>
-            <div className="w-px bg-white/20" />
-            <div>
-              <p className="max-sm:text-xl text-2xl md:text-3xl font-bold text-brand-accent">
-                <CountUp to={11} className="max-sm:text-xl text-2xl md:text-3xl font-bold text-brand-accent" />
-              </p>
-              <p className="text-xs label text-white/50 mt-1">
-                В РФ и Казахстане
-              </p>
-            </div>
+            {siteContent.hero.stats.map((stat, i) => {
+              const match = stat.value.match(/^(\d+)(.*)$/);
+              const isLast = i === siteContent.hero.stats.length - 1;
+              return (
+                <Fragment key={stat.label}>
+                  {i > 0 && <div className="w-px bg-white/20" />}
+                  <div>
+                    <p className={`max-sm:text-xl text-2xl md:text-3xl font-bold ${isLast ? "text-brand-accent" : "text-white"}`}>
+                      {match ? <CountUp to={Number(match[1])} suffix={match[2]} className={`max-sm:text-xl text-2xl md:text-3xl font-bold ${isLast ? "text-brand-accent" : "text-white"}`} /> : stat.value}
+                    </p>
+                    <p className="text-xs label text-white/50 mt-1">
+                      {stat.label}
+                    </p>
+                  </div>
+                </Fragment>
+              );
+            })}
           </div>
         </motion.div>
 

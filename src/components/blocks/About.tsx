@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import CountUp from "@/components/ui/CountUp";
 import { aboutStats } from "@/data/brand";
+import { siteContent } from "@/data/site-content";
 
 const easeInOut: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
 
@@ -31,17 +32,18 @@ export default function About() {
         >
           <motion.div variants={fadeUp}>
             <p className="text-xs eyebrow text-brand-gray-400 mb-4">
-              О бренде
+              {siteContent.about.eyebrow}
             </p>
             <h2 className="section-title text-brand-black">
-              Diverse: <br />
-              <span className="text-brand-accent">30+ лет</span> истории
+              {siteContent.about.headingBefore} <br />
+              <span className="text-brand-accent">{siteContent.about.headingAccent}</span>{" "}
+              {siteContent.about.headingAfter}
             </h2>
           </motion.div>
 
           <motion.div variants={fadeUp} className="flex flex-col justify-end">
             <p className="body-text text-brand-gray-400 leading-relaxed">
-              Польский бренд одежды с характером: сильный дизайн, европейское качество, дерзкая энергия. Рождён в Гданьске, вдохновлён уличной культурой и спортом.
+              {siteContent.about.body}
             </p>
           </motion.div>
 
@@ -101,7 +103,7 @@ export default function About() {
               href="/about/"
               className="inline-flex items-center gap-2 text-sm font-semibold text-brand-black hover:text-brand-accent transition-colors group"
             >
-              Подробнее о бренде
+              {siteContent.about.links.about}
               <span className="group-hover:translate-x-1 transition-transform">→</span>
             </a>
           </motion.div>
@@ -114,7 +116,7 @@ export default function About() {
               href="/collection/"
               className="inline-flex items-center gap-2 text-sm font-semibold text-brand-black hover:text-brand-accent transition-colors group"
             >
-              Посмотреть коллекции
+              {siteContent.about.links.collection}
               <span className="group-hover:translate-x-1 transition-transform">→</span>
             </a>
           </motion.div>

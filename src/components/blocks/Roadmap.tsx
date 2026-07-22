@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { roadmapSteps } from "@/data/franchise";
+import { siteContent } from "@/data/site-content";
 
 const easeOut: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
 
@@ -12,13 +13,13 @@ export default function Roadmap() {
       <div className="container-brand py-16 md:py-24">
         {/* Header */}
         <SectionHeader
-          eyebrow="Как открыть"
-          desc="Проверенный процесс, который мы отработали на всех запусках сети"
+          eyebrow={siteContent.roadmap.eyebrow}
+          desc={siteContent.roadmap.desc}
           className="mb-14 md:mb-20"
           margin
         >
-          От заявки до открытия —{" "}
-          <span className="text-brand-accent">от 45 до 60 дней</span>
+          {siteContent.roadmap.headingBefore}{" "}
+          <span className="text-brand-accent">{siteContent.roadmap.headingAccent}</span>
         </SectionHeader>
 
         {/* Timeline — 1 observer вместо 6 */}

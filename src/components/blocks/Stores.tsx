@@ -11,6 +11,7 @@ import type { Store } from "@/data/stores";
 import { stores, citiesSummary } from "@/data/stores";
 import { asset } from "@/lib/path";
 import { useUserCity } from "@/lib/user-city-context";
+import { siteContent } from "@/data/site-content";
 
 function popupHtml(s: Store): string {
   return `<div style="width:240px;font-family:Inter,sans-serif;line-height:1.5;border-radius:4px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.15);">
@@ -77,7 +78,7 @@ export default function Stores() {
       icon: ghostIcon(),
       interactive: true,
     })
-      .bindTooltip("Откройте магазин Diverse по франшизе", {
+      .bindTooltip(siteContent.stores.ghost.tooltip, {
         direction: "top",
         offset: [0, -10],
         className: "ghost-tooltip",
@@ -233,13 +234,13 @@ export default function Stores() {
           transition={{ duration: 0.5 }}
         >
           <p className="text-xs eyebrow text-brand-gray-400 mb-4">
-            Магазины
+            {siteContent.stores.eyebrow}
           </p>
           <h2 className="section-title ">
-            Партнёрская сеть <span className="text-brand-accent">ООО «ХАУС»</span>
+            {siteContent.stores.heading}
           </h2>
           <p className="section-desc ">
-            11 магазинов Diverse в 10 городах России и Казахстана
+            {siteContent.stores.desc}
           </p>
 
           {/* Статистика */}
@@ -280,13 +281,13 @@ export default function Stores() {
                   </span>
                   <div className="min-w-0">
                     <div className="text-sm font-semibold text-brand-black">
-                      {userCity || "Ваш город"}
+                      {userCity || siteContent.stores.ghost.sidebarYourCity}
                     </div>
                     <div className="text-xs text-brand-accent mt-0.5 font-medium">
-                      откройте по франшизе
+                      {siteContent.stores.ghost.sidebarCTA}
                     </div>
                     <div className="text-xs text-brand-gray-400 mt-0.5">
-                      Станьте партнёром ООО «ХАУС»
+                      {siteContent.stores.ghost.sidebarSubtext}
                     </div>
                   </div>
                 </div>

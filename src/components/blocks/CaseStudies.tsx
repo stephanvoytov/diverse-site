@@ -7,6 +7,7 @@ import FadeIn from "@/components/shared/FadeIn";
 import { caseStudies } from "@/data/metrics";
 import { asset } from "@/lib/path";
 import YoutubeEmbed from "@/components/shared/YoutubeEmbed";
+import { siteContent } from "@/data/site-content";
 
 /** Склонение названий городов для предлога «в» (предложный падеж) */
 function inCity(city: string): string {
@@ -25,12 +26,13 @@ export default function CaseStudies() {
       <div className="container-brand">
         {/* Header */}
         <SectionHeader
-          eyebrow="Реальные результаты"
-          desc="Реальные истории партнёров — от Калининграда до Уфы"
+          eyebrow={siteContent.caseStudies.eyebrow}
+          desc={siteContent.caseStudies.desc}
           className="mb-12 md:mb-14"
           margin
         >
-          Кейсы действующих <span className="text-brand-accent">франчайзи</span>
+          {siteContent.caseStudies.headingBefore}{" "}
+          <span className="text-brand-accent">{siteContent.caseStudies.headingAccent}</span>
         </SectionHeader>
 
          {/* Cards */}
@@ -77,7 +79,7 @@ export default function CaseStudies() {
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M8 5v14l11-7z" />
                     </svg>
-                    Видео
+                    {siteContent.caseStudies.labels.video}
                   </button>
                 )}
                 {isVideo && cs.youtubeId && (
@@ -88,7 +90,7 @@ export default function CaseStudies() {
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M6 18L18 6M6 6l12 12" />
                     </svg>
-                    Фото
+                    {siteContent.caseStudies.labels.photo}
                   </button>
                 )}
               </div>
@@ -115,22 +117,22 @@ export default function CaseStudies() {
                 <div className="grid grid-cols-3 gap-2">
                   <div>
                     <p className="text-base font-bold text-brand-black">{cs.paybackPeriod}</p>
-                    <p className="text-[10px] text-brand-gray-400 tracking-[0.05em] uppercase">Окупаемость</p>
+                    <p className="text-[10px] text-brand-gray-400 tracking-[0.05em] uppercase">{siteContent.caseStudies.labels.payback}</p>
                   </div>
                   <div>
                     <p className="text-base font-bold text-brand-accent">{cs.profitMonth}</p>
-                    <p className="text-[10px] text-brand-gray-400 tracking-[0.05em] uppercase">Прибыль / мес</p>
+                    <p className="text-[10px] text-brand-gray-400 tracking-[0.05em] uppercase">{siteContent.caseStudies.labels.profitMonth}</p>
                   </div>
                   <div>
                     <p className="text-base font-bold text-brand-gray-500">{cs.investment}</p>
-                    <p className="text-[10px] text-brand-gray-400 tracking-[0.05em] uppercase">Инвестиции</p>
+                    <p className="text-[10px] text-brand-gray-400 tracking-[0.05em] uppercase">{siteContent.caseStudies.labels.investment}</p>
                   </div>
                 </div>
 
                 {/* Opened */}
                 {cs.opened && (
                   <p className="text-xs text-brand-gray-400">
-                    Открыт в {cs.opened} году
+                    {siteContent.caseStudies.openedPrefix} {cs.opened} {siteContent.caseStudies.openedSuffix}
                     {cs.area !== "—" && ` · ${cs.area}`}
                   </p>
                 )}
