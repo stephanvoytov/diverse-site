@@ -25,6 +25,7 @@
     "@tailwindcss/postcss": "^4.3.1",
     "@tinacms/cli": "^2.5.6",
     "@tinacms/datalayer": "^2.0.29",
+    "@tinacms/vercel-previews": "^0.2.19",
     "@types/node": "^25.9.3",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
