@@ -42,7 +42,12 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const franchiseResult = await client.queries.pageFranchise({ relativePath: "franchise.json" });
+  let franchiseResult = null;
+  try {
+    franchiseResult = await client.queries.pageFranchise({ relativePath: "franchise.json" });
+  } catch (e) {
+    console.warn("TinaCMS query failed for /franchise, using fallback", e);
+  }
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",

@@ -571,9 +571,9 @@ const galleryImages = [
 
 /* ——— Page ——— */
 
-export default function FranchiseContent({ data }: { data: TinaResult }) {
-  const { data: tinaData } = useTina(data);
-  const s = tinaData.pageFranchise as TinaData;
+export default function FranchiseContent({ data }: { data: TinaResult | null }) {
+  const { data: tinaData } = useTina(data || { data: {}, query: "", variables: {} });
+  const s = (tinaData?.pageFranchise || {}) as TinaData;
 
   return (
     <>

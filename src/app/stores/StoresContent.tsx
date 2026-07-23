@@ -52,9 +52,9 @@ interface TinaResult {
   variables: Record<string, unknown>;
 }
 
-export default function StoresContent({ data }: { data: TinaResult }) {
-  const { data: tinaData } = useTina(data);
-  const s = tinaData.pageStores as TinaData;
+export default function StoresContent({ data }: { data: TinaResult | null }) {
+  const { data: tinaData } = useTina(data || { data: {}, query: "", variables: {} });
+  const s = (tinaData?.pageStores || {}) as TinaData;
   const { open: openModal } = useModal();
   const { city } = useUserCity();
   return (

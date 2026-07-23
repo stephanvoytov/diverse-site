@@ -36,7 +36,12 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const aboutResult = await client.queries.pageAbout({ relativePath: "about.json" });
+  let aboutResult = null;
+  try {
+    aboutResult = await client.queries.pageAbout({ relativePath: "about.json" });
+  } catch (e) {
+    console.warn("TinaCMS query failed for /about, using fallback", e);
+  }
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",

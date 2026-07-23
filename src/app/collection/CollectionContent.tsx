@@ -153,9 +153,9 @@ interface TinaResult {
   variables: Record<string, unknown>;
 }
 
-export default function CollectionContent({ data }: { data: TinaResult }) {
-  const { data: tinaData } = useTina(data);
-  const s = tinaData.pageCollection as TinaData;
+export default function CollectionContent({ data }: { data: TinaResult | null }) {
+  const { data: tinaData } = useTina(data || { data: {}, query: "", variables: {} });
+  const s = (tinaData?.pageCollection || {}) as TinaData;
   const { open: openModal } = useModal();
   return (
     <>

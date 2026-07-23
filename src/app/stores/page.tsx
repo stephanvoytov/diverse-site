@@ -32,7 +32,12 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const storesResult = await client.queries.pageStores({ relativePath: "stores.json" });
+  let storesResult = null;
+  try {
+    storesResult = await client.queries.pageStores({ relativePath: "stores.json" });
+  } catch (e) {
+    console.warn("TinaCMS query failed for /stores, using fallback", e);
+  }
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
