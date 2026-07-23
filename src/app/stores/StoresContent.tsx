@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useTina } from "tinacms/dist/react";
+import { tinaField } from "tinacms/dist/react";
 import SectionHeader from "@/components/shared/SectionHeader";
 import Image from "next/image";
 import Header from "@/components/shared/Header";
@@ -31,7 +33,28 @@ function inCity(city: string): string {
   return map[city] ?? city;
 }
 
-export default function StoresContent() {
+interface TinaData {
+  heroEyebrow?: string;
+  heroHeading?: string;
+  heroDesc?: string;
+  storesEyebrow?: string;
+  storesDesc?: string;
+  storesHeading?: string;
+  ctaHeading?: string;
+  ctaDesc?: string;
+  ctaButton?: string;
+  [key: string]: unknown;
+}
+
+interface TinaResult {
+  data: Record<string, unknown>;
+  query: string;
+  variables: Record<string, unknown>;
+}
+
+export default function StoresContent({ data }: { data: TinaResult }) {
+  const { data: tinaData } = useTina(data);
+  const s = tinaData.pageStores as TinaData;
   const { open: openModal } = useModal();
   const { city } = useUserCity();
   return (
@@ -51,24 +74,26 @@ export default function StoresContent() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+              data-tina-field={tinaField(s, "heroEyebrow")}
             >
-              Магазины
+              {s.heroEyebrow}
             </motion.p>
             <motion.h1
               className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-4"
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-            >
-              Партнёрская сеть <span className="text-brand-accent">ООО «ХАУС»</span>
-            </motion.h1>
+              data-tina-field={tinaField(s, "heroHeading")}
+              dangerouslySetInnerHTML={{ __html: s.heroHeading || "" }}
+            />
             <motion.p
               className="section-desc text-white/60 mb-10"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+              data-tina-field={tinaField(s, "heroDesc")}
             >
-              11 магазинов Diverse в 10 городах России и Казахстана
+              {s.heroDesc}
             </motion.p>
 
             <motion.div
@@ -99,10 +124,12 @@ export default function StoresContent() {
         <section data-header="light" className="bg-white py-20 md:py-28">
           <div className="container-brand">
             <SectionHeader
-              eyebrow="Адреса"
-              desc="От Калининграда до Якутска и Алматы"
+              eyebrow={s.storesEyebrow}
+              desc={s.storesDesc}
+              eyebrowField={tinaField(s, "storesEyebrow")}
+              descField={tinaField(s, "storesDesc")}
             >
-              Все магазины <span className="text-brand-accent">Diverse</span>
+              <span data-tina-field={tinaField(s, "storesHeading")} dangerouslySetInnerHTML={{ __html: s.storesHeading || "" }} />
             </SectionHeader>
 
             {/* Россия */}
@@ -168,8 +195,9 @@ export default function StoresContent() {
                 hidden: { opacity: 0, y: 15 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] } },
               }}
+              data-tina-field={tinaField(s, "ctaHeading")}
             >
-              {city ? `Нет магазина в ${inCity(city)}?` : "Нет магазина в вашем городе?"}
+              {city ? `Нет магазина в ${inCity(city)}?` : s.ctaHeading}
             </motion.h2>
             <motion.p
               className="section-desc text-white/60 mb-8"
@@ -177,10 +205,11 @@ export default function StoresContent() {
                 hidden: { opacity: 0, y: 12 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: [0.25, 0.1, 0.25, 1] } },
               }}
+              data-tina-field={tinaField(s, "ctaDesc")}
             >
               {city
                 ? `Откройте Diverse по франшизе — станьте первым в ${inCity(city)}`
-                : "Откройте его по франшизе — станьте первым в своём городе"}
+                : s.ctaDesc}
             </motion.p>
             <motion.div
               variants={{
@@ -191,8 +220,9 @@ export default function StoresContent() {
               <button
                 onClick={openModal}
                 className="btn-accent"
+                data-tina-field={tinaField(s, "ctaButton")}
               >
-                Стать партнёром
+                {s.ctaButton}
               </button>
             </motion.div>
             </motion.div>

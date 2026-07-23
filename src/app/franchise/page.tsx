@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { client } from "../../../tina/__generated__/client";
 import FranchiseContent from "./FranchiseContent";
 import JsonLd from "@/components/shared/JsonLd";
 import { formatCards } from "@/data/formats";
@@ -40,7 +41,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Page() {
+export default async function Page() {
+  const franchiseResult = await client.queries.pageFranchise({ relativePath: "franchise.json" });
+
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -75,7 +78,7 @@ export default function Page() {
     <>
       <JsonLd data={breadcrumbSchema} />
       <JsonLd data={productSchema} />
-      <FranchiseContent />
+      <FranchiseContent data={franchiseResult} />
     </>
   );
 }

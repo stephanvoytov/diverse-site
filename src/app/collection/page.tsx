@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { client } from "../../../tina/__generated__/client";
 import CollectionContent from "./CollectionContent";
 import JsonLd from "@/components/shared/JsonLd";
 import { SITE_URL } from "@/config/site";
@@ -35,7 +36,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function CollectionPage() {
+export default async function CollectionPage() {
+  const collectionResult = await client.queries.pageCollection({ relativePath: "collection.json" });
+
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -49,7 +52,7 @@ export default function CollectionPage() {
   return (
     <>
       <JsonLd data={breadcrumbSchema} />
-      <CollectionContent />
+      <CollectionContent data={collectionResult} />
     </>
   );
 }

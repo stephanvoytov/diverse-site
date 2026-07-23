@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { client } from "../../../tina/__generated__/client";
 import AboutContent from "./AboutContent";
 import JsonLd from "@/components/shared/JsonLd";
 import { SITE_URL } from "@/config/site";
@@ -34,7 +35,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Page() {
+export default async function Page() {
+  const aboutResult = await client.queries.pageAbout({ relativePath: "about.json" });
+
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -48,7 +51,7 @@ export default function Page() {
   return (
     <>
       <JsonLd data={breadcrumbSchema} />
-      <AboutContent />
+      <AboutContent data={aboutResult} />
     </>
   );
 }

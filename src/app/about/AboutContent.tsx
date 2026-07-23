@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTina } from "tinacms/dist/react";
+import { tinaField } from "tinacms/dist/react";
 import SectionHeader from "@/components/shared/SectionHeader";
 import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
@@ -9,23 +11,6 @@ import PartnerTicker from "@/components/blocks/PartnerTicker";
 import CountUp from "@/components/ui/CountUp";
 import Image from "next/image";
 import { asset } from "@/lib/path";
-
-/* ——— Timeline data ——— */
-
-interface Milestone {
-  year: string;
-  title: string;
-  desc: string;
-}
-
-const milestones: Milestone[] = [
-  { year: "1993", title: "Основание бренда", desc: "Diverse создан в Гданьске, Польша. Название отражает разнообразие стилей — от спорта до urban-классики. Вдохновение — культура и стиль жизни Нью-Йорка." },
-  { year: "2007", title: "Выход на международный рынок", desc: "Начало экспансии в Центральную и Восточную Европу. Diverse появляется в крупнейших торговых центрах региона." },
-  { year: "2010–2020", title: "Рост сети", desc: "Сеть вырастает до 400+ магазинов в 9 странах. Diverse входит в тройку крупнейших брендов одежды Польши по товарообороту." },
-  { year: "~2003", title: "Запуск DEXT", desc: "Дочерний бренд DEXT создан для спортивной одежды и экстремальных видов спорта. Спустя 17 лет станет техническим партнёром Dakar Rally." },
-  { year: "2020", title: "Партнёр Dakar Rally", desc: "Diverse становится официальным техническим партнёром ралли «Дакар» — первый польский бренд одежды в статусе технического партнёра легендарной гонки." },
-  { year: "2023", title: "30 лет на рынке", desc: "Подтверждение лидерства. Diverse Extreme Team расширяет партнёрства: 24h Le Mans, официальные коллекции, DEXT TECH." },
-];
 
 const easeOut: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
 const fadeUp = {
@@ -40,7 +25,38 @@ const stagger = {
   visible: { transition: { staggerChildren: 0.08 } },
 };
 
-export default function AboutContent() {
+interface TinaResult {
+  data: Record<string, unknown>;
+  query: string;
+  variables: Record<string, unknown>;
+}
+
+export default function AboutContent({ data }: { data: TinaResult }) {
+  const { data: tinaData } = useTina(data);
+  const s = tinaData.pageAbout as {
+    heroEyebrow?: string;
+    heroHeading?: string;
+    heroDesc?: string;
+    stats?: Array<{ num?: number; suffix?: string; label?: string; accent?: boolean }>;
+    philosophyEyebrow?: string;
+    philosophyHeading?: string;
+    philosophyBody1?: string;
+    philosophyBody2?: string;
+    advantagesEyebrow?: string;
+    advantagesHeading?: string;
+    advantages?: Array<{ title?: string; desc?: string }>;
+    timelineEyebrow?: string;
+    timelineHeading?: string;
+    milestones?: Array<{ year?: string; title?: string; desc?: string }>;
+    repEyebrow?: string;
+    repHeading?: string;
+    repBody?: string;
+    repInn?: string;
+    repAddress?: string;
+    ctaHeading?: string;
+    ctaButton?: string;
+  };
+
   const { open: openModal } = useModal();
   return (
     <>
@@ -54,24 +70,26 @@ export default function AboutContent() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, ease: easeOut }}
+              data-tina-field={tinaField(s, "heroEyebrow")}
             >
-              О бренде
+              {s.heroEyebrow}
             </motion.p>
             <motion.h1
               className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-5"
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1, ease: easeOut }}
-            >
-              <span className="text-brand-accent">30 лет</span> европейского качества
-            </motion.h1>
+              data-tina-field={tinaField(s, "heroHeading")}
+              dangerouslySetInnerHTML={{ __html: s.heroHeading || "" }}
+            />
             <motion.p
               className="body-text text-white/60 max-w-2xl mx-auto"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.2, ease: easeOut }}
+              data-tina-field={tinaField(s, "heroDesc")}
             >
-              Польский бренд одежды для европейского стиля жизни
+              {s.heroDesc}
             </motion.p>
           </div>
         </section>
@@ -86,16 +104,20 @@ export default function AboutContent() {
               viewport={{ once: true }}
               variants={stagger}
             >
-              {[
-                { num: 30, suffix: "+", label: "Лет на рынке" },
-                { num: 400, suffix: "+", label: "Магазинов в мире" },
-                { num: 3, suffix: "", label: "Суббренда", accent: true },
-              ].map((s) => (
-                <motion.div key={s.label} variants={fadeUp12}>
-                  <p className={`text-5xl md:text-6xl font-bold ${s.accent ? "text-brand-accent" : "text-brand-black"}`}>
-                    <CountUp to={s.num} suffix={s.suffix} className="" />
+              {(s.stats || []).map((stat) => (
+                <motion.div key={stat.label} variants={fadeUp12}>
+                  <p
+                    className={`text-5xl md:text-6xl font-bold ${stat.accent ? "text-brand-accent" : "text-brand-black"}`}
+                    data-tina-field={tinaField(stat, "num")}
+                  >
+                    <CountUp to={stat.num || 0} suffix={stat.suffix || ""} className="" />
                   </p>
-                  <p className="text-[10px] md:text-xs label text-brand-gray-400 mt-1 md:mt-2">{s.label}</p>
+                  <p
+                    className="text-[10px] md:text-xs label text-brand-gray-400 mt-1 md:mt-2"
+                    data-tina-field={tinaField(stat, "label")}
+                  >
+                    {stat.label}
+                  </p>
                 </motion.div>
               ))}
             </motion.div>
@@ -108,8 +130,11 @@ export default function AboutContent() {
         {/* ===== 4. О бренде — философия + фото бренда ===== */}
         <section data-header="light" className="bg-brand-gray-100 py-20 md:py-28">
           <div className="container-brand max-w-4xl">
-            <SectionHeader eyebrow="О бренде">
-              Идеология <span className="text-brand-accent">Diverse</span>
+            <SectionHeader
+              eyebrow={s.philosophyEyebrow}
+              eyebrowField={tinaField(s, "philosophyEyebrow")}
+            >
+              <span data-tina-field={tinaField(s, "philosophyHeading")} dangerouslySetInnerHTML={{ __html: s.philosophyHeading || "" }} />
             </SectionHeader>
 
             <motion.div
@@ -121,8 +146,8 @@ export default function AboutContent() {
                 visible: { transition: { staggerChildren: 0.1 } },
               }}
             >
-              <motion.p variants={fadeUp}>
-                Diverse — один из крупнейших и наиболее динамично развивающихся брендов одежды в Польше. Бренд ежедневно работает над созданием сильного и последовательного имиджа, разрабатывая одежду в соответствии с последними мировыми трендами.
+              <motion.p variants={fadeUp} data-tina-field={tinaField(s, "philosophyBody1")}>
+                {s.philosophyBody1}
               </motion.p>
 
               {/* Фото бренда — разбивает текст */}
@@ -139,8 +164,8 @@ export default function AboutContent() {
                 </div>
               </motion.div>
 
-              <motion.p variants={fadeUp}>
-                На протяжении более 30 лет бренд исследует мир моды, прислушиваясь к потребностям клиентов. Продукция Diverse отличается инновационным подходом, функциональностью и исключительным комфортом. Сегодня Diverse — один из самых узнаваемых брендов Польши, вдохновлённый образом жизни городских жителей. Руководствуясь концепцией «Generation to Generation», бренд создаёт вневременную одежду, которая служит долгие годы.
+              <motion.p variants={fadeUp} data-tina-field={tinaField(s, "philosophyBody2")}>
+                {s.philosophyBody2}
               </motion.p>
             </motion.div>
           </div>
@@ -149,8 +174,11 @@ export default function AboutContent() {
         {/* ===== 5. Европейское качество ===== */}
         <section data-header="light" className="bg-white py-20 md:py-28">
           <div className="container-brand">
-            <SectionHeader eyebrow="Преимущества">
-              Европейское качество. <span className="text-brand-accent">Проверено годами</span>
+            <SectionHeader
+              eyebrow={s.advantagesEyebrow}
+              eyebrowField={tinaField(s, "advantagesEyebrow")}
+            >
+              <span data-tina-field={tinaField(s, "advantagesHeading")} dangerouslySetInnerHTML={{ __html: s.advantagesHeading || "" }} />
             </SectionHeader>
 
             <motion.div
@@ -160,27 +188,14 @@ export default function AboutContent() {
               viewport={{ once: true }}
               variants={stagger}
             >
-              {[
-                {
-                  title: "Польское происхождение",
-                  desc: "Бренд основан в Гданьске в 1993 году. Лекала, дизайн и контроль качества — из Польши, по стандартам Европейского союза.",
-                },
-                {
-                  title: "Собственная сеть",
-                  desc: "Более 400 магазинов в Польше и Европе. Розничная сеть с 30-летней историей продаж.",
-                },
-                {
-                  title: "Устойчивость к кризисам",
-                  desc: "Бренд работает с 1993 года. Пережил кризисы 1998, 2008, 2014, 2020 годов. Доказал, что модель стабильна в любые времена.",
-                },
-              ].map((col) => (
+              {(s.advantages || []).map((col) => (
                 <motion.div
                   key={col.title}
                   variants={fadeUp}
                   className="border border-brand-gray-200 rounded-lg p-8 text-center"
                 >
-                  <h3 className="text-lg font-bold text-brand-black mb-3">{col.title}</h3>
-                  <p className="text-sm text-brand-gray-400 leading-relaxed">{col.desc}</p>
+                  <h3 className="text-lg font-bold text-brand-black mb-3" data-tina-field={tinaField(col, "title")}>{col.title}</h3>
+                  <p className="text-sm text-brand-gray-400 leading-relaxed" data-tina-field={tinaField(col, "desc")}>{col.desc}</p>
                 </motion.div>
               ))}
             </motion.div>
@@ -190,8 +205,11 @@ export default function AboutContent() {
         {/* ===== 6. Timeline ===== */}
         <section data-header="light" className="bg-brand-gray-100 py-20 md:py-28">
           <div className="container-brand">
-            <SectionHeader eyebrow="История">
-              От Гданьска до <span className="text-brand-accent">мировых столиц</span>
+            <SectionHeader
+              eyebrow={s.timelineEyebrow}
+              eyebrowField={tinaField(s, "timelineEyebrow")}
+            >
+              <span data-tina-field={tinaField(s, "timelineHeading")} dangerouslySetInnerHTML={{ __html: s.timelineHeading || "" }} />
             </SectionHeader>
 
             <motion.div
@@ -205,7 +223,7 @@ export default function AboutContent() {
             >
               <div className="absolute left-[19px] top-0 bottom-0 w-px bg-brand-gray-300 md:left-1/2 md:-translate-x-px" />
 
-              {milestones.map((m, i) => {
+              {(s.milestones || []).map((m, i) => {
                 const isLeft = i % 2 === 0;
                 return (
                   <motion.div
@@ -222,9 +240,9 @@ export default function AboutContent() {
                     </div>
 
                     <div className={`max-md:flex-1 md:flex-none md:w-[calc(50%-28px)] ${isLeft ? "md:pr-12 md:text-right" : "md:pl-12 md:text-left"}`}>
-                      <span className="inline-block text-sm font-bold text-brand-accent mb-1">{m.year}</span>
-                      <h3 className="text-xl font-bold text-brand-black mb-2">{m.title}</h3>
-                      <p className="text-sm text-brand-gray-400 leading-relaxed">{m.desc}</p>
+                      <span className="inline-block text-sm font-bold text-brand-accent mb-1" data-tina-field={tinaField(m, "year")}>{m.year}</span>
+                      <h3 className="text-xl font-bold text-brand-black mb-2" data-tina-field={tinaField(m, "title")}>{m.title}</h3>
+                      <p className="text-sm text-brand-gray-400 leading-relaxed" data-tina-field={tinaField(m, "desc")}>{m.desc}</p>
                     </div>
                   </motion.div>
                 );
@@ -268,19 +286,18 @@ export default function AboutContent() {
                   visible: { transition: { staggerChildren: 0.1 } },
                 }}
               >
-                <motion.p variants={fadeUp} className="text-xs eyebrow text-brand-gray-400 mb-4">Представитель в России</motion.p>
-                <motion.h2 variants={fadeUp} className="section-title text-brand-black mb-6">
-                  ООО «ХАУС» — официальный дистрибьютор
+                <motion.p variants={fadeUp} className="text-xs eyebrow text-brand-gray-400 mb-4" data-tina-field={tinaField(s, "repEyebrow")}>{s.repEyebrow}</motion.p>
+                <motion.h2 variants={fadeUp} className="section-title text-brand-black mb-6" data-tina-field={tinaField(s, "repHeading")}>
+                  {s.repHeading}
                 </motion.h2>
-                <motion.p variants={fadeUp} className="body-text text-brand-gray-400 leading-relaxed max-w-2xl mx-auto mb-8">
-                  Мы — официальные представители марки Diverse в России и странах СНГ. 
-                  Запустили 11 магазинов в РФ и Казахстане. Наша задача — сделать европейское качество доступным для партнёров по всей стране.
+                <motion.p variants={fadeUp} className="body-text text-brand-gray-400 leading-relaxed max-w-2xl mx-auto mb-8" data-tina-field={tinaField(s, "repBody")}>
+                  {s.repBody}
                 </motion.p>
                 <motion.div variants={fadeUp} className="inline-flex items-center gap-2 text-sm text-brand-gray-400">
                   <span className="w-2 h-2 rounded-full bg-brand-accent" />
-                  ИНН 3907201307
+                  <span data-tina-field={tinaField(s, "repInn")}>{s.repInn}</span>
                   <span className="w-2 h-2 rounded-full bg-brand-accent" />
-                  Калининград, пл. Победы, 4
+                  <span data-tina-field={tinaField(s, "repAddress")}>{s.repAddress}</span>
                 </motion.div>
               </motion.div>
             </div>
@@ -301,15 +318,16 @@ export default function AboutContent() {
               <motion.h2
                 variants={fadeUp}
                 className="section-title text-white mb-6"
-              >
-                Хотите стать партнёром <span className="text-brand-accent">Diverse</span>?
-              </motion.h2>
+                data-tina-field={tinaField(s, "ctaHeading")}
+                dangerouslySetInnerHTML={{ __html: s.ctaHeading || "" }}
+              />
               <motion.div variants={fadeUp12}>
                 <button
                   onClick={openModal}
                   className="btn-accent"
+                  data-tina-field={tinaField(s, "ctaButton")}
                 >
-                  Стать партнёром
+                  {s.ctaButton}
                 </button>
               </motion.div>
             </motion.div>

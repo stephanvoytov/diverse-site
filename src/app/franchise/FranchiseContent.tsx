@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTina } from "tinacms/dist/react";
+import { tinaField } from "tinacms/dist/react";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -221,16 +223,18 @@ function ComparisonTable() {
 
 /* ——— Financial model ——— */
 
-function FinancialModel() {
+function FinancialModel({ s }: { s: TinaData }) {
   return (
     <section data-header="light" className="bg-brand-gray-100 py-20 md:py-28">
       <div className="container-brand">
         <SectionHeader
-          eyebrow="Экономика"
-          desc="Пример расчёта для формата с готовым помещением. Цифры — оценочные, точный расчёт под вашу локацию — на консультации."
+          eyebrow={s.financialEyebrow}
+          desc={s.financialDesc}
           descClassName="body-text text-brand-gray-400 max-w-2xl mx-auto"
+          eyebrowField={tinaField(s, "financialEyebrow")}
+          descField={tinaField(s, "financialDesc")}
         >
-          Финансовая модель <span className="text-brand-accent">«Реновация»</span>
+          <span data-tina-field={tinaField(s, "financialHeading")} dangerouslySetInnerHTML={{ __html: s.financialHeading || "" }} />
         </SectionHeader>
 
         <div className="max-w-3xl mx-auto">
@@ -251,17 +255,7 @@ function FinancialModel() {
           >
             {/* Table */}
             <div className="divide-y divide-brand-gray-100">
-              {[
-                { label: "Выручка / мес", value: "~1 000 000 ₽", accent: false },
-                { label: "Себестоимость товара (COGS)", value: "~500 000 ₽", detail: "Маржа ~50%", accent: false },
-                { label: "Аренда + коммунальные", value: "~150 000 ₽", accent: false },
-                { label: "ФОТ (2–3 сотрудника)", value: "~150 000 ₽", accent: false },
-                { label: "Маркетинг / прочие", value: "~50 000 ₽", accent: false },
-                { label: "Операционная прибыль / мес", value: "от 300 000 ₽", accent: true },
-                { label: "Инвестиции (вход)", value: "от 1,5 млн ₽", accent: false },
-                { label: "Точка безубыточности", value: "~700 000 ₽/мес", detail: "Порог выручки для покрытия всех расходов", accent: false },
-                { label: "Срок окупаемости", value: "~12–14 мес", detail: "С учётом сезонности", accent: false },
-              ].map((row, i) => (
+              {(s.financialRows || []).map((row: { label?: string; value?: string; detail?: string; accent?: boolean }, i: number) => (
                 <div
                   key={i}
                   className={`flex items-center justify-between gap-4 px-6 md:px-8 py-4 ${
@@ -271,16 +265,16 @@ function FinancialModel() {
                   <div>
                     <span className={`text-sm md:text-base ${
                       row.accent ? "font-semibold text-brand-black" : "text-brand-gray-400"
-                    }`}>
+                    }`} data-tina-field={tinaField(row, "label")}>
                       {row.label}
                     </span>
                     {row.detail && (
-                      <span className="block text-xs text-brand-gray-300 mt-0.5">{row.detail}</span>
+                      <span className="block text-xs text-brand-gray-300 mt-0.5" data-tina-field={tinaField(row, "detail")}>{row.detail}</span>
                     )}
                   </div>
                   <span className={`text-sm md:text-base font-bold whitespace-nowrap ${
                     row.accent ? "text-brand-accent" : "text-brand-black"
-                  }`}>
+                  }`} data-tina-field={tinaField(row, "value")}>
                     {row.value}
                   </span>
                 </div>
@@ -299,10 +293,7 @@ function FinancialModel() {
               <circle cx="12" cy="12" r="10" />
               <path d="M12 16v-4M12 8h.01" />
             </svg>
-            <p>
-              <strong className="text-brand-black">Сезонность:</strong> пик продаж — осень (сентябрь–ноябрь) и весна (март–май). Спад — январь–февраль. 
-              В расчёте точки безубыточности учитывается неравномерность спроса в течение года.
-            </p>
+            <p data-tina-field={tinaField(s, "seasonalityNote")} dangerouslySetInnerHTML={{ __html: s.seasonalityNote || "" }} />
           </motion.div>
         </motion.div>
         </div>
@@ -313,14 +304,15 @@ function FinancialModel() {
 
 /* ——— Benefits ——— */
 
-function BenefitsSection() {
+function BenefitsSection({ s }: { s: TinaData }) {
   return (
     <section className="bg-white py-20 md:py-28">
       <div className="container-brand">
         <SectionHeader
-          eyebrow="Преимущества"
+          eyebrow={s.benefitsEyebrow}
+          eyebrowField={tinaField(s, "benefitsEyebrow")}
         >
-          Почему <span className="text-brand-accent">Diverse</span>
+          <span data-tina-field={tinaField(s, "benefitsHeading")} dangerouslySetInnerHTML={{ __html: s.benefitsHeading || "" }} />
         </SectionHeader>
 
         <motion.div
@@ -387,7 +379,6 @@ function ContactSection() {
       setSubmitStatus("success");
       reset();
     } catch {
-      // Сохраняем лид локально, чтобы не потерять при ошибке сети/сервера
       queueLead({
         name: data.name,
         phone: data.phone,
@@ -536,7 +527,38 @@ function ContactSection() {
   );
 }
 
-/* ——— Page ——— */
+/* ——— Types ——— */
+
+interface TinaData {
+  heroEyebrow?: string;
+  heroHeading?: string;
+  heroDesc?: string;
+  plansEyebrow?: string;
+  plansDesc?: string;
+  plansHeading?: string;
+  comparisonEyebrow?: string;
+  comparisonHeading?: string;
+  financialEyebrow?: string;
+  financialDesc?: string;
+  financialHeading?: string;
+  financialRows?: Array<{ label?: string; value?: string; detail?: string; accent?: boolean }>;
+  seasonalityNote?: string;
+  benefitsEyebrow?: string;
+  benefitsHeading?: string;
+  galleryEyebrow?: string;
+  galleryHeading?: string;
+  contactHeading?: string;
+  contactDesc?: string;
+  [key: string]: unknown;
+}
+
+interface TinaResult {
+  data: Record<string, unknown>;
+  query: string;
+  variables: Record<string, unknown>;
+}
+
+/* ——— Gallery images ——— */
 
 const galleryImages = [
   { src: "/images/franchise/gallery/gallery-1.jpg", alt: "Витрина магазина Diverse в ТЦ Мега Уфа" },
@@ -547,7 +569,12 @@ const galleryImages = [
   { src: "/images/franchise/gallery/gallery-6.jpg", alt: "Интерьер магазина Diverse" },
 ];
 
-export default function FranchiseContent() {
+/* ——— Page ——— */
+
+export default function FranchiseContent({ data }: { data: TinaResult }) {
+  const { data: tinaData } = useTina(data);
+  const s = tinaData.pageFranchise as TinaData;
+
   return (
     <>
       <Header />
@@ -566,24 +593,26 @@ export default function FranchiseContent() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+              data-tina-field={tinaField(s, "heroEyebrow")}
             >
-              Франшиза
+              {s.heroEyebrow}
             </motion.p>
             <motion.h1
               className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-4"
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-            >
-              Откройте магазин <span className="text-brand-accent">Diverse</span>
-            </motion.h1>
+              data-tina-field={tinaField(s, "heroHeading")}
+              dangerouslySetInnerHTML={{ __html: s.heroHeading || "" }}
+            />
             <motion.p
               className="body-text text-white/60 max-w-2xl mx-auto mb-10"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+              data-tina-field={tinaField(s, "heroDesc")}
             >
-              Культовый польский бренд: сотни магазинов по всему миру. В России и Казахстане — пока единицы. Рынок почти свободен.
+              {s.heroDesc}
             </motion.p>
 
             {/* Key numbers */}
@@ -613,8 +642,8 @@ export default function FranchiseContent() {
 
         <PlansSection />
         <ComparisonTable />
-        <FinancialModel />
-        <BenefitsSection />
+        <FinancialModel s={s} />
+        <BenefitsSection s={s} />
         <div id="gallery"><StoreGallery images={galleryImages} /></div>
         <Faq />
         <ContactSection />

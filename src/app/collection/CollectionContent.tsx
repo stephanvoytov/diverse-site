@@ -3,6 +3,8 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { useTina } from "tinacms/dist/react";
+import { tinaField } from "tinacms/dist/react";
 import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
 import { useModal } from "@/lib/modal-context";
@@ -134,7 +136,26 @@ function CollectionSection({
   );
 }
 
-export default function CollectionContent() {
+interface TinaData {
+  heroEyebrow?: string;
+  heroHeading?: string;
+  heroDesc?: string;
+  ctaEyebrow?: string;
+  ctaHeading?: string;
+  ctaDesc?: string;
+  ctaButton?: string;
+  [key: string]: unknown;
+}
+
+interface TinaResult {
+  data: Record<string, unknown>;
+  query: string;
+  variables: Record<string, unknown>;
+}
+
+export default function CollectionContent({ data }: { data: TinaResult }) {
+  const { data: tinaData } = useTina(data);
+  const s = tinaData.pageCollection as TinaData;
   const { open: openModal } = useModal();
   return (
     <>
@@ -170,17 +191,22 @@ export default function CollectionContent() {
                 transition={{ duration: 0.8, ease: "easeOut" }}
                 className="max-w-3xl"
               >
-                <span className="text-xs eyebrow text-brand-accent font-semibold mb-4 block">
-                  Collections
+                <span
+                  className="text-xs eyebrow text-brand-accent font-semibold mb-4 block"
+                  data-tina-field={tinaField(s, "heroEyebrow")}
+                >
+                  {s.heroEyebrow}
                 </span>
-                <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.05] tracking-[-0.02em]">
-                  Это больше,
-                  <br />
-                  <span className="text-white/30">чем одежда</span>
-                </h1>
-                <p className="body-text text-white/50 max-w-xl mt-4 md:mt-6 leading-relaxed">
-                  За каждой коллекцией — своя история, своя атмосфера, свой мир.
-                  От улиц больших городов до ралли Дакар.
+                <h1
+                  className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.05] tracking-[-0.02em]"
+                  data-tina-field={tinaField(s, "heroHeading")}
+                  dangerouslySetInnerHTML={{ __html: s.heroHeading || "" }}
+                />
+                <p
+                  className="body-text text-white/50 max-w-xl mt-4 md:mt-6 leading-relaxed"
+                  data-tina-field={tinaField(s, "heroDesc")}
+                >
+                  {s.heroDesc}
                 </p>
               </motion.div>
             </div>
@@ -216,23 +242,29 @@ export default function CollectionContent() {
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
             >
-              <span className="text-xs eyebrow text-brand-accent font-semibold mb-4 block">
-                Franchise
+              <span
+                className="text-xs eyebrow text-brand-accent font-semibold mb-4 block"
+                data-tina-field={tinaField(s, "ctaEyebrow")}
+              >
+                {s.ctaEyebrow}
               </span>
-              <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-4">
-                Стань частью
-                <br />
-                <span className="text-brand-accent">Diverse</span>
-              </h2>
-              <p className="text-white/50 body-text max-w-md mx-auto mb-8 leading-relaxed">
-                Открой магазин Diverse в своём городе. Полная поддержка на всех
-                этапах — от поиска помещения до открытия.
+              <h2
+                className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-4"
+                data-tina-field={tinaField(s, "ctaHeading")}
+                dangerouslySetInnerHTML={{ __html: s.ctaHeading || "" }}
+              />
+              <p
+                className="text-white/50 body-text max-w-md mx-auto mb-8 leading-relaxed"
+                data-tina-field={tinaField(s, "ctaDesc")}
+              >
+                {s.ctaDesc}
               </p>
               <button
                 onClick={openModal}
                 className="inline-flex items-center justify-center px-10 py-4 text-sm tracking-[0.2em] font-semibold uppercase text-white bg-brand-accent hover:bg-brand-accent-hover transition-all duration-300 rounded-sm cursor-pointer"
+                data-tina-field={tinaField(s, "ctaButton")}
               >
-                Стать партнёром
+                {s.ctaButton}
               </button>
             </motion.div>
           </div>
