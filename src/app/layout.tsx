@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { ModalProvider } from "@/lib/modal-context";
@@ -16,13 +15,6 @@ const vkPixelId = process.env.NEXT_PUBLIC_VK_PIXEL_ID || "";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 const siteUrl = SITE_URL;
-
-const inter = Inter({
-  subsets: ["cyrillic", "latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  display: "swap",
-  variable: "--font-inter",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -129,7 +121,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru" className={inter.variable} data-scroll-behavior="smooth">
+    <html lang="ru" data-scroll-behavior="smooth">
       <body>
         {/* Preloads — начинаем загрузку до CSS/JS */}
         <link rel="preload" as="image" href={asset("/brand/logo-light.svg")} />
