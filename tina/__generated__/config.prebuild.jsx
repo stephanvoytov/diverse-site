@@ -285,6 +285,136 @@ var config_default = defineConfig({
           { type: "string", name: "source", label: "\u0418\u0441\u0442\u043E\u0447\u043D\u0438\u043A" },
           { type: "string", name: "imageAlt", label: "Alt \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F" }
         ]
+      },
+      /* ——— Page content collections ——— */
+      {
+        name: "pageAbout",
+        label: "\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u0430: \u041E \u0431\u0440\u0435\u043D\u0434\u0435",
+        path: "content/pages/about",
+        format: "json",
+        fields: [
+          { type: "string", name: "heroEyebrow", label: "Hero: \u0430\u0439\u0431\u0440\u043E\u0443" },
+          { type: "string", name: "heroHeading", label: "Hero: \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A", ui: { component: "textarea" } },
+          { type: "string", name: "heroDesc", label: "Hero: \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435" },
+          {
+            type: "object",
+            name: "stats",
+            label: "\u0421\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043A\u0430",
+            list: true,
+            fields: [
+              { type: "number", name: "num", label: "\u0427\u0438\u0441\u043B\u043E" },
+              { type: "string", name: "suffix", label: "\u0421\u0443\u0444\u0444\u0438\u043A\u0441 (+)" },
+              { type: "string", name: "label", label: "\u041F\u043E\u0434\u043F\u0438\u0441\u044C" },
+              { type: "boolean", name: "accent", label: "\u0410\u043A\u0446\u0435\u043D\u0442\u043D\u044B\u0439 \u0446\u0432\u0435\u0442" }
+            ]
+          },
+          { type: "string", name: "philosophyEyebrow", label: "\u0424\u0438\u043B\u043E\u0441\u043E\u0444\u0438\u044F: \u0430\u0439\u0431\u0440\u043E\u0443" },
+          { type: "string", name: "philosophyHeading", label: "\u0424\u0438\u043B\u043E\u0441\u043E\u0444\u0438\u044F: \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A", ui: { component: "textarea" } },
+          { type: "string", name: "philosophyBody1", label: "\u0424\u0438\u043B\u043E\u0441\u043E\u0444\u0438\u044F: \u0430\u0431\u0437\u0430\u0446 1", ui: { component: "textarea" } },
+          { type: "string", name: "philosophyBody2", label: "\u0424\u0438\u043B\u043E\u0441\u043E\u0444\u0438\u044F: \u0430\u0431\u0437\u0430\u0446 2", ui: { component: "textarea" } },
+          { type: "string", name: "advantagesEyebrow", label: "\u041F\u0440\u0435\u0438\u043C\u0443\u0449\u0435\u0441\u0442\u0432\u0430: \u0430\u0439\u0431\u0440\u043E\u0443" },
+          { type: "string", name: "advantagesHeading", label: "\u041F\u0440\u0435\u0438\u043C\u0443\u0449\u0435\u0441\u0442\u0432\u0430: \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A", ui: { component: "textarea" } },
+          {
+            type: "object",
+            name: "advantages",
+            label: "\u041A\u0430\u0440\u0442\u043E\u0447\u043A\u0438 \u043F\u0440\u0435\u0438\u043C\u0443\u0449\u0435\u0441\u0442\u0432",
+            list: true,
+            fields: [
+              { type: "string", name: "title", label: "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A" },
+              { type: "string", name: "desc", label: "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435", ui: { component: "textarea" } }
+            ]
+          },
+          { type: "string", name: "timelineEyebrow", label: "\u0422\u0430\u0439\u043C\u043B\u0430\u0439\u043D: \u0430\u0439\u0431\u0440\u043E\u0443" },
+          { type: "string", name: "timelineHeading", label: "\u0422\u0430\u0439\u043C\u043B\u0430\u0439\u043D: \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A", ui: { component: "textarea" } },
+          {
+            type: "object",
+            name: "milestones",
+            label: "\u0421\u043E\u0431\u044B\u0442\u0438\u044F",
+            list: true,
+            fields: [
+              { type: "string", name: "year", label: "\u0413\u043E\u0434" },
+              { type: "string", name: "title", label: "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A" },
+              { type: "string", name: "desc", label: "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435", ui: { component: "textarea" } }
+            ]
+          },
+          { type: "string", name: "repEyebrow", label: "\u041F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u0438\u0442\u0435\u043B\u044C: \u0430\u0439\u0431\u0440\u043E\u0443" },
+          { type: "string", name: "repHeading", label: "\u041F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u0438\u0442\u0435\u043B\u044C: \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A" },
+          { type: "string", name: "repBody", label: "\u041F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u0438\u0442\u0435\u043B\u044C: \u0442\u0435\u043A\u0441\u0442", ui: { component: "textarea" } },
+          { type: "string", name: "repInn", label: "\u041F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u0438\u0442\u0435\u043B\u044C: \u0418\u041D\u041D" },
+          { type: "string", name: "repAddress", label: "\u041F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u0438\u0442\u0435\u043B\u044C: \u0430\u0434\u0440\u0435\u0441" },
+          { type: "string", name: "ctaHeading", label: "CTA: \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A", ui: { component: "textarea" } },
+          { type: "string", name: "ctaButton", label: "CTA: \u043A\u043D\u043E\u043F\u043A\u0430" }
+        ]
+      },
+      {
+        name: "pageFranchise",
+        label: "\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u0430: \u0424\u0440\u0430\u043D\u0448\u0438\u0437\u0430",
+        path: "content/pages/franchise",
+        format: "json",
+        fields: [
+          { type: "string", name: "heroEyebrow", label: "Hero: \u0430\u0439\u0431\u0440\u043E\u0443" },
+          { type: "string", name: "heroHeading", label: "Hero: \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A", ui: { component: "textarea" } },
+          { type: "string", name: "heroDesc", label: "Hero: \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435", ui: { component: "textarea" } },
+          { type: "string", name: "plansEyebrow", label: "\u041F\u043B\u0430\u043D\u044B: \u0430\u0439\u0431\u0440\u043E\u0443" },
+          { type: "string", name: "plansDesc", label: "\u041F\u043B\u0430\u043D\u044B: \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435" },
+          { type: "string", name: "plansHeading", label: "\u041F\u043B\u0430\u043D\u044B: \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A", ui: { component: "textarea" } },
+          { type: "string", name: "comparisonEyebrow", label: "\u0421\u0440\u0430\u0432\u043D\u0435\u043D\u0438\u0435: \u0430\u0439\u0431\u0440\u043E\u0443" },
+          { type: "string", name: "comparisonHeading", label: "\u0421\u0440\u0430\u0432\u043D\u0435\u043D\u0438\u0435: \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A", ui: { component: "textarea" } },
+          { type: "string", name: "financialEyebrow", label: "\u0424\u0438\u043D\u0430\u043D\u0441\u044B: \u0430\u0439\u0431\u0440\u043E\u0443" },
+          { type: "string", name: "financialDesc", label: "\u0424\u0438\u043D\u0430\u043D\u0441\u044B: \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435", ui: { component: "textarea" } },
+          { type: "string", name: "financialHeading", label: "\u0424\u0438\u043D\u0430\u043D\u0441\u044B: \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A", ui: { component: "textarea" } },
+          {
+            type: "object",
+            name: "financialRows",
+            label: "\u0421\u0442\u0440\u043E\u043A\u0438 \u0444\u0438\u043D. \u043C\u043E\u0434\u0435\u043B\u0438",
+            list: true,
+            fields: [
+              { type: "string", name: "label", label: "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435" },
+              { type: "string", name: "value", label: "\u0417\u043D\u0430\u0447\u0435\u043D\u0438\u0435" },
+              { type: "string", name: "detail", label: "\u0414\u0435\u0442\u0430\u043B\u0438" },
+              { type: "boolean", name: "accent", label: "\u0410\u043A\u0446\u0435\u043D\u0442" }
+            ]
+          },
+          { type: "string", name: "seasonalityNote", label: "\u041F\u0440\u0438\u043C\u0435\u0447\u0430\u043D\u0438\u0435 \u043E \u0441\u0435\u0437\u043E\u043D\u043D\u043E\u0441\u0442\u0438", ui: { component: "textarea" } },
+          { type: "string", name: "benefitsEyebrow", label: "\u041F\u0440\u0435\u0438\u043C\u0443\u0449\u0435\u0441\u0442\u0432\u0430: \u0430\u0439\u0431\u0440\u043E\u0443" },
+          { type: "string", name: "benefitsHeading", label: "\u041F\u0440\u0435\u0438\u043C\u0443\u0449\u0435\u0441\u0442\u0432\u0430: \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A", ui: { component: "textarea" } },
+          { type: "string", name: "galleryEyebrow", label: "\u0413\u0430\u043B\u0435\u0440\u0435\u044F: \u0430\u0439\u0431\u0440\u043E\u0443" },
+          { type: "string", name: "galleryHeading", label: "\u0413\u0430\u043B\u0435\u0440\u0435\u044F: \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A" },
+          { type: "string", name: "contactHeading", label: "\u041A\u043E\u043D\u0442\u0430\u043A\u0442\u044B: \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A", ui: { component: "textarea" } },
+          { type: "string", name: "contactDesc", label: "\u041A\u043E\u043D\u0442\u0430\u043A\u0442\u044B: \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435" }
+        ]
+      },
+      {
+        name: "pageCollection",
+        label: "\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u0430: \u041A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u0438",
+        path: "content/pages/collection",
+        format: "json",
+        fields: [
+          { type: "string", name: "heroEyebrow", label: "Hero: \u0430\u0439\u0431\u0440\u043E\u0443" },
+          { type: "string", name: "heroHeading", label: "Hero: \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A", ui: { component: "textarea" } },
+          { type: "string", name: "heroDesc", label: "Hero: \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435", ui: { component: "textarea" } },
+          { type: "string", name: "ctaEyebrow", label: "CTA: \u0430\u0439\u0431\u0440\u043E\u0443" },
+          { type: "string", name: "ctaHeading", label: "CTA: \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A", ui: { component: "textarea" } },
+          { type: "string", name: "ctaDesc", label: "CTA: \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435", ui: { component: "textarea" } },
+          { type: "string", name: "ctaButton", label: "CTA: \u043A\u043D\u043E\u043F\u043A\u0430" }
+        ]
+      },
+      {
+        name: "pageStores",
+        label: "\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u0430: \u041C\u0430\u0433\u0430\u0437\u0438\u043D\u044B",
+        path: "content/pages/stores",
+        format: "json",
+        fields: [
+          { type: "string", name: "heroEyebrow", label: "Hero: \u0430\u0439\u0431\u0440\u043E\u0443" },
+          { type: "string", name: "heroHeading", label: "Hero: \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A", ui: { component: "textarea" } },
+          { type: "string", name: "heroDesc", label: "Hero: \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435" },
+          { type: "string", name: "storesEyebrow", label: "\u041C\u0430\u0433\u0430\u0437\u0438\u043D\u044B: \u0430\u0439\u0431\u0440\u043E\u0443" },
+          { type: "string", name: "storesDesc", label: "\u041C\u0430\u0433\u0430\u0437\u0438\u043D\u044B: \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435" },
+          { type: "string", name: "storesHeading", label: "\u041C\u0430\u0433\u0430\u0437\u0438\u043D\u044B: \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A", ui: { component: "textarea" } },
+          { type: "string", name: "ctaHeading", label: "CTA: \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A", ui: { component: "textarea" } },
+          { type: "string", name: "ctaDesc", label: "CTA: \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435" },
+          { type: "string", name: "ctaButton", label: "CTA: \u043A\u043D\u043E\u043F\u043A\u0430" }
+        ]
       }
     ]
   }

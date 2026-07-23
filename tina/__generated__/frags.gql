@@ -171,3 +171,96 @@ fragment KpRatingParts on KpRating {
   source
   imageAlt
 }
+
+fragment PageAboutParts on PageAbout {
+  __typename
+  heroEyebrow
+  heroHeading
+  heroDesc
+  stats {
+    __typename
+    num
+    suffix
+    label
+    accent
+  }
+  philosophyEyebrow
+  philosophyHeading
+  philosophyBody1
+  philosophyBody2
+  advantagesEyebrow
+  advantagesHeading
+  advantages {
+    __typename
+    title
+    desc
+  }
+  timelineEyebrow
+  timelineHeading
+  milestones {
+    __typename
+    year
+    title
+    desc
+  }
+  repEyebrow
+  repHeading
+  repBody
+  repInn
+  repAddress
+  ctaHeading
+  ctaButton
+}
+
+fragment PageFranchiseParts on PageFranchise {
+  __typename
+  heroEyebrow
+  heroHeading
+  heroDesc
+  plansEyebrow
+  plansDesc
+  plansHeading
+  comparisonEyebrow
+  comparisonHeading
+  financialEyebrow
+  financialDesc
+  financialHeading
+  financialRows {
+    __typename
+    label
+    value
+    detail
+    accent
+  }
+  seasonalityNote
+  benefitsEyebrow
+  benefitsHeading
+  galleryEyebrow
+  galleryHeading
+  contactHeading
+  contactDesc
+}
+
+fragment PageCollectionParts on PageCollection {
+  __typename
+  heroEyebrow
+  heroHeading
+  heroDesc
+  ctaEyebrow
+  ctaHeading
+  ctaDesc
+  ctaButton
+}
+
+fragment PageStoresParts on PageStores {
+  __typename
+  heroEyebrow
+  heroHeading
+  heroDesc
+  storesEyebrow
+  storesDesc
+  storesHeading
+  ctaHeading
+  ctaDesc
+  ctaButton
+}

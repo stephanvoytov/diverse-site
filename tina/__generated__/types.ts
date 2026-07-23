@@ -104,6 +104,14 @@ export type Query = {
   storesConnection: StoresConnection;
   kpRating: KpRating;
   kpRatingConnection: KpRatingConnection;
+  pageAbout: PageAbout;
+  pageAboutConnection: PageAboutConnection;
+  pageFranchise: PageFranchise;
+  pageFranchiseConnection: PageFranchiseConnection;
+  pageCollection: PageCollection;
+  pageCollectionConnection: PageCollectionConnection;
+  pageStores: PageStores;
+  pageStoresConnection: PageStoresConnection;
 };
 
 
@@ -292,6 +300,66 @@ export type QueryKpRatingConnectionArgs = {
   filter?: InputMaybe<KpRatingFilter>;
 };
 
+
+export type QueryPageAboutArgs = {
+  relativePath?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryPageAboutConnectionArgs = {
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<PageAboutFilter>;
+};
+
+
+export type QueryPageFranchiseArgs = {
+  relativePath?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryPageFranchiseConnectionArgs = {
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<PageFranchiseFilter>;
+};
+
+
+export type QueryPageCollectionArgs = {
+  relativePath?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryPageCollectionConnectionArgs = {
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<PageCollectionFilter>;
+};
+
+
+export type QueryPageStoresArgs = {
+  relativePath?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryPageStoresConnectionArgs = {
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<PageStoresFilter>;
+};
+
 export type DocumentFilter = {
   hero?: InputMaybe<HeroFilter>;
   about?: InputMaybe<AboutFilter>;
@@ -304,6 +372,10 @@ export type DocumentFilter = {
   contacts?: InputMaybe<ContactsFilter>;
   stores?: InputMaybe<StoresFilter>;
   kpRating?: InputMaybe<KpRatingFilter>;
+  pageAbout?: InputMaybe<PageAboutFilter>;
+  pageFranchise?: InputMaybe<PageFranchiseFilter>;
+  pageCollection?: InputMaybe<PageCollectionFilter>;
+  pageStores?: InputMaybe<PageStoresFilter>;
 };
 
 export type DocumentConnectionEdges = {
@@ -343,7 +415,7 @@ export type CollectionDocumentsArgs = {
   folder?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type DocumentNode = Hero | About | Franchise | MarketBlock | TrustModel | Roadmap | CaseStudies | Faq | Contacts | Stores | KpRating | Folder;
+export type DocumentNode = Hero | About | Franchise | MarketBlock | TrustModel | Roadmap | CaseStudies | Faq | Contacts | Stores | KpRating | PageAbout | PageFranchise | PageCollection | PageStores | Folder;
 
 export type HeroCta = {
   __typename?: 'HeroCta';
@@ -898,6 +970,279 @@ export type KpRatingConnection = Connection & {
   edges?: Maybe<Array<Maybe<KpRatingConnectionEdges>>>;
 };
 
+export type PageAboutStats = {
+  __typename?: 'PageAboutStats';
+  num?: Maybe<Scalars['Float']['output']>;
+  suffix?: Maybe<Scalars['String']['output']>;
+  label?: Maybe<Scalars['String']['output']>;
+  accent?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type PageAboutAdvantages = {
+  __typename?: 'PageAboutAdvantages';
+  title?: Maybe<Scalars['String']['output']>;
+  desc?: Maybe<Scalars['String']['output']>;
+};
+
+export type PageAboutMilestones = {
+  __typename?: 'PageAboutMilestones';
+  year?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  desc?: Maybe<Scalars['String']['output']>;
+};
+
+export type PageAbout = Node & Document & {
+  __typename?: 'PageAbout';
+  heroEyebrow?: Maybe<Scalars['String']['output']>;
+  heroHeading?: Maybe<Scalars['String']['output']>;
+  heroDesc?: Maybe<Scalars['String']['output']>;
+  stats?: Maybe<Array<Maybe<PageAboutStats>>>;
+  philosophyEyebrow?: Maybe<Scalars['String']['output']>;
+  philosophyHeading?: Maybe<Scalars['String']['output']>;
+  philosophyBody1?: Maybe<Scalars['String']['output']>;
+  philosophyBody2?: Maybe<Scalars['String']['output']>;
+  advantagesEyebrow?: Maybe<Scalars['String']['output']>;
+  advantagesHeading?: Maybe<Scalars['String']['output']>;
+  advantages?: Maybe<Array<Maybe<PageAboutAdvantages>>>;
+  timelineEyebrow?: Maybe<Scalars['String']['output']>;
+  timelineHeading?: Maybe<Scalars['String']['output']>;
+  milestones?: Maybe<Array<Maybe<PageAboutMilestones>>>;
+  repEyebrow?: Maybe<Scalars['String']['output']>;
+  repHeading?: Maybe<Scalars['String']['output']>;
+  repBody?: Maybe<Scalars['String']['output']>;
+  repInn?: Maybe<Scalars['String']['output']>;
+  repAddress?: Maybe<Scalars['String']['output']>;
+  ctaHeading?: Maybe<Scalars['String']['output']>;
+  ctaButton?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  _sys: SystemInfo;
+  _values: Scalars['JSON']['output'];
+};
+
+export type NumberFilter = {
+  lt?: InputMaybe<Scalars['Float']['input']>;
+  lte?: InputMaybe<Scalars['Float']['input']>;
+  gte?: InputMaybe<Scalars['Float']['input']>;
+  gt?: InputMaybe<Scalars['Float']['input']>;
+  eq?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+};
+
+export type BooleanFilter = {
+  eq?: InputMaybe<Scalars['Boolean']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type PageAboutStatsFilter = {
+  num?: InputMaybe<NumberFilter>;
+  suffix?: InputMaybe<StringFilter>;
+  label?: InputMaybe<StringFilter>;
+  accent?: InputMaybe<BooleanFilter>;
+};
+
+export type PageAboutAdvantagesFilter = {
+  title?: InputMaybe<StringFilter>;
+  desc?: InputMaybe<StringFilter>;
+};
+
+export type PageAboutMilestonesFilter = {
+  year?: InputMaybe<StringFilter>;
+  title?: InputMaybe<StringFilter>;
+  desc?: InputMaybe<StringFilter>;
+};
+
+export type PageAboutFilter = {
+  heroEyebrow?: InputMaybe<StringFilter>;
+  heroHeading?: InputMaybe<StringFilter>;
+  heroDesc?: InputMaybe<StringFilter>;
+  stats?: InputMaybe<PageAboutStatsFilter>;
+  philosophyEyebrow?: InputMaybe<StringFilter>;
+  philosophyHeading?: InputMaybe<StringFilter>;
+  philosophyBody1?: InputMaybe<StringFilter>;
+  philosophyBody2?: InputMaybe<StringFilter>;
+  advantagesEyebrow?: InputMaybe<StringFilter>;
+  advantagesHeading?: InputMaybe<StringFilter>;
+  advantages?: InputMaybe<PageAboutAdvantagesFilter>;
+  timelineEyebrow?: InputMaybe<StringFilter>;
+  timelineHeading?: InputMaybe<StringFilter>;
+  milestones?: InputMaybe<PageAboutMilestonesFilter>;
+  repEyebrow?: InputMaybe<StringFilter>;
+  repHeading?: InputMaybe<StringFilter>;
+  repBody?: InputMaybe<StringFilter>;
+  repInn?: InputMaybe<StringFilter>;
+  repAddress?: InputMaybe<StringFilter>;
+  ctaHeading?: InputMaybe<StringFilter>;
+  ctaButton?: InputMaybe<StringFilter>;
+};
+
+export type PageAboutConnectionEdges = {
+  __typename?: 'PageAboutConnectionEdges';
+  cursor: Scalars['String']['output'];
+  node?: Maybe<PageAbout>;
+};
+
+export type PageAboutConnection = Connection & {
+  __typename?: 'PageAboutConnection';
+  pageInfo: PageInfo;
+  totalCount: Scalars['Float']['output'];
+  edges?: Maybe<Array<Maybe<PageAboutConnectionEdges>>>;
+};
+
+export type PageFranchiseFinancialRows = {
+  __typename?: 'PageFranchiseFinancialRows';
+  label?: Maybe<Scalars['String']['output']>;
+  value?: Maybe<Scalars['String']['output']>;
+  detail?: Maybe<Scalars['String']['output']>;
+  accent?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type PageFranchise = Node & Document & {
+  __typename?: 'PageFranchise';
+  heroEyebrow?: Maybe<Scalars['String']['output']>;
+  heroHeading?: Maybe<Scalars['String']['output']>;
+  heroDesc?: Maybe<Scalars['String']['output']>;
+  plansEyebrow?: Maybe<Scalars['String']['output']>;
+  plansDesc?: Maybe<Scalars['String']['output']>;
+  plansHeading?: Maybe<Scalars['String']['output']>;
+  comparisonEyebrow?: Maybe<Scalars['String']['output']>;
+  comparisonHeading?: Maybe<Scalars['String']['output']>;
+  financialEyebrow?: Maybe<Scalars['String']['output']>;
+  financialDesc?: Maybe<Scalars['String']['output']>;
+  financialHeading?: Maybe<Scalars['String']['output']>;
+  financialRows?: Maybe<Array<Maybe<PageFranchiseFinancialRows>>>;
+  seasonalityNote?: Maybe<Scalars['String']['output']>;
+  benefitsEyebrow?: Maybe<Scalars['String']['output']>;
+  benefitsHeading?: Maybe<Scalars['String']['output']>;
+  galleryEyebrow?: Maybe<Scalars['String']['output']>;
+  galleryHeading?: Maybe<Scalars['String']['output']>;
+  contactHeading?: Maybe<Scalars['String']['output']>;
+  contactDesc?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  _sys: SystemInfo;
+  _values: Scalars['JSON']['output'];
+};
+
+export type PageFranchiseFinancialRowsFilter = {
+  label?: InputMaybe<StringFilter>;
+  value?: InputMaybe<StringFilter>;
+  detail?: InputMaybe<StringFilter>;
+  accent?: InputMaybe<BooleanFilter>;
+};
+
+export type PageFranchiseFilter = {
+  heroEyebrow?: InputMaybe<StringFilter>;
+  heroHeading?: InputMaybe<StringFilter>;
+  heroDesc?: InputMaybe<StringFilter>;
+  plansEyebrow?: InputMaybe<StringFilter>;
+  plansDesc?: InputMaybe<StringFilter>;
+  plansHeading?: InputMaybe<StringFilter>;
+  comparisonEyebrow?: InputMaybe<StringFilter>;
+  comparisonHeading?: InputMaybe<StringFilter>;
+  financialEyebrow?: InputMaybe<StringFilter>;
+  financialDesc?: InputMaybe<StringFilter>;
+  financialHeading?: InputMaybe<StringFilter>;
+  financialRows?: InputMaybe<PageFranchiseFinancialRowsFilter>;
+  seasonalityNote?: InputMaybe<StringFilter>;
+  benefitsEyebrow?: InputMaybe<StringFilter>;
+  benefitsHeading?: InputMaybe<StringFilter>;
+  galleryEyebrow?: InputMaybe<StringFilter>;
+  galleryHeading?: InputMaybe<StringFilter>;
+  contactHeading?: InputMaybe<StringFilter>;
+  contactDesc?: InputMaybe<StringFilter>;
+};
+
+export type PageFranchiseConnectionEdges = {
+  __typename?: 'PageFranchiseConnectionEdges';
+  cursor: Scalars['String']['output'];
+  node?: Maybe<PageFranchise>;
+};
+
+export type PageFranchiseConnection = Connection & {
+  __typename?: 'PageFranchiseConnection';
+  pageInfo: PageInfo;
+  totalCount: Scalars['Float']['output'];
+  edges?: Maybe<Array<Maybe<PageFranchiseConnectionEdges>>>;
+};
+
+export type PageCollection = Node & Document & {
+  __typename?: 'PageCollection';
+  heroEyebrow?: Maybe<Scalars['String']['output']>;
+  heroHeading?: Maybe<Scalars['String']['output']>;
+  heroDesc?: Maybe<Scalars['String']['output']>;
+  ctaEyebrow?: Maybe<Scalars['String']['output']>;
+  ctaHeading?: Maybe<Scalars['String']['output']>;
+  ctaDesc?: Maybe<Scalars['String']['output']>;
+  ctaButton?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  _sys: SystemInfo;
+  _values: Scalars['JSON']['output'];
+};
+
+export type PageCollectionFilter = {
+  heroEyebrow?: InputMaybe<StringFilter>;
+  heroHeading?: InputMaybe<StringFilter>;
+  heroDesc?: InputMaybe<StringFilter>;
+  ctaEyebrow?: InputMaybe<StringFilter>;
+  ctaHeading?: InputMaybe<StringFilter>;
+  ctaDesc?: InputMaybe<StringFilter>;
+  ctaButton?: InputMaybe<StringFilter>;
+};
+
+export type PageCollectionConnectionEdges = {
+  __typename?: 'PageCollectionConnectionEdges';
+  cursor: Scalars['String']['output'];
+  node?: Maybe<PageCollection>;
+};
+
+export type PageCollectionConnection = Connection & {
+  __typename?: 'PageCollectionConnection';
+  pageInfo: PageInfo;
+  totalCount: Scalars['Float']['output'];
+  edges?: Maybe<Array<Maybe<PageCollectionConnectionEdges>>>;
+};
+
+export type PageStores = Node & Document & {
+  __typename?: 'PageStores';
+  heroEyebrow?: Maybe<Scalars['String']['output']>;
+  heroHeading?: Maybe<Scalars['String']['output']>;
+  heroDesc?: Maybe<Scalars['String']['output']>;
+  storesEyebrow?: Maybe<Scalars['String']['output']>;
+  storesDesc?: Maybe<Scalars['String']['output']>;
+  storesHeading?: Maybe<Scalars['String']['output']>;
+  ctaHeading?: Maybe<Scalars['String']['output']>;
+  ctaDesc?: Maybe<Scalars['String']['output']>;
+  ctaButton?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  _sys: SystemInfo;
+  _values: Scalars['JSON']['output'];
+};
+
+export type PageStoresFilter = {
+  heroEyebrow?: InputMaybe<StringFilter>;
+  heroHeading?: InputMaybe<StringFilter>;
+  heroDesc?: InputMaybe<StringFilter>;
+  storesEyebrow?: InputMaybe<StringFilter>;
+  storesDesc?: InputMaybe<StringFilter>;
+  storesHeading?: InputMaybe<StringFilter>;
+  ctaHeading?: InputMaybe<StringFilter>;
+  ctaDesc?: InputMaybe<StringFilter>;
+  ctaButton?: InputMaybe<StringFilter>;
+};
+
+export type PageStoresConnectionEdges = {
+  __typename?: 'PageStoresConnectionEdges';
+  cursor: Scalars['String']['output'];
+  node?: Maybe<PageStores>;
+};
+
+export type PageStoresConnection = Connection & {
+  __typename?: 'PageStoresConnection';
+  pageInfo: PageInfo;
+  totalCount: Scalars['Float']['output'];
+  edges?: Maybe<Array<Maybe<PageStoresConnectionEdges>>>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   addPendingDocument: DocumentNode;
@@ -927,6 +1272,14 @@ export type Mutation = {
   createStores: Stores;
   updateKpRating: KpRating;
   createKpRating: KpRating;
+  updatePageAbout: PageAbout;
+  createPageAbout: PageAbout;
+  updatePageFranchise: PageFranchise;
+  createPageFranchise: PageFranchise;
+  updatePageCollection: PageCollection;
+  createPageCollection: PageCollection;
+  updatePageStores: PageStores;
+  createPageStores: PageStores;
 };
 
 
@@ -1094,6 +1447,54 @@ export type MutationCreateKpRatingArgs = {
   params: KpRatingMutation;
 };
 
+
+export type MutationUpdatePageAboutArgs = {
+  relativePath: Scalars['String']['input'];
+  params: PageAboutMutation;
+};
+
+
+export type MutationCreatePageAboutArgs = {
+  relativePath: Scalars['String']['input'];
+  params: PageAboutMutation;
+};
+
+
+export type MutationUpdatePageFranchiseArgs = {
+  relativePath: Scalars['String']['input'];
+  params: PageFranchiseMutation;
+};
+
+
+export type MutationCreatePageFranchiseArgs = {
+  relativePath: Scalars['String']['input'];
+  params: PageFranchiseMutation;
+};
+
+
+export type MutationUpdatePageCollectionArgs = {
+  relativePath: Scalars['String']['input'];
+  params: PageCollectionMutation;
+};
+
+
+export type MutationCreatePageCollectionArgs = {
+  relativePath: Scalars['String']['input'];
+  params: PageCollectionMutation;
+};
+
+
+export type MutationUpdatePageStoresArgs = {
+  relativePath: Scalars['String']['input'];
+  params: PageStoresMutation;
+};
+
+
+export type MutationCreatePageStoresArgs = {
+  relativePath: Scalars['String']['input'];
+  params: PageStoresMutation;
+};
+
 export type DocumentUpdateMutation = {
   hero?: InputMaybe<HeroMutation>;
   about?: InputMaybe<AboutMutation>;
@@ -1106,6 +1507,10 @@ export type DocumentUpdateMutation = {
   contacts?: InputMaybe<ContactsMutation>;
   stores?: InputMaybe<StoresMutation>;
   kpRating?: InputMaybe<KpRatingMutation>;
+  pageAbout?: InputMaybe<PageAboutMutation>;
+  pageFranchise?: InputMaybe<PageFranchiseMutation>;
+  pageCollection?: InputMaybe<PageCollectionMutation>;
+  pageStores?: InputMaybe<PageStoresMutation>;
   relativePath?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -1121,6 +1526,10 @@ export type DocumentMutation = {
   contacts?: InputMaybe<ContactsMutation>;
   stores?: InputMaybe<StoresMutation>;
   kpRating?: InputMaybe<KpRatingMutation>;
+  pageAbout?: InputMaybe<PageAboutMutation>;
+  pageFranchise?: InputMaybe<PageFranchiseMutation>;
+  pageCollection?: InputMaybe<PageCollectionMutation>;
+  pageStores?: InputMaybe<PageStoresMutation>;
 };
 
 export type HeroCtaMutation = {
@@ -1297,6 +1706,99 @@ export type KpRatingMutation = {
   imageAlt?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type PageAboutStatsMutation = {
+  num?: InputMaybe<Scalars['Float']['input']>;
+  suffix?: InputMaybe<Scalars['String']['input']>;
+  label?: InputMaybe<Scalars['String']['input']>;
+  accent?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type PageAboutAdvantagesMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  desc?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageAboutMilestonesMutation = {
+  year?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  desc?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageAboutMutation = {
+  heroEyebrow?: InputMaybe<Scalars['String']['input']>;
+  heroHeading?: InputMaybe<Scalars['String']['input']>;
+  heroDesc?: InputMaybe<Scalars['String']['input']>;
+  stats?: InputMaybe<Array<InputMaybe<PageAboutStatsMutation>>>;
+  philosophyEyebrow?: InputMaybe<Scalars['String']['input']>;
+  philosophyHeading?: InputMaybe<Scalars['String']['input']>;
+  philosophyBody1?: InputMaybe<Scalars['String']['input']>;
+  philosophyBody2?: InputMaybe<Scalars['String']['input']>;
+  advantagesEyebrow?: InputMaybe<Scalars['String']['input']>;
+  advantagesHeading?: InputMaybe<Scalars['String']['input']>;
+  advantages?: InputMaybe<Array<InputMaybe<PageAboutAdvantagesMutation>>>;
+  timelineEyebrow?: InputMaybe<Scalars['String']['input']>;
+  timelineHeading?: InputMaybe<Scalars['String']['input']>;
+  milestones?: InputMaybe<Array<InputMaybe<PageAboutMilestonesMutation>>>;
+  repEyebrow?: InputMaybe<Scalars['String']['input']>;
+  repHeading?: InputMaybe<Scalars['String']['input']>;
+  repBody?: InputMaybe<Scalars['String']['input']>;
+  repInn?: InputMaybe<Scalars['String']['input']>;
+  repAddress?: InputMaybe<Scalars['String']['input']>;
+  ctaHeading?: InputMaybe<Scalars['String']['input']>;
+  ctaButton?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageFranchiseFinancialRowsMutation = {
+  label?: InputMaybe<Scalars['String']['input']>;
+  value?: InputMaybe<Scalars['String']['input']>;
+  detail?: InputMaybe<Scalars['String']['input']>;
+  accent?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type PageFranchiseMutation = {
+  heroEyebrow?: InputMaybe<Scalars['String']['input']>;
+  heroHeading?: InputMaybe<Scalars['String']['input']>;
+  heroDesc?: InputMaybe<Scalars['String']['input']>;
+  plansEyebrow?: InputMaybe<Scalars['String']['input']>;
+  plansDesc?: InputMaybe<Scalars['String']['input']>;
+  plansHeading?: InputMaybe<Scalars['String']['input']>;
+  comparisonEyebrow?: InputMaybe<Scalars['String']['input']>;
+  comparisonHeading?: InputMaybe<Scalars['String']['input']>;
+  financialEyebrow?: InputMaybe<Scalars['String']['input']>;
+  financialDesc?: InputMaybe<Scalars['String']['input']>;
+  financialHeading?: InputMaybe<Scalars['String']['input']>;
+  financialRows?: InputMaybe<Array<InputMaybe<PageFranchiseFinancialRowsMutation>>>;
+  seasonalityNote?: InputMaybe<Scalars['String']['input']>;
+  benefitsEyebrow?: InputMaybe<Scalars['String']['input']>;
+  benefitsHeading?: InputMaybe<Scalars['String']['input']>;
+  galleryEyebrow?: InputMaybe<Scalars['String']['input']>;
+  galleryHeading?: InputMaybe<Scalars['String']['input']>;
+  contactHeading?: InputMaybe<Scalars['String']['input']>;
+  contactDesc?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageCollectionMutation = {
+  heroEyebrow?: InputMaybe<Scalars['String']['input']>;
+  heroHeading?: InputMaybe<Scalars['String']['input']>;
+  heroDesc?: InputMaybe<Scalars['String']['input']>;
+  ctaEyebrow?: InputMaybe<Scalars['String']['input']>;
+  ctaHeading?: InputMaybe<Scalars['String']['input']>;
+  ctaDesc?: InputMaybe<Scalars['String']['input']>;
+  ctaButton?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageStoresMutation = {
+  heroEyebrow?: InputMaybe<Scalars['String']['input']>;
+  heroHeading?: InputMaybe<Scalars['String']['input']>;
+  heroDesc?: InputMaybe<Scalars['String']['input']>;
+  storesEyebrow?: InputMaybe<Scalars['String']['input']>;
+  storesDesc?: InputMaybe<Scalars['String']['input']>;
+  storesHeading?: InputMaybe<Scalars['String']['input']>;
+  ctaHeading?: InputMaybe<Scalars['String']['input']>;
+  ctaDesc?: InputMaybe<Scalars['String']['input']>;
+  ctaButton?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type HeroPartsFragment = { __typename: 'Hero', tagline?: string | null, heading?: string | null, description?: string | null, pricing?: string | null, cta?: { __typename: 'HeroCta', consultation?: string | null, cases?: string | null } | null, stats?: Array<{ __typename: 'HeroStats', value?: string | null, label?: string | null } | null> | null };
 
 export type AboutPartsFragment = { __typename: 'About', eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, headingAfter?: string | null, body?: string | null, links?: { __typename: 'AboutLinks', about?: string | null, collection?: string | null } | null };
@@ -1318,6 +1820,14 @@ export type ContactsPartsFragment = { __typename: 'Contacts', eyebrow?: string |
 export type StoresPartsFragment = { __typename: 'Stores', eyebrow?: string | null, heading?: string | null, desc?: string | null, ghost?: { __typename: 'StoresGhost', label?: string | null, tooltip?: string | null, sidebarYourCity?: string | null, sidebarCTA?: string | null, sidebarSubtext?: string | null } | null };
 
 export type KpRatingPartsFragment = { __typename: 'KpRating', eyebrow?: string | null, headingAccent?: string | null, headingAfter?: string | null, desc?: string | null, body?: string | null, cta?: string | null, source?: string | null, imageAlt?: string | null, badge?: { __typename: 'KpRatingBadge', rank?: string | null, label?: string | null } | null };
+
+export type PageAboutPartsFragment = { __typename: 'PageAbout', heroEyebrow?: string | null, heroHeading?: string | null, heroDesc?: string | null, philosophyEyebrow?: string | null, philosophyHeading?: string | null, philosophyBody1?: string | null, philosophyBody2?: string | null, advantagesEyebrow?: string | null, advantagesHeading?: string | null, timelineEyebrow?: string | null, timelineHeading?: string | null, repEyebrow?: string | null, repHeading?: string | null, repBody?: string | null, repInn?: string | null, repAddress?: string | null, ctaHeading?: string | null, ctaButton?: string | null, stats?: Array<{ __typename: 'PageAboutStats', num?: number | null, suffix?: string | null, label?: string | null, accent?: boolean | null } | null> | null, advantages?: Array<{ __typename: 'PageAboutAdvantages', title?: string | null, desc?: string | null } | null> | null, milestones?: Array<{ __typename: 'PageAboutMilestones', year?: string | null, title?: string | null, desc?: string | null } | null> | null };
+
+export type PageFranchisePartsFragment = { __typename: 'PageFranchise', heroEyebrow?: string | null, heroHeading?: string | null, heroDesc?: string | null, plansEyebrow?: string | null, plansDesc?: string | null, plansHeading?: string | null, comparisonEyebrow?: string | null, comparisonHeading?: string | null, financialEyebrow?: string | null, financialDesc?: string | null, financialHeading?: string | null, seasonalityNote?: string | null, benefitsEyebrow?: string | null, benefitsHeading?: string | null, galleryEyebrow?: string | null, galleryHeading?: string | null, contactHeading?: string | null, contactDesc?: string | null, financialRows?: Array<{ __typename: 'PageFranchiseFinancialRows', label?: string | null, value?: string | null, detail?: string | null, accent?: boolean | null } | null> | null };
+
+export type PageCollectionPartsFragment = { __typename: 'PageCollection', heroEyebrow?: string | null, heroHeading?: string | null, heroDesc?: string | null, ctaEyebrow?: string | null, ctaHeading?: string | null, ctaDesc?: string | null, ctaButton?: string | null };
+
+export type PageStoresPartsFragment = { __typename: 'PageStores', heroEyebrow?: string | null, heroHeading?: string | null, heroDesc?: string | null, storesEyebrow?: string | null, storesDesc?: string | null, storesHeading?: string | null, ctaHeading?: string | null, ctaDesc?: string | null, ctaButton?: string | null };
 
 export type HeroQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
@@ -1528,6 +2038,82 @@ export type KpRatingConnectionQueryVariables = Exact<{
 
 export type KpRatingConnectionQuery = { __typename?: 'Query', kpRatingConnection: { __typename?: 'KpRatingConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'KpRatingConnectionEdges', cursor: string, node?: { __typename: 'KpRating', id: string, eyebrow?: string | null, headingAccent?: string | null, headingAfter?: string | null, desc?: string | null, body?: string | null, cta?: string | null, source?: string | null, imageAlt?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, badge?: { __typename: 'KpRatingBadge', rank?: string | null, label?: string | null } | null } | null } | null> | null } };
 
+export type PageAboutQueryVariables = Exact<{
+  relativePath: Scalars['String']['input'];
+}>;
+
+
+export type PageAboutQuery = { __typename?: 'Query', pageAbout: { __typename: 'PageAbout', id: string, heroEyebrow?: string | null, heroHeading?: string | null, heroDesc?: string | null, philosophyEyebrow?: string | null, philosophyHeading?: string | null, philosophyBody1?: string | null, philosophyBody2?: string | null, advantagesEyebrow?: string | null, advantagesHeading?: string | null, timelineEyebrow?: string | null, timelineHeading?: string | null, repEyebrow?: string | null, repHeading?: string | null, repBody?: string | null, repInn?: string | null, repAddress?: string | null, ctaHeading?: string | null, ctaButton?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, stats?: Array<{ __typename: 'PageAboutStats', num?: number | null, suffix?: string | null, label?: string | null, accent?: boolean | null } | null> | null, advantages?: Array<{ __typename: 'PageAboutAdvantages', title?: string | null, desc?: string | null } | null> | null, milestones?: Array<{ __typename: 'PageAboutMilestones', year?: string | null, title?: string | null, desc?: string | null } | null> | null } };
+
+export type PageAboutConnectionQueryVariables = Exact<{
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<PageAboutFilter>;
+}>;
+
+
+export type PageAboutConnectionQuery = { __typename?: 'Query', pageAboutConnection: { __typename?: 'PageAboutConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'PageAboutConnectionEdges', cursor: string, node?: { __typename: 'PageAbout', id: string, heroEyebrow?: string | null, heroHeading?: string | null, heroDesc?: string | null, philosophyEyebrow?: string | null, philosophyHeading?: string | null, philosophyBody1?: string | null, philosophyBody2?: string | null, advantagesEyebrow?: string | null, advantagesHeading?: string | null, timelineEyebrow?: string | null, timelineHeading?: string | null, repEyebrow?: string | null, repHeading?: string | null, repBody?: string | null, repInn?: string | null, repAddress?: string | null, ctaHeading?: string | null, ctaButton?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, stats?: Array<{ __typename: 'PageAboutStats', num?: number | null, suffix?: string | null, label?: string | null, accent?: boolean | null } | null> | null, advantages?: Array<{ __typename: 'PageAboutAdvantages', title?: string | null, desc?: string | null } | null> | null, milestones?: Array<{ __typename: 'PageAboutMilestones', year?: string | null, title?: string | null, desc?: string | null } | null> | null } | null } | null> | null } };
+
+export type PageFranchiseQueryVariables = Exact<{
+  relativePath: Scalars['String']['input'];
+}>;
+
+
+export type PageFranchiseQuery = { __typename?: 'Query', pageFranchise: { __typename: 'PageFranchise', id: string, heroEyebrow?: string | null, heroHeading?: string | null, heroDesc?: string | null, plansEyebrow?: string | null, plansDesc?: string | null, plansHeading?: string | null, comparisonEyebrow?: string | null, comparisonHeading?: string | null, financialEyebrow?: string | null, financialDesc?: string | null, financialHeading?: string | null, seasonalityNote?: string | null, benefitsEyebrow?: string | null, benefitsHeading?: string | null, galleryEyebrow?: string | null, galleryHeading?: string | null, contactHeading?: string | null, contactDesc?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, financialRows?: Array<{ __typename: 'PageFranchiseFinancialRows', label?: string | null, value?: string | null, detail?: string | null, accent?: boolean | null } | null> | null } };
+
+export type PageFranchiseConnectionQueryVariables = Exact<{
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<PageFranchiseFilter>;
+}>;
+
+
+export type PageFranchiseConnectionQuery = { __typename?: 'Query', pageFranchiseConnection: { __typename?: 'PageFranchiseConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'PageFranchiseConnectionEdges', cursor: string, node?: { __typename: 'PageFranchise', id: string, heroEyebrow?: string | null, heroHeading?: string | null, heroDesc?: string | null, plansEyebrow?: string | null, plansDesc?: string | null, plansHeading?: string | null, comparisonEyebrow?: string | null, comparisonHeading?: string | null, financialEyebrow?: string | null, financialDesc?: string | null, financialHeading?: string | null, seasonalityNote?: string | null, benefitsEyebrow?: string | null, benefitsHeading?: string | null, galleryEyebrow?: string | null, galleryHeading?: string | null, contactHeading?: string | null, contactDesc?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, financialRows?: Array<{ __typename: 'PageFranchiseFinancialRows', label?: string | null, value?: string | null, detail?: string | null, accent?: boolean | null } | null> | null } | null } | null> | null } };
+
+export type PageCollectionQueryVariables = Exact<{
+  relativePath: Scalars['String']['input'];
+}>;
+
+
+export type PageCollectionQuery = { __typename?: 'Query', pageCollection: { __typename: 'PageCollection', id: string, heroEyebrow?: string | null, heroHeading?: string | null, heroDesc?: string | null, ctaEyebrow?: string | null, ctaHeading?: string | null, ctaDesc?: string | null, ctaButton?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+
+export type PageCollectionConnectionQueryVariables = Exact<{
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<PageCollectionFilter>;
+}>;
+
+
+export type PageCollectionConnectionQuery = { __typename?: 'Query', pageCollectionConnection: { __typename?: 'PageCollectionConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'PageCollectionConnectionEdges', cursor: string, node?: { __typename: 'PageCollection', id: string, heroEyebrow?: string | null, heroHeading?: string | null, heroDesc?: string | null, ctaEyebrow?: string | null, ctaHeading?: string | null, ctaDesc?: string | null, ctaButton?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+
+export type PageStoresQueryVariables = Exact<{
+  relativePath: Scalars['String']['input'];
+}>;
+
+
+export type PageStoresQuery = { __typename?: 'Query', pageStores: { __typename: 'PageStores', id: string, heroEyebrow?: string | null, heroHeading?: string | null, heroDesc?: string | null, storesEyebrow?: string | null, storesDesc?: string | null, storesHeading?: string | null, ctaHeading?: string | null, ctaDesc?: string | null, ctaButton?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+
+export type PageStoresConnectionQueryVariables = Exact<{
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<PageStoresFilter>;
+}>;
+
+
+export type PageStoresConnectionQuery = { __typename?: 'Query', pageStoresConnection: { __typename?: 'PageStoresConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'PageStoresConnectionEdges', cursor: string, node?: { __typename: 'PageStores', id: string, heroEyebrow?: string | null, heroHeading?: string | null, heroDesc?: string | null, storesEyebrow?: string | null, storesDesc?: string | null, storesHeading?: string | null, ctaHeading?: string | null, ctaDesc?: string | null, ctaButton?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+
 export const HeroPartsFragmentDoc = gql`
     fragment HeroParts on Hero {
   __typename
@@ -1711,6 +2297,103 @@ export const KpRatingPartsFragmentDoc = gql`
   cta
   source
   imageAlt
+}
+    `;
+export const PageAboutPartsFragmentDoc = gql`
+    fragment PageAboutParts on PageAbout {
+  __typename
+  heroEyebrow
+  heroHeading
+  heroDesc
+  stats {
+    __typename
+    num
+    suffix
+    label
+    accent
+  }
+  philosophyEyebrow
+  philosophyHeading
+  philosophyBody1
+  philosophyBody2
+  advantagesEyebrow
+  advantagesHeading
+  advantages {
+    __typename
+    title
+    desc
+  }
+  timelineEyebrow
+  timelineHeading
+  milestones {
+    __typename
+    year
+    title
+    desc
+  }
+  repEyebrow
+  repHeading
+  repBody
+  repInn
+  repAddress
+  ctaHeading
+  ctaButton
+}
+    `;
+export const PageFranchisePartsFragmentDoc = gql`
+    fragment PageFranchiseParts on PageFranchise {
+  __typename
+  heroEyebrow
+  heroHeading
+  heroDesc
+  plansEyebrow
+  plansDesc
+  plansHeading
+  comparisonEyebrow
+  comparisonHeading
+  financialEyebrow
+  financialDesc
+  financialHeading
+  financialRows {
+    __typename
+    label
+    value
+    detail
+    accent
+  }
+  seasonalityNote
+  benefitsEyebrow
+  benefitsHeading
+  galleryEyebrow
+  galleryHeading
+  contactHeading
+  contactDesc
+}
+    `;
+export const PageCollectionPartsFragmentDoc = gql`
+    fragment PageCollectionParts on PageCollection {
+  __typename
+  heroEyebrow
+  heroHeading
+  heroDesc
+  ctaEyebrow
+  ctaHeading
+  ctaDesc
+  ctaButton
+}
+    `;
+export const PageStoresPartsFragmentDoc = gql`
+    fragment PageStoresParts on PageStores {
+  __typename
+  heroEyebrow
+  heroHeading
+  heroDesc
+  storesEyebrow
+  storesDesc
+  storesHeading
+  ctaHeading
+  ctaDesc
+  ctaButton
 }
     `;
 export const HeroDocument = gql`
@@ -2340,6 +3023,234 @@ export const KpRatingConnectionDocument = gql`
   }
 }
     ${KpRatingPartsFragmentDoc}`;
+export const PageAboutDocument = gql`
+    query pageAbout($relativePath: String!) {
+  pageAbout(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...PageAboutParts
+  }
+}
+    ${PageAboutPartsFragmentDoc}`;
+export const PageAboutConnectionDocument = gql`
+    query pageAboutConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PageAboutFilter) {
+  pageAboutConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...PageAboutParts
+      }
+    }
+  }
+}
+    ${PageAboutPartsFragmentDoc}`;
+export const PageFranchiseDocument = gql`
+    query pageFranchise($relativePath: String!) {
+  pageFranchise(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...PageFranchiseParts
+  }
+}
+    ${PageFranchisePartsFragmentDoc}`;
+export const PageFranchiseConnectionDocument = gql`
+    query pageFranchiseConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PageFranchiseFilter) {
+  pageFranchiseConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...PageFranchiseParts
+      }
+    }
+  }
+}
+    ${PageFranchisePartsFragmentDoc}`;
+export const PageCollectionDocument = gql`
+    query pageCollection($relativePath: String!) {
+  pageCollection(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...PageCollectionParts
+  }
+}
+    ${PageCollectionPartsFragmentDoc}`;
+export const PageCollectionConnectionDocument = gql`
+    query pageCollectionConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PageCollectionFilter) {
+  pageCollectionConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...PageCollectionParts
+      }
+    }
+  }
+}
+    ${PageCollectionPartsFragmentDoc}`;
+export const PageStoresDocument = gql`
+    query pageStores($relativePath: String!) {
+  pageStores(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...PageStoresParts
+  }
+}
+    ${PageStoresPartsFragmentDoc}`;
+export const PageStoresConnectionDocument = gql`
+    query pageStoresConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PageStoresFilter) {
+  pageStoresConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...PageStoresParts
+      }
+    }
+  }
+}
+    ${PageStoresPartsFragmentDoc}`;
 export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R>
   export function getSdk<C>(requester: Requester<C>) {
     return {
@@ -2408,6 +3319,30 @@ export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) 
       },
     kpRatingConnection(variables?: KpRatingConnectionQueryVariables, options?: C): Promise<{data: KpRatingConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: KpRatingConnectionQueryVariables, query: string}> {
         return requester<{data: KpRatingConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: KpRatingConnectionQueryVariables, query: string}, KpRatingConnectionQueryVariables>(KpRatingConnectionDocument, variables, options);
+      },
+    pageAbout(variables: PageAboutQueryVariables, options?: C): Promise<{data: PageAboutQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageAboutQueryVariables, query: string}> {
+        return requester<{data: PageAboutQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageAboutQueryVariables, query: string}, PageAboutQueryVariables>(PageAboutDocument, variables, options);
+      },
+    pageAboutConnection(variables?: PageAboutConnectionQueryVariables, options?: C): Promise<{data: PageAboutConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageAboutConnectionQueryVariables, query: string}> {
+        return requester<{data: PageAboutConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageAboutConnectionQueryVariables, query: string}, PageAboutConnectionQueryVariables>(PageAboutConnectionDocument, variables, options);
+      },
+    pageFranchise(variables: PageFranchiseQueryVariables, options?: C): Promise<{data: PageFranchiseQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageFranchiseQueryVariables, query: string}> {
+        return requester<{data: PageFranchiseQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageFranchiseQueryVariables, query: string}, PageFranchiseQueryVariables>(PageFranchiseDocument, variables, options);
+      },
+    pageFranchiseConnection(variables?: PageFranchiseConnectionQueryVariables, options?: C): Promise<{data: PageFranchiseConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageFranchiseConnectionQueryVariables, query: string}> {
+        return requester<{data: PageFranchiseConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageFranchiseConnectionQueryVariables, query: string}, PageFranchiseConnectionQueryVariables>(PageFranchiseConnectionDocument, variables, options);
+      },
+    pageCollection(variables: PageCollectionQueryVariables, options?: C): Promise<{data: PageCollectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageCollectionQueryVariables, query: string}> {
+        return requester<{data: PageCollectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageCollectionQueryVariables, query: string}, PageCollectionQueryVariables>(PageCollectionDocument, variables, options);
+      },
+    pageCollectionConnection(variables?: PageCollectionConnectionQueryVariables, options?: C): Promise<{data: PageCollectionConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageCollectionConnectionQueryVariables, query: string}> {
+        return requester<{data: PageCollectionConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageCollectionConnectionQueryVariables, query: string}, PageCollectionConnectionQueryVariables>(PageCollectionConnectionDocument, variables, options);
+      },
+    pageStores(variables: PageStoresQueryVariables, options?: C): Promise<{data: PageStoresQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageStoresQueryVariables, query: string}> {
+        return requester<{data: PageStoresQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageStoresQueryVariables, query: string}, PageStoresQueryVariables>(PageStoresDocument, variables, options);
+      },
+    pageStoresConnection(variables?: PageStoresConnectionQueryVariables, options?: C): Promise<{data: PageStoresConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageStoresConnectionQueryVariables, query: string}> {
+        return requester<{data: PageStoresConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageStoresConnectionQueryVariables, query: string}, PageStoresConnectionQueryVariables>(PageStoresConnectionDocument, variables, options);
       }
     };
   }

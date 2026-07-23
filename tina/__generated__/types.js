@@ -190,6 +190,103 @@ export const KpRatingPartsFragmentDoc = gql`
   imageAlt
 }
     `;
+export const PageAboutPartsFragmentDoc = gql`
+    fragment PageAboutParts on PageAbout {
+  __typename
+  heroEyebrow
+  heroHeading
+  heroDesc
+  stats {
+    __typename
+    num
+    suffix
+    label
+    accent
+  }
+  philosophyEyebrow
+  philosophyHeading
+  philosophyBody1
+  philosophyBody2
+  advantagesEyebrow
+  advantagesHeading
+  advantages {
+    __typename
+    title
+    desc
+  }
+  timelineEyebrow
+  timelineHeading
+  milestones {
+    __typename
+    year
+    title
+    desc
+  }
+  repEyebrow
+  repHeading
+  repBody
+  repInn
+  repAddress
+  ctaHeading
+  ctaButton
+}
+    `;
+export const PageFranchisePartsFragmentDoc = gql`
+    fragment PageFranchiseParts on PageFranchise {
+  __typename
+  heroEyebrow
+  heroHeading
+  heroDesc
+  plansEyebrow
+  plansDesc
+  plansHeading
+  comparisonEyebrow
+  comparisonHeading
+  financialEyebrow
+  financialDesc
+  financialHeading
+  financialRows {
+    __typename
+    label
+    value
+    detail
+    accent
+  }
+  seasonalityNote
+  benefitsEyebrow
+  benefitsHeading
+  galleryEyebrow
+  galleryHeading
+  contactHeading
+  contactDesc
+}
+    `;
+export const PageCollectionPartsFragmentDoc = gql`
+    fragment PageCollectionParts on PageCollection {
+  __typename
+  heroEyebrow
+  heroHeading
+  heroDesc
+  ctaEyebrow
+  ctaHeading
+  ctaDesc
+  ctaButton
+}
+    `;
+export const PageStoresPartsFragmentDoc = gql`
+    fragment PageStoresParts on PageStores {
+  __typename
+  heroEyebrow
+  heroHeading
+  heroDesc
+  storesEyebrow
+  storesDesc
+  storesHeading
+  ctaHeading
+  ctaDesc
+  ctaButton
+}
+    `;
 export const HeroDocument = gql`
     query hero($relativePath: String!) {
   hero(relativePath: $relativePath) {
@@ -817,6 +914,234 @@ export const KpRatingConnectionDocument = gql`
   }
 }
     ${KpRatingPartsFragmentDoc}`;
+export const PageAboutDocument = gql`
+    query pageAbout($relativePath: String!) {
+  pageAbout(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...PageAboutParts
+  }
+}
+    ${PageAboutPartsFragmentDoc}`;
+export const PageAboutConnectionDocument = gql`
+    query pageAboutConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PageAboutFilter) {
+  pageAboutConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...PageAboutParts
+      }
+    }
+  }
+}
+    ${PageAboutPartsFragmentDoc}`;
+export const PageFranchiseDocument = gql`
+    query pageFranchise($relativePath: String!) {
+  pageFranchise(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...PageFranchiseParts
+  }
+}
+    ${PageFranchisePartsFragmentDoc}`;
+export const PageFranchiseConnectionDocument = gql`
+    query pageFranchiseConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PageFranchiseFilter) {
+  pageFranchiseConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...PageFranchiseParts
+      }
+    }
+  }
+}
+    ${PageFranchisePartsFragmentDoc}`;
+export const PageCollectionDocument = gql`
+    query pageCollection($relativePath: String!) {
+  pageCollection(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...PageCollectionParts
+  }
+}
+    ${PageCollectionPartsFragmentDoc}`;
+export const PageCollectionConnectionDocument = gql`
+    query pageCollectionConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PageCollectionFilter) {
+  pageCollectionConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...PageCollectionParts
+      }
+    }
+  }
+}
+    ${PageCollectionPartsFragmentDoc}`;
+export const PageStoresDocument = gql`
+    query pageStores($relativePath: String!) {
+  pageStores(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...PageStoresParts
+  }
+}
+    ${PageStoresPartsFragmentDoc}`;
+export const PageStoresConnectionDocument = gql`
+    query pageStoresConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PageStoresFilter) {
+  pageStoresConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...PageStoresParts
+      }
+    }
+  }
+}
+    ${PageStoresPartsFragmentDoc}`;
 export function getSdk(requester) {
   return {
     hero(variables, options) {
@@ -884,6 +1209,30 @@ export function getSdk(requester) {
     },
     kpRatingConnection(variables, options) {
       return requester(KpRatingConnectionDocument, variables, options);
+    },
+    pageAbout(variables, options) {
+      return requester(PageAboutDocument, variables, options);
+    },
+    pageAboutConnection(variables, options) {
+      return requester(PageAboutConnectionDocument, variables, options);
+    },
+    pageFranchise(variables, options) {
+      return requester(PageFranchiseDocument, variables, options);
+    },
+    pageFranchiseConnection(variables, options) {
+      return requester(PageFranchiseConnectionDocument, variables, options);
+    },
+    pageCollection(variables, options) {
+      return requester(PageCollectionDocument, variables, options);
+    },
+    pageCollectionConnection(variables, options) {
+      return requester(PageCollectionConnectionDocument, variables, options);
+    },
+    pageStores(variables, options) {
+      return requester(PageStoresDocument, variables, options);
+    },
+    pageStoresConnection(variables, options) {
+      return requester(PageStoresConnectionDocument, variables, options);
     }
   };
 }

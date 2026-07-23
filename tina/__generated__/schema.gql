@@ -76,6 +76,14 @@ type Query {
   storesConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: StoresFilter): StoresConnection!
   kpRating(relativePath: String): KpRating!
   kpRatingConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: KpRatingFilter): KpRatingConnection!
+  pageAbout(relativePath: String): PageAbout!
+  pageAboutConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PageAboutFilter): PageAboutConnection!
+  pageFranchise(relativePath: String): PageFranchise!
+  pageFranchiseConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PageFranchiseFilter): PageFranchiseConnection!
+  pageCollection(relativePath: String): PageCollection!
+  pageCollectionConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PageCollectionFilter): PageCollectionConnection!
+  pageStores(relativePath: String): PageStores!
+  pageStoresConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PageStoresFilter): PageStoresConnection!
 }
 
 input DocumentFilter {
@@ -90,6 +98,10 @@ input DocumentFilter {
   contacts: ContactsFilter
   stores: StoresFilter
   kpRating: KpRatingFilter
+  pageAbout: PageAboutFilter
+  pageFranchise: PageFranchiseFilter
+  pageCollection: PageCollectionFilter
+  pageStores: PageStoresFilter
 }
 
 type DocumentConnectionEdges {
@@ -115,7 +127,7 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String, filter: DocumentFilter, folder: String): DocumentConnection!
 }
 
-union DocumentNode = Hero | About | Franchise | MarketBlock | TrustModel | Roadmap | CaseStudies | Faq | Contacts | Stores | KpRating | Folder
+union DocumentNode = Hero | About | Franchise | MarketBlock | TrustModel | Roadmap | CaseStudies | Faq | Contacts | Stores | KpRating | PageAbout | PageFranchise | PageCollection | PageStores | Folder
 
 type HeroCta {
   consultation: String
@@ -626,6 +638,263 @@ type KpRatingConnection implements Connection {
   edges: [KpRatingConnectionEdges]
 }
 
+type PageAboutStats {
+  num: Float
+  suffix: String
+  label: String
+  accent: Boolean
+}
+
+type PageAboutAdvantages {
+  title: String
+  desc: String
+}
+
+type PageAboutMilestones {
+  year: String
+  title: String
+  desc: String
+}
+
+type PageAbout implements Node & Document {
+  heroEyebrow: String
+  heroHeading: String
+  heroDesc: String
+  stats: [PageAboutStats]
+  philosophyEyebrow: String
+  philosophyHeading: String
+  philosophyBody1: String
+  philosophyBody2: String
+  advantagesEyebrow: String
+  advantagesHeading: String
+  advantages: [PageAboutAdvantages]
+  timelineEyebrow: String
+  timelineHeading: String
+  milestones: [PageAboutMilestones]
+  repEyebrow: String
+  repHeading: String
+  repBody: String
+  repInn: String
+  repAddress: String
+  ctaHeading: String
+  ctaButton: String
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input NumberFilter {
+  lt: Float
+  lte: Float
+  gte: Float
+  gt: Float
+  eq: Float
+  exists: Boolean
+  in: [Float]
+}
+
+input BooleanFilter {
+  eq: Boolean
+  exists: Boolean
+}
+
+input PageAboutStatsFilter {
+  num: NumberFilter
+  suffix: StringFilter
+  label: StringFilter
+  accent: BooleanFilter
+}
+
+input PageAboutAdvantagesFilter {
+  title: StringFilter
+  desc: StringFilter
+}
+
+input PageAboutMilestonesFilter {
+  year: StringFilter
+  title: StringFilter
+  desc: StringFilter
+}
+
+input PageAboutFilter {
+  heroEyebrow: StringFilter
+  heroHeading: StringFilter
+  heroDesc: StringFilter
+  stats: PageAboutStatsFilter
+  philosophyEyebrow: StringFilter
+  philosophyHeading: StringFilter
+  philosophyBody1: StringFilter
+  philosophyBody2: StringFilter
+  advantagesEyebrow: StringFilter
+  advantagesHeading: StringFilter
+  advantages: PageAboutAdvantagesFilter
+  timelineEyebrow: StringFilter
+  timelineHeading: StringFilter
+  milestones: PageAboutMilestonesFilter
+  repEyebrow: StringFilter
+  repHeading: StringFilter
+  repBody: StringFilter
+  repInn: StringFilter
+  repAddress: StringFilter
+  ctaHeading: StringFilter
+  ctaButton: StringFilter
+}
+
+type PageAboutConnectionEdges {
+  cursor: String!
+  node: PageAbout
+}
+
+type PageAboutConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [PageAboutConnectionEdges]
+}
+
+type PageFranchiseFinancialRows {
+  label: String
+  value: String
+  detail: String
+  accent: Boolean
+}
+
+type PageFranchise implements Node & Document {
+  heroEyebrow: String
+  heroHeading: String
+  heroDesc: String
+  plansEyebrow: String
+  plansDesc: String
+  plansHeading: String
+  comparisonEyebrow: String
+  comparisonHeading: String
+  financialEyebrow: String
+  financialDesc: String
+  financialHeading: String
+  financialRows: [PageFranchiseFinancialRows]
+  seasonalityNote: String
+  benefitsEyebrow: String
+  benefitsHeading: String
+  galleryEyebrow: String
+  galleryHeading: String
+  contactHeading: String
+  contactDesc: String
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input PageFranchiseFinancialRowsFilter {
+  label: StringFilter
+  value: StringFilter
+  detail: StringFilter
+  accent: BooleanFilter
+}
+
+input PageFranchiseFilter {
+  heroEyebrow: StringFilter
+  heroHeading: StringFilter
+  heroDesc: StringFilter
+  plansEyebrow: StringFilter
+  plansDesc: StringFilter
+  plansHeading: StringFilter
+  comparisonEyebrow: StringFilter
+  comparisonHeading: StringFilter
+  financialEyebrow: StringFilter
+  financialDesc: StringFilter
+  financialHeading: StringFilter
+  financialRows: PageFranchiseFinancialRowsFilter
+  seasonalityNote: StringFilter
+  benefitsEyebrow: StringFilter
+  benefitsHeading: StringFilter
+  galleryEyebrow: StringFilter
+  galleryHeading: StringFilter
+  contactHeading: StringFilter
+  contactDesc: StringFilter
+}
+
+type PageFranchiseConnectionEdges {
+  cursor: String!
+  node: PageFranchise
+}
+
+type PageFranchiseConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [PageFranchiseConnectionEdges]
+}
+
+type PageCollection implements Node & Document {
+  heroEyebrow: String
+  heroHeading: String
+  heroDesc: String
+  ctaEyebrow: String
+  ctaHeading: String
+  ctaDesc: String
+  ctaButton: String
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input PageCollectionFilter {
+  heroEyebrow: StringFilter
+  heroHeading: StringFilter
+  heroDesc: StringFilter
+  ctaEyebrow: StringFilter
+  ctaHeading: StringFilter
+  ctaDesc: StringFilter
+  ctaButton: StringFilter
+}
+
+type PageCollectionConnectionEdges {
+  cursor: String!
+  node: PageCollection
+}
+
+type PageCollectionConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [PageCollectionConnectionEdges]
+}
+
+type PageStores implements Node & Document {
+  heroEyebrow: String
+  heroHeading: String
+  heroDesc: String
+  storesEyebrow: String
+  storesDesc: String
+  storesHeading: String
+  ctaHeading: String
+  ctaDesc: String
+  ctaButton: String
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input PageStoresFilter {
+  heroEyebrow: StringFilter
+  heroHeading: StringFilter
+  heroDesc: StringFilter
+  storesEyebrow: StringFilter
+  storesDesc: StringFilter
+  storesHeading: StringFilter
+  ctaHeading: StringFilter
+  ctaDesc: StringFilter
+  ctaButton: StringFilter
+}
+
+type PageStoresConnectionEdges {
+  cursor: String!
+  node: PageStores
+}
+
+type PageStoresConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [PageStoresConnectionEdges]
+}
+
 type Mutation {
   addPendingDocument(collection: String!, relativePath: String!, template: String): DocumentNode!
   updateDocument(collection: String, relativePath: String!, params: DocumentUpdateMutation!): DocumentNode!
@@ -654,6 +923,14 @@ type Mutation {
   createStores(relativePath: String!, params: StoresMutation!): Stores!
   updateKpRating(relativePath: String!, params: KpRatingMutation!): KpRating!
   createKpRating(relativePath: String!, params: KpRatingMutation!): KpRating!
+  updatePageAbout(relativePath: String!, params: PageAboutMutation!): PageAbout!
+  createPageAbout(relativePath: String!, params: PageAboutMutation!): PageAbout!
+  updatePageFranchise(relativePath: String!, params: PageFranchiseMutation!): PageFranchise!
+  createPageFranchise(relativePath: String!, params: PageFranchiseMutation!): PageFranchise!
+  updatePageCollection(relativePath: String!, params: PageCollectionMutation!): PageCollection!
+  createPageCollection(relativePath: String!, params: PageCollectionMutation!): PageCollection!
+  updatePageStores(relativePath: String!, params: PageStoresMutation!): PageStores!
+  createPageStores(relativePath: String!, params: PageStoresMutation!): PageStores!
 }
 
 input DocumentUpdateMutation {
@@ -668,6 +945,10 @@ input DocumentUpdateMutation {
   contacts: ContactsMutation
   stores: StoresMutation
   kpRating: KpRatingMutation
+  pageAbout: PageAboutMutation
+  pageFranchise: PageFranchiseMutation
+  pageCollection: PageCollectionMutation
+  pageStores: PageStoresMutation
   relativePath: String
 }
 
@@ -683,6 +964,10 @@ input DocumentMutation {
   contacts: ContactsMutation
   stores: StoresMutation
   kpRating: KpRatingMutation
+  pageAbout: PageAboutMutation
+  pageFranchise: PageFranchiseMutation
+  pageCollection: PageCollectionMutation
+  pageStores: PageStoresMutation
 }
 
 input HeroCtaMutation {
@@ -857,6 +1142,99 @@ input KpRatingMutation {
   cta: String
   source: String
   imageAlt: String
+}
+
+input PageAboutStatsMutation {
+  num: Float
+  suffix: String
+  label: String
+  accent: Boolean
+}
+
+input PageAboutAdvantagesMutation {
+  title: String
+  desc: String
+}
+
+input PageAboutMilestonesMutation {
+  year: String
+  title: String
+  desc: String
+}
+
+input PageAboutMutation {
+  heroEyebrow: String
+  heroHeading: String
+  heroDesc: String
+  stats: [PageAboutStatsMutation]
+  philosophyEyebrow: String
+  philosophyHeading: String
+  philosophyBody1: String
+  philosophyBody2: String
+  advantagesEyebrow: String
+  advantagesHeading: String
+  advantages: [PageAboutAdvantagesMutation]
+  timelineEyebrow: String
+  timelineHeading: String
+  milestones: [PageAboutMilestonesMutation]
+  repEyebrow: String
+  repHeading: String
+  repBody: String
+  repInn: String
+  repAddress: String
+  ctaHeading: String
+  ctaButton: String
+}
+
+input PageFranchiseFinancialRowsMutation {
+  label: String
+  value: String
+  detail: String
+  accent: Boolean
+}
+
+input PageFranchiseMutation {
+  heroEyebrow: String
+  heroHeading: String
+  heroDesc: String
+  plansEyebrow: String
+  plansDesc: String
+  plansHeading: String
+  comparisonEyebrow: String
+  comparisonHeading: String
+  financialEyebrow: String
+  financialDesc: String
+  financialHeading: String
+  financialRows: [PageFranchiseFinancialRowsMutation]
+  seasonalityNote: String
+  benefitsEyebrow: String
+  benefitsHeading: String
+  galleryEyebrow: String
+  galleryHeading: String
+  contactHeading: String
+  contactDesc: String
+}
+
+input PageCollectionMutation {
+  heroEyebrow: String
+  heroHeading: String
+  heroDesc: String
+  ctaEyebrow: String
+  ctaHeading: String
+  ctaDesc: String
+  ctaButton: String
+}
+
+input PageStoresMutation {
+  heroEyebrow: String
+  heroHeading: String
+  heroDesc: String
+  storesEyebrow: String
+  storesDesc: String
+  storesHeading: String
+  ctaHeading: String
+  ctaDesc: String
+  ctaButton: String
 }
 
 schema {

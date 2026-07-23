@@ -602,3 +602,223 @@ query kpRatingConnection($before: String, $after: String, $first: Float, $last: 
     }
   }
 }
+
+query pageAbout($relativePath: String!) {
+  pageAbout(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...PageAboutParts
+  }
+}
+
+query pageAboutConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PageAboutFilter) {
+  pageAboutConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...PageAboutParts
+      }
+    }
+  }
+}
+
+query pageFranchise($relativePath: String!) {
+  pageFranchise(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...PageFranchiseParts
+  }
+}
+
+query pageFranchiseConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PageFranchiseFilter) {
+  pageFranchiseConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...PageFranchiseParts
+      }
+    }
+  }
+}
+
+query pageCollection($relativePath: String!) {
+  pageCollection(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...PageCollectionParts
+  }
+}
+
+query pageCollectionConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PageCollectionFilter) {
+  pageCollectionConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...PageCollectionParts
+      }
+    }
+  }
+}
+
+query pageStores($relativePath: String!) {
+  pageStores(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...PageStoresParts
+  }
+}
+
+query pageStoresConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PageStoresFilter) {
+  pageStoresConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...PageStoresParts
+      }
+    }
+  }
+}
