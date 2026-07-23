@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { tinaField } from "tinacms/dist/react";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { siteContent } from "@/data/site-content";
 
@@ -19,9 +20,11 @@ export default function MarketBlock({ data }: { data?: typeof fallback }) {
           className="mb-12 md:mb-14"
           desc={s.desc}
           margin
+          eyebrowField={tinaField(s, "eyebrow")}
+          descField={tinaField(s, "desc")}
         >
-          {s.headingBefore}{" "}
-          <span className="text-brand-accent">{s.headingAccent}</span>
+          <span data-tina-field={tinaField(s, "headingBefore")}>{s.headingBefore}</span>{" "}
+          <span className="text-brand-accent" data-tina-field={tinaField(s, "headingAccent")}>{s.headingAccent}</span>
         </SectionHeader>
 
         {/* Reasons list — 1 observer вместо 5 */}
@@ -33,6 +36,7 @@ export default function MarketBlock({ data }: { data?: typeof fallback }) {
           variants={{
             visible: { transition: { staggerChildren: 0.06 } },
           }}
+          data-tina-field={tinaField(s, "reasons")}
         >
           {s.reasons.map((reason, i) => (
             <motion.div

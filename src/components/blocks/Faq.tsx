@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { tinaField } from "tinacms/dist/react";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { faqItems } from "@/data/franchise";
 import { siteContent } from "@/data/site-content";
@@ -23,9 +24,11 @@ export default function Faq({ data }: { data?: typeof fallback }) {
           desc={s.desc}
           className="mb-12 md:mb-16"
           margin
+          eyebrowField={tinaField(s, "eyebrow")}
+          descField={tinaField(s, "desc")}
         >
-          {s.headingBefore}{" "}
-          <span className="text-brand-accent">{s.headingAccent}</span>
+          <span data-tina-field={tinaField(s, "headingBefore")}>{s.headingBefore}</span>{" "}
+          <span className="text-brand-accent" data-tina-field={tinaField(s, "headingAccent")}>{s.headingAccent}</span>
         </SectionHeader>
 
         {/* Accordion — 1 observer вместо 5 */}

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { tinaField } from "tinacms/dist/react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster";
@@ -236,13 +237,13 @@ export default function Stores({ data }: { data?: typeof fallback }) {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <p className="text-xs eyebrow text-brand-gray-400 mb-4">
+          <p className="text-xs eyebrow text-brand-gray-400 mb-4" data-tina-field={tinaField(s, "eyebrow")}>
             {s.eyebrow}
           </p>
-          <h2 className="section-title ">
+          <h2 className="section-title " data-tina-field={tinaField(s, "heading")}>
             {s.heading}
           </h2>
-          <p className="section-desc ">
+          <p className="section-desc " data-tina-field={tinaField(s, "desc")}>
             {s.desc}
           </p>
 
@@ -283,13 +284,13 @@ export default function Stores({ data }: { data?: typeof fallback }) {
                     </svg>
                   </span>
                   <div className="min-w-0">
-                    <div className="text-sm font-semibold text-brand-black">
+                    <div className="text-sm font-semibold text-brand-black" data-tina-field={tinaField(s.ghost, "sidebarYourCity")}>
                       {userCity || s.ghost.sidebarYourCity}
                     </div>
-                    <div className="text-xs text-brand-accent mt-0.5 font-medium">
+                    <div className="text-xs text-brand-accent mt-0.5 font-medium" data-tina-field={tinaField(s.ghost, "sidebarCTA")}>
                       {s.ghost.sidebarCTA}
                     </div>
-                    <div className="text-xs text-brand-gray-400 mt-0.5">
+                    <div className="text-xs text-brand-gray-400 mt-0.5" data-tina-field={tinaField(s.ghost, "sidebarSubtext")}>
                       {s.ghost.sidebarSubtext}
                     </div>
                   </div>

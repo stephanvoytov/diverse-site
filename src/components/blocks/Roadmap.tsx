@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { tinaField } from "tinacms/dist/react";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { roadmapSteps } from "@/data/franchise";
 import { siteContent } from "@/data/site-content";
@@ -20,9 +21,11 @@ export default function Roadmap({ data }: { data?: typeof fallback }) {
           desc={s.desc}
           className="mb-14 md:mb-20"
           margin
+          eyebrowField={tinaField(s, "eyebrow")}
+          descField={tinaField(s, "desc")}
         >
-          {s.headingBefore}{" "}
-          <span className="text-brand-accent">{s.headingAccent}</span>
+          <span data-tina-field={tinaField(s, "headingBefore")}>{s.headingBefore}</span>{" "}
+          <span className="text-brand-accent" data-tina-field={tinaField(s, "headingAccent")}>{s.headingAccent}</span>
         </SectionHeader>
 
         {/* Timeline — 1 observer вместо 6 */}

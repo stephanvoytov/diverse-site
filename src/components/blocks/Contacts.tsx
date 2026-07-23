@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { tinaField } from "tinacms/dist/react";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -74,8 +75,10 @@ export default function Contacts({ data }: { data?: typeof fallback }) {
           className="mb-10 md:mb-14"
           margin
           dark
+          eyebrowField={tinaField(s, "eyebrow")}
+          descField={tinaField(s, "desc")}
         >
-          {s.heading}
+          <span data-tina-field={tinaField(s, "heading")}>{s.heading}</span>
         </SectionHeader>
 
         <motion.div
@@ -89,7 +92,7 @@ export default function Contacts({ data }: { data?: typeof fallback }) {
           <div>
             <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
               <div>
-                <label htmlFor="name" className="block text-xs label text-white/50 mb-2">
+                <label htmlFor="name" className="block text-xs label text-white/50 mb-2" data-tina-field={tinaField(s.form, "name")}>
                   {s.form.name} <span className="text-brand-accent">*</span>
                 </label>
                 <input
@@ -190,19 +193,19 @@ export default function Contacts({ data }: { data?: typeof fallback }) {
             <div className="space-y-8">
               {/* Реквизиты */}
               <div>
-                <p className="text-xs label text-white/40 mb-4">
+                <p className="text-xs label text-white/40 mb-4" data-tina-field={tinaField(s.sections, "details")}>
                   {s.sections.details}
                 </p>
-                <h3 className="text-xl font-bold text-white mb-1">{s.company.name}</h3>
-                <p className="text-sm text-white/40 mb-0.5">{s.company.inn}</p>
-                <p className="text-sm text-white/40">
+                <h3 className="text-xl font-bold text-white mb-1" data-tina-field={tinaField(s.company, "name")}>{s.company.name}</h3>
+                <p className="text-sm text-white/40 mb-0.5" data-tina-field={tinaField(s.company, "inn")}>{s.company.inn}</p>
+                <p className="text-sm text-white/40" data-tina-field={tinaField(s.company, "address")}>
                   {s.company.address}
                 </p>
               </div>
 
               {/* Email / Phone */}
               <div>
-                <p className="text-xs label text-white/40 mb-4">
+                <p className="text-xs label text-white/40 mb-4" data-tina-field={tinaField(s.sections, "contacts")}>
                   {s.sections.contacts}
                 </p>
                 <ul className="space-y-3">
@@ -227,7 +230,7 @@ export default function Contacts({ data }: { data?: typeof fallback }) {
 
               {/* Соцсети */}
               <div>
-                <p className="text-xs label text-white/40 mb-4">
+                <p className="text-xs label text-white/40 mb-4" data-tina-field={tinaField(s.sections, "socials")}>
                   {s.sections.socials}
                 </p>
                 <div className="flex flex-wrap gap-3">
@@ -248,7 +251,7 @@ export default function Contacts({ data }: { data?: typeof fallback }) {
             </div>
 
             {/* Нижний блок — можно добавить карту или что-то ещё */}
-            <p className="text-xs text-white/40 leading-relaxed">
+            <p className="text-xs text-white/40 leading-relaxed" data-tina-field={tinaField(s, "privacy")}>
               {s.privacy}
             </p>
           </div>

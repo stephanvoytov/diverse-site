@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { tinaField } from "tinacms/dist/react";
 import { plans } from "@/data/franchise";
 import { cardProfit } from "@/data/formats";
 import { useModal } from "@/lib/modal-context";
@@ -45,6 +46,7 @@ export default function Franchise({ data }: { data?: typeof fallback }) {
               visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: easeOut } },
             }}
             className="text-xs eyebrow text-brand-gray-300 mb-4"
+            data-tina-field={tinaField(s, "eyebrow")}
           >
             {s.eyebrow}
           </motion.p>
@@ -55,7 +57,7 @@ export default function Franchise({ data }: { data?: typeof fallback }) {
             }}
             className="section-title text-white"
           >
-            {s.heading}{" "}
+            <span data-tina-field={tinaField(s, "heading")}>{s.heading}</span>{" "}
             <span className="text-brand-accent">Diverse</span>
           </motion.h2>
           <motion.p
@@ -64,6 +66,7 @@ export default function Franchise({ data }: { data?: typeof fallback }) {
               visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: easeOut } },
             }}
             className="section-desc text-white/50"
+            data-tina-field={tinaField(s, "desc")}
           >
             {s.desc}
           </motion.p>
@@ -110,7 +113,7 @@ export default function Franchise({ data }: { data?: typeof fallback }) {
                   <p className="text-[28px] font-bold text-brand-accent mb-0.5">
                     {plan.investment}
                   </p>
-                  <p className="text-[11px] text-white/50 tracking-[0.1em] uppercase">
+                  <p className="text-[11px] text-white/50 tracking-[0.1em] uppercase" data-tina-field={tinaField(s.labels, "investment")}>
                     {s.labels.investment}
                   </p>
                 </div>
@@ -118,7 +121,7 @@ export default function Franchise({ data }: { data?: typeof fallback }) {
                   <p className="text-lg font-bold text-white">
                     {cardProfit[plan.id]}
                   </p>
-                  <p className="text-[11px] text-white/50 tracking-[0.1em] uppercase">
+                  <p className="text-[11px] text-white/50 tracking-[0.1em] uppercase" data-tina-field={tinaField(s.labels, "profitMonth")}>
                     {s.labels.profitMonth}
                   </p>
                 </div>
@@ -128,7 +131,7 @@ export default function Franchise({ data }: { data?: typeof fallback }) {
         </motion.div>
 
         {/* Disclaimer */}
-        <p className="text-center text-[10px] text-white/20 mt-4 md:mt-6">{s.disclaimer}</p>
+        <p className="text-center text-[10px] text-white/20 mt-4 md:mt-6" data-tina-field={tinaField(s, "disclaimer")}>{s.disclaimer}</p>
 
         {/* Bottom: CTA + links — компактно */}
         <motion.div
@@ -150,6 +153,7 @@ export default function Franchise({ data }: { data?: typeof fallback }) {
             <button
               onClick={openModal}
               className="btn-accent"
+              data-tina-field={tinaField(s, "cta")}
             >
               {s.cta}
             </button>
@@ -166,6 +170,7 @@ export default function Franchise({ data }: { data?: typeof fallback }) {
             <a
               href="/franchise/"
               className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors group"
+              data-tina-field={tinaField(s.links, "allConditions")}
             >
               {s.links.allConditions}
               <span className="group-hover:translate-x-1 transition-transform">→</span>
@@ -173,6 +178,7 @@ export default function Franchise({ data }: { data?: typeof fallback }) {
             <a
               href="/franchise/#gallery"
               className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors group"
+              data-tina-field={tinaField(s.links, "example")}
             >
               {s.links.example}
               <span className="group-hover:translate-x-1 transition-transform">→</span>

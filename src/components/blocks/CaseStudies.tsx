@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { tinaField } from "tinacms/dist/react";
 import SectionHeader from "@/components/shared/SectionHeader";
 import FadeIn from "@/components/shared/FadeIn";
 import { caseStudies } from "@/data/metrics";
@@ -33,9 +34,11 @@ export default function CaseStudies({ data }: { data?: typeof fallback }) {
           desc={s.desc}
           className="mb-12 md:mb-14"
           margin
+          eyebrowField={tinaField(s, "eyebrow")}
+          descField={tinaField(s, "desc")}
         >
-          {s.headingBefore}{" "}
-          <span className="text-brand-accent">{s.headingAccent}</span>
+          <span data-tina-field={tinaField(s, "headingBefore")}>{s.headingBefore}</span>{" "}
+          <span className="text-brand-accent" data-tina-field={tinaField(s, "headingAccent")}>{s.headingAccent}</span>
         </SectionHeader>
 
          {/* Cards */}
@@ -120,22 +123,22 @@ export default function CaseStudies({ data }: { data?: typeof fallback }) {
                 <div className="grid grid-cols-3 gap-2">
                   <div>
                     <p className="text-base font-bold text-brand-black">{cs.paybackPeriod}</p>
-                    <p className="text-[10px] text-brand-gray-400 tracking-[0.05em] uppercase">{s.labels.payback}</p>
+                    <p className="text-[10px] text-brand-gray-400 tracking-[0.05em] uppercase" data-tina-field={tinaField(s.labels, "payback")}>{s.labels.payback}</p>
                   </div>
                   <div>
                     <p className="text-base font-bold text-brand-accent">{cs.profitMonth}</p>
-                    <p className="text-[10px] text-brand-gray-400 tracking-[0.05em] uppercase">{s.labels.profitMonth}</p>
+                    <p className="text-[10px] text-brand-gray-400 tracking-[0.05em] uppercase" data-tina-field={tinaField(s.labels, "profitMonth")}>{s.labels.profitMonth}</p>
                   </div>
                   <div>
                     <p className="text-base font-bold text-brand-gray-500">{cs.investment}</p>
-                    <p className="text-[10px] text-brand-gray-400 tracking-[0.05em] uppercase">{s.labels.investment}</p>
+                    <p className="text-[10px] text-brand-gray-400 tracking-[0.05em] uppercase" data-tina-field={tinaField(s.labels, "investment")}>{s.labels.investment}</p>
                   </div>
                 </div>
 
                 {/* Opened */}
                 {cs.opened && (
                   <p className="text-xs text-brand-gray-400">
-                    {s.openedPrefix} {cs.opened} {s.openedSuffix}
+                    <span data-tina-field={tinaField(s, "openedPrefix")}>{s.openedPrefix}</span> {cs.opened} <span data-tina-field={tinaField(s, "openedSuffix")}>{s.openedSuffix}</span>
                     {cs.area !== "—" && ` · ${cs.area}`}
                   </p>
                 )}

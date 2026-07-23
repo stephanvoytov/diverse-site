@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { tinaField } from "tinacms/dist/react";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { trustPoints } from "@/data/brand";
 import { siteContent } from "@/data/site-content";
@@ -20,9 +21,11 @@ export default function TrustModel({ data }: { data?: typeof fallback }) {
           desc={s.desc}
           className="mb-12 md:mb-14"
           margin
+          eyebrowField={tinaField(s, "eyebrow")}
+          descField={tinaField(s, "desc")}
         >
-          {s.headingBefore}{" "}
-          <span className="text-brand-accent">{s.headingAccent}</span>
+          <span data-tina-field={tinaField(s, "headingBefore")}>{s.headingBefore}</span>{" "}
+          <span className="text-brand-accent" data-tina-field={tinaField(s, "headingAccent")}>{s.headingAccent}</span>
         </SectionHeader>
 
         {/* Trust cards — 1 observer вместо 4 */}

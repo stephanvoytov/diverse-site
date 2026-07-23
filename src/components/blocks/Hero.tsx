@@ -2,6 +2,7 @@
 
 import { useRef, Fragment } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { tinaField } from "tinacms/dist/react";
 import Button from "@/components/ui/Button";
 import CountUp from "@/components/ui/CountUp";
 import DiverseLogo from "@/components/shared/DiverseLogo";
@@ -82,6 +83,7 @@ export default function Hero({ data }: { data?: typeof fallback }) {
           <p
             className="hero-a opacity-0 text-xs md:text-sm eyebrow text-white/60 max-sm:mb-4 mb-5"
             style={{ animationDelay: '0.2s' }}
+            data-tina-field={tinaField(s, "tagline")}
           >
             {s.tagline}
           </p>
@@ -91,7 +93,7 @@ export default function Hero({ data }: { data?: typeof fallback }) {
             className="hero-a-lg opacity-0 flex flex-col max-md:text-[13vw] md:text-8xl lg:text-9xl font-bold text-white uppercase leading-none max-w-5xl"
             style={{ animationDelay: '0.35s' }}
           >
-            <span>{s.heading}</span>
+            <span data-tina-field={tinaField(s, "heading")}>{s.heading}</span>
             <span className="text-brand-accent -mt-1 sm:-mt-2 md:-mt-3 leading-none">
               <DiverseLogo className="h-[0.55em] w-auto block" />
             </span>
@@ -101,6 +103,7 @@ export default function Hero({ data }: { data?: typeof fallback }) {
           <p
             className="hero-a opacity-0 max-sm:mt-4 mt-5 max-sm:text-xs body-text text-white/70 max-w-2xl leading-relaxed"
             style={{ animationDelay: '0.5s' }}
+            data-tina-field={tinaField(s, "description")}
           >
             {s.description}
           </p>
@@ -109,6 +112,7 @@ export default function Hero({ data }: { data?: typeof fallback }) {
           <p
             className="hero-a opacity-0 max-sm:mt-3 mt-3 max-sm:text-sm body-text text-white/90 font-medium max-w-2xl leading-snug"
             style={{ animationDelay: '0.6s' }}
+            data-tina-field={tinaField(s, "pricing")}
           >
             {s.pricing}
           </p>
@@ -118,7 +122,7 @@ export default function Hero({ data }: { data?: typeof fallback }) {
             className="hero-a opacity-0 max-sm:mt-6 mt-8 flex flex-col sm:flex-row max-sm:gap-3 gap-3"
             style={{ animationDelay: '0.7s' }}
           >
-            <Button variant="accent" size="md" className="max-sm:py-[14px] sm:px-8 sm:py-4" onClick={openModal}>
+            <Button variant="accent" size="md" className="max-sm:py-[14px] sm:px-8 sm:py-4" onClick={openModal} data-tina-field={tinaField(s.cta, "consultation")}>
               {s.cta.consultation}
             </Button>
             <Button
@@ -126,6 +130,7 @@ export default function Hero({ data }: { data?: typeof fallback }) {
               size="md"
               onClick={() => document.getElementById("section-cases")?.scrollIntoView({ behavior: "smooth" })}
               className="border-white text-white hover:bg-white hover:text-black max-sm:py-[14px] sm:px-8 sm:py-4"
+              data-tina-field={tinaField(s.cta, "cases")}
             >
               {s.cta.cases}
             </Button>
@@ -143,10 +148,10 @@ export default function Hero({ data }: { data?: typeof fallback }) {
                 <Fragment key={stat.label}>
                   {i > 0 && <div className="w-px bg-white/20" />}
                   <div>
-                    <p className={`max-sm:text-xl text-2xl md:text-3xl font-bold ${isLast ? "text-brand-accent" : "text-white"}`}>
+                    <p className={`max-sm:text-xl text-2xl md:text-3xl font-bold ${isLast ? "text-brand-accent" : "text-white"}`} data-tina-field={tinaField(s.stats[i], "value")}>
                       {match ? <CountUp to={Number(match[1])} suffix={match[2]} className={`max-sm:text-xl text-2xl md:text-3xl font-bold ${isLast ? "text-brand-accent" : "text-white"}`} /> : stat.value}
                     </p>
-                    <p className="text-xs label text-white/50 mt-1">
+                    <p className="text-xs label text-white/50 mt-1" data-tina-field={tinaField(s.stats[i], "label")}>
                       {stat.label}
                     </p>
                   </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { tinaField } from "tinacms/dist/react";
 import CountUp from "@/components/ui/CountUp";
 import { aboutStats } from "@/data/brand";
 import { siteContent } from "@/data/site-content";
@@ -34,18 +35,18 @@ export default function About({ data }: { data?: typeof fallback }) {
           }}
         >
           <motion.div variants={fadeUp}>
-            <p className="text-xs eyebrow text-brand-gray-400 mb-4">
+            <p className="text-xs eyebrow text-brand-gray-400 mb-4" data-tina-field={tinaField(s, "eyebrow")}>
               {s.eyebrow}
             </p>
             <h2 className="section-title text-brand-black">
-              {s.headingBefore} <br />
-              <span className="text-brand-accent">{s.headingAccent}</span>{" "}
-              {s.headingAfter}
+              <span data-tina-field={tinaField(s, "headingBefore")}>{s.headingBefore}</span> <br />
+              <span className="text-brand-accent" data-tina-field={tinaField(s, "headingAccent")}>{s.headingAccent}</span>{" "}
+              <span data-tina-field={tinaField(s, "headingAfter")}>{s.headingAfter}</span>
             </h2>
           </motion.div>
 
           <motion.div variants={fadeUp} className="flex flex-col justify-end">
-            <p className="body-text text-brand-gray-400 leading-relaxed">
+            <p className="body-text text-brand-gray-400 leading-relaxed" data-tina-field={tinaField(s, "body")}>
               {s.body}
             </p>
           </motion.div>
@@ -105,6 +106,7 @@ export default function About({ data }: { data?: typeof fallback }) {
             <a
               href="/about/"
               className="inline-flex items-center gap-2 text-sm font-semibold text-brand-black hover:text-brand-accent transition-colors group"
+              data-tina-field={tinaField(s.links, "about")}
             >
               {s.links.about}
               <span className="group-hover:translate-x-1 transition-transform">→</span>
@@ -118,6 +120,7 @@ export default function About({ data }: { data?: typeof fallback }) {
             <a
               href="/collection/"
               className="inline-flex items-center gap-2 text-sm font-semibold text-brand-black hover:text-brand-accent transition-colors group"
+              data-tina-field={tinaField(s.links, "collection")}
             >
               {s.links.collection}
               <span className="group-hover:translate-x-1 transition-transform">→</span>

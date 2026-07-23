@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { tinaField } from "tinacms/dist/react";
 import { asset } from "@/lib/path";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { siteContent } from "@/data/site-content";
@@ -20,9 +21,11 @@ export default function KpRating({ data }: { data?: typeof fallback }) {
           desc={s.desc}
           className="mb-12"
           margin
+          eyebrowField={tinaField(s, "eyebrow")}
+          descField={tinaField(s, "desc")}
         >
-          <span className="text-brand-accent">{s.headingAccent}</span>{" "}
-          {s.headingAfter}
+          <span className="text-brand-accent" data-tina-field={tinaField(s, "headingAccent")}>{s.headingAccent}</span>{" "}
+          <span data-tina-field={tinaField(s, "headingAfter")}>{s.headingAfter}</span>
         </SectionHeader>
 
         <motion.div
@@ -53,12 +56,12 @@ export default function KpRating({ data }: { data?: typeof fallback }) {
                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#D12026"/>
               </svg>
               <div>
-                <p className="text-sm font-bold text-brand-black">{s.badge.rank}</p>
-                <p className="text-xs text-brand-gray-400">{s.badge.label}</p>
+                <p className="text-sm font-bold text-brand-black" data-tina-field={tinaField(s.badge, "rank")}>{s.badge.rank}</p>
+                <p className="text-xs text-brand-gray-400" data-tina-field={tinaField(s.badge, "label")}>{s.badge.label}</p>
               </div>
             </a>
 
-            <p className="body-text text-brand-gray-400 leading-relaxed">
+            <p className="body-text text-brand-gray-400 leading-relaxed" data-tina-field={tinaField(s, "body")}>
               {s.body}
             </p>
 
@@ -67,6 +70,7 @@ export default function KpRating({ data }: { data?: typeof fallback }) {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm font-semibold text-brand-accent hover:text-brand-accent-hover transition-colors group"
+              data-tina-field={tinaField(s, "cta")}
             >
               {s.cta}
               <span className="group-hover:translate-x-1 transition-transform">→</span>
@@ -94,9 +98,10 @@ export default function KpRating({ data }: { data?: typeof fallback }) {
                 height={705}
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="w-full h-auto group-hover:scale-[1.01] transition-transform duration-500"
+                data-tina-field={tinaField(s, "imageAlt")}
               />
             </a>
-            <p className="text-xs text-brand-gray-300 mt-3 text-center">
+            <p className="text-xs text-brand-gray-300 mt-3 text-center" data-tina-field={tinaField(s, "source")}>
               {s.source}
             </p>
           </motion.div>

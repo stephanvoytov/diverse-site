@@ -19,6 +19,10 @@ interface SectionHeaderProps {
   wide?: boolean;
   /** Добавить margin: "-60px" на viewport */
   margin?: boolean;
+  /** data-tina-field для eyebrow */
+  eyebrowField?: string;
+  /** data-tina-field для desc */
+  descField?: string;
 }
 
 export default function SectionHeader({
@@ -30,6 +34,8 @@ export default function SectionHeader({
   dark = false,
   wide = false,
   margin = false,
+  eyebrowField,
+  descField,
 }: SectionHeaderProps) {
   const viewport = margin ? { once: true, margin: "-60px" as const } : { once: true };
   const titleColor = dark ? "text-white" : "text-brand-black";
@@ -46,11 +52,11 @@ export default function SectionHeader({
       transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
     >
       {eyebrow && (
-        <p className={`text-xs eyebrow ${eyebrowColor} mb-4`}>{eyebrow}</p>
+        <p className={`text-xs eyebrow ${eyebrowColor} mb-4`} data-tina-field={eyebrowField}>{eyebrow}</p>
       )}
       <h2 className={`section-title ${titleColor}`}>{children}</h2>
       {desc && (
-        <p className={descClassName ?? `${descBase} ${descColor}`}>{desc}</p>
+        <p className={descClassName ?? `${descBase} ${descColor}`} data-tina-field={descField}>{desc}</p>
       )}
     </motion.div>
   );
