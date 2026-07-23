@@ -22,6 +22,7 @@ var config_default = defineConfig({
         label: "Hero (\u0433\u043B\u0430\u0432\u043D\u044B\u0439 \u044D\u043A\u0440\u0430\u043D)",
         path: "content/blocks/hero",
         format: "json",
+        ui: { router: () => "/" },
         fields: [
           { type: "string", name: "tagline", label: "\u0422\u044D\u0433\u043B\u0430\u0439\u043D" },
           { type: "string", name: "heading", label: "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A (H1)" },
@@ -53,6 +54,7 @@ var config_default = defineConfig({
         label: "About (\u041E \u0431\u0440\u0435\u043D\u0434\u0435)",
         path: "content/blocks/about",
         format: "json",
+        ui: { router: () => "/" },
         fields: [
           { type: "string", name: "eyebrow", label: "\u0410\u0439\u0431\u0440\u043E\u0443" },
           { type: "string", name: "headingBefore", label: "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A (\u0434\u043E \u0430\u043A\u0446\u0435\u043D\u0442\u0430)" },
@@ -75,6 +77,7 @@ var config_default = defineConfig({
         label: "Franchise (\u0424\u0440\u0430\u043D\u0448\u0438\u0437\u0430 \u043D\u0430 \u0433\u043B\u0430\u0432\u043D\u043E\u0439)",
         path: "content/blocks/franchise",
         format: "json",
+        ui: { router: () => "/" },
         fields: [
           { type: "string", name: "eyebrow", label: "\u0410\u0439\u0431\u0440\u043E\u0443" },
           { type: "string", name: "heading", label: "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A" },
@@ -106,6 +109,7 @@ var config_default = defineConfig({
         label: "MarketBlock (\u041F\u043E\u0447\u0435\u043C\u0443 \u0441\u0435\u0439\u0447\u0430\u0441)",
         path: "content/blocks/marketBlock",
         format: "json",
+        ui: { router: () => "/" },
         fields: [
           { type: "string", name: "eyebrow", label: "\u0410\u0439\u0431\u0440\u043E\u0443" },
           { type: "string", name: "headingBefore", label: "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A (\u0434\u043E \u0430\u043A\u0446\u0435\u043D\u0442\u0430)" },
@@ -125,6 +129,7 @@ var config_default = defineConfig({
         label: "TrustModel (\u041A\u0430\u043A \u0443\u0441\u0442\u0440\u043E\u0435\u043D\u0430 \u043C\u043E\u0434\u0435\u043B\u044C)",
         path: "content/blocks/trustModel",
         format: "json",
+        ui: { router: () => "/" },
         fields: [
           { type: "string", name: "eyebrow", label: "\u0410\u0439\u0431\u0440\u043E\u0443" },
           { type: "string", name: "headingBefore", label: "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A (\u0434\u043E \u0430\u043A\u0446\u0435\u043D\u0442\u0430)" },
@@ -137,6 +142,7 @@ var config_default = defineConfig({
         label: "Roadmap (\u041A\u0430\u043A \u043E\u0442\u043A\u0440\u044B\u0442\u044C)",
         path: "content/blocks/roadmap",
         format: "json",
+        ui: { router: () => "/" },
         fields: [
           { type: "string", name: "eyebrow", label: "\u0410\u0439\u0431\u0440\u043E\u0443" },
           { type: "string", name: "headingBefore", label: "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A (\u0434\u043E \u0430\u043A\u0446\u0435\u043D\u0442\u0430)" },
@@ -149,6 +155,7 @@ var config_default = defineConfig({
         label: "CaseStudies (\u041A\u0435\u0439\u0441\u044B)",
         path: "content/blocks/caseStudies",
         format: "json",
+        ui: { router: () => "/" },
         fields: [
           { type: "string", name: "eyebrow", label: "\u0410\u0439\u0431\u0440\u043E\u0443" },
           { type: "string", name: "headingBefore", label: "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A (\u0434\u043E \u0430\u043A\u0446\u0435\u043D\u0442\u0430)" },
@@ -175,6 +182,7 @@ var config_default = defineConfig({
         label: "FAQ (\u0427\u0430\u0441\u0442\u043E \u0441\u043F\u0440\u0430\u0448\u0438\u0432\u0430\u044E\u0442)",
         path: "content/blocks/faq",
         format: "json",
+        ui: { router: () => "/" },
         fields: [
           { type: "string", name: "eyebrow", label: "\u0410\u0439\u0431\u0440\u043E\u0443" },
           { type: "string", name: "headingBefore", label: "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A (\u0434\u043E \u0430\u043A\u0446\u0435\u043D\u0442\u0430)" },
@@ -187,6 +195,7 @@ var config_default = defineConfig({
         label: "Contacts (\u041A\u043E\u043D\u0442\u0430\u043A\u0442\u044B)",
         path: "content/blocks/contacts",
         format: "json",
+        ui: { router: () => "/" },
         fields: [
           { type: "string", name: "eyebrow", label: "\u0410\u0439\u0431\u0440\u043E\u0443" },
           { type: "string", name: "heading", label: "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A" },
@@ -243,6 +252,7 @@ var config_default = defineConfig({
         label: "Stores (\u041F\u0430\u0440\u0442\u043D\u0451\u0440\u0441\u043A\u0430\u044F \u0441\u0435\u0442\u044C)",
         path: "content/blocks/stores",
         format: "json",
+        ui: { router: () => "/" },
         fields: [
           { type: "string", name: "eyebrow", label: "\u0410\u0439\u0431\u0440\u043E\u0443" },
           { type: "string", name: "heading", label: "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A" },
@@ -266,6 +276,7 @@ var config_default = defineConfig({
         label: "KpRating (\u0420\u0435\u0439\u0442\u0438\u043D\u0433 \u041A\u041F)",
         path: "content/blocks/kpRating",
         format: "json",
+        ui: { router: () => "/" },
         fields: [
           { type: "string", name: "eyebrow", label: "\u0410\u0439\u0431\u0440\u043E\u0443" },
           { type: "string", name: "headingAccent", label: "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A (\u0430\u043A\u0446\u0435\u043D\u0442)" },
@@ -292,6 +303,7 @@ var config_default = defineConfig({
         label: "\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u0430: \u041E \u0431\u0440\u0435\u043D\u0434\u0435",
         path: "content/pages/about",
         format: "json",
+        ui: { router: () => "/about" },
         fields: [
           { type: "string", name: "heroEyebrow", label: "Hero: \u0430\u0439\u0431\u0440\u043E\u0443" },
           { type: "string", name: "heroHeading", label: "Hero: \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A", ui: { component: "textarea" } },
@@ -351,6 +363,7 @@ var config_default = defineConfig({
         label: "\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u0430: \u0424\u0440\u0430\u043D\u0448\u0438\u0437\u0430",
         path: "content/pages/franchise",
         format: "json",
+        ui: { router: () => "/franchise" },
         fields: [
           { type: "string", name: "heroEyebrow", label: "Hero: \u0430\u0439\u0431\u0440\u043E\u0443" },
           { type: "string", name: "heroHeading", label: "Hero: \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A", ui: { component: "textarea" } },
@@ -389,6 +402,7 @@ var config_default = defineConfig({
         label: "\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u0430: \u041A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u0438",
         path: "content/pages/collection",
         format: "json",
+        ui: { router: () => "/collection" },
         fields: [
           { type: "string", name: "heroEyebrow", label: "Hero: \u0430\u0439\u0431\u0440\u043E\u0443" },
           { type: "string", name: "heroHeading", label: "Hero: \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A", ui: { component: "textarea" } },
@@ -404,6 +418,7 @@ var config_default = defineConfig({
         label: "\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u0430: \u041C\u0430\u0433\u0430\u0437\u0438\u043D\u044B",
         path: "content/pages/stores",
         format: "json",
+        ui: { router: () => "/stores" },
         fields: [
           { type: "string", name: "heroEyebrow", label: "Hero: \u0430\u0439\u0431\u0440\u043E\u0443" },
           { type: "string", name: "heroHeading", label: "Hero: \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A", ui: { component: "textarea" } },

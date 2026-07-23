@@ -30,6 +30,7 @@ export default defineConfig({
         label: "Hero (главный экран)",
         path: "content/blocks/hero",
         format: "json",
+        ui: { router: () => "/" },
         fields: [
           { type: "string", name: "tagline", label: "Тэглайн" },
           { type: "string", name: "heading", label: "Заголовок (H1)" },
@@ -61,6 +62,7 @@ export default defineConfig({
         label: "About (О бренде)",
         path: "content/blocks/about",
         format: "json",
+        ui: { router: () => "/" },
         fields: [
           { type: "string", name: "eyebrow", label: "Айброу" },
           { type: "string", name: "headingBefore", label: "Заголовок (до акцента)" },
@@ -83,6 +85,7 @@ export default defineConfig({
         label: "Franchise (Франшиза на главной)",
         path: "content/blocks/franchise",
         format: "json",
+        ui: { router: () => "/" },
         fields: [
           { type: "string", name: "eyebrow", label: "Айброу" },
           { type: "string", name: "heading", label: "Заголовок" },
@@ -114,6 +117,7 @@ export default defineConfig({
         label: "MarketBlock (Почему сейчас)",
         path: "content/blocks/marketBlock",
         format: "json",
+        ui: { router: () => "/" },
         fields: [
           { type: "string", name: "eyebrow", label: "Айброу" },
           { type: "string", name: "headingBefore", label: "Заголовок (до акцента)" },
@@ -133,6 +137,7 @@ export default defineConfig({
         label: "TrustModel (Как устроена модель)",
         path: "content/blocks/trustModel",
         format: "json",
+        ui: { router: () => "/" },
         fields: [
           { type: "string", name: "eyebrow", label: "Айброу" },
           { type: "string", name: "headingBefore", label: "Заголовок (до акцента)" },
@@ -145,6 +150,7 @@ export default defineConfig({
         label: "Roadmap (Как открыть)",
         path: "content/blocks/roadmap",
         format: "json",
+        ui: { router: () => "/" },
         fields: [
           { type: "string", name: "eyebrow", label: "Айброу" },
           { type: "string", name: "headingBefore", label: "Заголовок (до акцента)" },
@@ -157,6 +163,7 @@ export default defineConfig({
         label: "CaseStudies (Кейсы)",
         path: "content/blocks/caseStudies",
         format: "json",
+        ui: { router: () => "/" },
         fields: [
           { type: "string", name: "eyebrow", label: "Айброу" },
           { type: "string", name: "headingBefore", label: "Заголовок (до акцента)" },
@@ -183,6 +190,7 @@ export default defineConfig({
         label: "FAQ (Часто спрашивают)",
         path: "content/blocks/faq",
         format: "json",
+        ui: { router: () => "/" },
         fields: [
           { type: "string", name: "eyebrow", label: "Айброу" },
           { type: "string", name: "headingBefore", label: "Заголовок (до акцента)" },
@@ -195,6 +203,7 @@ export default defineConfig({
         label: "Contacts (Контакты)",
         path: "content/blocks/contacts",
         format: "json",
+        ui: { router: () => "/" },
         fields: [
           { type: "string", name: "eyebrow", label: "Айброу" },
           { type: "string", name: "heading", label: "Заголовок" },
@@ -251,6 +260,7 @@ export default defineConfig({
         label: "Stores (Партнёрская сеть)",
         path: "content/blocks/stores",
         format: "json",
+        ui: { router: () => "/" },
         fields: [
           { type: "string", name: "eyebrow", label: "Айброу" },
           { type: "string", name: "heading", label: "Заголовок" },
@@ -274,6 +284,7 @@ export default defineConfig({
         label: "KpRating (Рейтинг КП)",
         path: "content/blocks/kpRating",
         format: "json",
+        ui: { router: () => "/" },
         fields: [
           { type: "string", name: "eyebrow", label: "Айброу" },
           { type: "string", name: "headingAccent", label: "Заголовок (акцент)" },
@@ -300,6 +311,7 @@ export default defineConfig({
         label: "Страница: О бренде",
         path: "content/pages/about",
         format: "json",
+        ui: { router: () => "/about" },
         fields: [
           { type: "string", name: "heroEyebrow", label: "Hero: айброу" },
           { type: "string", name: "heroHeading", label: "Hero: заголовок", ui: { component: "textarea" } },
@@ -359,6 +371,7 @@ export default defineConfig({
         label: "Страница: Франшиза",
         path: "content/pages/franchise",
         format: "json",
+        ui: { router: () => "/franchise" },
         fields: [
           { type: "string", name: "heroEyebrow", label: "Hero: айброу" },
           { type: "string", name: "heroHeading", label: "Hero: заголовок", ui: { component: "textarea" } },
@@ -397,6 +410,7 @@ export default defineConfig({
         label: "Страница: Коллекции",
         path: "content/pages/collection",
         format: "json",
+        ui: { router: () => "/collection" },
         fields: [
           { type: "string", name: "heroEyebrow", label: "Hero: айброу" },
           { type: "string", name: "heroHeading", label: "Hero: заголовок", ui: { component: "textarea" } },
@@ -412,6 +426,7 @@ export default defineConfig({
         label: "Страница: Магазины",
         path: "content/pages/stores",
         format: "json",
+        ui: { router: () => "/stores" },
         fields: [
           { type: "string", name: "heroEyebrow", label: "Hero: айброу" },
           { type: "string", name: "heroHeading", label: "Hero: заголовок", ui: { component: "textarea" } },
