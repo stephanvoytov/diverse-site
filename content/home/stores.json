@@ -1,0 +1,13 @@
+{
+  "_template": "homeStores",
+  "eyebrow": "Магазины",
+  "heading": "Партнёрская сеть ООО «ХАУС»",
+  "desc": "11 магазинов Diverse в 10 городах России и Казахстана",
+  "ghost": {
+    "label": "Ваш магазин",
+    "tooltip": "Откройте магазин Diverse по франшизе",
+    "sidebarYourCity": "Ваш город",
+    "sidebarCTA": "откройте по франшизе",
+    "sidebarSubtext": "Станьте партнёром ООО «ХАУС»"
+  }
+}

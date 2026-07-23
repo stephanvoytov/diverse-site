@@ -32,11 +32,14 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  let storesResult = null;
-  try {
-    storesResult = await client.queries.pageStores({ relativePath: "stores.json" });
-  } catch (e) {
-    console.warn("TinaCMS query failed for /stores, using fallback", e);
+  const [hero, storesSection, cta] = await Promise.allSettled([
+    client.queries.stores({ relativePath: "hero.json" }).catch(() => null),
+    client.queries.stores({ relativePath: "stores.json" }).catch(() => null),
+    client.queries.stores({ relativePath: "cta.json" }).catch(() => null),
+  ]);
+
+  function getResult<T>(result: PromiseSettledResult<T | null>): T | null {
+    return result.status === "fulfilled" ? result.value : null;
   }
 
   const breadcrumbSchema = {
@@ -73,7 +76,11 @@ export default async function Page() {
     <>
       <JsonLd data={breadcrumbSchema} />
       <JsonLd data={storesSchema} />
-      <StoresContent data={storesResult} />
+      <StoresContent
+        hero={getResult(hero)}
+        storesSection={getResult(storesSection)}
+        cta={getResult(cta)}
+      />
     </>
   );
 }

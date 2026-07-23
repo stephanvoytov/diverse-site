@@ -88,17 +88,17 @@ export default function ClientPage({ blocks }: ClientPageProps) {
       <JsonLd data={breadcrumbSchema} />
       <Header />
       <main>
-        <Hero data={hero?.data?.hero} />
-        <FadeIn><About data={about?.data?.about} /></FadeIn>
-        <FadeIn><KpRating data={kpRating?.data?.kpRating} /></FadeIn>
-        <FadeIn><Franchise data={franchise?.data?.franchise} /></FadeIn>
-        <FadeIn><MarketBlock data={marketBlock?.data?.marketBlock} /></FadeIn>
-        <FadeIn><TrustModel data={trustModel?.data?.trustModel} /></FadeIn>
-        <FadeIn><Roadmap data={roadmap?.data?.roadmap} /></FadeIn>
-        <FadeIn margin><CaseStudies data={caseStudies?.data?.caseStudies} /></FadeIn>
-        <FadeIn><StoresMap data={stores?.data?.stores} /></FadeIn>
-        <FadeIn><Faq data={faq?.data?.faq} /></FadeIn>
-        <FadeIn margin><Contacts data={contacts?.data?.contacts} /></FadeIn>
+        <Hero data={hero?.data?.home} />
+        <FadeIn><About data={about?.data?.home} /></FadeIn>
+        <FadeIn><KpRating data={kpRating?.data?.home} /></FadeIn>
+        <FadeIn><Franchise data={franchise?.data?.home} /></FadeIn>
+        <FadeIn><MarketBlock data={marketBlock?.data?.home} /></FadeIn>
+        <FadeIn><TrustModel data={trustModel?.data?.home} /></FadeIn>
+        <FadeIn><Roadmap data={roadmap?.data?.home} /></FadeIn>
+        <FadeIn margin><CaseStudies data={caseStudies?.data?.home} /></FadeIn>
+        <FadeIn><StoresMap data={stores?.data?.home} /></FadeIn>
+        <FadeIn><Faq data={faq?.data?.home} /></FadeIn>
+        <FadeIn margin><Contacts data={contacts?.data?.home} /></FadeIn>
       </main>
       <Footer />
     </>

@@ -1,266 +1,286 @@
-fragment HeroParts on Hero {
+fragment HomeParts on Home {
   __typename
-  tagline
-  heading
-  description
-  pricing
-  cta {
-    __typename
-    consultation
-    cases
+  ... on HomeHomeHero {
+    tagline
+    heading
+    description
+    pricing
+    cta {
+      __typename
+      consultation
+      cases
+    }
+    stats {
+      __typename
+      value
+      label
+    }
   }
-  stats {
-    __typename
-    value
-    label
+  ... on HomeHomeAbout {
+    eyebrow
+    headingBefore
+    headingAccent
+    headingAfter
+    body
+    aboutLinks {
+      __typename
+      about
+      collection
+    }
+  }
+  ... on HomeHomeFranchise {
+    eyebrow
+    heading
+    desc
+    ctaButton
+    franchiseLabels {
+      __typename
+      investment
+      profitMonth
+    }
+    franchiseLinks {
+      __typename
+      allConditions
+      example
+    }
+    disclaimer
+  }
+  ... on HomeHomeMarketBlock {
+    eyebrow
+    headingBefore
+    headingAccent
+    desc
+    reasons
+  }
+  ... on HomeHomeTrustModel {
+    eyebrow
+    headingBefore
+    headingAccent
+    desc
+  }
+  ... on HomeHomeRoadmap {
+    eyebrow
+    headingBefore
+    headingAccent
+    desc
+  }
+  ... on HomeHomeCaseStudies {
+    eyebrow
+    headingBefore
+    headingAccent
+    desc
+    caseLabels {
+      __typename
+      payback
+      profitMonth
+      investment
+      video
+      photo
+    }
+    openedPrefix
+    openedSuffix
+  }
+  ... on HomeHomeFaq {
+    eyebrow
+    headingBefore
+    headingAccent
+    desc
+  }
+  ... on HomeHomeContacts {
+    eyebrow
+    heading
+    desc
+    form {
+      __typename
+      name
+      namePlaceholder
+      phone
+      phonePlaceholder
+      format
+      formatPlaceholder
+      message
+      messagePlaceholder
+      submit
+      submitting
+      submitted
+      success
+      error
+      telegram
+      or
+      mail
+      leadQueueFallback
+    }
+    company {
+      __typename
+      name
+      inn
+      address
+    }
+    sections {
+      __typename
+      details
+      contacts
+      socials
+    }
+    privacy
+  }
+  ... on HomeHomeStores {
+    eyebrow
+    heading
+    desc
+    ghost {
+      __typename
+      label
+      tooltip
+      sidebarYourCity
+      sidebarCTA
+      sidebarSubtext
+    }
+  }
+  ... on HomeHomeKpRating {
+    eyebrow
+    headingAccent
+    headingAfter
+    desc
+    badge {
+      __typename
+      rank
+      label
+    }
+    body
+    ctaLink
+    source
+    imageAlt
   }
 }
 
 fragment AboutParts on About {
   __typename
-  eyebrow
-  headingBefore
-  headingAccent
-  headingAfter
-  body
-  links {
-    __typename
-    about
-    collection
+  ... on AboutAboutHero {
+    heroEyebrow
+    heroHeading
+    heroDesc
+  }
+  ... on AboutAboutStats {
+    stats {
+      __typename
+      num
+      suffix
+      label
+      accent
+    }
+  }
+  ... on AboutAboutPhilosophy {
+    philosophyEyebrow
+    philosophyHeading
+    philosophyBody1
+    philosophyBody2
+  }
+  ... on AboutAboutAdvantages {
+    advantagesEyebrow
+    advantagesHeading
+    advantages {
+      __typename
+      title
+      desc
+    }
+  }
+  ... on AboutAboutTimeline {
+    timelineEyebrow
+    timelineHeading
+    milestones {
+      __typename
+      year
+      title
+      desc
+    }
+  }
+  ... on AboutAboutRepresentative {
+    repEyebrow
+    repHeading
+    repBody
+    repInn
+    repAddress
+  }
+  ... on AboutAboutCta {
+    ctaHeading
+    ctaButton
   }
 }
 
 fragment FranchiseParts on Franchise {
   __typename
-  eyebrow
-  heading
-  desc
-  cta
-  labels {
-    __typename
-    investment
-    profitMonth
+  ... on FranchiseFranchiseHero {
+    heroEyebrow
+    heroHeading
+    heroDesc
   }
-  links {
-    __typename
-    allConditions
-    example
+  ... on FranchiseFranchisePlans {
+    plansEyebrow
+    plansDesc
+    plansHeading
   }
-  disclaimer
+  ... on FranchiseFranchiseComparison {
+    comparisonEyebrow
+    comparisonHeading
+  }
+  ... on FranchiseFranchiseFinancial {
+    financialEyebrow
+    financialDesc
+    financialHeading
+    financialRows {
+      __typename
+      label
+      value
+      detail
+      accent
+    }
+    seasonalityNote
+  }
+  ... on FranchiseFranchiseBenefits {
+    benefitsEyebrow
+    benefitsHeading
+  }
+  ... on FranchiseFranchiseGallery {
+    galleryEyebrow
+    galleryHeading
+  }
+  ... on FranchiseFranchiseContact {
+    contactHeading
+    contactDesc
+  }
 }
 
-fragment MarketBlockParts on MarketBlock {
+fragment PageCollectionsParts on PageCollections {
   __typename
-  eyebrow
-  headingBefore
-  headingAccent
-  desc
-  reasons
-}
-
-fragment TrustModelParts on TrustModel {
-  __typename
-  eyebrow
-  headingBefore
-  headingAccent
-  desc
-}
-
-fragment RoadmapParts on Roadmap {
-  __typename
-  eyebrow
-  headingBefore
-  headingAccent
-  desc
-}
-
-fragment CaseStudiesParts on CaseStudies {
-  __typename
-  eyebrow
-  headingBefore
-  headingAccent
-  desc
-  labels {
-    __typename
-    payback
-    profitMonth
-    investment
-    video
-    photo
+  ... on PageCollectionsCollectionHero {
+    heroEyebrow
+    heroHeading
+    heroDesc
   }
-  openedPrefix
-  openedSuffix
-}
-
-fragment FaqParts on Faq {
-  __typename
-  eyebrow
-  headingBefore
-  headingAccent
-  desc
-}
-
-fragment ContactsParts on Contacts {
-  __typename
-  eyebrow
-  heading
-  desc
-  form {
-    __typename
-    name
-    namePlaceholder
-    phone
-    phonePlaceholder
-    format
-    formatPlaceholder
-    message
-    messagePlaceholder
-    submit
-    submitting
-    submitted
-    success
-    error
-    telegram
-    or
-    mail
-    leadQueueFallback
+  ... on PageCollectionsCollectionCta {
+    ctaEyebrow
+    ctaHeading
+    ctaDesc
+    ctaButton
   }
-  company {
-    __typename
-    name
-    inn
-    address
-  }
-  sections {
-    __typename
-    details
-    contacts
-    socials
-  }
-  privacy
 }
 
 fragment StoresParts on Stores {
   __typename
-  eyebrow
-  heading
-  desc
-  ghost {
-    __typename
-    label
-    tooltip
-    sidebarYourCity
-    sidebarCTA
-    sidebarSubtext
+  ... on StoresStoresHero {
+    heroEyebrow
+    heroHeading
+    heroDesc
   }
-}
-
-fragment KpRatingParts on KpRating {
-  __typename
-  eyebrow
-  headingAccent
-  headingAfter
-  desc
-  badge {
-    __typename
-    rank
-    label
+  ... on StoresStoresList {
+    storesEyebrow
+    storesDesc
+    storesHeading
   }
-  body
-  cta
-  source
-  imageAlt
-}
-
-fragment PageAboutParts on PageAbout {
-  __typename
-  heroEyebrow
-  heroHeading
-  heroDesc
-  stats {
-    __typename
-    num
-    suffix
-    label
-    accent
+  ... on StoresStoresCta {
+    ctaHeading
+    ctaDesc
+    ctaButton
   }
-  philosophyEyebrow
-  philosophyHeading
-  philosophyBody1
-  philosophyBody2
-  advantagesEyebrow
-  advantagesHeading
-  advantages {
-    __typename
-    title
-    desc
-  }
-  timelineEyebrow
-  timelineHeading
-  milestones {
-    __typename
-    year
-    title
-    desc
-  }
-  repEyebrow
-  repHeading
-  repBody
-  repInn
-  repAddress
-  ctaHeading
-  ctaButton
-}
-
-fragment PageFranchiseParts on PageFranchise {
-  __typename
-  heroEyebrow
-  heroHeading
-  heroDesc
-  plansEyebrow
-  plansDesc
-  plansHeading
-  comparisonEyebrow
-  comparisonHeading
-  financialEyebrow
-  financialDesc
-  financialHeading
-  financialRows {
-    __typename
-    label
-    value
-    detail
-    accent
-  }
-  seasonalityNote
-  benefitsEyebrow
-  benefitsHeading
-  galleryEyebrow
-  galleryHeading
-  contactHeading
-  contactDesc
-}
-
-fragment PageCollectionParts on PageCollection {
-  __typename
-  heroEyebrow
-  heroHeading
-  heroDesc
-  ctaEyebrow
-  ctaHeading
-  ctaDesc
-  ctaButton
-}
-
-fragment PageStoresParts on PageStores {
-  __typename
-  heroEyebrow
-  heroHeading
-  heroDesc
-  storesEyebrow
-  storesDesc
-  storesHeading
-  ctaHeading
-  ctaDesc
-  ctaButton
 }

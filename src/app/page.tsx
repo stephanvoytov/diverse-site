@@ -4,17 +4,17 @@ import ClientPage from "./client-page";
 export default async function Home() {
   const [hero, about, kpRating, franchise, marketBlock, trustModel, roadmap, caseStudies, faq, contacts, stores] =
     await Promise.allSettled([
-      client.queries.hero({ relativePath: "hero.json" }),
-      client.queries.about({ relativePath: "about.json" }),
-      client.queries.kpRating({ relativePath: "kpRating.json" }),
-      client.queries.franchise({ relativePath: "franchise.json" }),
-      client.queries.marketBlock({ relativePath: "marketBlock.json" }),
-      client.queries.trustModel({ relativePath: "trustModel.json" }),
-      client.queries.roadmap({ relativePath: "roadmap.json" }),
-      client.queries.caseStudies({ relativePath: "caseStudies.json" }),
-      client.queries.faq({ relativePath: "faq.json" }),
-      client.queries.contacts({ relativePath: "contacts.json" }),
-      client.queries.stores({ relativePath: "stores.json" }),
+      client.queries.home({ relativePath: "hero.json" }),
+      client.queries.home({ relativePath: "about.json" }),
+      client.queries.home({ relativePath: "kpRating.json" }),
+      client.queries.home({ relativePath: "franchise.json" }),
+      client.queries.home({ relativePath: "marketBlock.json" }),
+      client.queries.home({ relativePath: "trustModel.json" }),
+      client.queries.home({ relativePath: "roadmap.json" }),
+      client.queries.home({ relativePath: "caseStudies.json" }),
+      client.queries.home({ relativePath: "faq.json" }),
+      client.queries.home({ relativePath: "contacts.json" }),
+      client.queries.home({ relativePath: "stores.json" }),
     ]);
 
   function getResult<T>(result: PromiseSettledResult<T>): T | null {

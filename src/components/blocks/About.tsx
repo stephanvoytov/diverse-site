@@ -106,9 +106,9 @@ export default function About({ data }: { data?: typeof fallback }) {
             <a
               href="/about/"
               className="inline-flex items-center gap-2 text-sm font-semibold text-brand-black hover:text-brand-accent transition-colors group"
-              data-tina-field={tinaField(s.links, "about")}
+              data-tina-field={tinaField(s.aboutLinks, "about")}
             >
-              {s.links.about}
+              {s.aboutLinks.about}
               <span className="group-hover:translate-x-1 transition-transform">→</span>
             </a>
           </motion.div>
@@ -120,9 +120,9 @@ export default function About({ data }: { data?: typeof fallback }) {
             <a
               href="/collection/"
               className="inline-flex items-center gap-2 text-sm font-semibold text-brand-black hover:text-brand-accent transition-colors group"
-              data-tina-field={tinaField(s.links, "collection")}
+              data-tina-field={tinaField(s.aboutLinks, "collection")}
             >
-              {s.links.collection}
+              {s.aboutLinks.collection}
               <span className="group-hover:translate-x-1 transition-transform">→</span>
             </a>
           </motion.div>

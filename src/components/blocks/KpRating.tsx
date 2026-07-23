@@ -70,9 +70,9 @@ export default function KpRating({ data }: { data?: typeof fallback }) {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm font-semibold text-brand-accent hover:text-brand-accent-hover transition-colors group"
-              data-tina-field={tinaField(s, "cta")}
+              data-tina-field={tinaField(s, "ctaLink")}
             >
-              {s.cta}
+              {s.ctaLink}
               <span className="group-hover:translate-x-1 transition-transform">→</span>
             </a>
           </motion.div>

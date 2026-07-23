@@ -31,28 +31,65 @@ interface TinaResult {
   variables: Record<string, unknown>;
 }
 
-export default function AboutContent({ data }: { data: TinaResult | null }) {
-  const { data: tinaData } = useTina(data || { data: {}, query: "", variables: {} });
-  const s = (tinaData?.pageAbout || {}) as {
+const EMPTY: TinaResult = { data: {}, query: "", variables: {} };
+
+export default function AboutContent({
+  hero,
+  stats,
+  philosophy,
+  advantages,
+  timeline,
+  representative,
+  cta,
+}: {
+  hero: TinaResult | null;
+  stats: TinaResult | null;
+  philosophy: TinaResult | null;
+  advantages: TinaResult | null;
+  timeline: TinaResult | null;
+  representative: TinaResult | null;
+  cta: TinaResult | null;
+}) {
+  const { data: heroData } = useTina(hero || EMPTY);
+  const { data: statsData } = useTina(stats || EMPTY);
+  const { data: philosophyData } = useTina(philosophy || EMPTY);
+  const { data: advantagesData } = useTina(advantages || EMPTY);
+  const { data: timelineData } = useTina(timeline || EMPTY);
+  const { data: repData } = useTina(representative || EMPTY);
+  const { data: ctaData } = useTina(cta || EMPTY);
+
+  const h = (heroData?.about || {}) as {
     heroEyebrow?: string;
     heroHeading?: string;
     heroDesc?: string;
+  };
+  const s = (statsData?.about || {}) as {
     stats?: Array<{ num?: number; suffix?: string; label?: string; accent?: boolean }>;
+  };
+  const p = (philosophyData?.about || {}) as {
     philosophyEyebrow?: string;
     philosophyHeading?: string;
     philosophyBody1?: string;
     philosophyBody2?: string;
+  };
+  const a = (advantagesData?.about || {}) as {
     advantagesEyebrow?: string;
     advantagesHeading?: string;
     advantages?: Array<{ title?: string; desc?: string }>;
+  };
+  const t = (timelineData?.about || {}) as {
     timelineEyebrow?: string;
     timelineHeading?: string;
     milestones?: Array<{ year?: string; title?: string; desc?: string }>;
+  };
+  const r = (repData?.about || {}) as {
     repEyebrow?: string;
     repHeading?: string;
     repBody?: string;
     repInn?: string;
     repAddress?: string;
+  };
+  const c = (ctaData?.about || {}) as {
     ctaHeading?: string;
     ctaButton?: string;
   };
@@ -70,26 +107,26 @@ export default function AboutContent({ data }: { data: TinaResult | null }) {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, ease: easeOut }}
-              data-tina-field={tinaField(s, "heroEyebrow")}
+              data-tina-field={tinaField(h, "heroEyebrow")}
             >
-              {s.heroEyebrow}
+              {h.heroEyebrow}
             </motion.p>
             <motion.h1
               className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-5"
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1, ease: easeOut }}
-              data-tina-field={tinaField(s, "heroHeading")}
-              dangerouslySetInnerHTML={{ __html: s.heroHeading || "" }}
+              data-tina-field={tinaField(h, "heroHeading")}
+              dangerouslySetInnerHTML={{ __html: h.heroHeading || "" }}
             />
             <motion.p
               className="body-text text-white/60 max-w-2xl mx-auto"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.2, ease: easeOut }}
-              data-tina-field={tinaField(s, "heroDesc")}
+              data-tina-field={tinaField(h, "heroDesc")}
             >
-              {s.heroDesc}
+              {h.heroDesc}
             </motion.p>
           </div>
         </section>
@@ -131,10 +168,10 @@ export default function AboutContent({ data }: { data: TinaResult | null }) {
         <section data-header="light" className="bg-brand-gray-100 py-20 md:py-28">
           <div className="container-brand max-w-4xl">
             <SectionHeader
-              eyebrow={s.philosophyEyebrow}
-              eyebrowField={tinaField(s, "philosophyEyebrow")}
+              eyebrow={p.philosophyEyebrow}
+              eyebrowField={tinaField(p, "philosophyEyebrow")}
             >
-              <span data-tina-field={tinaField(s, "philosophyHeading")} dangerouslySetInnerHTML={{ __html: s.philosophyHeading || "" }} />
+              <span data-tina-field={tinaField(p, "philosophyHeading")} dangerouslySetInnerHTML={{ __html: p.philosophyHeading || "" }} />
             </SectionHeader>
 
             <motion.div
@@ -146,8 +183,8 @@ export default function AboutContent({ data }: { data: TinaResult | null }) {
                 visible: { transition: { staggerChildren: 0.1 } },
               }}
             >
-              <motion.p variants={fadeUp} data-tina-field={tinaField(s, "philosophyBody1")}>
-                {s.philosophyBody1}
+              <motion.p variants={fadeUp} data-tina-field={tinaField(p, "philosophyBody1")}>
+                {p.philosophyBody1}
               </motion.p>
 
               {/* Фото бренда — разбивает текст */}
@@ -164,8 +201,8 @@ export default function AboutContent({ data }: { data: TinaResult | null }) {
                 </div>
               </motion.div>
 
-              <motion.p variants={fadeUp} data-tina-field={tinaField(s, "philosophyBody2")}>
-                {s.philosophyBody2}
+              <motion.p variants={fadeUp} data-tina-field={tinaField(p, "philosophyBody2")}>
+                {p.philosophyBody2}
               </motion.p>
             </motion.div>
           </div>
@@ -175,10 +212,10 @@ export default function AboutContent({ data }: { data: TinaResult | null }) {
         <section data-header="light" className="bg-white py-20 md:py-28">
           <div className="container-brand">
             <SectionHeader
-              eyebrow={s.advantagesEyebrow}
-              eyebrowField={tinaField(s, "advantagesEyebrow")}
+              eyebrow={a.advantagesEyebrow}
+              eyebrowField={tinaField(a, "advantagesEyebrow")}
             >
-              <span data-tina-field={tinaField(s, "advantagesHeading")} dangerouslySetInnerHTML={{ __html: s.advantagesHeading || "" }} />
+              <span data-tina-field={tinaField(a, "advantagesHeading")} dangerouslySetInnerHTML={{ __html: a.advantagesHeading || "" }} />
             </SectionHeader>
 
             <motion.div
@@ -188,7 +225,7 @@ export default function AboutContent({ data }: { data: TinaResult | null }) {
               viewport={{ once: true }}
               variants={stagger}
             >
-              {(s.advantages || []).map((col) => (
+              {(a.advantages || []).map((col) => (
                 <motion.div
                   key={col.title}
                   variants={fadeUp}
@@ -206,10 +243,10 @@ export default function AboutContent({ data }: { data: TinaResult | null }) {
         <section data-header="light" className="bg-brand-gray-100 py-20 md:py-28">
           <div className="container-brand">
             <SectionHeader
-              eyebrow={s.timelineEyebrow}
-              eyebrowField={tinaField(s, "timelineEyebrow")}
+              eyebrow={t.timelineEyebrow}
+              eyebrowField={tinaField(t, "timelineEyebrow")}
             >
-              <span data-tina-field={tinaField(s, "timelineHeading")} dangerouslySetInnerHTML={{ __html: s.timelineHeading || "" }} />
+              <span data-tina-field={tinaField(t, "timelineHeading")} dangerouslySetInnerHTML={{ __html: t.timelineHeading || "" }} />
             </SectionHeader>
 
             <motion.div
@@ -223,7 +260,7 @@ export default function AboutContent({ data }: { data: TinaResult | null }) {
             >
               <div className="absolute left-[19px] top-0 bottom-0 w-px bg-brand-gray-300 md:left-1/2 md:-translate-x-px" />
 
-              {(s.milestones || []).map((m, i) => {
+              {(t.milestones || []).map((m, i) => {
                 const isLeft = i % 2 === 0;
                 return (
                   <motion.div
@@ -286,18 +323,18 @@ export default function AboutContent({ data }: { data: TinaResult | null }) {
                   visible: { transition: { staggerChildren: 0.1 } },
                 }}
               >
-                <motion.p variants={fadeUp} className="text-xs eyebrow text-brand-gray-400 mb-4" data-tina-field={tinaField(s, "repEyebrow")}>{s.repEyebrow}</motion.p>
-                <motion.h2 variants={fadeUp} className="section-title text-brand-black mb-6" data-tina-field={tinaField(s, "repHeading")}>
-                  {s.repHeading}
+                <motion.p variants={fadeUp} className="text-xs eyebrow text-brand-gray-400 mb-4" data-tina-field={tinaField(r, "repEyebrow")}>{r.repEyebrow}</motion.p>
+                <motion.h2 variants={fadeUp} className="section-title text-brand-black mb-6" data-tina-field={tinaField(r, "repHeading")}>
+                  {r.repHeading}
                 </motion.h2>
-                <motion.p variants={fadeUp} className="body-text text-brand-gray-400 leading-relaxed max-w-2xl mx-auto mb-8" data-tina-field={tinaField(s, "repBody")}>
-                  {s.repBody}
+                <motion.p variants={fadeUp} className="body-text text-brand-gray-400 leading-relaxed max-w-2xl mx-auto mb-8" data-tina-field={tinaField(r, "repBody")}>
+                  {r.repBody}
                 </motion.p>
                 <motion.div variants={fadeUp} className="inline-flex items-center gap-2 text-sm text-brand-gray-400">
                   <span className="w-2 h-2 rounded-full bg-brand-accent" />
-                  <span data-tina-field={tinaField(s, "repInn")}>{s.repInn}</span>
+                  <span data-tina-field={tinaField(r, "repInn")}>{r.repInn}</span>
                   <span className="w-2 h-2 rounded-full bg-brand-accent" />
-                  <span data-tina-field={tinaField(s, "repAddress")}>{s.repAddress}</span>
+                  <span data-tina-field={tinaField(r, "repAddress")}>{r.repAddress}</span>
                 </motion.div>
               </motion.div>
             </div>
@@ -318,16 +355,16 @@ export default function AboutContent({ data }: { data: TinaResult | null }) {
               <motion.h2
                 variants={fadeUp}
                 className="section-title text-white mb-6"
-                data-tina-field={tinaField(s, "ctaHeading")}
-                dangerouslySetInnerHTML={{ __html: s.ctaHeading || "" }}
+                data-tina-field={tinaField(c, "ctaHeading")}
+                dangerouslySetInnerHTML={{ __html: c.ctaHeading || "" }}
               />
               <motion.div variants={fadeUp12}>
                 <button
                   onClick={openModal}
                   className="btn-accent"
-                  data-tina-field={tinaField(s, "ctaButton")}
+                  data-tina-field={tinaField(c, "ctaButton")}
                 >
-                  {s.ctaButton}
+                  {c.ctaButton}
                 </button>
               </motion.div>
             </motion.div>

@@ -85,7 +85,7 @@ export default function CaseStudies({ data }: { data?: typeof fallback }) {
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M8 5v14l11-7z" />
                     </svg>
-                    {s.labels.video}
+                    {s.caseLabels.video}
                   </button>
                 )}
                 {isVideo && cs.youtubeId && (
@@ -96,7 +96,7 @@ export default function CaseStudies({ data }: { data?: typeof fallback }) {
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M6 18L18 6M6 6l12 12" />
                     </svg>
-                    {s.labels.photo}
+                    {s.caseLabels.photo}
                   </button>
                 )}
               </div>
@@ -123,15 +123,15 @@ export default function CaseStudies({ data }: { data?: typeof fallback }) {
                 <div className="grid grid-cols-3 gap-2">
                   <div>
                     <p className="text-base font-bold text-brand-black">{cs.paybackPeriod}</p>
-                    <p className="text-[10px] text-brand-gray-400 tracking-[0.05em] uppercase" data-tina-field={tinaField(s.labels, "payback")}>{s.labels.payback}</p>
+                    <p className="text-[10px] text-brand-gray-400 tracking-[0.05em] uppercase" data-tina-field={tinaField(s.caseLabels, "payback")}>{s.caseLabels.payback}</p>
                   </div>
                   <div>
                     <p className="text-base font-bold text-brand-accent">{cs.profitMonth}</p>
-                    <p className="text-[10px] text-brand-gray-400 tracking-[0.05em] uppercase" data-tina-field={tinaField(s.labels, "profitMonth")}>{s.labels.profitMonth}</p>
+                    <p className="text-[10px] text-brand-gray-400 tracking-[0.05em] uppercase" data-tina-field={tinaField(s.caseLabels, "profitMonth")}>{s.caseLabels.profitMonth}</p>
                   </div>
                   <div>
                     <p className="text-base font-bold text-brand-gray-500">{cs.investment}</p>
-                    <p className="text-[10px] text-brand-gray-400 tracking-[0.05em] uppercase" data-tina-field={tinaField(s.labels, "investment")}>{s.labels.investment}</p>
+                    <p className="text-[10px] text-brand-gray-400 tracking-[0.05em] uppercase" data-tina-field={tinaField(s.caseLabels, "investment")}>{s.caseLabels.investment}</p>
                   </div>
                 </div>
 

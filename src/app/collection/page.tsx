@@ -37,11 +37,13 @@ export const metadata: Metadata = {
 };
 
 export default async function CollectionPage() {
-  let collectionResult = null;
-  try {
-    collectionResult = await client.queries.pageCollection({ relativePath: "collection.json" });
-  } catch (e) {
-    console.warn("TinaCMS query failed for /collection, using fallback", e);
+  const [hero, cta] = await Promise.allSettled([
+    client.queries.pageCollections({ relativePath: "hero.json" }).catch(() => null),
+    client.queries.pageCollections({ relativePath: "cta.json" }).catch(() => null),
+  ]);
+
+  function getResult<T>(result: PromiseSettledResult<T | null>): T | null {
+    return result.status === "fulfilled" ? result.value : null;
   }
 
   const breadcrumbSchema = {
@@ -57,7 +59,10 @@ export default async function CollectionPage() {
   return (
     <>
       <JsonLd data={breadcrumbSchema} />
-      <CollectionContent data={collectionResult} />
+      <CollectionContent
+        hero={getResult(hero)}
+        cta={getResult(cta)}
+      />
     </>
   );
 }

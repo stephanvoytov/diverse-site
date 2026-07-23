@@ -1,5 +1,5 @@
-query hero($relativePath: String!) {
-  hero(relativePath: $relativePath) {
+query home($relativePath: String!) {
+  home(relativePath: $relativePath) {
     ... on Document {
       _sys {
         filename
@@ -12,12 +12,12 @@ query hero($relativePath: String!) {
       }
       id
     }
-    ...HeroParts
+    ...HomeParts
   }
 }
 
-query heroConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: HeroFilter) {
-  heroConnection(
+query homeConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: HomeFilter) {
+  homeConnection(
     before: $before
     after: $after
     first: $first
@@ -47,7 +47,7 @@ query heroConnection($before: String, $after: String, $first: Float, $last: Floa
           }
           id
         }
-        ...HeroParts
+        ...HomeParts
       }
     }
   }
@@ -163,8 +163,8 @@ query franchiseConnection($before: String, $after: String, $first: Float, $last:
   }
 }
 
-query marketBlock($relativePath: String!) {
-  marketBlock(relativePath: $relativePath) {
+query pageCollections($relativePath: String!) {
+  pageCollections(relativePath: $relativePath) {
     ... on Document {
       _sys {
         filename
@@ -177,12 +177,12 @@ query marketBlock($relativePath: String!) {
       }
       id
     }
-    ...MarketBlockParts
+    ...PageCollectionsParts
   }
 }
 
-query marketBlockConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: MarketBlockFilter) {
-  marketBlockConnection(
+query pageCollectionsConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PageCollectionsFilter) {
+  pageCollectionsConnection(
     before: $before
     after: $after
     first: $first
@@ -212,282 +212,7 @@ query marketBlockConnection($before: String, $after: String, $first: Float, $las
           }
           id
         }
-        ...MarketBlockParts
-      }
-    }
-  }
-}
-
-query trustModel($relativePath: String!) {
-  trustModel(relativePath: $relativePath) {
-    ... on Document {
-      _sys {
-        filename
-        basename
-        hasReferences
-        breadcrumbs
-        path
-        relativePath
-        extension
-      }
-      id
-    }
-    ...TrustModelParts
-  }
-}
-
-query trustModelConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: TrustModelFilter) {
-  trustModelConnection(
-    before: $before
-    after: $after
-    first: $first
-    last: $last
-    sort: $sort
-    filter: $filter
-  ) {
-    pageInfo {
-      hasPreviousPage
-      hasNextPage
-      startCursor
-      endCursor
-    }
-    totalCount
-    edges {
-      cursor
-      node {
-        ... on Document {
-          _sys {
-            filename
-            basename
-            hasReferences
-            breadcrumbs
-            path
-            relativePath
-            extension
-          }
-          id
-        }
-        ...TrustModelParts
-      }
-    }
-  }
-}
-
-query roadmap($relativePath: String!) {
-  roadmap(relativePath: $relativePath) {
-    ... on Document {
-      _sys {
-        filename
-        basename
-        hasReferences
-        breadcrumbs
-        path
-        relativePath
-        extension
-      }
-      id
-    }
-    ...RoadmapParts
-  }
-}
-
-query roadmapConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: RoadmapFilter) {
-  roadmapConnection(
-    before: $before
-    after: $after
-    first: $first
-    last: $last
-    sort: $sort
-    filter: $filter
-  ) {
-    pageInfo {
-      hasPreviousPage
-      hasNextPage
-      startCursor
-      endCursor
-    }
-    totalCount
-    edges {
-      cursor
-      node {
-        ... on Document {
-          _sys {
-            filename
-            basename
-            hasReferences
-            breadcrumbs
-            path
-            relativePath
-            extension
-          }
-          id
-        }
-        ...RoadmapParts
-      }
-    }
-  }
-}
-
-query caseStudies($relativePath: String!) {
-  caseStudies(relativePath: $relativePath) {
-    ... on Document {
-      _sys {
-        filename
-        basename
-        hasReferences
-        breadcrumbs
-        path
-        relativePath
-        extension
-      }
-      id
-    }
-    ...CaseStudiesParts
-  }
-}
-
-query caseStudiesConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: CaseStudiesFilter) {
-  caseStudiesConnection(
-    before: $before
-    after: $after
-    first: $first
-    last: $last
-    sort: $sort
-    filter: $filter
-  ) {
-    pageInfo {
-      hasPreviousPage
-      hasNextPage
-      startCursor
-      endCursor
-    }
-    totalCount
-    edges {
-      cursor
-      node {
-        ... on Document {
-          _sys {
-            filename
-            basename
-            hasReferences
-            breadcrumbs
-            path
-            relativePath
-            extension
-          }
-          id
-        }
-        ...CaseStudiesParts
-      }
-    }
-  }
-}
-
-query faq($relativePath: String!) {
-  faq(relativePath: $relativePath) {
-    ... on Document {
-      _sys {
-        filename
-        basename
-        hasReferences
-        breadcrumbs
-        path
-        relativePath
-        extension
-      }
-      id
-    }
-    ...FaqParts
-  }
-}
-
-query faqConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: FaqFilter) {
-  faqConnection(
-    before: $before
-    after: $after
-    first: $first
-    last: $last
-    sort: $sort
-    filter: $filter
-  ) {
-    pageInfo {
-      hasPreviousPage
-      hasNextPage
-      startCursor
-      endCursor
-    }
-    totalCount
-    edges {
-      cursor
-      node {
-        ... on Document {
-          _sys {
-            filename
-            basename
-            hasReferences
-            breadcrumbs
-            path
-            relativePath
-            extension
-          }
-          id
-        }
-        ...FaqParts
-      }
-    }
-  }
-}
-
-query contacts($relativePath: String!) {
-  contacts(relativePath: $relativePath) {
-    ... on Document {
-      _sys {
-        filename
-        basename
-        hasReferences
-        breadcrumbs
-        path
-        relativePath
-        extension
-      }
-      id
-    }
-    ...ContactsParts
-  }
-}
-
-query contactsConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: ContactsFilter) {
-  contactsConnection(
-    before: $before
-    after: $after
-    first: $first
-    last: $last
-    sort: $sort
-    filter: $filter
-  ) {
-    pageInfo {
-      hasPreviousPage
-      hasNextPage
-      startCursor
-      endCursor
-    }
-    totalCount
-    edges {
-      cursor
-      node {
-        ... on Document {
-          _sys {
-            filename
-            basename
-            hasReferences
-            breadcrumbs
-            path
-            relativePath
-            extension
-          }
-          id
-        }
-        ...ContactsParts
+        ...PageCollectionsParts
       }
     }
   }
@@ -543,281 +268,6 @@ query storesConnection($before: String, $after: String, $first: Float, $last: Fl
           id
         }
         ...StoresParts
-      }
-    }
-  }
-}
-
-query kpRating($relativePath: String!) {
-  kpRating(relativePath: $relativePath) {
-    ... on Document {
-      _sys {
-        filename
-        basename
-        hasReferences
-        breadcrumbs
-        path
-        relativePath
-        extension
-      }
-      id
-    }
-    ...KpRatingParts
-  }
-}
-
-query kpRatingConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: KpRatingFilter) {
-  kpRatingConnection(
-    before: $before
-    after: $after
-    first: $first
-    last: $last
-    sort: $sort
-    filter: $filter
-  ) {
-    pageInfo {
-      hasPreviousPage
-      hasNextPage
-      startCursor
-      endCursor
-    }
-    totalCount
-    edges {
-      cursor
-      node {
-        ... on Document {
-          _sys {
-            filename
-            basename
-            hasReferences
-            breadcrumbs
-            path
-            relativePath
-            extension
-          }
-          id
-        }
-        ...KpRatingParts
-      }
-    }
-  }
-}
-
-query pageAbout($relativePath: String!) {
-  pageAbout(relativePath: $relativePath) {
-    ... on Document {
-      _sys {
-        filename
-        basename
-        hasReferences
-        breadcrumbs
-        path
-        relativePath
-        extension
-      }
-      id
-    }
-    ...PageAboutParts
-  }
-}
-
-query pageAboutConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PageAboutFilter) {
-  pageAboutConnection(
-    before: $before
-    after: $after
-    first: $first
-    last: $last
-    sort: $sort
-    filter: $filter
-  ) {
-    pageInfo {
-      hasPreviousPage
-      hasNextPage
-      startCursor
-      endCursor
-    }
-    totalCount
-    edges {
-      cursor
-      node {
-        ... on Document {
-          _sys {
-            filename
-            basename
-            hasReferences
-            breadcrumbs
-            path
-            relativePath
-            extension
-          }
-          id
-        }
-        ...PageAboutParts
-      }
-    }
-  }
-}
-
-query pageFranchise($relativePath: String!) {
-  pageFranchise(relativePath: $relativePath) {
-    ... on Document {
-      _sys {
-        filename
-        basename
-        hasReferences
-        breadcrumbs
-        path
-        relativePath
-        extension
-      }
-      id
-    }
-    ...PageFranchiseParts
-  }
-}
-
-query pageFranchiseConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PageFranchiseFilter) {
-  pageFranchiseConnection(
-    before: $before
-    after: $after
-    first: $first
-    last: $last
-    sort: $sort
-    filter: $filter
-  ) {
-    pageInfo {
-      hasPreviousPage
-      hasNextPage
-      startCursor
-      endCursor
-    }
-    totalCount
-    edges {
-      cursor
-      node {
-        ... on Document {
-          _sys {
-            filename
-            basename
-            hasReferences
-            breadcrumbs
-            path
-            relativePath
-            extension
-          }
-          id
-        }
-        ...PageFranchiseParts
-      }
-    }
-  }
-}
-
-query pageCollection($relativePath: String!) {
-  pageCollection(relativePath: $relativePath) {
-    ... on Document {
-      _sys {
-        filename
-        basename
-        hasReferences
-        breadcrumbs
-        path
-        relativePath
-        extension
-      }
-      id
-    }
-    ...PageCollectionParts
-  }
-}
-
-query pageCollectionConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PageCollectionFilter) {
-  pageCollectionConnection(
-    before: $before
-    after: $after
-    first: $first
-    last: $last
-    sort: $sort
-    filter: $filter
-  ) {
-    pageInfo {
-      hasPreviousPage
-      hasNextPage
-      startCursor
-      endCursor
-    }
-    totalCount
-    edges {
-      cursor
-      node {
-        ... on Document {
-          _sys {
-            filename
-            basename
-            hasReferences
-            breadcrumbs
-            path
-            relativePath
-            extension
-          }
-          id
-        }
-        ...PageCollectionParts
-      }
-    }
-  }
-}
-
-query pageStores($relativePath: String!) {
-  pageStores(relativePath: $relativePath) {
-    ... on Document {
-      _sys {
-        filename
-        basename
-        hasReferences
-        breadcrumbs
-        path
-        relativePath
-        extension
-      }
-      id
-    }
-    ...PageStoresParts
-  }
-}
-
-query pageStoresConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PageStoresFilter) {
-  pageStoresConnection(
-    before: $before
-    after: $after
-    first: $first
-    last: $last
-    sort: $sort
-    filter: $filter
-  ) {
-    pageInfo {
-      hasPreviousPage
-      hasNextPage
-      startCursor
-      endCursor
-    }
-    totalCount
-    edges {
-      cursor
-      node {
-        ... on Document {
-          _sys {
-            filename
-            basename
-            hasReferences
-            breadcrumbs
-            path
-            relativePath
-            extension
-          }
-          id
-        }
-        ...PageStoresParts
       }
     }
   }

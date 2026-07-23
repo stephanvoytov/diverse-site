@@ -54,54 +54,24 @@ type Query {
   collections: [Collection!]!
   node(id: String): Node!
   document(collection: String, relativePath: String): DocumentNode!
-  hero(relativePath: String): Hero!
-  heroConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: HeroFilter): HeroConnection!
+  home(relativePath: String): Home!
+  homeConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: HomeFilter): HomeConnection!
   about(relativePath: String): About!
   aboutConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: AboutFilter): AboutConnection!
   franchise(relativePath: String): Franchise!
   franchiseConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: FranchiseFilter): FranchiseConnection!
-  marketBlock(relativePath: String): MarketBlock!
-  marketBlockConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: MarketBlockFilter): MarketBlockConnection!
-  trustModel(relativePath: String): TrustModel!
-  trustModelConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: TrustModelFilter): TrustModelConnection!
-  roadmap(relativePath: String): Roadmap!
-  roadmapConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: RoadmapFilter): RoadmapConnection!
-  caseStudies(relativePath: String): CaseStudies!
-  caseStudiesConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: CaseStudiesFilter): CaseStudiesConnection!
-  faq(relativePath: String): Faq!
-  faqConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: FaqFilter): FaqConnection!
-  contacts(relativePath: String): Contacts!
-  contactsConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: ContactsFilter): ContactsConnection!
+  pageCollections(relativePath: String): PageCollections!
+  pageCollectionsConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PageCollectionsFilter): PageCollectionsConnection!
   stores(relativePath: String): Stores!
   storesConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: StoresFilter): StoresConnection!
-  kpRating(relativePath: String): KpRating!
-  kpRatingConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: KpRatingFilter): KpRatingConnection!
-  pageAbout(relativePath: String): PageAbout!
-  pageAboutConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PageAboutFilter): PageAboutConnection!
-  pageFranchise(relativePath: String): PageFranchise!
-  pageFranchiseConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PageFranchiseFilter): PageFranchiseConnection!
-  pageCollection(relativePath: String): PageCollection!
-  pageCollectionConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PageCollectionFilter): PageCollectionConnection!
-  pageStores(relativePath: String): PageStores!
-  pageStoresConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PageStoresFilter): PageStoresConnection!
 }
 
 input DocumentFilter {
-  hero: HeroFilter
+  home: HomeFilter
   about: AboutFilter
   franchise: FranchiseFilter
-  marketBlock: MarketBlockFilter
-  trustModel: TrustModelFilter
-  roadmap: RoadmapFilter
-  caseStudies: CaseStudiesFilter
-  faq: FaqFilter
-  contacts: ContactsFilter
+  pageCollections: PageCollectionsFilter
   stores: StoresFilter
-  kpRating: KpRatingFilter
-  pageAbout: PageAboutFilter
-  pageFranchise: PageFranchiseFilter
-  pageCollection: PageCollectionFilter
-  pageStores: PageStoresFilter
 }
 
 type DocumentConnectionEdges {
@@ -127,164 +97,71 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String, filter: DocumentFilter, folder: String): DocumentConnection!
 }
 
-union DocumentNode = Hero | About | Franchise | MarketBlock | TrustModel | Roadmap | CaseStudies | Faq | Contacts | Stores | KpRating | PageAbout | PageFranchise | PageCollection | PageStores | Folder
+union DocumentNode = HomeHomeHero | HomeHomeAbout | HomeHomeFranchise | HomeHomeMarketBlock | HomeHomeTrustModel | HomeHomeRoadmap | HomeHomeCaseStudies | HomeHomeFaq | HomeHomeContacts | HomeHomeStores | HomeHomeKpRating | AboutAboutHero | AboutAboutStats | AboutAboutPhilosophy | AboutAboutAdvantages | AboutAboutTimeline | AboutAboutRepresentative | AboutAboutCta | FranchiseFranchiseHero | FranchiseFranchisePlans | FranchiseFranchiseComparison | FranchiseFranchiseFinancial | FranchiseFranchiseBenefits | FranchiseFranchiseGallery | FranchiseFranchiseContact | PageCollectionsCollectionHero | PageCollectionsCollectionCta | StoresStoresHero | StoresStoresList | StoresStoresCta | Folder
 
-type HeroCta {
+type HomeHomeHeroCta {
   consultation: String
   cases: String
 }
 
-type HeroStats {
+type HomeHomeHeroStats {
   value: String
   label: String
 }
 
-type Hero implements Node & Document {
+type HomeHomeHero implements Node & Document {
   tagline: String
   heading: String
   description: String
   pricing: String
-  cta: HeroCta
-  stats: [HeroStats]
+  cta: HomeHomeHeroCta
+  stats: [HomeHomeHeroStats]
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
 }
 
-input StringFilter {
-  startsWith: String
-  eq: String
-  exists: Boolean
-  in: [String]
-}
-
-input HeroCtaFilter {
-  consultation: StringFilter
-  cases: StringFilter
-}
-
-input HeroStatsFilter {
-  value: StringFilter
-  label: StringFilter
-}
-
-input HeroFilter {
-  tagline: StringFilter
-  heading: StringFilter
-  description: StringFilter
-  pricing: StringFilter
-  cta: HeroCtaFilter
-  stats: HeroStatsFilter
-}
-
-type HeroConnectionEdges {
-  cursor: String!
-  node: Hero
-}
-
-type HeroConnection implements Connection {
-  pageInfo: PageInfo!
-  totalCount: Float!
-  edges: [HeroConnectionEdges]
-}
-
-type AboutLinks {
+type HomeHomeAboutAboutLinks {
   about: String
   collection: String
 }
 
-type About implements Node & Document {
+type HomeHomeAbout implements Node & Document {
   eyebrow: String
   headingBefore: String
   headingAccent: String
   headingAfter: String
   body: String
-  links: AboutLinks
+  aboutLinks: HomeHomeAboutAboutLinks
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
 }
 
-input AboutLinksFilter {
-  about: StringFilter
-  collection: StringFilter
-}
-
-input AboutFilter {
-  eyebrow: StringFilter
-  headingBefore: StringFilter
-  headingAccent: StringFilter
-  headingAfter: StringFilter
-  body: StringFilter
-  links: AboutLinksFilter
-}
-
-type AboutConnectionEdges {
-  cursor: String!
-  node: About
-}
-
-type AboutConnection implements Connection {
-  pageInfo: PageInfo!
-  totalCount: Float!
-  edges: [AboutConnectionEdges]
-}
-
-type FranchiseLabels {
+type HomeHomeFranchiseFranchiseLabels {
   investment: String
   profitMonth: String
 }
 
-type FranchiseLinks {
+type HomeHomeFranchiseFranchiseLinks {
   allConditions: String
   example: String
 }
 
-type Franchise implements Node & Document {
+type HomeHomeFranchise implements Node & Document {
   eyebrow: String
   heading: String
   desc: String
-  cta: String
-  labels: FranchiseLabels
-  links: FranchiseLinks
+  ctaButton: String
+  franchiseLabels: HomeHomeFranchiseFranchiseLabels
+  franchiseLinks: HomeHomeFranchiseFranchiseLinks
   disclaimer: String
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
 }
 
-input FranchiseLabelsFilter {
-  investment: StringFilter
-  profitMonth: StringFilter
-}
-
-input FranchiseLinksFilter {
-  allConditions: StringFilter
-  example: StringFilter
-}
-
-input FranchiseFilter {
-  eyebrow: StringFilter
-  heading: StringFilter
-  desc: StringFilter
-  cta: StringFilter
-  labels: FranchiseLabelsFilter
-  links: FranchiseLinksFilter
-  disclaimer: StringFilter
-}
-
-type FranchiseConnectionEdges {
-  cursor: String!
-  node: Franchise
-}
-
-type FranchiseConnection implements Connection {
-  pageInfo: PageInfo!
-  totalCount: Float!
-  edges: [FranchiseConnectionEdges]
-}
-
-type MarketBlock implements Node & Document {
+type HomeHomeMarketBlock implements Node & Document {
   eyebrow: String
   headingBefore: String
   headingAccent: String
@@ -295,26 +172,7 @@ type MarketBlock implements Node & Document {
   _values: JSON!
 }
 
-input MarketBlockFilter {
-  eyebrow: StringFilter
-  headingBefore: StringFilter
-  headingAccent: StringFilter
-  desc: StringFilter
-  reasons: StringFilter
-}
-
-type MarketBlockConnectionEdges {
-  cursor: String!
-  node: MarketBlock
-}
-
-type MarketBlockConnection implements Connection {
-  pageInfo: PageInfo!
-  totalCount: Float!
-  edges: [MarketBlockConnectionEdges]
-}
-
-type TrustModel implements Node & Document {
+type HomeHomeTrustModel implements Node & Document {
   eyebrow: String
   headingBefore: String
   headingAccent: String
@@ -324,25 +182,7 @@ type TrustModel implements Node & Document {
   _values: JSON!
 }
 
-input TrustModelFilter {
-  eyebrow: StringFilter
-  headingBefore: StringFilter
-  headingAccent: StringFilter
-  desc: StringFilter
-}
-
-type TrustModelConnectionEdges {
-  cursor: String!
-  node: TrustModel
-}
-
-type TrustModelConnection implements Connection {
-  pageInfo: PageInfo!
-  totalCount: Float!
-  edges: [TrustModelConnectionEdges]
-}
-
-type Roadmap implements Node & Document {
+type HomeHomeRoadmap implements Node & Document {
   eyebrow: String
   headingBefore: String
   headingAccent: String
@@ -352,25 +192,7 @@ type Roadmap implements Node & Document {
   _values: JSON!
 }
 
-input RoadmapFilter {
-  eyebrow: StringFilter
-  headingBefore: StringFilter
-  headingAccent: StringFilter
-  desc: StringFilter
-}
-
-type RoadmapConnectionEdges {
-  cursor: String!
-  node: Roadmap
-}
-
-type RoadmapConnection implements Connection {
-  pageInfo: PageInfo!
-  totalCount: Float!
-  edges: [RoadmapConnectionEdges]
-}
-
-type CaseStudiesLabels {
+type HomeHomeCaseStudiesCaseLabels {
   payback: String
   profitMonth: String
   investment: String
@@ -378,12 +200,12 @@ type CaseStudiesLabels {
   photo: String
 }
 
-type CaseStudies implements Node & Document {
+type HomeHomeCaseStudies implements Node & Document {
   eyebrow: String
   headingBefore: String
   headingAccent: String
   desc: String
-  labels: CaseStudiesLabels
+  caseLabels: HomeHomeCaseStudiesCaseLabels
   openedPrefix: String
   openedSuffix: String
   id: ID!
@@ -391,36 +213,7 @@ type CaseStudies implements Node & Document {
   _values: JSON!
 }
 
-input CaseStudiesLabelsFilter {
-  payback: StringFilter
-  profitMonth: StringFilter
-  investment: StringFilter
-  video: StringFilter
-  photo: StringFilter
-}
-
-input CaseStudiesFilter {
-  eyebrow: StringFilter
-  headingBefore: StringFilter
-  headingAccent: StringFilter
-  desc: StringFilter
-  labels: CaseStudiesLabelsFilter
-  openedPrefix: StringFilter
-  openedSuffix: StringFilter
-}
-
-type CaseStudiesConnectionEdges {
-  cursor: String!
-  node: CaseStudies
-}
-
-type CaseStudiesConnection implements Connection {
-  pageInfo: PageInfo!
-  totalCount: Float!
-  edges: [CaseStudiesConnectionEdges]
-}
-
-type Faq implements Node & Document {
+type HomeHomeFaq implements Node & Document {
   eyebrow: String
   headingBefore: String
   headingAccent: String
@@ -430,25 +223,7 @@ type Faq implements Node & Document {
   _values: JSON!
 }
 
-input FaqFilter {
-  eyebrow: StringFilter
-  headingBefore: StringFilter
-  headingAccent: StringFilter
-  desc: StringFilter
-}
-
-type FaqConnectionEdges {
-  cursor: String!
-  node: Faq
-}
-
-type FaqConnection implements Connection {
-  pageInfo: PageInfo!
-  totalCount: Float!
-  edges: [FaqConnectionEdges]
-}
-
-type ContactsForm {
+type HomeHomeContactsForm {
   name: String
   namePlaceholder: String
   phone: String
@@ -468,32 +243,179 @@ type ContactsForm {
   leadQueueFallback: String
 }
 
-type ContactsCompany {
+type HomeHomeContactsCompany {
   name: String
   inn: String
   address: String
 }
 
-type ContactsSections {
+type HomeHomeContactsSections {
   details: String
   contacts: String
   socials: String
 }
 
-type Contacts implements Node & Document {
+type HomeHomeContacts implements Node & Document {
   eyebrow: String
   heading: String
   desc: String
-  form: ContactsForm
-  company: ContactsCompany
-  sections: ContactsSections
+  form: HomeHomeContactsForm
+  company: HomeHomeContactsCompany
+  sections: HomeHomeContactsSections
   privacy: String
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
 }
 
-input ContactsFormFilter {
+type HomeHomeStoresGhost {
+  label: String
+  tooltip: String
+  sidebarYourCity: String
+  sidebarCTA: String
+  sidebarSubtext: String
+}
+
+type HomeHomeStores implements Node & Document {
+  eyebrow: String
+  heading: String
+  desc: String
+  ghost: HomeHomeStoresGhost
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+type HomeHomeKpRatingBadge {
+  rank: String
+  label: String
+}
+
+type HomeHomeKpRating implements Node & Document {
+  eyebrow: String
+  headingAccent: String
+  headingAfter: String
+  desc: String
+  badge: HomeHomeKpRatingBadge
+  body: String
+  ctaLink: String
+  source: String
+  imageAlt: String
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+union Home = HomeHomeHero | HomeHomeAbout | HomeHomeFranchise | HomeHomeMarketBlock | HomeHomeTrustModel | HomeHomeRoadmap | HomeHomeCaseStudies | HomeHomeFaq | HomeHomeContacts | HomeHomeStores | HomeHomeKpRating
+
+input StringFilter {
+  startsWith: String
+  eq: String
+  exists: Boolean
+  in: [String]
+}
+
+input HomeHomeHeroCtaFilter {
+  consultation: StringFilter
+  cases: StringFilter
+}
+
+input HomeHomeHeroStatsFilter {
+  value: StringFilter
+  label: StringFilter
+}
+
+input HomeHomeHeroFilter {
+  tagline: StringFilter
+  heading: StringFilter
+  description: StringFilter
+  pricing: StringFilter
+  cta: HomeHomeHeroCtaFilter
+  stats: HomeHomeHeroStatsFilter
+}
+
+input HomeHomeAboutAboutLinksFilter {
+  about: StringFilter
+  collection: StringFilter
+}
+
+input HomeHomeAboutFilter {
+  eyebrow: StringFilter
+  headingBefore: StringFilter
+  headingAccent: StringFilter
+  headingAfter: StringFilter
+  body: StringFilter
+  aboutLinks: HomeHomeAboutAboutLinksFilter
+}
+
+input HomeHomeFranchiseFranchiseLabelsFilter {
+  investment: StringFilter
+  profitMonth: StringFilter
+}
+
+input HomeHomeFranchiseFranchiseLinksFilter {
+  allConditions: StringFilter
+  example: StringFilter
+}
+
+input HomeHomeFranchiseFilter {
+  eyebrow: StringFilter
+  heading: StringFilter
+  desc: StringFilter
+  ctaButton: StringFilter
+  franchiseLabels: HomeHomeFranchiseFranchiseLabelsFilter
+  franchiseLinks: HomeHomeFranchiseFranchiseLinksFilter
+  disclaimer: StringFilter
+}
+
+input HomeHomeMarketBlockFilter {
+  eyebrow: StringFilter
+  headingBefore: StringFilter
+  headingAccent: StringFilter
+  desc: StringFilter
+  reasons: StringFilter
+}
+
+input HomeHomeTrustModelFilter {
+  eyebrow: StringFilter
+  headingBefore: StringFilter
+  headingAccent: StringFilter
+  desc: StringFilter
+}
+
+input HomeHomeRoadmapFilter {
+  eyebrow: StringFilter
+  headingBefore: StringFilter
+  headingAccent: StringFilter
+  desc: StringFilter
+}
+
+input HomeHomeCaseStudiesCaseLabelsFilter {
+  payback: StringFilter
+  profitMonth: StringFilter
+  investment: StringFilter
+  video: StringFilter
+  photo: StringFilter
+}
+
+input HomeHomeCaseStudiesFilter {
+  eyebrow: StringFilter
+  headingBefore: StringFilter
+  headingAccent: StringFilter
+  desc: StringFilter
+  caseLabels: HomeHomeCaseStudiesCaseLabelsFilter
+  openedPrefix: StringFilter
+  openedSuffix: StringFilter
+}
+
+input HomeHomeFaqFilter {
+  eyebrow: StringFilter
+  headingBefore: StringFilter
+  headingAccent: StringFilter
+  desc: StringFilter
+}
+
+input HomeHomeContactsFormFilter {
   name: StringFilter
   namePlaceholder: StringFilter
   phone: StringFilter
@@ -513,58 +435,29 @@ input ContactsFormFilter {
   leadQueueFallback: StringFilter
 }
 
-input ContactsCompanyFilter {
+input HomeHomeContactsCompanyFilter {
   name: StringFilter
   inn: StringFilter
   address: StringFilter
 }
 
-input ContactsSectionsFilter {
+input HomeHomeContactsSectionsFilter {
   details: StringFilter
   contacts: StringFilter
   socials: StringFilter
 }
 
-input ContactsFilter {
+input HomeHomeContactsFilter {
   eyebrow: StringFilter
   heading: StringFilter
   desc: StringFilter
-  form: ContactsFormFilter
-  company: ContactsCompanyFilter
-  sections: ContactsSectionsFilter
+  form: HomeHomeContactsFormFilter
+  company: HomeHomeContactsCompanyFilter
+  sections: HomeHomeContactsSectionsFilter
   privacy: StringFilter
 }
 
-type ContactsConnectionEdges {
-  cursor: String!
-  node: Contacts
-}
-
-type ContactsConnection implements Connection {
-  pageInfo: PageInfo!
-  totalCount: Float!
-  edges: [ContactsConnectionEdges]
-}
-
-type StoresGhost {
-  label: String
-  tooltip: String
-  sidebarYourCity: String
-  sidebarCTA: String
-  sidebarSubtext: String
-}
-
-type Stores implements Node & Document {
-  eyebrow: String
-  heading: String
-  desc: String
-  ghost: StoresGhost
-  id: ID!
-  _sys: SystemInfo!
-  _values: JSON!
-}
-
-input StoresGhostFilter {
+input HomeHomeStoresGhostFilter {
   label: StringFilter
   tooltip: StringFilter
   sidebarYourCity: StringFilter
@@ -572,115 +465,142 @@ input StoresGhostFilter {
   sidebarSubtext: StringFilter
 }
 
-input StoresFilter {
+input HomeHomeStoresFilter {
   eyebrow: StringFilter
   heading: StringFilter
   desc: StringFilter
-  ghost: StoresGhostFilter
+  ghost: HomeHomeStoresGhostFilter
 }
 
-type StoresConnectionEdges {
+input HomeHomeKpRatingBadgeFilter {
+  rank: StringFilter
+  label: StringFilter
+}
+
+input HomeHomeKpRatingFilter {
+  eyebrow: StringFilter
+  headingAccent: StringFilter
+  headingAfter: StringFilter
+  desc: StringFilter
+  badge: HomeHomeKpRatingBadgeFilter
+  body: StringFilter
+  ctaLink: StringFilter
+  source: StringFilter
+  imageAlt: StringFilter
+}
+
+input HomeFilter {
+  homeHero: HomeHomeHeroFilter
+  homeAbout: HomeHomeAboutFilter
+  homeFranchise: HomeHomeFranchiseFilter
+  homeMarketBlock: HomeHomeMarketBlockFilter
+  homeTrustModel: HomeHomeTrustModelFilter
+  homeRoadmap: HomeHomeRoadmapFilter
+  homeCaseStudies: HomeHomeCaseStudiesFilter
+  homeFaq: HomeHomeFaqFilter
+  homeContacts: HomeHomeContactsFilter
+  homeStores: HomeHomeStoresFilter
+  homeKpRating: HomeHomeKpRatingFilter
+}
+
+type HomeConnectionEdges {
   cursor: String!
-  node: Stores
+  node: Home
 }
 
-type StoresConnection implements Connection {
+type HomeConnection implements Connection {
   pageInfo: PageInfo!
   totalCount: Float!
-  edges: [StoresConnectionEdges]
+  edges: [HomeConnectionEdges]
 }
 
-type KpRatingBadge {
-  rank: String
-  label: String
-}
-
-type KpRating implements Node & Document {
-  eyebrow: String
-  headingAccent: String
-  headingAfter: String
-  desc: String
-  badge: KpRatingBadge
-  body: String
-  cta: String
-  source: String
-  imageAlt: String
+type AboutAboutHero implements Node & Document {
+  heroEyebrow: String
+  heroHeading: String
+  heroDesc: String
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
 }
 
-input KpRatingBadgeFilter {
-  rank: StringFilter
-  label: StringFilter
-}
-
-input KpRatingFilter {
-  eyebrow: StringFilter
-  headingAccent: StringFilter
-  headingAfter: StringFilter
-  desc: StringFilter
-  badge: KpRatingBadgeFilter
-  body: StringFilter
-  cta: StringFilter
-  source: StringFilter
-  imageAlt: StringFilter
-}
-
-type KpRatingConnectionEdges {
-  cursor: String!
-  node: KpRating
-}
-
-type KpRatingConnection implements Connection {
-  pageInfo: PageInfo!
-  totalCount: Float!
-  edges: [KpRatingConnectionEdges]
-}
-
-type PageAboutStats {
+type AboutAboutStatsStats {
   num: Float
   suffix: String
   label: String
   accent: Boolean
 }
 
-type PageAboutAdvantages {
+type AboutAboutStats implements Node & Document {
+  stats: [AboutAboutStatsStats]
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+type AboutAboutPhilosophy implements Node & Document {
+  philosophyEyebrow: String
+  philosophyHeading: String
+  philosophyBody1: String
+  philosophyBody2: String
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+type AboutAboutAdvantagesAdvantages {
   title: String
   desc: String
 }
 
-type PageAboutMilestones {
+type AboutAboutAdvantages implements Node & Document {
+  advantagesEyebrow: String
+  advantagesHeading: String
+  advantages: [AboutAboutAdvantagesAdvantages]
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+type AboutAboutTimelineMilestones {
   year: String
   title: String
   desc: String
 }
 
-type PageAbout implements Node & Document {
-  heroEyebrow: String
-  heroHeading: String
-  heroDesc: String
-  stats: [PageAboutStats]
-  philosophyEyebrow: String
-  philosophyHeading: String
-  philosophyBody1: String
-  philosophyBody2: String
-  advantagesEyebrow: String
-  advantagesHeading: String
-  advantages: [PageAboutAdvantages]
+type AboutAboutTimeline implements Node & Document {
   timelineEyebrow: String
   timelineHeading: String
-  milestones: [PageAboutMilestones]
+  milestones: [AboutAboutTimelineMilestones]
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+type AboutAboutRepresentative implements Node & Document {
   repEyebrow: String
   repHeading: String
   repBody: String
   repInn: String
   repAddress: String
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+type AboutAboutCta implements Node & Document {
   ctaHeading: String
   ctaButton: String
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
+}
+
+union About = AboutAboutHero | AboutAboutStats | AboutAboutPhilosophy | AboutAboutAdvantages | AboutAboutTimeline | AboutAboutRepresentative | AboutAboutCta
+
+input AboutAboutHeroFilter {
+  heroEyebrow: StringFilter
+  heroHeading: StringFilter
+  heroDesc: StringFilter
 }
 
 input NumberFilter {
@@ -698,84 +618,142 @@ input BooleanFilter {
   exists: Boolean
 }
 
-input PageAboutStatsFilter {
+input AboutAboutStatsStatsFilter {
   num: NumberFilter
   suffix: StringFilter
   label: StringFilter
   accent: BooleanFilter
 }
 
-input PageAboutAdvantagesFilter {
+input AboutAboutStatsFilter {
+  stats: AboutAboutStatsStatsFilter
+}
+
+input AboutAboutPhilosophyFilter {
+  philosophyEyebrow: StringFilter
+  philosophyHeading: StringFilter
+  philosophyBody1: StringFilter
+  philosophyBody2: StringFilter
+}
+
+input AboutAboutAdvantagesAdvantagesFilter {
   title: StringFilter
   desc: StringFilter
 }
 
-input PageAboutMilestonesFilter {
+input AboutAboutAdvantagesFilter {
+  advantagesEyebrow: StringFilter
+  advantagesHeading: StringFilter
+  advantages: AboutAboutAdvantagesAdvantagesFilter
+}
+
+input AboutAboutTimelineMilestonesFilter {
   year: StringFilter
   title: StringFilter
   desc: StringFilter
 }
 
-input PageAboutFilter {
-  heroEyebrow: StringFilter
-  heroHeading: StringFilter
-  heroDesc: StringFilter
-  stats: PageAboutStatsFilter
-  philosophyEyebrow: StringFilter
-  philosophyHeading: StringFilter
-  philosophyBody1: StringFilter
-  philosophyBody2: StringFilter
-  advantagesEyebrow: StringFilter
-  advantagesHeading: StringFilter
-  advantages: PageAboutAdvantagesFilter
+input AboutAboutTimelineFilter {
   timelineEyebrow: StringFilter
   timelineHeading: StringFilter
-  milestones: PageAboutMilestonesFilter
+  milestones: AboutAboutTimelineMilestonesFilter
+}
+
+input AboutAboutRepresentativeFilter {
   repEyebrow: StringFilter
   repHeading: StringFilter
   repBody: StringFilter
   repInn: StringFilter
   repAddress: StringFilter
+}
+
+input AboutAboutCtaFilter {
   ctaHeading: StringFilter
   ctaButton: StringFilter
 }
 
-type PageAboutConnectionEdges {
-  cursor: String!
-  node: PageAbout
+input AboutFilter {
+  aboutHero: AboutAboutHeroFilter
+  aboutStats: AboutAboutStatsFilter
+  aboutPhilosophy: AboutAboutPhilosophyFilter
+  aboutAdvantages: AboutAboutAdvantagesFilter
+  aboutTimeline: AboutAboutTimelineFilter
+  aboutRepresentative: AboutAboutRepresentativeFilter
+  aboutCta: AboutAboutCtaFilter
 }
 
-type PageAboutConnection implements Connection {
+type AboutConnectionEdges {
+  cursor: String!
+  node: About
+}
+
+type AboutConnection implements Connection {
   pageInfo: PageInfo!
   totalCount: Float!
-  edges: [PageAboutConnectionEdges]
+  edges: [AboutConnectionEdges]
 }
 
-type PageFranchiseFinancialRows {
+type FranchiseFranchiseHero implements Node & Document {
+  heroEyebrow: String
+  heroHeading: String
+  heroDesc: String
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+type FranchiseFranchisePlans implements Node & Document {
+  plansEyebrow: String
+  plansDesc: String
+  plansHeading: String
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+type FranchiseFranchiseComparison implements Node & Document {
+  comparisonEyebrow: String
+  comparisonHeading: String
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+type FranchiseFranchiseFinancialFinancialRows {
   label: String
   value: String
   detail: String
   accent: Boolean
 }
 
-type PageFranchise implements Node & Document {
-  heroEyebrow: String
-  heroHeading: String
-  heroDesc: String
-  plansEyebrow: String
-  plansDesc: String
-  plansHeading: String
-  comparisonEyebrow: String
-  comparisonHeading: String
+type FranchiseFranchiseFinancial implements Node & Document {
   financialEyebrow: String
   financialDesc: String
   financialHeading: String
-  financialRows: [PageFranchiseFinancialRows]
+  financialRows: [FranchiseFranchiseFinancialFinancialRows]
   seasonalityNote: String
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+type FranchiseFranchiseBenefits implements Node & Document {
   benefitsEyebrow: String
   benefitsHeading: String
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+type FranchiseFranchiseGallery implements Node & Document {
   galleryEyebrow: String
   galleryHeading: String
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+type FranchiseFranchiseContact implements Node & Document {
   contactHeading: String
   contactDesc: String
   id: ID!
@@ -783,50 +761,86 @@ type PageFranchise implements Node & Document {
   _values: JSON!
 }
 
-input PageFranchiseFinancialRowsFilter {
+union Franchise = FranchiseFranchiseHero | FranchiseFranchisePlans | FranchiseFranchiseComparison | FranchiseFranchiseFinancial | FranchiseFranchiseBenefits | FranchiseFranchiseGallery | FranchiseFranchiseContact
+
+input FranchiseFranchiseHeroFilter {
+  heroEyebrow: StringFilter
+  heroHeading: StringFilter
+  heroDesc: StringFilter
+}
+
+input FranchiseFranchisePlansFilter {
+  plansEyebrow: StringFilter
+  plansDesc: StringFilter
+  plansHeading: StringFilter
+}
+
+input FranchiseFranchiseComparisonFilter {
+  comparisonEyebrow: StringFilter
+  comparisonHeading: StringFilter
+}
+
+input FranchiseFranchiseFinancialFinancialRowsFilter {
   label: StringFilter
   value: StringFilter
   detail: StringFilter
   accent: BooleanFilter
 }
 
-input PageFranchiseFilter {
-  heroEyebrow: StringFilter
-  heroHeading: StringFilter
-  heroDesc: StringFilter
-  plansEyebrow: StringFilter
-  plansDesc: StringFilter
-  plansHeading: StringFilter
-  comparisonEyebrow: StringFilter
-  comparisonHeading: StringFilter
+input FranchiseFranchiseFinancialFilter {
   financialEyebrow: StringFilter
   financialDesc: StringFilter
   financialHeading: StringFilter
-  financialRows: PageFranchiseFinancialRowsFilter
+  financialRows: FranchiseFranchiseFinancialFinancialRowsFilter
   seasonalityNote: StringFilter
+}
+
+input FranchiseFranchiseBenefitsFilter {
   benefitsEyebrow: StringFilter
   benefitsHeading: StringFilter
+}
+
+input FranchiseFranchiseGalleryFilter {
   galleryEyebrow: StringFilter
   galleryHeading: StringFilter
+}
+
+input FranchiseFranchiseContactFilter {
   contactHeading: StringFilter
   contactDesc: StringFilter
 }
 
-type PageFranchiseConnectionEdges {
-  cursor: String!
-  node: PageFranchise
+input FranchiseFilter {
+  franchiseHero: FranchiseFranchiseHeroFilter
+  franchisePlans: FranchiseFranchisePlansFilter
+  franchiseComparison: FranchiseFranchiseComparisonFilter
+  franchiseFinancial: FranchiseFranchiseFinancialFilter
+  franchiseBenefits: FranchiseFranchiseBenefitsFilter
+  franchiseGallery: FranchiseFranchiseGalleryFilter
+  franchiseContact: FranchiseFranchiseContactFilter
 }
 
-type PageFranchiseConnection implements Connection {
+type FranchiseConnectionEdges {
+  cursor: String!
+  node: Franchise
+}
+
+type FranchiseConnection implements Connection {
   pageInfo: PageInfo!
   totalCount: Float!
-  edges: [PageFranchiseConnectionEdges]
+  edges: [FranchiseConnectionEdges]
 }
 
-type PageCollection implements Node & Document {
+type PageCollectionsCollectionHero implements Node & Document {
   heroEyebrow: String
   heroHeading: String
   heroDesc: String
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+type PageCollectionsCollectionCta implements Node & Document {
   ctaEyebrow: String
   ctaHeading: String
   ctaDesc: String
@@ -836,34 +850,56 @@ type PageCollection implements Node & Document {
   _values: JSON!
 }
 
-input PageCollectionFilter {
+union PageCollections = PageCollectionsCollectionHero | PageCollectionsCollectionCta
+
+input PageCollectionsCollectionHeroFilter {
   heroEyebrow: StringFilter
   heroHeading: StringFilter
   heroDesc: StringFilter
+}
+
+input PageCollectionsCollectionCtaFilter {
   ctaEyebrow: StringFilter
   ctaHeading: StringFilter
   ctaDesc: StringFilter
   ctaButton: StringFilter
 }
 
-type PageCollectionConnectionEdges {
-  cursor: String!
-  node: PageCollection
+input PageCollectionsFilter {
+  collectionHero: PageCollectionsCollectionHeroFilter
+  collectionCta: PageCollectionsCollectionCtaFilter
 }
 
-type PageCollectionConnection implements Connection {
+type PageCollectionsConnectionEdges {
+  cursor: String!
+  node: PageCollections
+}
+
+type PageCollectionsConnection implements Connection {
   pageInfo: PageInfo!
   totalCount: Float!
-  edges: [PageCollectionConnectionEdges]
+  edges: [PageCollectionsConnectionEdges]
 }
 
-type PageStores implements Node & Document {
+type StoresStoresHero implements Node & Document {
   heroEyebrow: String
   heroHeading: String
   heroDesc: String
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+type StoresStoresList implements Node & Document {
   storesEyebrow: String
   storesDesc: String
   storesHeading: String
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+type StoresStoresCta implements Node & Document {
   ctaHeading: String
   ctaDesc: String
   ctaButton: String
@@ -872,27 +908,41 @@ type PageStores implements Node & Document {
   _values: JSON!
 }
 
-input PageStoresFilter {
+union Stores = StoresStoresHero | StoresStoresList | StoresStoresCta
+
+input StoresStoresHeroFilter {
   heroEyebrow: StringFilter
   heroHeading: StringFilter
   heroDesc: StringFilter
+}
+
+input StoresStoresListFilter {
   storesEyebrow: StringFilter
   storesDesc: StringFilter
   storesHeading: StringFilter
+}
+
+input StoresStoresCtaFilter {
   ctaHeading: StringFilter
   ctaDesc: StringFilter
   ctaButton: StringFilter
 }
 
-type PageStoresConnectionEdges {
-  cursor: String!
-  node: PageStores
+input StoresFilter {
+  storesHero: StoresStoresHeroFilter
+  storesList: StoresStoresListFilter
+  storesCta: StoresStoresCtaFilter
 }
 
-type PageStoresConnection implements Connection {
+type StoresConnectionEdges {
+  cursor: String!
+  node: Stores
+}
+
+type StoresConnection implements Connection {
   pageInfo: PageInfo!
   totalCount: Float!
-  edges: [PageStoresConnectionEdges]
+  edges: [StoresConnectionEdges]
 }
 
 type Mutation {
@@ -901,129 +951,89 @@ type Mutation {
   deleteDocument(collection: String, relativePath: String!): DocumentNode!
   createDocument(collection: String, relativePath: String!, params: DocumentMutation!): DocumentNode!
   createFolder(collection: String, relativePath: String!): DocumentNode!
-  updateHero(relativePath: String!, params: HeroMutation!): Hero!
-  createHero(relativePath: String!, params: HeroMutation!): Hero!
+  updateHome(relativePath: String!, params: HomeMutation!): Home!
+  createHome(relativePath: String!, params: HomeMutation!): Home!
   updateAbout(relativePath: String!, params: AboutMutation!): About!
   createAbout(relativePath: String!, params: AboutMutation!): About!
   updateFranchise(relativePath: String!, params: FranchiseMutation!): Franchise!
   createFranchise(relativePath: String!, params: FranchiseMutation!): Franchise!
-  updateMarketBlock(relativePath: String!, params: MarketBlockMutation!): MarketBlock!
-  createMarketBlock(relativePath: String!, params: MarketBlockMutation!): MarketBlock!
-  updateTrustModel(relativePath: String!, params: TrustModelMutation!): TrustModel!
-  createTrustModel(relativePath: String!, params: TrustModelMutation!): TrustModel!
-  updateRoadmap(relativePath: String!, params: RoadmapMutation!): Roadmap!
-  createRoadmap(relativePath: String!, params: RoadmapMutation!): Roadmap!
-  updateCaseStudies(relativePath: String!, params: CaseStudiesMutation!): CaseStudies!
-  createCaseStudies(relativePath: String!, params: CaseStudiesMutation!): CaseStudies!
-  updateFaq(relativePath: String!, params: FaqMutation!): Faq!
-  createFaq(relativePath: String!, params: FaqMutation!): Faq!
-  updateContacts(relativePath: String!, params: ContactsMutation!): Contacts!
-  createContacts(relativePath: String!, params: ContactsMutation!): Contacts!
+  updatePageCollections(relativePath: String!, params: PageCollectionsMutation!): PageCollections!
+  createPageCollections(relativePath: String!, params: PageCollectionsMutation!): PageCollections!
   updateStores(relativePath: String!, params: StoresMutation!): Stores!
   createStores(relativePath: String!, params: StoresMutation!): Stores!
-  updateKpRating(relativePath: String!, params: KpRatingMutation!): KpRating!
-  createKpRating(relativePath: String!, params: KpRatingMutation!): KpRating!
-  updatePageAbout(relativePath: String!, params: PageAboutMutation!): PageAbout!
-  createPageAbout(relativePath: String!, params: PageAboutMutation!): PageAbout!
-  updatePageFranchise(relativePath: String!, params: PageFranchiseMutation!): PageFranchise!
-  createPageFranchise(relativePath: String!, params: PageFranchiseMutation!): PageFranchise!
-  updatePageCollection(relativePath: String!, params: PageCollectionMutation!): PageCollection!
-  createPageCollection(relativePath: String!, params: PageCollectionMutation!): PageCollection!
-  updatePageStores(relativePath: String!, params: PageStoresMutation!): PageStores!
-  createPageStores(relativePath: String!, params: PageStoresMutation!): PageStores!
 }
 
 input DocumentUpdateMutation {
-  hero: HeroMutation
+  home: HomeMutation
   about: AboutMutation
   franchise: FranchiseMutation
-  marketBlock: MarketBlockMutation
-  trustModel: TrustModelMutation
-  roadmap: RoadmapMutation
-  caseStudies: CaseStudiesMutation
-  faq: FaqMutation
-  contacts: ContactsMutation
+  pageCollections: PageCollectionsMutation
   stores: StoresMutation
-  kpRating: KpRatingMutation
-  pageAbout: PageAboutMutation
-  pageFranchise: PageFranchiseMutation
-  pageCollection: PageCollectionMutation
-  pageStores: PageStoresMutation
   relativePath: String
 }
 
 input DocumentMutation {
-  hero: HeroMutation
+  home: HomeMutation
   about: AboutMutation
   franchise: FranchiseMutation
-  marketBlock: MarketBlockMutation
-  trustModel: TrustModelMutation
-  roadmap: RoadmapMutation
-  caseStudies: CaseStudiesMutation
-  faq: FaqMutation
-  contacts: ContactsMutation
+  pageCollections: PageCollectionsMutation
   stores: StoresMutation
-  kpRating: KpRatingMutation
-  pageAbout: PageAboutMutation
-  pageFranchise: PageFranchiseMutation
-  pageCollection: PageCollectionMutation
-  pageStores: PageStoresMutation
 }
 
-input HeroCtaMutation {
+input HomeHomeHeroCtaMutation {
   consultation: String
   cases: String
 }
 
-input HeroStatsMutation {
+input HomeHomeHeroStatsMutation {
   value: String
   label: String
 }
 
-input HeroMutation {
+input HomeHomeHeroMutation {
   tagline: String
   heading: String
   description: String
   pricing: String
-  cta: HeroCtaMutation
-  stats: [HeroStatsMutation]
+  cta: HomeHomeHeroCtaMutation
+  stats: [HomeHomeHeroStatsMutation]
 }
 
-input AboutLinksMutation {
+input HomeHomeAboutAboutLinksMutation {
   about: String
   collection: String
 }
 
-input AboutMutation {
+input HomeHomeAboutMutation {
   eyebrow: String
   headingBefore: String
   headingAccent: String
   headingAfter: String
   body: String
-  links: AboutLinksMutation
+  aboutLinks: HomeHomeAboutAboutLinksMutation
 }
 
-input FranchiseLabelsMutation {
+input HomeHomeFranchiseFranchiseLabelsMutation {
   investment: String
   profitMonth: String
 }
 
-input FranchiseLinksMutation {
+input HomeHomeFranchiseFranchiseLinksMutation {
   allConditions: String
   example: String
 }
 
-input FranchiseMutation {
+input HomeHomeFranchiseMutation {
   eyebrow: String
   heading: String
   desc: String
-  cta: String
-  labels: FranchiseLabelsMutation
-  links: FranchiseLinksMutation
+  ctaButton: String
+  franchiseLabels: HomeHomeFranchiseFranchiseLabelsMutation
+  franchiseLinks: HomeHomeFranchiseFranchiseLinksMutation
   disclaimer: String
 }
 
-input MarketBlockMutation {
+input HomeHomeMarketBlockMutation {
   eyebrow: String
   headingBefore: String
   headingAccent: String
@@ -1031,21 +1041,21 @@ input MarketBlockMutation {
   reasons: [String]
 }
 
-input TrustModelMutation {
+input HomeHomeTrustModelMutation {
   eyebrow: String
   headingBefore: String
   headingAccent: String
   desc: String
 }
 
-input RoadmapMutation {
+input HomeHomeRoadmapMutation {
   eyebrow: String
   headingBefore: String
   headingAccent: String
   desc: String
 }
 
-input CaseStudiesLabelsMutation {
+input HomeHomeCaseStudiesCaseLabelsMutation {
   payback: String
   profitMonth: String
   investment: String
@@ -1053,24 +1063,24 @@ input CaseStudiesLabelsMutation {
   photo: String
 }
 
-input CaseStudiesMutation {
+input HomeHomeCaseStudiesMutation {
   eyebrow: String
   headingBefore: String
   headingAccent: String
   desc: String
-  labels: CaseStudiesLabelsMutation
+  caseLabels: HomeHomeCaseStudiesCaseLabelsMutation
   openedPrefix: String
   openedSuffix: String
 }
 
-input FaqMutation {
+input HomeHomeFaqMutation {
   eyebrow: String
   headingBefore: String
   headingAccent: String
   desc: String
 }
 
-input ContactsFormMutation {
+input HomeHomeContactsFormMutation {
   name: String
   namePlaceholder: String
   phone: String
@@ -1090,29 +1100,29 @@ input ContactsFormMutation {
   leadQueueFallback: String
 }
 
-input ContactsCompanyMutation {
+input HomeHomeContactsCompanyMutation {
   name: String
   inn: String
   address: String
 }
 
-input ContactsSectionsMutation {
+input HomeHomeContactsSectionsMutation {
   details: String
   contacts: String
   socials: String
 }
 
-input ContactsMutation {
+input HomeHomeContactsMutation {
   eyebrow: String
   heading: String
   desc: String
-  form: ContactsFormMutation
-  company: ContactsCompanyMutation
-  sections: ContactsSectionsMutation
+  form: HomeHomeContactsFormMutation
+  company: HomeHomeContactsCompanyMutation
+  sections: HomeHomeContactsSectionsMutation
   privacy: String
 }
 
-input StoresGhostMutation {
+input HomeHomeStoresGhostMutation {
   label: String
   tooltip: String
   sidebarYourCity: String
@@ -1120,121 +1130,211 @@ input StoresGhostMutation {
   sidebarSubtext: String
 }
 
-input StoresMutation {
+input HomeHomeStoresMutation {
   eyebrow: String
   heading: String
   desc: String
-  ghost: StoresGhostMutation
+  ghost: HomeHomeStoresGhostMutation
 }
 
-input KpRatingBadgeMutation {
+input HomeHomeKpRatingBadgeMutation {
   rank: String
   label: String
 }
 
-input KpRatingMutation {
+input HomeHomeKpRatingMutation {
   eyebrow: String
   headingAccent: String
   headingAfter: String
   desc: String
-  badge: KpRatingBadgeMutation
+  badge: HomeHomeKpRatingBadgeMutation
   body: String
-  cta: String
+  ctaLink: String
   source: String
   imageAlt: String
 }
 
-input PageAboutStatsMutation {
+input HomeMutation {
+  homeHero: HomeHomeHeroMutation
+  homeAbout: HomeHomeAboutMutation
+  homeFranchise: HomeHomeFranchiseMutation
+  homeMarketBlock: HomeHomeMarketBlockMutation
+  homeTrustModel: HomeHomeTrustModelMutation
+  homeRoadmap: HomeHomeRoadmapMutation
+  homeCaseStudies: HomeHomeCaseStudiesMutation
+  homeFaq: HomeHomeFaqMutation
+  homeContacts: HomeHomeContactsMutation
+  homeStores: HomeHomeStoresMutation
+  homeKpRating: HomeHomeKpRatingMutation
+}
+
+input AboutAboutHeroMutation {
+  heroEyebrow: String
+  heroHeading: String
+  heroDesc: String
+}
+
+input AboutAboutStatsStatsMutation {
   num: Float
   suffix: String
   label: String
   accent: Boolean
 }
 
-input PageAboutAdvantagesMutation {
+input AboutAboutStatsMutation {
+  stats: [AboutAboutStatsStatsMutation]
+}
+
+input AboutAboutPhilosophyMutation {
+  philosophyEyebrow: String
+  philosophyHeading: String
+  philosophyBody1: String
+  philosophyBody2: String
+}
+
+input AboutAboutAdvantagesAdvantagesMutation {
   title: String
   desc: String
 }
 
-input PageAboutMilestonesMutation {
+input AboutAboutAdvantagesMutation {
+  advantagesEyebrow: String
+  advantagesHeading: String
+  advantages: [AboutAboutAdvantagesAdvantagesMutation]
+}
+
+input AboutAboutTimelineMilestonesMutation {
   year: String
   title: String
   desc: String
 }
 
-input PageAboutMutation {
-  heroEyebrow: String
-  heroHeading: String
-  heroDesc: String
-  stats: [PageAboutStatsMutation]
-  philosophyEyebrow: String
-  philosophyHeading: String
-  philosophyBody1: String
-  philosophyBody2: String
-  advantagesEyebrow: String
-  advantagesHeading: String
-  advantages: [PageAboutAdvantagesMutation]
+input AboutAboutTimelineMutation {
   timelineEyebrow: String
   timelineHeading: String
-  milestones: [PageAboutMilestonesMutation]
+  milestones: [AboutAboutTimelineMilestonesMutation]
+}
+
+input AboutAboutRepresentativeMutation {
   repEyebrow: String
   repHeading: String
   repBody: String
   repInn: String
   repAddress: String
+}
+
+input AboutAboutCtaMutation {
   ctaHeading: String
   ctaButton: String
 }
 
-input PageFranchiseFinancialRowsMutation {
+input AboutMutation {
+  aboutHero: AboutAboutHeroMutation
+  aboutStats: AboutAboutStatsMutation
+  aboutPhilosophy: AboutAboutPhilosophyMutation
+  aboutAdvantages: AboutAboutAdvantagesMutation
+  aboutTimeline: AboutAboutTimelineMutation
+  aboutRepresentative: AboutAboutRepresentativeMutation
+  aboutCta: AboutAboutCtaMutation
+}
+
+input FranchiseFranchiseHeroMutation {
+  heroEyebrow: String
+  heroHeading: String
+  heroDesc: String
+}
+
+input FranchiseFranchisePlansMutation {
+  plansEyebrow: String
+  plansDesc: String
+  plansHeading: String
+}
+
+input FranchiseFranchiseComparisonMutation {
+  comparisonEyebrow: String
+  comparisonHeading: String
+}
+
+input FranchiseFranchiseFinancialFinancialRowsMutation {
   label: String
   value: String
   detail: String
   accent: Boolean
 }
 
-input PageFranchiseMutation {
-  heroEyebrow: String
-  heroHeading: String
-  heroDesc: String
-  plansEyebrow: String
-  plansDesc: String
-  plansHeading: String
-  comparisonEyebrow: String
-  comparisonHeading: String
+input FranchiseFranchiseFinancialMutation {
   financialEyebrow: String
   financialDesc: String
   financialHeading: String
-  financialRows: [PageFranchiseFinancialRowsMutation]
+  financialRows: [FranchiseFranchiseFinancialFinancialRowsMutation]
   seasonalityNote: String
+}
+
+input FranchiseFranchiseBenefitsMutation {
   benefitsEyebrow: String
   benefitsHeading: String
+}
+
+input FranchiseFranchiseGalleryMutation {
   galleryEyebrow: String
   galleryHeading: String
+}
+
+input FranchiseFranchiseContactMutation {
   contactHeading: String
   contactDesc: String
 }
 
-input PageCollectionMutation {
+input FranchiseMutation {
+  franchiseHero: FranchiseFranchiseHeroMutation
+  franchisePlans: FranchiseFranchisePlansMutation
+  franchiseComparison: FranchiseFranchiseComparisonMutation
+  franchiseFinancial: FranchiseFranchiseFinancialMutation
+  franchiseBenefits: FranchiseFranchiseBenefitsMutation
+  franchiseGallery: FranchiseFranchiseGalleryMutation
+  franchiseContact: FranchiseFranchiseContactMutation
+}
+
+input PageCollectionsCollectionHeroMutation {
   heroEyebrow: String
   heroHeading: String
   heroDesc: String
+}
+
+input PageCollectionsCollectionCtaMutation {
   ctaEyebrow: String
   ctaHeading: String
   ctaDesc: String
   ctaButton: String
 }
 
-input PageStoresMutation {
+input PageCollectionsMutation {
+  collectionHero: PageCollectionsCollectionHeroMutation
+  collectionCta: PageCollectionsCollectionCtaMutation
+}
+
+input StoresStoresHeroMutation {
   heroEyebrow: String
   heroHeading: String
   heroDesc: String
+}
+
+input StoresStoresListMutation {
   storesEyebrow: String
   storesDesc: String
   storesHeading: String
+}
+
+input StoresStoresCtaMutation {
   ctaHeading: String
   ctaDesc: String
   ctaButton: String
+}
+
+input StoresMutation {
+  storesHero: StoresStoresHeroMutation
+  storesList: StoresStoresListMutation
+  storesCta: StoresStoresCtaMutation
 }
 
 schema {

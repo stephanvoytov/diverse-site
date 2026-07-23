@@ -136,26 +136,36 @@ function CollectionSection({
   );
 }
 
-interface TinaData {
-  heroEyebrow?: string;
-  heroHeading?: string;
-  heroDesc?: string;
-  ctaEyebrow?: string;
-  ctaHeading?: string;
-  ctaDesc?: string;
-  ctaButton?: string;
-  [key: string]: unknown;
-}
-
 interface TinaResult {
   data: Record<string, unknown>;
   query: string;
   variables: Record<string, unknown>;
 }
 
-export default function CollectionContent({ data }: { data: TinaResult | null }) {
-  const { data: tinaData } = useTina(data || { data: {}, query: "", variables: {} });
-  const s = (tinaData?.pageCollection || {}) as TinaData;
+const EMPTY: TinaResult = { data: {}, query: "", variables: {} };
+
+export default function CollectionContent({
+  hero,
+  cta,
+}: {
+  hero: TinaResult | null;
+  cta: TinaResult | null;
+}) {
+  const { data: heroData } = useTina(hero || EMPTY);
+  const { data: ctaData } = useTina(cta || EMPTY);
+
+  const h = (heroData?.pageCollections || {}) as {
+    heroEyebrow?: string;
+    heroHeading?: string;
+    heroDesc?: string;
+  };
+  const c = (ctaData?.pageCollections || {}) as {
+    ctaEyebrow?: string;
+    ctaHeading?: string;
+    ctaDesc?: string;
+    ctaButton?: string;
+  };
+
   const { open: openModal } = useModal();
   return (
     <>
@@ -193,20 +203,20 @@ export default function CollectionContent({ data }: { data: TinaResult | null })
               >
                 <span
                   className="text-xs eyebrow text-brand-accent font-semibold mb-4 block"
-                  data-tina-field={tinaField(s, "heroEyebrow")}
+                  data-tina-field={tinaField(h, "heroEyebrow")}
                 >
-                  {s.heroEyebrow}
+                  {h.heroEyebrow}
                 </span>
                 <h1
                   className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.05] tracking-[-0.02em]"
-                  data-tina-field={tinaField(s, "heroHeading")}
-                  dangerouslySetInnerHTML={{ __html: s.heroHeading || "" }}
+                  data-tina-field={tinaField(h, "heroHeading")}
+                  dangerouslySetInnerHTML={{ __html: h.heroHeading || "" }}
                 />
                 <p
                   className="body-text text-white/50 max-w-xl mt-4 md:mt-6 leading-relaxed"
-                  data-tina-field={tinaField(s, "heroDesc")}
+                  data-tina-field={tinaField(h, "heroDesc")}
                 >
-                  {s.heroDesc}
+                  {h.heroDesc}
                 </p>
               </motion.div>
             </div>
@@ -244,27 +254,27 @@ export default function CollectionContent({ data }: { data: TinaResult | null })
             >
               <span
                 className="text-xs eyebrow text-brand-accent font-semibold mb-4 block"
-                data-tina-field={tinaField(s, "ctaEyebrow")}
+                data-tina-field={tinaField(c, "ctaEyebrow")}
               >
-                {s.ctaEyebrow}
+                {c.ctaEyebrow}
               </span>
               <h2
                 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-4"
-                data-tina-field={tinaField(s, "ctaHeading")}
-                dangerouslySetInnerHTML={{ __html: s.ctaHeading || "" }}
+                data-tina-field={tinaField(c, "ctaHeading")}
+                dangerouslySetInnerHTML={{ __html: c.ctaHeading || "" }}
               />
               <p
                 className="text-white/50 body-text max-w-md mx-auto mb-8 leading-relaxed"
-                data-tina-field={tinaField(s, "ctaDesc")}
+                data-tina-field={tinaField(c, "ctaDesc")}
               >
-                {s.ctaDesc}
+                {c.ctaDesc}
               </p>
               <button
                 onClick={openModal}
                 className="inline-flex items-center justify-center px-10 py-4 text-sm tracking-[0.2em] font-semibold uppercase text-white bg-brand-accent hover:bg-brand-accent-hover transition-all duration-300 rounded-sm cursor-pointer"
-                data-tina-field={tinaField(s, "ctaButton")}
+                data-tina-field={tinaField(c, "ctaButton")}
               >
-                {s.ctaButton}
+                {c.ctaButton}
               </button>
             </motion.div>
           </div>

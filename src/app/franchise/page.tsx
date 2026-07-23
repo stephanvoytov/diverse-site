@@ -42,11 +42,19 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  let franchiseResult = null;
-  try {
-    franchiseResult = await client.queries.pageFranchise({ relativePath: "franchise.json" });
-  } catch (e) {
-    console.warn("TinaCMS query failed for /franchise, using fallback", e);
+  const [hero, plans, comparison, financial, benefits, gallery, contact] =
+    await Promise.allSettled([
+      client.queries.franchise({ relativePath: "hero.json" }).catch(() => null),
+      client.queries.franchise({ relativePath: "plans.json" }).catch(() => null),
+      client.queries.franchise({ relativePath: "comparison.json" }).catch(() => null),
+      client.queries.franchise({ relativePath: "financial.json" }).catch(() => null),
+      client.queries.franchise({ relativePath: "benefits.json" }).catch(() => null),
+      client.queries.franchise({ relativePath: "gallery.json" }).catch(() => null),
+      client.queries.franchise({ relativePath: "contact.json" }).catch(() => null),
+    ]);
+
+  function getResult<T>(result: PromiseSettledResult<T | null>): T | null {
+    return result.status === "fulfilled" ? result.value : null;
   }
 
   const breadcrumbSchema = {
@@ -83,7 +91,15 @@ export default async function Page() {
     <>
       <JsonLd data={breadcrumbSchema} />
       <JsonLd data={productSchema} />
-      <FranchiseContent data={franchiseResult} />
+      <FranchiseContent
+        hero={getResult(hero)}
+        plans={getResult(plans)}
+        comparison={getResult(comparison)}
+        financial={getResult(financial)}
+        benefits={getResult(benefits)}
+        gallery={getResult(gallery)}
+        contact={getResult(contact)}
+      />
     </>
   );
 }

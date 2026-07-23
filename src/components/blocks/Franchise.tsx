@@ -113,16 +113,16 @@ export default function Franchise({ data }: { data?: typeof fallback }) {
                   <p className="text-[28px] font-bold text-brand-accent mb-0.5">
                     {plan.investment}
                   </p>
-                  <p className="text-[11px] text-white/50 tracking-[0.1em] uppercase" data-tina-field={tinaField(s.labels, "investment")}>
-                    {s.labels.investment}
+                  <p className="text-[11px] text-white/50 tracking-[0.1em] uppercase" data-tina-field={tinaField(s.franchiseLabels, "investment")}>
+                    {s.franchiseLabels.investment}
                   </p>
                 </div>
                 <div>
                   <p className="text-lg font-bold text-white">
                     {cardProfit[plan.id]}
                   </p>
-                  <p className="text-[11px] text-white/50 tracking-[0.1em] uppercase" data-tina-field={tinaField(s.labels, "profitMonth")}>
-                    {s.labels.profitMonth}
+                  <p className="text-[11px] text-white/50 tracking-[0.1em] uppercase" data-tina-field={tinaField(s.franchiseLabels, "profitMonth")}>
+                    {s.franchiseLabels.profitMonth}
                   </p>
                 </div>
               </div>
@@ -153,9 +153,9 @@ export default function Franchise({ data }: { data?: typeof fallback }) {
             <button
               onClick={openModal}
               className="btn-accent"
-              data-tina-field={tinaField(s, "cta")}
+              data-tina-field={tinaField(s, "ctaButton")}
             >
-              {s.cta}
+              {s.ctaButton}
             </button>
           </motion.div>
 
@@ -170,17 +170,17 @@ export default function Franchise({ data }: { data?: typeof fallback }) {
             <a
               href="/franchise/"
               className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors group"
-              data-tina-field={tinaField(s.links, "allConditions")}
+              data-tina-field={tinaField(s.franchiseLinks, "allConditions")}
             >
-              {s.links.allConditions}
+              {s.franchiseLinks.allConditions}
               <span className="group-hover:translate-x-1 transition-transform">→</span>
             </a>
             <a
               href="/franchise/#gallery"
               className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors group"
-              data-tina-field={tinaField(s.links, "example")}
+              data-tina-field={tinaField(s.franchiseLinks, "example")}
             >
-              {s.links.example}
+              {s.franchiseLinks.example}
               <span className="group-hover:translate-x-1 transition-transform">→</span>
             </a>
           </motion.div>

@@ -1,0 +1,8 @@
+{
+  "_template": "aboutStats",
+  "stats": [
+    { "num": 30, "suffix": "+", "label": "Лет на рынке", "accent": false },
+    { "num": 400, "suffix": "+", "label": "Магазинов в мире", "accent": false },
+    { "num": 3, "suffix": "", "label": "Суббренда", "accent": true }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "_template": "homeCaseStudies",
+  "eyebrow": "Реальные результаты",
+  "headingBefore": "Кейсы действующих",
+  "headingAccent": "франчайзи",
+  "desc": "Реальные истории партнёров — от Калининграда до Уфы",
+  "caseLabels": {
+    "payback": "Окупаемость",
+    "profitMonth": "Прибыль / мес",
+    "investment": "Инвестиции",
+    "video": "Видео",
+    "photo": "Фото"
+  },
+  "openedPrefix": "Открыт в",
+  "openedSuffix": "году"
+}

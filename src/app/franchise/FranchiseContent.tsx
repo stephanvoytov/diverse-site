@@ -30,6 +30,16 @@ const franchiseFormSchema = z.object({
 
 type FranchiseForm = z.infer<typeof franchiseFormSchema>;
 
+/* ——— Types ——— */
+
+interface TinaResult {
+  data: Record<string, unknown>;
+  query: string;
+  variables: Record<string, unknown>;
+}
+
+const EMPTY: TinaResult = { data: {}, query: "", variables: {} };
+
 /* ——— Plans accordion (reused from main) ——— */
 
 function PlansSection() {
@@ -223,18 +233,18 @@ function ComparisonTable() {
 
 /* ——— Financial model ——— */
 
-function FinancialModel({ s }: { s: TinaData }) {
+function FinancialModel({ s }: { s: Record<string, unknown> }) {
   return (
     <section data-header="light" className="bg-brand-gray-100 py-20 md:py-28">
       <div className="container-brand">
         <SectionHeader
-          eyebrow={s.financialEyebrow}
-          desc={s.financialDesc}
+          eyebrow={s.financialEyebrow as string}
+          desc={s.financialDesc as string}
           descClassName="body-text text-brand-gray-400 max-w-2xl mx-auto"
           eyebrowField={tinaField(s, "financialEyebrow")}
           descField={tinaField(s, "financialDesc")}
         >
-          <span data-tina-field={tinaField(s, "financialHeading")} dangerouslySetInnerHTML={{ __html: s.financialHeading || "" }} />
+          <span data-tina-field={tinaField(s, "financialHeading")} dangerouslySetInnerHTML={{ __html: (s.financialHeading as string) || "" }} />
         </SectionHeader>
 
         <div className="max-w-3xl mx-auto">
@@ -255,7 +265,7 @@ function FinancialModel({ s }: { s: TinaData }) {
           >
             {/* Table */}
             <div className="divide-y divide-brand-gray-100">
-              {(s.financialRows || []).map((row: { label?: string; value?: string; detail?: string; accent?: boolean }, i: number) => (
+              {((s.financialRows as Array<{ label?: string; value?: string; detail?: string; accent?: boolean }>) || []).map((row, i) => (
                 <div
                   key={i}
                   className={`flex items-center justify-between gap-4 px-6 md:px-8 py-4 ${
@@ -293,7 +303,7 @@ function FinancialModel({ s }: { s: TinaData }) {
               <circle cx="12" cy="12" r="10" />
               <path d="M12 16v-4M12 8h.01" />
             </svg>
-            <p data-tina-field={tinaField(s, "seasonalityNote")} dangerouslySetInnerHTML={{ __html: s.seasonalityNote || "" }} />
+            <p data-tina-field={tinaField(s, "seasonalityNote")} dangerouslySetInnerHTML={{ __html: (s.seasonalityNote as string) || "" }} />
           </motion.div>
         </motion.div>
         </div>
@@ -304,15 +314,15 @@ function FinancialModel({ s }: { s: TinaData }) {
 
 /* ——— Benefits ——— */
 
-function BenefitsSection({ s }: { s: TinaData }) {
+function BenefitsSection({ s }: { s: Record<string, unknown> }) {
   return (
     <section className="bg-white py-20 md:py-28">
       <div className="container-brand">
         <SectionHeader
-          eyebrow={s.benefitsEyebrow}
+          eyebrow={s.benefitsEyebrow as string}
           eyebrowField={tinaField(s, "benefitsEyebrow")}
         >
-          <span data-tina-field={tinaField(s, "benefitsHeading")} dangerouslySetInnerHTML={{ __html: s.benefitsHeading || "" }} />
+          <span data-tina-field={tinaField(s, "benefitsHeading")} dangerouslySetInnerHTML={{ __html: (s.benefitsHeading as string) || "" }} />
         </SectionHeader>
 
         <motion.div
@@ -527,37 +537,6 @@ function ContactSection() {
   );
 }
 
-/* ——— Types ——— */
-
-interface TinaData {
-  heroEyebrow?: string;
-  heroHeading?: string;
-  heroDesc?: string;
-  plansEyebrow?: string;
-  plansDesc?: string;
-  plansHeading?: string;
-  comparisonEyebrow?: string;
-  comparisonHeading?: string;
-  financialEyebrow?: string;
-  financialDesc?: string;
-  financialHeading?: string;
-  financialRows?: Array<{ label?: string; value?: string; detail?: string; accent?: boolean }>;
-  seasonalityNote?: string;
-  benefitsEyebrow?: string;
-  benefitsHeading?: string;
-  galleryEyebrow?: string;
-  galleryHeading?: string;
-  contactHeading?: string;
-  contactDesc?: string;
-  [key: string]: unknown;
-}
-
-interface TinaResult {
-  data: Record<string, unknown>;
-  query: string;
-  variables: Record<string, unknown>;
-}
-
 /* ——— Gallery images ——— */
 
 const galleryImages = [
@@ -571,9 +550,34 @@ const galleryImages = [
 
 /* ——— Page ——— */
 
-export default function FranchiseContent({ data }: { data: TinaResult | null }) {
-  const { data: tinaData } = useTina(data || { data: {}, query: "", variables: {} });
-  const s = (tinaData?.pageFranchise || {}) as TinaData;
+export default function FranchiseContent({
+  hero,
+  plans,
+  comparison,
+  financial,
+  benefits,
+  gallery,
+  contact,
+}: {
+  hero: TinaResult | null;
+  plans: TinaResult | null;
+  comparison: TinaResult | null;
+  financial: TinaResult | null;
+  benefits: TinaResult | null;
+  gallery: TinaResult | null;
+  contact: TinaResult | null;
+}) {
+  const { data: heroData } = useTina(hero || EMPTY);
+  const { data: financialData } = useTina(financial || EMPTY);
+  const { data: benefitsData } = useTina(benefits || EMPTY);
+
+  const h = (heroData?.franchise || {}) as {
+    heroEyebrow?: string;
+    heroHeading?: string;
+    heroDesc?: string;
+  };
+  const fin = (financialData?.franchise || {}) as Record<string, unknown>;
+  const ben = (benefitsData?.franchise || {}) as Record<string, unknown>;
 
   return (
     <>
@@ -593,26 +597,26 @@ export default function FranchiseContent({ data }: { data: TinaResult | null }) 
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-              data-tina-field={tinaField(s, "heroEyebrow")}
+              data-tina-field={tinaField(h, "heroEyebrow")}
             >
-              {s.heroEyebrow}
+              {h.heroEyebrow}
             </motion.p>
             <motion.h1
               className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-4"
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-              data-tina-field={tinaField(s, "heroHeading")}
-              dangerouslySetInnerHTML={{ __html: s.heroHeading || "" }}
+              data-tina-field={tinaField(h, "heroHeading")}
+              dangerouslySetInnerHTML={{ __html: h.heroHeading || "" }}
             />
             <motion.p
               className="body-text text-white/60 max-w-2xl mx-auto mb-10"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-              data-tina-field={tinaField(s, "heroDesc")}
+              data-tina-field={tinaField(h, "heroDesc")}
             >
-              {s.heroDesc}
+              {h.heroDesc}
             </motion.p>
 
             {/* Key numbers */}
@@ -642,8 +646,8 @@ export default function FranchiseContent({ data }: { data: TinaResult | null }) 
 
         <PlansSection />
         <ComparisonTable />
-        <FinancialModel s={s} />
-        <BenefitsSection s={s} />
+        <FinancialModel s={fin} />
+        <BenefitsSection s={ben} />
         <div id="gallery"><StoreGallery images={galleryImages} /></div>
         <Faq />
         <ContactSection />

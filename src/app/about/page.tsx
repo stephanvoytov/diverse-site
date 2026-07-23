@@ -36,11 +36,19 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  let aboutResult = null;
-  try {
-    aboutResult = await client.queries.pageAbout({ relativePath: "about.json" });
-  } catch (e) {
-    console.warn("TinaCMS query failed for /about, using fallback", e);
+  const [hero, stats, philosophy, advantages, timeline, representative, cta] =
+    await Promise.allSettled([
+      client.queries.about({ relativePath: "hero.json" }).catch(() => null),
+      client.queries.about({ relativePath: "stats.json" }).catch(() => null),
+      client.queries.about({ relativePath: "philosophy.json" }).catch(() => null),
+      client.queries.about({ relativePath: "advantages.json" }).catch(() => null),
+      client.queries.about({ relativePath: "timeline.json" }).catch(() => null),
+      client.queries.about({ relativePath: "representative.json" }).catch(() => null),
+      client.queries.about({ relativePath: "cta.json" }).catch(() => null),
+    ]);
+
+  function getResult<T>(result: PromiseSettledResult<T | null>): T | null {
+    return result.status === "fulfilled" ? result.value : null;
   }
 
   const breadcrumbSchema = {
@@ -56,7 +64,15 @@ export default async function Page() {
   return (
     <>
       <JsonLd data={breadcrumbSchema} />
-      <AboutContent data={aboutResult} />
+      <AboutContent
+        hero={getResult(hero)}
+        stats={getResult(stats)}
+        philosophy={getResult(philosophy)}
+        advantages={getResult(advantages)}
+        timeline={getResult(timeline)}
+        representative={getResult(representative)}
+        cta={getResult(cta)}
+      />
     </>
   );
 }
