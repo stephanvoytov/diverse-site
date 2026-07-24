@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { client } from "../../../tina/__generated__/client";
+import { readFileSync } from "fs";
+import { join } from "path";
 import AboutContent from "./AboutContent";
 import JsonLd from "@/components/shared/JsonLd";
 import { SITE_URL } from "@/config/site";
@@ -35,21 +36,23 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Page() {
-  const [hero, stats, philosophy, advantages, timeline, representative, cta] =
-    await Promise.allSettled([
-      client.queries.about({ relativePath: "hero.json" }).catch(() => null),
-      client.queries.about({ relativePath: "stats.json" }).catch(() => null),
-      client.queries.about({ relativePath: "philosophy.json" }).catch(() => null),
-      client.queries.about({ relativePath: "advantages.json" }).catch(() => null),
-      client.queries.about({ relativePath: "timeline.json" }).catch(() => null),
-      client.queries.about({ relativePath: "representative.json" }).catch(() => null),
-      client.queries.about({ relativePath: "cta.json" }).catch(() => null),
-    ]);
-
-  function getResult<T>(result: PromiseSettledResult<T | null>): T | null {
-    return result.status === "fulfilled" ? result.value : null;
+function readTinaFile<T>(collection: string, file: string): { data: Record<string, T>; query: string; variables: Record<string, unknown> } | null {
+  try {
+    const content = JSON.parse(readFileSync(join(process.cwd(), "content", collection, file), "utf-8"));
+    return { data: { [collection]: content }, query: "", variables: {} };
+  } catch {
+    return null;
   }
+}
+
+export default async function Page() {
+  const hero = readTinaFile("about", "hero.json");
+  const stats = readTinaFile("about", "stats.json");
+  const philosophy = readTinaFile("about", "philosophy.json");
+  const advantages = readTinaFile("about", "advantages.json");
+  const timeline = readTinaFile("about", "timeline.json");
+  const representative = readTinaFile("about", "representative.json");
+  const cta = readTinaFile("about", "cta.json");
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -65,13 +68,13 @@ export default async function Page() {
     <>
       <JsonLd data={breadcrumbSchema} />
       <AboutContent
-        hero={getResult(hero)}
-        stats={getResult(stats)}
-        philosophy={getResult(philosophy)}
-        advantages={getResult(advantages)}
-        timeline={getResult(timeline)}
-        representative={getResult(representative)}
-        cta={getResult(cta)}
+        hero={hero}
+        stats={stats}
+        philosophy={philosophy}
+        advantages={advantages}
+        timeline={timeline}
+        representative={representative}
+        cta={cta}
       />
     </>
   );

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { client } from "../../../tina/__generated__/client";
+import { readFileSync } from "fs";
+import { join } from "path";
 import FranchiseContent from "./FranchiseContent";
 import JsonLd from "@/components/shared/JsonLd";
 import { formatCards } from "@/data/formats";
@@ -41,21 +42,23 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Page() {
-  const [hero, plans, comparison, financial, benefits, gallery, contact] =
-    await Promise.allSettled([
-      client.queries.franchise({ relativePath: "hero.json" }).catch(() => null),
-      client.queries.franchise({ relativePath: "plans.json" }).catch(() => null),
-      client.queries.franchise({ relativePath: "comparison.json" }).catch(() => null),
-      client.queries.franchise({ relativePath: "financial.json" }).catch(() => null),
-      client.queries.franchise({ relativePath: "benefits.json" }).catch(() => null),
-      client.queries.franchise({ relativePath: "gallery.json" }).catch(() => null),
-      client.queries.franchise({ relativePath: "contact.json" }).catch(() => null),
-    ]);
-
-  function getResult<T>(result: PromiseSettledResult<T | null>): T | null {
-    return result.status === "fulfilled" ? result.value : null;
+function readTinaFile<T>(collection: string, file: string): { data: Record<string, T>; query: string; variables: Record<string, unknown> } | null {
+  try {
+    const content = JSON.parse(readFileSync(join(process.cwd(), "content", collection, file), "utf-8"));
+    return { data: { [collection]: content }, query: "", variables: {} };
+  } catch {
+    return null;
   }
+}
+
+export default async function Page() {
+  const hero = readTinaFile("franchise", "hero.json");
+  const plans = readTinaFile("franchise", "plans.json");
+  const comparison = readTinaFile("franchise", "comparison.json");
+  const financial = readTinaFile("franchise", "financial.json");
+  const benefits = readTinaFile("franchise", "benefits.json");
+  const gallery = readTinaFile("franchise", "gallery.json");
+  const contact = readTinaFile("franchise", "contact.json");
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -92,13 +95,13 @@ export default async function Page() {
       <JsonLd data={breadcrumbSchema} />
       <JsonLd data={productSchema} />
       <FranchiseContent
-        hero={getResult(hero)}
-        plans={getResult(plans)}
-        comparison={getResult(comparison)}
-        financial={getResult(financial)}
-        benefits={getResult(benefits)}
-        gallery={getResult(gallery)}
-        contact={getResult(contact)}
+        hero={hero}
+        plans={plans}
+        comparison={comparison}
+        financial={financial}
+        benefits={benefits}
+        gallery={gallery}
+        contact={contact}
       />
     </>
   );

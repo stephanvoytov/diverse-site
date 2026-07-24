@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { client } from "../../../tina/__generated__/client";
+import { readFileSync } from "fs";
+import { join } from "path";
 import StoresContent from "./StoresContent";
 import JsonLd from "@/components/shared/JsonLd";
 import { stores } from "@/data/stores";
@@ -31,16 +32,19 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Page() {
-  const [hero, storesSection, cta] = await Promise.allSettled([
-    client.queries.stores({ relativePath: "hero.json" }).catch(() => null),
-    client.queries.stores({ relativePath: "stores.json" }).catch(() => null),
-    client.queries.stores({ relativePath: "cta.json" }).catch(() => null),
-  ]);
-
-  function getResult<T>(result: PromiseSettledResult<T | null>): T | null {
-    return result.status === "fulfilled" ? result.value : null;
+function readTinaFile<T>(collection: string, file: string): { data: Record<string, T>; query: string; variables: Record<string, unknown> } | null {
+  try {
+    const content = JSON.parse(readFileSync(join(process.cwd(), "content", collection, file), "utf-8"));
+    return { data: { [collection]: content }, query: "", variables: {} };
+  } catch {
+    return null;
   }
+}
+
+export default async function Page() {
+  const hero = readTinaFile("stores", "hero.json");
+  const storesSection = readTinaFile("stores", "stores.json");
+  const cta = readTinaFile("stores", "cta.json");
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -77,9 +81,9 @@ export default async function Page() {
       <JsonLd data={breadcrumbSchema} />
       <JsonLd data={storesSchema} />
       <StoresContent
-        hero={getResult(hero)}
-        storesSection={getResult(storesSection)}
-        cta={getResult(cta)}
+        hero={hero}
+        storesSection={storesSection}
+        cta={cta}
       />
     </>
   );

@@ -1,41 +1,30 @@
-﻿import { client } from "../../tina/__generated__/client";
+﻿import { readFileSync } from "fs";
+import { join } from "path";
 import ClientPage from "./client-page";
 
-export default async function Home() {
-  const [hero, about, kpRating, franchise, marketBlock, trustModel, roadmap, caseStudies, faq, contacts, stores] =
-    await Promise.allSettled([
-      client.queries.home({ relativePath: "hero.json" }),
-      client.queries.home({ relativePath: "about.json" }),
-      client.queries.home({ relativePath: "kpRating.json" }),
-      client.queries.home({ relativePath: "franchise.json" }),
-      client.queries.home({ relativePath: "marketBlock.json" }),
-      client.queries.home({ relativePath: "trustModel.json" }),
-      client.queries.home({ relativePath: "roadmap.json" }),
-      client.queries.home({ relativePath: "caseStudies.json" }),
-      client.queries.home({ relativePath: "faq.json" }),
-      client.queries.home({ relativePath: "contacts.json" }),
-      client.queries.home({ relativePath: "stores.json" }),
-    ]);
-
-  function getResult<T>(result: PromiseSettledResult<T>): T | null {
-    return result.status === "fulfilled" ? result.value : null;
+function readTinaFile<T>(collection: string, file: string): { data: Record<string, T>; query: string; variables: Record<string, unknown> } | null {
+  try {
+    const content = JSON.parse(readFileSync(join(process.cwd(), "content", collection, file), "utf-8"));
+    return { data: { [collection]: content }, query: "", variables: {} };
+  } catch {
+    return null;
   }
+}
 
-  return (
-    <ClientPage
-      blocks={{
-        hero: getResult(hero),
-        about: getResult(about),
-        kpRating: getResult(kpRating),
-        franchise: getResult(franchise),
-        marketBlock: getResult(marketBlock),
-        trustModel: getResult(trustModel),
-        roadmap: getResult(roadmap),
-        caseStudies: getResult(caseStudies),
-        faq: getResult(faq),
-        contacts: getResult(contacts),
-        stores: getResult(stores),
-      }}
-    />
-  );
+export default async function Home() {
+  const blocks = {
+    hero: readTinaFile("home", "hero.json"),
+    about: readTinaFile("home", "about.json"),
+    kpRating: readTinaFile("home", "kpRating.json"),
+    franchise: readTinaFile("home", "franchise.json"),
+    marketBlock: readTinaFile("home", "marketBlock.json"),
+    trustModel: readTinaFile("home", "trustModel.json"),
+    roadmap: readTinaFile("home", "roadmap.json"),
+    caseStudies: readTinaFile("home", "caseStudies.json"),
+    faq: readTinaFile("home", "faq.json"),
+    contacts: readTinaFile("home", "contacts.json"),
+    stores: readTinaFile("home", "stores.json"),
+  };
+
+  return <ClientPage blocks={blocks} />;
 }
