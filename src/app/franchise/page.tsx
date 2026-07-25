@@ -5,6 +5,7 @@ import FranchiseContent from "./FranchiseContent";
 import JsonLd from "@/components/shared/JsonLd";
 import { formatCards } from "@/data/formats";
 import { SITE_URL } from "@/config/site";
+import { getTinaQuery, type TinaResult } from "@/lib/tina-queries";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
@@ -42,10 +43,11 @@ export const metadata: Metadata = {
   },
 };
 
-function readTinaFile<T>(collection: string, file: string): { data: Record<string, T>; query: string; variables: Record<string, unknown> } | null {
+function readTinaFile<T>(collection: string, file: string): TinaResult<T> | null {
   try {
     const content = JSON.parse(readFileSync(join(process.cwd(), "content", collection, file), "utf-8"));
-    return { data: { [collection]: content }, query: "", variables: {} };
+    const { query, variables } = getTinaQuery(collection, file);
+    return { data: { [collection]: content }, query, variables };
   } catch {
     return null;
   }

@@ -63,8 +63,13 @@ function CollectionSection({
             }}
           />
         )}
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/40" />
+        {/* Dark overlay — inline style c rgba вместо oklab (Firefox) */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.4) 100%)",
+          }}
+        />
         {/* Diagonal accent — alternates side */}
         <div
           className={`absolute top-0 h-full w-px bg-white/[0.04] ${
@@ -192,7 +197,13 @@ export default function CollectionContent({
               <div className="absolute top-0 left-1/4 h-full w-px bg-white/[0.03]" />
             </div>
           </div>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80" />
+          {/* inline style c rgba вместо oklab (Firefox) */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background: "linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.8) 100%)",
+            }}
+          />
           <div className="relative z-10 h-full flex flex-col justify-center">
             <div className="container-brand">
               <motion.div

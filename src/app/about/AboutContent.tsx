@@ -197,7 +197,13 @@ export default function AboutContent({
                     className="object-cover object-center"
                     sizes="(max-width: 768px) 100vw, 896px"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                  {/* inline style c rgba вместо oklab (Firefox) */}
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background: "linear-gradient(to top, rgba(0,0,0,0.2) 0%, transparent 100%)",
+                    }}
+                  />
                 </div>
               </motion.div>
 

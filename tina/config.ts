@@ -14,6 +14,7 @@ export default defineConfig({
   build: {
     outputFolder: "admin",
     publicFolder: "public",
+    host: "127.0.0.1",
   },
 
   media: {
@@ -482,7 +483,7 @@ export default defineConfig({
       {
         name: "pageCollections",
         label: "Коллекции",
-        path: "content/collection",
+        path: "content/pageCollections",
         format: "json",
         ui: { router: () => "/collection" },
         templates: [

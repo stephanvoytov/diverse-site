@@ -1,11 +1,13 @@
 ﻿import { readFileSync } from "fs";
 import { join } from "path";
 import ClientPage from "./client-page";
+import { getTinaQuery, type TinaResult } from "@/lib/tina-queries";
 
-function readTinaFile<T>(collection: string, file: string): { data: Record<string, T>; query: string; variables: Record<string, unknown> } | null {
+function readTinaFile<T>(collection: string, file: string): TinaResult<T> | null {
   try {
     const content = JSON.parse(readFileSync(join(process.cwd(), "content", collection, file), "utf-8"));
-    return { data: { [collection]: content }, query: "", variables: {} };
+    const { query, variables } = getTinaQuery(collection, file);
+    return { data: { [collection]: content }, query, variables };
   } catch {
     return null;
   }

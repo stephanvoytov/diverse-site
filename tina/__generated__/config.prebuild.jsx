@@ -7,7 +7,8 @@ var config_default = defineConfig({
   branch,
   build: {
     outputFolder: "admin",
-    publicFolder: "public"
+    publicFolder: "public",
+    host: "127.0.0.1"
   },
   media: {
     tina: {
@@ -471,7 +472,7 @@ var config_default = defineConfig({
       {
         name: "pageCollections",
         label: "\u041A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u0438",
-        path: "content/collection",
+        path: "content/pageCollections",
         format: "json",
         ui: { router: () => "/collection" },
         templates: [

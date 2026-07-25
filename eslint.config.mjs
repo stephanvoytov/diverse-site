@@ -16,7 +16,7 @@ export default [
     languageOptions: {
       parser: tsParser,
       parserOptions: {
-        project: true,
+        project: "./tsconfig.json",
         ecmaVersion: "latest",
         sourceType: "module",
         ecmaFeatures: { jsx: true },

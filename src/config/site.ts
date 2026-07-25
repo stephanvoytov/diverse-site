@@ -12,7 +12,7 @@ export const SITE = {
 } as const;
 
 /** Единый URL сайта — сначала NEXT_PUBLIC_SITE_URL, потом fallback */
-export const SITE_URL: string = process.env.NEXT_PUBLIC_SITE_URL || "https://diversebrand.ru";
+export const SITE_URL: string = process.env.NEXT_PUBLIC_SITE_URL || "https://diversebrand.vercel.app";
 
 export const CONTACTS = {
   /** Телефон (сырой, для tel: ссылок) */

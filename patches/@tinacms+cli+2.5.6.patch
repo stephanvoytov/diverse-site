@@ -1,0 +1,13 @@
+diff --git a/node_modules/@tinacms/cli/dist/index.js b/node_modules/@tinacms/cli/dist/index.js
+index 31bddc5..f8e47de 100644
+--- a/node_modules/@tinacms/cli/dist/index.js
++++ b/node_modules/@tinacms/cli/dist/index.js
+@@ -1472,7 +1472,7 @@ var createDBServer = (port) => {
+       );
+     }
+   });
+-  dbServer.listen(port, "localhost");
++  dbServer.listen(port, "127.0.0.1");
+   return dbServer;
+ };
+ async function createAndInitializeDatabase(configManager, datalayerPort, bridgeOverride) {

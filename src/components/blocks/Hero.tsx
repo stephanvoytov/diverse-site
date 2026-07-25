@@ -71,8 +71,13 @@ export default function Hero({ data }: { data?: typeof fallback }) {
           </picture>
         </motion.div>
 
-        {/* Layer 3: Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/65 to-black/85" />
+        {/* Layer 3: Dark overlay for text readability — inline style c rgba вместо oklab (Firefox) */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.65) 50%, rgba(0,0,0,0.85) 100%)",
+          }}
+        />
 
         {/* Layer 4: Content */}
         <motion.div

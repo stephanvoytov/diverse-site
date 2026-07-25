@@ -1,0 +1,13 @@
+diff --git a/node_modules/@tinacms/graphql/dist/index.js b/node_modules/@tinacms/graphql/dist/index.js
+index 5289a77..8ad192e 100644
+--- a/node_modules/@tinacms/graphql/dist/index.js
++++ b/node_modules/@tinacms/graphql/dist/index.js
+@@ -6646,7 +6646,7 @@ var TinaLevelClient = class extends ManyLevelGuest {
+   }
+   openConnection() {
+     if (this._connected) return;
+-    const socket = connect(this.port);
++    const socket = connect(this.port, "127.0.0.1");
+     pipeline(socket, this.createRpcStream(), socket, () => {
+       this._connected = false;
+     });
