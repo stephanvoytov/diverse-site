@@ -148,6 +148,21 @@ type HomeHomeFranchiseFranchiseLinks {
   example: String
 }
 
+type HomeHomeFranchisePlans {
+  id: String
+  tagline: String
+  name: String
+  desc: String
+  investment: String
+  details: [String]
+}
+
+type HomeHomeFranchiseCardProfit {
+  island: String
+  renovation: String
+  standard: String
+}
+
 type HomeHomeFranchise implements Node & Document {
   eyebrow: String
   heading: String
@@ -156,6 +171,8 @@ type HomeHomeFranchise implements Node & Document {
   franchiseLabels: HomeHomeFranchiseFranchiseLabels
   franchiseLinks: HomeHomeFranchiseFranchiseLinks
   disclaimer: String
+  plans: [HomeHomeFranchisePlans]
+  cardProfit: HomeHomeFranchiseCardProfit
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
@@ -182,11 +199,19 @@ type HomeHomeTrustModel implements Node & Document {
   _values: JSON!
 }
 
+type HomeHomeRoadmapSteps {
+  number: Float
+  title: String
+  desc: String
+  duration: String
+}
+
 type HomeHomeRoadmap implements Node & Document {
   eyebrow: String
   headingBefore: String
   headingAccent: String
   desc: String
+  steps: [HomeHomeRoadmapSteps]
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
@@ -200,6 +225,23 @@ type HomeHomeCaseStudiesCaseLabels {
   photo: String
 }
 
+type HomeHomeCaseStudiesCases {
+  id: String
+  city: String
+  mall: String
+  photo: String
+  opened: String
+  area: String
+  format: String
+  tag: String
+  quote: String
+  investment: String
+  profitMonth: String
+  paybackPeriod: String
+  roi: String
+  youtubeId: String
+}
+
 type HomeHomeCaseStudies implements Node & Document {
   eyebrow: String
   headingBefore: String
@@ -208,9 +250,15 @@ type HomeHomeCaseStudies implements Node & Document {
   caseLabels: HomeHomeCaseStudiesCaseLabels
   openedPrefix: String
   openedSuffix: String
+  cases: [HomeHomeCaseStudiesCases]
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
+}
+
+type HomeHomeFaqItems {
+  question: String
+  answer: String
 }
 
 type HomeHomeFaq implements Node & Document {
@@ -218,6 +266,7 @@ type HomeHomeFaq implements Node & Document {
   headingBefore: String
   headingAccent: String
   desc: String
+  items: [HomeHomeFaqItems]
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
@@ -358,6 +407,21 @@ input HomeHomeFranchiseFranchiseLinksFilter {
   example: StringFilter
 }
 
+input HomeHomeFranchisePlansFilter {
+  id: StringFilter
+  tagline: StringFilter
+  name: StringFilter
+  desc: StringFilter
+  investment: StringFilter
+  details: StringFilter
+}
+
+input HomeHomeFranchiseCardProfitFilter {
+  island: StringFilter
+  renovation: StringFilter
+  standard: StringFilter
+}
+
 input HomeHomeFranchiseFilter {
   eyebrow: StringFilter
   heading: StringFilter
@@ -366,6 +430,8 @@ input HomeHomeFranchiseFilter {
   franchiseLabels: HomeHomeFranchiseFranchiseLabelsFilter
   franchiseLinks: HomeHomeFranchiseFranchiseLinksFilter
   disclaimer: StringFilter
+  plans: HomeHomeFranchisePlansFilter
+  cardProfit: HomeHomeFranchiseCardProfitFilter
 }
 
 input HomeHomeMarketBlockFilter {
@@ -383,11 +449,29 @@ input HomeHomeTrustModelFilter {
   desc: StringFilter
 }
 
+input NumberFilter {
+  lt: Float
+  lte: Float
+  gte: Float
+  gt: Float
+  eq: Float
+  exists: Boolean
+  in: [Float]
+}
+
+input HomeHomeRoadmapStepsFilter {
+  number: NumberFilter
+  title: StringFilter
+  desc: StringFilter
+  duration: StringFilter
+}
+
 input HomeHomeRoadmapFilter {
   eyebrow: StringFilter
   headingBefore: StringFilter
   headingAccent: StringFilter
   desc: StringFilter
+  steps: HomeHomeRoadmapStepsFilter
 }
 
 input HomeHomeCaseStudiesCaseLabelsFilter {
@@ -398,6 +482,23 @@ input HomeHomeCaseStudiesCaseLabelsFilter {
   photo: StringFilter
 }
 
+input HomeHomeCaseStudiesCasesFilter {
+  id: StringFilter
+  city: StringFilter
+  mall: StringFilter
+  photo: StringFilter
+  opened: StringFilter
+  area: StringFilter
+  format: StringFilter
+  tag: StringFilter
+  quote: StringFilter
+  investment: StringFilter
+  profitMonth: StringFilter
+  paybackPeriod: StringFilter
+  roi: StringFilter
+  youtubeId: StringFilter
+}
+
 input HomeHomeCaseStudiesFilter {
   eyebrow: StringFilter
   headingBefore: StringFilter
@@ -406,6 +507,12 @@ input HomeHomeCaseStudiesFilter {
   caseLabels: HomeHomeCaseStudiesCaseLabelsFilter
   openedPrefix: StringFilter
   openedSuffix: StringFilter
+  cases: HomeHomeCaseStudiesCasesFilter
+}
+
+input HomeHomeFaqItemsFilter {
+  question: StringFilter
+  answer: StringFilter
 }
 
 input HomeHomeFaqFilter {
@@ -413,6 +520,7 @@ input HomeHomeFaqFilter {
   headingBefore: StringFilter
   headingAccent: StringFilter
   desc: StringFilter
+  items: HomeHomeFaqItemsFilter
 }
 
 input HomeHomeContactsFormFilter {
@@ -603,16 +711,6 @@ input AboutAboutHeroFilter {
   heroDesc: StringFilter
 }
 
-input NumberFilter {
-  lt: Float
-  lte: Float
-  gte: Float
-  gt: Float
-  eq: Float
-  exists: Boolean
-  in: [Float]
-}
-
 input BooleanFilter {
   eq: Boolean
   exists: Boolean
@@ -702,18 +800,34 @@ type FranchiseFranchiseHero implements Node & Document {
   _values: JSON!
 }
 
+type FranchiseFranchisePlansPlansList {
+  id: String
+  tagline: String
+  name: String
+  desc: String
+  investment: String
+  details: [String]
+}
+
 type FranchiseFranchisePlans implements Node & Document {
   plansEyebrow: String
   plansDesc: String
   plansHeading: String
+  plansList: [FranchiseFranchisePlansPlansList]
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
 }
 
+type FranchiseFranchiseComparisonComparisonRows {
+  label: String
+  values: [String]
+}
+
 type FranchiseFranchiseComparison implements Node & Document {
   comparisonEyebrow: String
   comparisonHeading: String
+  comparisonRows: [FranchiseFranchiseComparisonComparisonRows]
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
@@ -740,6 +854,7 @@ type FranchiseFranchiseFinancial implements Node & Document {
 type FranchiseFranchiseBenefits implements Node & Document {
   benefitsEyebrow: String
   benefitsHeading: String
+  benefitsItems: [String]
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
@@ -769,15 +884,31 @@ input FranchiseFranchiseHeroFilter {
   heroDesc: StringFilter
 }
 
+input FranchiseFranchisePlansPlansListFilter {
+  id: StringFilter
+  tagline: StringFilter
+  name: StringFilter
+  desc: StringFilter
+  investment: StringFilter
+  details: StringFilter
+}
+
 input FranchiseFranchisePlansFilter {
   plansEyebrow: StringFilter
   plansDesc: StringFilter
   plansHeading: StringFilter
+  plansList: FranchiseFranchisePlansPlansListFilter
+}
+
+input FranchiseFranchiseComparisonComparisonRowsFilter {
+  label: StringFilter
+  values: StringFilter
 }
 
 input FranchiseFranchiseComparisonFilter {
   comparisonEyebrow: StringFilter
   comparisonHeading: StringFilter
+  comparisonRows: FranchiseFranchiseComparisonComparisonRowsFilter
 }
 
 input FranchiseFranchiseFinancialFinancialRowsFilter {
@@ -798,6 +929,7 @@ input FranchiseFranchiseFinancialFilter {
 input FranchiseFranchiseBenefitsFilter {
   benefitsEyebrow: StringFilter
   benefitsHeading: StringFilter
+  benefitsItems: StringFilter
 }
 
 input FranchiseFranchiseGalleryFilter {
@@ -1023,6 +1155,21 @@ input HomeHomeFranchiseFranchiseLinksMutation {
   example: String
 }
 
+input HomeHomeFranchisePlansMutation {
+  id: String
+  tagline: String
+  name: String
+  desc: String
+  investment: String
+  details: [String]
+}
+
+input HomeHomeFranchiseCardProfitMutation {
+  island: String
+  renovation: String
+  standard: String
+}
+
 input HomeHomeFranchiseMutation {
   eyebrow: String
   heading: String
@@ -1031,6 +1178,8 @@ input HomeHomeFranchiseMutation {
   franchiseLabels: HomeHomeFranchiseFranchiseLabelsMutation
   franchiseLinks: HomeHomeFranchiseFranchiseLinksMutation
   disclaimer: String
+  plans: [HomeHomeFranchisePlansMutation]
+  cardProfit: HomeHomeFranchiseCardProfitMutation
 }
 
 input HomeHomeMarketBlockMutation {
@@ -1048,11 +1197,19 @@ input HomeHomeTrustModelMutation {
   desc: String
 }
 
+input HomeHomeRoadmapStepsMutation {
+  number: Float
+  title: String
+  desc: String
+  duration: String
+}
+
 input HomeHomeRoadmapMutation {
   eyebrow: String
   headingBefore: String
   headingAccent: String
   desc: String
+  steps: [HomeHomeRoadmapStepsMutation]
 }
 
 input HomeHomeCaseStudiesCaseLabelsMutation {
@@ -1063,6 +1220,23 @@ input HomeHomeCaseStudiesCaseLabelsMutation {
   photo: String
 }
 
+input HomeHomeCaseStudiesCasesMutation {
+  id: String
+  city: String
+  mall: String
+  photo: String
+  opened: String
+  area: String
+  format: String
+  tag: String
+  quote: String
+  investment: String
+  profitMonth: String
+  paybackPeriod: String
+  roi: String
+  youtubeId: String
+}
+
 input HomeHomeCaseStudiesMutation {
   eyebrow: String
   headingBefore: String
@@ -1071,6 +1245,12 @@ input HomeHomeCaseStudiesMutation {
   caseLabels: HomeHomeCaseStudiesCaseLabelsMutation
   openedPrefix: String
   openedSuffix: String
+  cases: [HomeHomeCaseStudiesCasesMutation]
+}
+
+input HomeHomeFaqItemsMutation {
+  question: String
+  answer: String
 }
 
 input HomeHomeFaqMutation {
@@ -1078,6 +1258,7 @@ input HomeHomeFaqMutation {
   headingBefore: String
   headingAccent: String
   desc: String
+  items: [HomeHomeFaqItemsMutation]
 }
 
 input HomeHomeContactsFormMutation {
@@ -1244,15 +1425,31 @@ input FranchiseFranchiseHeroMutation {
   heroDesc: String
 }
 
+input FranchiseFranchisePlansPlansListMutation {
+  id: String
+  tagline: String
+  name: String
+  desc: String
+  investment: String
+  details: [String]
+}
+
 input FranchiseFranchisePlansMutation {
   plansEyebrow: String
   plansDesc: String
   plansHeading: String
+  plansList: [FranchiseFranchisePlansPlansListMutation]
+}
+
+input FranchiseFranchiseComparisonComparisonRowsMutation {
+  label: String
+  values: [String]
 }
 
 input FranchiseFranchiseComparisonMutation {
   comparisonEyebrow: String
   comparisonHeading: String
+  comparisonRows: [FranchiseFranchiseComparisonComparisonRowsMutation]
 }
 
 input FranchiseFranchiseFinancialFinancialRowsMutation {
@@ -1273,6 +1470,7 @@ input FranchiseFranchiseFinancialMutation {
 input FranchiseFranchiseBenefitsMutation {
   benefitsEyebrow: String
   benefitsHeading: String
+  benefitsItems: [String]
 }
 
 input FranchiseFranchiseGalleryMutation {

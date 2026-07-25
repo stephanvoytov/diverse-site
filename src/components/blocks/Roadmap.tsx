@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { tinaField } from "tinacms/dist/react";
 import SectionHeader from "@/components/shared/SectionHeader";
-import { roadmapSteps } from "@/data/franchise";
 import { siteContent } from "@/data/site-content";
 
 const fallback = siteContent.roadmap;
@@ -38,7 +37,7 @@ export default function Roadmap({ data }: { data?: typeof fallback }) {
             visible: { transition: { staggerChildren: 0.08 } },
           }}
         >
-          {roadmapSteps.map((step, i) => (
+          {(s.steps || []).map((step: { number: number; title: string; desc: string; duration: string }, i: number) => (
             <motion.div
               key={step.number}
               variants={{
@@ -53,7 +52,7 @@ export default function Roadmap({ data }: { data?: typeof fallback }) {
                   {step.number}
                 </span>
                 {/* Line connector (hidden on last) */}
-                {i < roadmapSteps.length - 1 && (
+                {i < s.steps.length - 1 && (
                   <div className="w-0.5 flex-1 bg-brand-gray-200 mt-1" />
                 )}
               </div>

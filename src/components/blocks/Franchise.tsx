@@ -2,8 +2,6 @@
 
 import { motion } from "framer-motion";
 import { tinaField } from "tinacms/dist/react";
-import { plans } from "@/data/franchise";
-import { cardProfit } from "@/data/formats";
 import { useModal } from "@/lib/modal-context";
 import { siteContent } from "@/data/site-content";
 
@@ -84,7 +82,7 @@ export default function Franchise({ data }: { data?: typeof fallback }) {
             visible: { transition: { staggerChildren: 0.1 } },
           }}
         >
-          {plans.map((plan) => (
+          {(s.plans || []).map((plan: { id: string; tagline: string; name: string; desc: string; investment: string }) => (
             <motion.div
               key={plan.id}
               variants={{
@@ -119,7 +117,7 @@ export default function Franchise({ data }: { data?: typeof fallback }) {
                 </div>
                 <div>
                   <p className="text-lg font-bold text-white">
-                    {cardProfit[plan.id]}
+                    {s.cardProfit?.[plan.id as keyof typeof s.cardProfit] || ""}
                   </p>
                   <p className="text-[11px] text-white/50 tracking-[0.1em] uppercase" data-tina-field={tinaField(s.franchiseLabels, "profitMonth")}>
                     {s.franchiseLabels.profitMonth}

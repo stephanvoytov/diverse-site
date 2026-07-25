@@ -293,6 +293,23 @@ export type HomeHomeFranchiseFranchiseLinks = {
   example?: Maybe<Scalars['String']['output']>;
 };
 
+export type HomeHomeFranchisePlans = {
+  __typename?: 'HomeHomeFranchisePlans';
+  id?: Maybe<Scalars['String']['output']>;
+  tagline?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  desc?: Maybe<Scalars['String']['output']>;
+  investment?: Maybe<Scalars['String']['output']>;
+  details?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+};
+
+export type HomeHomeFranchiseCardProfit = {
+  __typename?: 'HomeHomeFranchiseCardProfit';
+  island?: Maybe<Scalars['String']['output']>;
+  renovation?: Maybe<Scalars['String']['output']>;
+  standard?: Maybe<Scalars['String']['output']>;
+};
+
 export type HomeHomeFranchise = Node & Document & {
   __typename?: 'HomeHomeFranchise';
   eyebrow?: Maybe<Scalars['String']['output']>;
@@ -302,6 +319,8 @@ export type HomeHomeFranchise = Node & Document & {
   franchiseLabels?: Maybe<HomeHomeFranchiseFranchiseLabels>;
   franchiseLinks?: Maybe<HomeHomeFranchiseFranchiseLinks>;
   disclaimer?: Maybe<Scalars['String']['output']>;
+  plans?: Maybe<Array<Maybe<HomeHomeFranchisePlans>>>;
+  cardProfit?: Maybe<HomeHomeFranchiseCardProfit>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
   _values: Scalars['JSON']['output'];
@@ -330,12 +349,21 @@ export type HomeHomeTrustModel = Node & Document & {
   _values: Scalars['JSON']['output'];
 };
 
+export type HomeHomeRoadmapSteps = {
+  __typename?: 'HomeHomeRoadmapSteps';
+  number?: Maybe<Scalars['Float']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  desc?: Maybe<Scalars['String']['output']>;
+  duration?: Maybe<Scalars['String']['output']>;
+};
+
 export type HomeHomeRoadmap = Node & Document & {
   __typename?: 'HomeHomeRoadmap';
   eyebrow?: Maybe<Scalars['String']['output']>;
   headingBefore?: Maybe<Scalars['String']['output']>;
   headingAccent?: Maybe<Scalars['String']['output']>;
   desc?: Maybe<Scalars['String']['output']>;
+  steps?: Maybe<Array<Maybe<HomeHomeRoadmapSteps>>>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
   _values: Scalars['JSON']['output'];
@@ -350,6 +378,24 @@ export type HomeHomeCaseStudiesCaseLabels = {
   photo?: Maybe<Scalars['String']['output']>;
 };
 
+export type HomeHomeCaseStudiesCases = {
+  __typename?: 'HomeHomeCaseStudiesCases';
+  id?: Maybe<Scalars['String']['output']>;
+  city?: Maybe<Scalars['String']['output']>;
+  mall?: Maybe<Scalars['String']['output']>;
+  photo?: Maybe<Scalars['String']['output']>;
+  opened?: Maybe<Scalars['String']['output']>;
+  area?: Maybe<Scalars['String']['output']>;
+  format?: Maybe<Scalars['String']['output']>;
+  tag?: Maybe<Scalars['String']['output']>;
+  quote?: Maybe<Scalars['String']['output']>;
+  investment?: Maybe<Scalars['String']['output']>;
+  profitMonth?: Maybe<Scalars['String']['output']>;
+  paybackPeriod?: Maybe<Scalars['String']['output']>;
+  roi?: Maybe<Scalars['String']['output']>;
+  youtubeId?: Maybe<Scalars['String']['output']>;
+};
+
 export type HomeHomeCaseStudies = Node & Document & {
   __typename?: 'HomeHomeCaseStudies';
   eyebrow?: Maybe<Scalars['String']['output']>;
@@ -359,9 +405,16 @@ export type HomeHomeCaseStudies = Node & Document & {
   caseLabels?: Maybe<HomeHomeCaseStudiesCaseLabels>;
   openedPrefix?: Maybe<Scalars['String']['output']>;
   openedSuffix?: Maybe<Scalars['String']['output']>;
+  cases?: Maybe<Array<Maybe<HomeHomeCaseStudiesCases>>>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
   _values: Scalars['JSON']['output'];
+};
+
+export type HomeHomeFaqItems = {
+  __typename?: 'HomeHomeFaqItems';
+  question?: Maybe<Scalars['String']['output']>;
+  answer?: Maybe<Scalars['String']['output']>;
 };
 
 export type HomeHomeFaq = Node & Document & {
@@ -370,6 +423,7 @@ export type HomeHomeFaq = Node & Document & {
   headingBefore?: Maybe<Scalars['String']['output']>;
   headingAccent?: Maybe<Scalars['String']['output']>;
   desc?: Maybe<Scalars['String']['output']>;
+  items?: Maybe<Array<Maybe<HomeHomeFaqItems>>>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
   _values: Scalars['JSON']['output'];
@@ -518,6 +572,21 @@ export type HomeHomeFranchiseFranchiseLinksFilter = {
   example?: InputMaybe<StringFilter>;
 };
 
+export type HomeHomeFranchisePlansFilter = {
+  id?: InputMaybe<StringFilter>;
+  tagline?: InputMaybe<StringFilter>;
+  name?: InputMaybe<StringFilter>;
+  desc?: InputMaybe<StringFilter>;
+  investment?: InputMaybe<StringFilter>;
+  details?: InputMaybe<StringFilter>;
+};
+
+export type HomeHomeFranchiseCardProfitFilter = {
+  island?: InputMaybe<StringFilter>;
+  renovation?: InputMaybe<StringFilter>;
+  standard?: InputMaybe<StringFilter>;
+};
+
 export type HomeHomeFranchiseFilter = {
   eyebrow?: InputMaybe<StringFilter>;
   heading?: InputMaybe<StringFilter>;
@@ -526,6 +595,8 @@ export type HomeHomeFranchiseFilter = {
   franchiseLabels?: InputMaybe<HomeHomeFranchiseFranchiseLabelsFilter>;
   franchiseLinks?: InputMaybe<HomeHomeFranchiseFranchiseLinksFilter>;
   disclaimer?: InputMaybe<StringFilter>;
+  plans?: InputMaybe<HomeHomeFranchisePlansFilter>;
+  cardProfit?: InputMaybe<HomeHomeFranchiseCardProfitFilter>;
 };
 
 export type HomeHomeMarketBlockFilter = {
@@ -543,11 +614,29 @@ export type HomeHomeTrustModelFilter = {
   desc?: InputMaybe<StringFilter>;
 };
 
+export type NumberFilter = {
+  lt?: InputMaybe<Scalars['Float']['input']>;
+  lte?: InputMaybe<Scalars['Float']['input']>;
+  gte?: InputMaybe<Scalars['Float']['input']>;
+  gt?: InputMaybe<Scalars['Float']['input']>;
+  eq?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+};
+
+export type HomeHomeRoadmapStepsFilter = {
+  number?: InputMaybe<NumberFilter>;
+  title?: InputMaybe<StringFilter>;
+  desc?: InputMaybe<StringFilter>;
+  duration?: InputMaybe<StringFilter>;
+};
+
 export type HomeHomeRoadmapFilter = {
   eyebrow?: InputMaybe<StringFilter>;
   headingBefore?: InputMaybe<StringFilter>;
   headingAccent?: InputMaybe<StringFilter>;
   desc?: InputMaybe<StringFilter>;
+  steps?: InputMaybe<HomeHomeRoadmapStepsFilter>;
 };
 
 export type HomeHomeCaseStudiesCaseLabelsFilter = {
@@ -558,6 +647,23 @@ export type HomeHomeCaseStudiesCaseLabelsFilter = {
   photo?: InputMaybe<StringFilter>;
 };
 
+export type HomeHomeCaseStudiesCasesFilter = {
+  id?: InputMaybe<StringFilter>;
+  city?: InputMaybe<StringFilter>;
+  mall?: InputMaybe<StringFilter>;
+  photo?: InputMaybe<StringFilter>;
+  opened?: InputMaybe<StringFilter>;
+  area?: InputMaybe<StringFilter>;
+  format?: InputMaybe<StringFilter>;
+  tag?: InputMaybe<StringFilter>;
+  quote?: InputMaybe<StringFilter>;
+  investment?: InputMaybe<StringFilter>;
+  profitMonth?: InputMaybe<StringFilter>;
+  paybackPeriod?: InputMaybe<StringFilter>;
+  roi?: InputMaybe<StringFilter>;
+  youtubeId?: InputMaybe<StringFilter>;
+};
+
 export type HomeHomeCaseStudiesFilter = {
   eyebrow?: InputMaybe<StringFilter>;
   headingBefore?: InputMaybe<StringFilter>;
@@ -566,6 +672,12 @@ export type HomeHomeCaseStudiesFilter = {
   caseLabels?: InputMaybe<HomeHomeCaseStudiesCaseLabelsFilter>;
   openedPrefix?: InputMaybe<StringFilter>;
   openedSuffix?: InputMaybe<StringFilter>;
+  cases?: InputMaybe<HomeHomeCaseStudiesCasesFilter>;
+};
+
+export type HomeHomeFaqItemsFilter = {
+  question?: InputMaybe<StringFilter>;
+  answer?: InputMaybe<StringFilter>;
 };
 
 export type HomeHomeFaqFilter = {
@@ -573,6 +685,7 @@ export type HomeHomeFaqFilter = {
   headingBefore?: InputMaybe<StringFilter>;
   headingAccent?: InputMaybe<StringFilter>;
   desc?: InputMaybe<StringFilter>;
+  items?: InputMaybe<HomeHomeFaqItemsFilter>;
 };
 
 export type HomeHomeContactsFormFilter = {
@@ -775,16 +888,6 @@ export type AboutAboutHeroFilter = {
   heroDesc?: InputMaybe<StringFilter>;
 };
 
-export type NumberFilter = {
-  lt?: InputMaybe<Scalars['Float']['input']>;
-  lte?: InputMaybe<Scalars['Float']['input']>;
-  gte?: InputMaybe<Scalars['Float']['input']>;
-  gt?: InputMaybe<Scalars['Float']['input']>;
-  eq?: InputMaybe<Scalars['Float']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
-};
-
 export type BooleanFilter = {
   eq?: InputMaybe<Scalars['Boolean']['input']>;
   exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -877,20 +980,38 @@ export type FranchiseFranchiseHero = Node & Document & {
   _values: Scalars['JSON']['output'];
 };
 
+export type FranchiseFranchisePlansPlansList = {
+  __typename?: 'FranchiseFranchisePlansPlansList';
+  id?: Maybe<Scalars['String']['output']>;
+  tagline?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  desc?: Maybe<Scalars['String']['output']>;
+  investment?: Maybe<Scalars['String']['output']>;
+  details?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+};
+
 export type FranchiseFranchisePlans = Node & Document & {
   __typename?: 'FranchiseFranchisePlans';
   plansEyebrow?: Maybe<Scalars['String']['output']>;
   plansDesc?: Maybe<Scalars['String']['output']>;
   plansHeading?: Maybe<Scalars['String']['output']>;
+  plansList?: Maybe<Array<Maybe<FranchiseFranchisePlansPlansList>>>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
   _values: Scalars['JSON']['output'];
+};
+
+export type FranchiseFranchiseComparisonComparisonRows = {
+  __typename?: 'FranchiseFranchiseComparisonComparisonRows';
+  label?: Maybe<Scalars['String']['output']>;
+  values?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
 };
 
 export type FranchiseFranchiseComparison = Node & Document & {
   __typename?: 'FranchiseFranchiseComparison';
   comparisonEyebrow?: Maybe<Scalars['String']['output']>;
   comparisonHeading?: Maybe<Scalars['String']['output']>;
+  comparisonRows?: Maybe<Array<Maybe<FranchiseFranchiseComparisonComparisonRows>>>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
   _values: Scalars['JSON']['output'];
@@ -920,6 +1041,7 @@ export type FranchiseFranchiseBenefits = Node & Document & {
   __typename?: 'FranchiseFranchiseBenefits';
   benefitsEyebrow?: Maybe<Scalars['String']['output']>;
   benefitsHeading?: Maybe<Scalars['String']['output']>;
+  benefitsItems?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
   _values: Scalars['JSON']['output'];
@@ -951,15 +1073,31 @@ export type FranchiseFranchiseHeroFilter = {
   heroDesc?: InputMaybe<StringFilter>;
 };
 
+export type FranchiseFranchisePlansPlansListFilter = {
+  id?: InputMaybe<StringFilter>;
+  tagline?: InputMaybe<StringFilter>;
+  name?: InputMaybe<StringFilter>;
+  desc?: InputMaybe<StringFilter>;
+  investment?: InputMaybe<StringFilter>;
+  details?: InputMaybe<StringFilter>;
+};
+
 export type FranchiseFranchisePlansFilter = {
   plansEyebrow?: InputMaybe<StringFilter>;
   plansDesc?: InputMaybe<StringFilter>;
   plansHeading?: InputMaybe<StringFilter>;
+  plansList?: InputMaybe<FranchiseFranchisePlansPlansListFilter>;
+};
+
+export type FranchiseFranchiseComparisonComparisonRowsFilter = {
+  label?: InputMaybe<StringFilter>;
+  values?: InputMaybe<StringFilter>;
 };
 
 export type FranchiseFranchiseComparisonFilter = {
   comparisonEyebrow?: InputMaybe<StringFilter>;
   comparisonHeading?: InputMaybe<StringFilter>;
+  comparisonRows?: InputMaybe<FranchiseFranchiseComparisonComparisonRowsFilter>;
 };
 
 export type FranchiseFranchiseFinancialFinancialRowsFilter = {
@@ -980,6 +1118,7 @@ export type FranchiseFranchiseFinancialFilter = {
 export type FranchiseFranchiseBenefitsFilter = {
   benefitsEyebrow?: InputMaybe<StringFilter>;
   benefitsHeading?: InputMaybe<StringFilter>;
+  benefitsItems?: InputMaybe<StringFilter>;
 };
 
 export type FranchiseFranchiseGalleryFilter = {
@@ -1310,6 +1449,21 @@ export type HomeHomeFranchiseFranchiseLinksMutation = {
   example?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type HomeHomeFranchisePlansMutation = {
+  id?: InputMaybe<Scalars['String']['input']>;
+  tagline?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  desc?: InputMaybe<Scalars['String']['input']>;
+  investment?: InputMaybe<Scalars['String']['input']>;
+  details?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type HomeHomeFranchiseCardProfitMutation = {
+  island?: InputMaybe<Scalars['String']['input']>;
+  renovation?: InputMaybe<Scalars['String']['input']>;
+  standard?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type HomeHomeFranchiseMutation = {
   eyebrow?: InputMaybe<Scalars['String']['input']>;
   heading?: InputMaybe<Scalars['String']['input']>;
@@ -1318,6 +1472,8 @@ export type HomeHomeFranchiseMutation = {
   franchiseLabels?: InputMaybe<HomeHomeFranchiseFranchiseLabelsMutation>;
   franchiseLinks?: InputMaybe<HomeHomeFranchiseFranchiseLinksMutation>;
   disclaimer?: InputMaybe<Scalars['String']['input']>;
+  plans?: InputMaybe<Array<InputMaybe<HomeHomeFranchisePlansMutation>>>;
+  cardProfit?: InputMaybe<HomeHomeFranchiseCardProfitMutation>;
 };
 
 export type HomeHomeMarketBlockMutation = {
@@ -1335,11 +1491,19 @@ export type HomeHomeTrustModelMutation = {
   desc?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type HomeHomeRoadmapStepsMutation = {
+  number?: InputMaybe<Scalars['Float']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  desc?: InputMaybe<Scalars['String']['input']>;
+  duration?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type HomeHomeRoadmapMutation = {
   eyebrow?: InputMaybe<Scalars['String']['input']>;
   headingBefore?: InputMaybe<Scalars['String']['input']>;
   headingAccent?: InputMaybe<Scalars['String']['input']>;
   desc?: InputMaybe<Scalars['String']['input']>;
+  steps?: InputMaybe<Array<InputMaybe<HomeHomeRoadmapStepsMutation>>>;
 };
 
 export type HomeHomeCaseStudiesCaseLabelsMutation = {
@@ -1350,6 +1514,23 @@ export type HomeHomeCaseStudiesCaseLabelsMutation = {
   photo?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type HomeHomeCaseStudiesCasesMutation = {
+  id?: InputMaybe<Scalars['String']['input']>;
+  city?: InputMaybe<Scalars['String']['input']>;
+  mall?: InputMaybe<Scalars['String']['input']>;
+  photo?: InputMaybe<Scalars['String']['input']>;
+  opened?: InputMaybe<Scalars['String']['input']>;
+  area?: InputMaybe<Scalars['String']['input']>;
+  format?: InputMaybe<Scalars['String']['input']>;
+  tag?: InputMaybe<Scalars['String']['input']>;
+  quote?: InputMaybe<Scalars['String']['input']>;
+  investment?: InputMaybe<Scalars['String']['input']>;
+  profitMonth?: InputMaybe<Scalars['String']['input']>;
+  paybackPeriod?: InputMaybe<Scalars['String']['input']>;
+  roi?: InputMaybe<Scalars['String']['input']>;
+  youtubeId?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type HomeHomeCaseStudiesMutation = {
   eyebrow?: InputMaybe<Scalars['String']['input']>;
   headingBefore?: InputMaybe<Scalars['String']['input']>;
@@ -1358,6 +1539,12 @@ export type HomeHomeCaseStudiesMutation = {
   caseLabels?: InputMaybe<HomeHomeCaseStudiesCaseLabelsMutation>;
   openedPrefix?: InputMaybe<Scalars['String']['input']>;
   openedSuffix?: InputMaybe<Scalars['String']['input']>;
+  cases?: InputMaybe<Array<InputMaybe<HomeHomeCaseStudiesCasesMutation>>>;
+};
+
+export type HomeHomeFaqItemsMutation = {
+  question?: InputMaybe<Scalars['String']['input']>;
+  answer?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type HomeHomeFaqMutation = {
@@ -1365,6 +1552,7 @@ export type HomeHomeFaqMutation = {
   headingBefore?: InputMaybe<Scalars['String']['input']>;
   headingAccent?: InputMaybe<Scalars['String']['input']>;
   desc?: InputMaybe<Scalars['String']['input']>;
+  items?: InputMaybe<Array<InputMaybe<HomeHomeFaqItemsMutation>>>;
 };
 
 export type HomeHomeContactsFormMutation = {
@@ -1531,15 +1719,31 @@ export type FranchiseFranchiseHeroMutation = {
   heroDesc?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type FranchiseFranchisePlansPlansListMutation = {
+  id?: InputMaybe<Scalars['String']['input']>;
+  tagline?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  desc?: InputMaybe<Scalars['String']['input']>;
+  investment?: InputMaybe<Scalars['String']['input']>;
+  details?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
 export type FranchiseFranchisePlansMutation = {
   plansEyebrow?: InputMaybe<Scalars['String']['input']>;
   plansDesc?: InputMaybe<Scalars['String']['input']>;
   plansHeading?: InputMaybe<Scalars['String']['input']>;
+  plansList?: InputMaybe<Array<InputMaybe<FranchiseFranchisePlansPlansListMutation>>>;
+};
+
+export type FranchiseFranchiseComparisonComparisonRowsMutation = {
+  label?: InputMaybe<Scalars['String']['input']>;
+  values?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type FranchiseFranchiseComparisonMutation = {
   comparisonEyebrow?: InputMaybe<Scalars['String']['input']>;
   comparisonHeading?: InputMaybe<Scalars['String']['input']>;
+  comparisonRows?: InputMaybe<Array<InputMaybe<FranchiseFranchiseComparisonComparisonRowsMutation>>>;
 };
 
 export type FranchiseFranchiseFinancialFinancialRowsMutation = {
@@ -1560,6 +1764,7 @@ export type FranchiseFranchiseFinancialMutation = {
 export type FranchiseFranchiseBenefitsMutation = {
   benefitsEyebrow?: InputMaybe<Scalars['String']['input']>;
   benefitsHeading?: InputMaybe<Scalars['String']['input']>;
+  benefitsItems?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type FranchiseFranchiseGalleryMutation = {
@@ -1628,17 +1833,17 @@ type HomeParts_HomeHomeHero_Fragment = { __typename: 'HomeHomeHero', tagline?: s
 
 type HomeParts_HomeHomeAbout_Fragment = { __typename: 'HomeHomeAbout', eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, headingAfter?: string | null, body?: string | null, aboutLinks?: { __typename: 'HomeHomeAboutAboutLinks', about?: string | null, collection?: string | null } | null };
 
-type HomeParts_HomeHomeFranchise_Fragment = { __typename: 'HomeHomeFranchise', eyebrow?: string | null, heading?: string | null, desc?: string | null, ctaButton?: string | null, disclaimer?: string | null, franchiseLabels?: { __typename: 'HomeHomeFranchiseFranchiseLabels', investment?: string | null, profitMonth?: string | null } | null, franchiseLinks?: { __typename: 'HomeHomeFranchiseFranchiseLinks', allConditions?: string | null, example?: string | null } | null };
+type HomeParts_HomeHomeFranchise_Fragment = { __typename: 'HomeHomeFranchise', eyebrow?: string | null, heading?: string | null, desc?: string | null, ctaButton?: string | null, disclaimer?: string | null, franchiseLabels?: { __typename: 'HomeHomeFranchiseFranchiseLabels', investment?: string | null, profitMonth?: string | null } | null, franchiseLinks?: { __typename: 'HomeHomeFranchiseFranchiseLinks', allConditions?: string | null, example?: string | null } | null, plans?: Array<{ __typename: 'HomeHomeFranchisePlans', id?: string | null, tagline?: string | null, name?: string | null, desc?: string | null, investment?: string | null, details?: Array<string | null> | null } | null> | null, cardProfit?: { __typename: 'HomeHomeFranchiseCardProfit', island?: string | null, renovation?: string | null, standard?: string | null } | null };
 
 type HomeParts_HomeHomeMarketBlock_Fragment = { __typename: 'HomeHomeMarketBlock', eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, desc?: string | null, reasons?: Array<string | null> | null };
 
 type HomeParts_HomeHomeTrustModel_Fragment = { __typename: 'HomeHomeTrustModel', eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, desc?: string | null };
 
-type HomeParts_HomeHomeRoadmap_Fragment = { __typename: 'HomeHomeRoadmap', eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, desc?: string | null };
+type HomeParts_HomeHomeRoadmap_Fragment = { __typename: 'HomeHomeRoadmap', eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, desc?: string | null, steps?: Array<{ __typename: 'HomeHomeRoadmapSteps', number?: number | null, title?: string | null, desc?: string | null, duration?: string | null } | null> | null };
 
-type HomeParts_HomeHomeCaseStudies_Fragment = { __typename: 'HomeHomeCaseStudies', eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, desc?: string | null, openedPrefix?: string | null, openedSuffix?: string | null, caseLabels?: { __typename: 'HomeHomeCaseStudiesCaseLabels', payback?: string | null, profitMonth?: string | null, investment?: string | null, video?: string | null, photo?: string | null } | null };
+type HomeParts_HomeHomeCaseStudies_Fragment = { __typename: 'HomeHomeCaseStudies', eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, desc?: string | null, openedPrefix?: string | null, openedSuffix?: string | null, caseLabels?: { __typename: 'HomeHomeCaseStudiesCaseLabels', payback?: string | null, profitMonth?: string | null, investment?: string | null, video?: string | null, photo?: string | null } | null, cases?: Array<{ __typename: 'HomeHomeCaseStudiesCases', id?: string | null, city?: string | null, mall?: string | null, photo?: string | null, opened?: string | null, area?: string | null, format?: string | null, tag?: string | null, quote?: string | null, investment?: string | null, profitMonth?: string | null, paybackPeriod?: string | null, roi?: string | null, youtubeId?: string | null } | null> | null };
 
-type HomeParts_HomeHomeFaq_Fragment = { __typename: 'HomeHomeFaq', eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, desc?: string | null };
+type HomeParts_HomeHomeFaq_Fragment = { __typename: 'HomeHomeFaq', eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, desc?: string | null, items?: Array<{ __typename: 'HomeHomeFaqItems', question?: string | null, answer?: string | null } | null> | null };
 
 type HomeParts_HomeHomeContacts_Fragment = { __typename: 'HomeHomeContacts', eyebrow?: string | null, heading?: string | null, desc?: string | null, privacy?: string | null, form?: { __typename: 'HomeHomeContactsForm', name?: string | null, namePlaceholder?: string | null, phone?: string | null, phonePlaceholder?: string | null, format?: string | null, formatPlaceholder?: string | null, message?: string | null, messagePlaceholder?: string | null, submit?: string | null, submitting?: string | null, submitted?: string | null, success?: string | null, error?: string | null, telegram?: string | null, or?: string | null, mail?: string | null, leadQueueFallback?: string | null } | null, company?: { __typename: 'HomeHomeContactsCompany', name?: string | null, inn?: string | null, address?: string | null } | null, sections?: { __typename: 'HomeHomeContactsSections', details?: string | null, contacts?: string | null, socials?: string | null } | null };
 
@@ -1666,13 +1871,13 @@ export type AboutPartsFragment = AboutParts_AboutAboutHero_Fragment | AboutParts
 
 type FranchiseParts_FranchiseFranchiseHero_Fragment = { __typename: 'FranchiseFranchiseHero', heroEyebrow?: string | null, heroHeading?: string | null, heroDesc?: string | null };
 
-type FranchiseParts_FranchiseFranchisePlans_Fragment = { __typename: 'FranchiseFranchisePlans', plansEyebrow?: string | null, plansDesc?: string | null, plansHeading?: string | null };
+type FranchiseParts_FranchiseFranchisePlans_Fragment = { __typename: 'FranchiseFranchisePlans', plansEyebrow?: string | null, plansDesc?: string | null, plansHeading?: string | null, plansList?: Array<{ __typename: 'FranchiseFranchisePlansPlansList', id?: string | null, tagline?: string | null, name?: string | null, desc?: string | null, investment?: string | null, details?: Array<string | null> | null } | null> | null };
 
-type FranchiseParts_FranchiseFranchiseComparison_Fragment = { __typename: 'FranchiseFranchiseComparison', comparisonEyebrow?: string | null, comparisonHeading?: string | null };
+type FranchiseParts_FranchiseFranchiseComparison_Fragment = { __typename: 'FranchiseFranchiseComparison', comparisonEyebrow?: string | null, comparisonHeading?: string | null, comparisonRows?: Array<{ __typename: 'FranchiseFranchiseComparisonComparisonRows', label?: string | null, values?: Array<string | null> | null } | null> | null };
 
 type FranchiseParts_FranchiseFranchiseFinancial_Fragment = { __typename: 'FranchiseFranchiseFinancial', financialEyebrow?: string | null, financialDesc?: string | null, financialHeading?: string | null, seasonalityNote?: string | null, financialRows?: Array<{ __typename: 'FranchiseFranchiseFinancialFinancialRows', label?: string | null, value?: string | null, detail?: string | null, accent?: boolean | null } | null> | null };
 
-type FranchiseParts_FranchiseFranchiseBenefits_Fragment = { __typename: 'FranchiseFranchiseBenefits', benefitsEyebrow?: string | null, benefitsHeading?: string | null };
+type FranchiseParts_FranchiseFranchiseBenefits_Fragment = { __typename: 'FranchiseFranchiseBenefits', benefitsEyebrow?: string | null, benefitsHeading?: string | null, benefitsItems?: Array<string | null> | null };
 
 type FranchiseParts_FranchiseFranchiseGallery_Fragment = { __typename: 'FranchiseFranchiseGallery', galleryEyebrow?: string | null, galleryHeading?: string | null };
 
@@ -1699,7 +1904,7 @@ export type HomeQueryVariables = Exact<{
 }>;
 
 
-export type HomeQuery = { __typename?: 'Query', home: { __typename: 'HomeHomeHero', id: string, tagline?: string | null, heading?: string | null, description?: string | null, pricing?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, cta?: { __typename: 'HomeHomeHeroCta', consultation?: string | null, cases?: string | null } | null, stats?: Array<{ __typename: 'HomeHomeHeroStats', value?: string | null, label?: string | null } | null> | null } | { __typename: 'HomeHomeAbout', id: string, eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, headingAfter?: string | null, body?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, aboutLinks?: { __typename: 'HomeHomeAboutAboutLinks', about?: string | null, collection?: string | null } | null } | { __typename: 'HomeHomeFranchise', id: string, eyebrow?: string | null, heading?: string | null, desc?: string | null, ctaButton?: string | null, disclaimer?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, franchiseLabels?: { __typename: 'HomeHomeFranchiseFranchiseLabels', investment?: string | null, profitMonth?: string | null } | null, franchiseLinks?: { __typename: 'HomeHomeFranchiseFranchiseLinks', allConditions?: string | null, example?: string | null } | null } | { __typename: 'HomeHomeMarketBlock', id: string, eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, desc?: string | null, reasons?: Array<string | null> | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | { __typename: 'HomeHomeTrustModel', id: string, eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, desc?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | { __typename: 'HomeHomeRoadmap', id: string, eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, desc?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | { __typename: 'HomeHomeCaseStudies', id: string, eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, desc?: string | null, openedPrefix?: string | null, openedSuffix?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, caseLabels?: { __typename: 'HomeHomeCaseStudiesCaseLabels', payback?: string | null, profitMonth?: string | null, investment?: string | null, video?: string | null, photo?: string | null } | null } | { __typename: 'HomeHomeFaq', id: string, eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, desc?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | { __typename: 'HomeHomeContacts', id: string, eyebrow?: string | null, heading?: string | null, desc?: string | null, privacy?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, form?: { __typename: 'HomeHomeContactsForm', name?: string | null, namePlaceholder?: string | null, phone?: string | null, phonePlaceholder?: string | null, format?: string | null, formatPlaceholder?: string | null, message?: string | null, messagePlaceholder?: string | null, submit?: string | null, submitting?: string | null, submitted?: string | null, success?: string | null, error?: string | null, telegram?: string | null, or?: string | null, mail?: string | null, leadQueueFallback?: string | null } | null, company?: { __typename: 'HomeHomeContactsCompany', name?: string | null, inn?: string | null, address?: string | null } | null, sections?: { __typename: 'HomeHomeContactsSections', details?: string | null, contacts?: string | null, socials?: string | null } | null } | { __typename: 'HomeHomeStores', id: string, eyebrow?: string | null, heading?: string | null, desc?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, ghost?: { __typename: 'HomeHomeStoresGhost', label?: string | null, tooltip?: string | null, sidebarYourCity?: string | null, sidebarCTA?: string | null, sidebarSubtext?: string | null } | null } | { __typename: 'HomeHomeKpRating', id: string, eyebrow?: string | null, headingAccent?: string | null, headingAfter?: string | null, desc?: string | null, body?: string | null, ctaLink?: string | null, source?: string | null, imageAlt?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, badge?: { __typename: 'HomeHomeKpRatingBadge', rank?: string | null, label?: string | null } | null } };
+export type HomeQuery = { __typename?: 'Query', home: { __typename: 'HomeHomeHero', id: string, tagline?: string | null, heading?: string | null, description?: string | null, pricing?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, cta?: { __typename: 'HomeHomeHeroCta', consultation?: string | null, cases?: string | null } | null, stats?: Array<{ __typename: 'HomeHomeHeroStats', value?: string | null, label?: string | null } | null> | null } | { __typename: 'HomeHomeAbout', id: string, eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, headingAfter?: string | null, body?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, aboutLinks?: { __typename: 'HomeHomeAboutAboutLinks', about?: string | null, collection?: string | null } | null } | { __typename: 'HomeHomeFranchise', id: string, eyebrow?: string | null, heading?: string | null, desc?: string | null, ctaButton?: string | null, disclaimer?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, franchiseLabels?: { __typename: 'HomeHomeFranchiseFranchiseLabels', investment?: string | null, profitMonth?: string | null } | null, franchiseLinks?: { __typename: 'HomeHomeFranchiseFranchiseLinks', allConditions?: string | null, example?: string | null } | null, plans?: Array<{ __typename: 'HomeHomeFranchisePlans', id?: string | null, tagline?: string | null, name?: string | null, desc?: string | null, investment?: string | null, details?: Array<string | null> | null } | null> | null, cardProfit?: { __typename: 'HomeHomeFranchiseCardProfit', island?: string | null, renovation?: string | null, standard?: string | null } | null } | { __typename: 'HomeHomeMarketBlock', id: string, eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, desc?: string | null, reasons?: Array<string | null> | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | { __typename: 'HomeHomeTrustModel', id: string, eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, desc?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | { __typename: 'HomeHomeRoadmap', id: string, eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, desc?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, steps?: Array<{ __typename: 'HomeHomeRoadmapSteps', number?: number | null, title?: string | null, desc?: string | null, duration?: string | null } | null> | null } | { __typename: 'HomeHomeCaseStudies', id: string, eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, desc?: string | null, openedPrefix?: string | null, openedSuffix?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, caseLabels?: { __typename: 'HomeHomeCaseStudiesCaseLabels', payback?: string | null, profitMonth?: string | null, investment?: string | null, video?: string | null, photo?: string | null } | null, cases?: Array<{ __typename: 'HomeHomeCaseStudiesCases', id?: string | null, city?: string | null, mall?: string | null, photo?: string | null, opened?: string | null, area?: string | null, format?: string | null, tag?: string | null, quote?: string | null, investment?: string | null, profitMonth?: string | null, paybackPeriod?: string | null, roi?: string | null, youtubeId?: string | null } | null> | null } | { __typename: 'HomeHomeFaq', id: string, eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, desc?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, items?: Array<{ __typename: 'HomeHomeFaqItems', question?: string | null, answer?: string | null } | null> | null } | { __typename: 'HomeHomeContacts', id: string, eyebrow?: string | null, heading?: string | null, desc?: string | null, privacy?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, form?: { __typename: 'HomeHomeContactsForm', name?: string | null, namePlaceholder?: string | null, phone?: string | null, phonePlaceholder?: string | null, format?: string | null, formatPlaceholder?: string | null, message?: string | null, messagePlaceholder?: string | null, submit?: string | null, submitting?: string | null, submitted?: string | null, success?: string | null, error?: string | null, telegram?: string | null, or?: string | null, mail?: string | null, leadQueueFallback?: string | null } | null, company?: { __typename: 'HomeHomeContactsCompany', name?: string | null, inn?: string | null, address?: string | null } | null, sections?: { __typename: 'HomeHomeContactsSections', details?: string | null, contacts?: string | null, socials?: string | null } | null } | { __typename: 'HomeHomeStores', id: string, eyebrow?: string | null, heading?: string | null, desc?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, ghost?: { __typename: 'HomeHomeStoresGhost', label?: string | null, tooltip?: string | null, sidebarYourCity?: string | null, sidebarCTA?: string | null, sidebarSubtext?: string | null } | null } | { __typename: 'HomeHomeKpRating', id: string, eyebrow?: string | null, headingAccent?: string | null, headingAfter?: string | null, desc?: string | null, body?: string | null, ctaLink?: string | null, source?: string | null, imageAlt?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, badge?: { __typename: 'HomeHomeKpRatingBadge', rank?: string | null, label?: string | null } | null } };
 
 export type HomeConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -1711,7 +1916,7 @@ export type HomeConnectionQueryVariables = Exact<{
 }>;
 
 
-export type HomeConnectionQuery = { __typename?: 'Query', homeConnection: { __typename?: 'HomeConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'HomeConnectionEdges', cursor: string, node?: { __typename: 'HomeHomeHero', id: string, tagline?: string | null, heading?: string | null, description?: string | null, pricing?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, cta?: { __typename: 'HomeHomeHeroCta', consultation?: string | null, cases?: string | null } | null, stats?: Array<{ __typename: 'HomeHomeHeroStats', value?: string | null, label?: string | null } | null> | null } | { __typename: 'HomeHomeAbout', id: string, eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, headingAfter?: string | null, body?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, aboutLinks?: { __typename: 'HomeHomeAboutAboutLinks', about?: string | null, collection?: string | null } | null } | { __typename: 'HomeHomeFranchise', id: string, eyebrow?: string | null, heading?: string | null, desc?: string | null, ctaButton?: string | null, disclaimer?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, franchiseLabels?: { __typename: 'HomeHomeFranchiseFranchiseLabels', investment?: string | null, profitMonth?: string | null } | null, franchiseLinks?: { __typename: 'HomeHomeFranchiseFranchiseLinks', allConditions?: string | null, example?: string | null } | null } | { __typename: 'HomeHomeMarketBlock', id: string, eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, desc?: string | null, reasons?: Array<string | null> | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | { __typename: 'HomeHomeTrustModel', id: string, eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, desc?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | { __typename: 'HomeHomeRoadmap', id: string, eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, desc?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | { __typename: 'HomeHomeCaseStudies', id: string, eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, desc?: string | null, openedPrefix?: string | null, openedSuffix?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, caseLabels?: { __typename: 'HomeHomeCaseStudiesCaseLabels', payback?: string | null, profitMonth?: string | null, investment?: string | null, video?: string | null, photo?: string | null } | null } | { __typename: 'HomeHomeFaq', id: string, eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, desc?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | { __typename: 'HomeHomeContacts', id: string, eyebrow?: string | null, heading?: string | null, desc?: string | null, privacy?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, form?: { __typename: 'HomeHomeContactsForm', name?: string | null, namePlaceholder?: string | null, phone?: string | null, phonePlaceholder?: string | null, format?: string | null, formatPlaceholder?: string | null, message?: string | null, messagePlaceholder?: string | null, submit?: string | null, submitting?: string | null, submitted?: string | null, success?: string | null, error?: string | null, telegram?: string | null, or?: string | null, mail?: string | null, leadQueueFallback?: string | null } | null, company?: { __typename: 'HomeHomeContactsCompany', name?: string | null, inn?: string | null, address?: string | null } | null, sections?: { __typename: 'HomeHomeContactsSections', details?: string | null, contacts?: string | null, socials?: string | null } | null } | { __typename: 'HomeHomeStores', id: string, eyebrow?: string | null, heading?: string | null, desc?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, ghost?: { __typename: 'HomeHomeStoresGhost', label?: string | null, tooltip?: string | null, sidebarYourCity?: string | null, sidebarCTA?: string | null, sidebarSubtext?: string | null } | null } | { __typename: 'HomeHomeKpRating', id: string, eyebrow?: string | null, headingAccent?: string | null, headingAfter?: string | null, desc?: string | null, body?: string | null, ctaLink?: string | null, source?: string | null, imageAlt?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, badge?: { __typename: 'HomeHomeKpRatingBadge', rank?: string | null, label?: string | null } | null } | null } | null> | null } };
+export type HomeConnectionQuery = { __typename?: 'Query', homeConnection: { __typename?: 'HomeConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'HomeConnectionEdges', cursor: string, node?: { __typename: 'HomeHomeHero', id: string, tagline?: string | null, heading?: string | null, description?: string | null, pricing?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, cta?: { __typename: 'HomeHomeHeroCta', consultation?: string | null, cases?: string | null } | null, stats?: Array<{ __typename: 'HomeHomeHeroStats', value?: string | null, label?: string | null } | null> | null } | { __typename: 'HomeHomeAbout', id: string, eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, headingAfter?: string | null, body?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, aboutLinks?: { __typename: 'HomeHomeAboutAboutLinks', about?: string | null, collection?: string | null } | null } | { __typename: 'HomeHomeFranchise', id: string, eyebrow?: string | null, heading?: string | null, desc?: string | null, ctaButton?: string | null, disclaimer?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, franchiseLabels?: { __typename: 'HomeHomeFranchiseFranchiseLabels', investment?: string | null, profitMonth?: string | null } | null, franchiseLinks?: { __typename: 'HomeHomeFranchiseFranchiseLinks', allConditions?: string | null, example?: string | null } | null, plans?: Array<{ __typename: 'HomeHomeFranchisePlans', id?: string | null, tagline?: string | null, name?: string | null, desc?: string | null, investment?: string | null, details?: Array<string | null> | null } | null> | null, cardProfit?: { __typename: 'HomeHomeFranchiseCardProfit', island?: string | null, renovation?: string | null, standard?: string | null } | null } | { __typename: 'HomeHomeMarketBlock', id: string, eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, desc?: string | null, reasons?: Array<string | null> | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | { __typename: 'HomeHomeTrustModel', id: string, eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, desc?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | { __typename: 'HomeHomeRoadmap', id: string, eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, desc?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, steps?: Array<{ __typename: 'HomeHomeRoadmapSteps', number?: number | null, title?: string | null, desc?: string | null, duration?: string | null } | null> | null } | { __typename: 'HomeHomeCaseStudies', id: string, eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, desc?: string | null, openedPrefix?: string | null, openedSuffix?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, caseLabels?: { __typename: 'HomeHomeCaseStudiesCaseLabels', payback?: string | null, profitMonth?: string | null, investment?: string | null, video?: string | null, photo?: string | null } | null, cases?: Array<{ __typename: 'HomeHomeCaseStudiesCases', id?: string | null, city?: string | null, mall?: string | null, photo?: string | null, opened?: string | null, area?: string | null, format?: string | null, tag?: string | null, quote?: string | null, investment?: string | null, profitMonth?: string | null, paybackPeriod?: string | null, roi?: string | null, youtubeId?: string | null } | null> | null } | { __typename: 'HomeHomeFaq', id: string, eyebrow?: string | null, headingBefore?: string | null, headingAccent?: string | null, desc?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, items?: Array<{ __typename: 'HomeHomeFaqItems', question?: string | null, answer?: string | null } | null> | null } | { __typename: 'HomeHomeContacts', id: string, eyebrow?: string | null, heading?: string | null, desc?: string | null, privacy?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, form?: { __typename: 'HomeHomeContactsForm', name?: string | null, namePlaceholder?: string | null, phone?: string | null, phonePlaceholder?: string | null, format?: string | null, formatPlaceholder?: string | null, message?: string | null, messagePlaceholder?: string | null, submit?: string | null, submitting?: string | null, submitted?: string | null, success?: string | null, error?: string | null, telegram?: string | null, or?: string | null, mail?: string | null, leadQueueFallback?: string | null } | null, company?: { __typename: 'HomeHomeContactsCompany', name?: string | null, inn?: string | null, address?: string | null } | null, sections?: { __typename: 'HomeHomeContactsSections', details?: string | null, contacts?: string | null, socials?: string | null } | null } | { __typename: 'HomeHomeStores', id: string, eyebrow?: string | null, heading?: string | null, desc?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, ghost?: { __typename: 'HomeHomeStoresGhost', label?: string | null, tooltip?: string | null, sidebarYourCity?: string | null, sidebarCTA?: string | null, sidebarSubtext?: string | null } | null } | { __typename: 'HomeHomeKpRating', id: string, eyebrow?: string | null, headingAccent?: string | null, headingAfter?: string | null, desc?: string | null, body?: string | null, ctaLink?: string | null, source?: string | null, imageAlt?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, badge?: { __typename: 'HomeHomeKpRatingBadge', rank?: string | null, label?: string | null } | null } | null } | null> | null } };
 
 export type AboutQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
@@ -1737,7 +1942,7 @@ export type FranchiseQueryVariables = Exact<{
 }>;
 
 
-export type FranchiseQuery = { __typename?: 'Query', franchise: { __typename: 'FranchiseFranchiseHero', id: string, heroEyebrow?: string | null, heroHeading?: string | null, heroDesc?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | { __typename: 'FranchiseFranchisePlans', id: string, plansEyebrow?: string | null, plansDesc?: string | null, plansHeading?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | { __typename: 'FranchiseFranchiseComparison', id: string, comparisonEyebrow?: string | null, comparisonHeading?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | { __typename: 'FranchiseFranchiseFinancial', id: string, financialEyebrow?: string | null, financialDesc?: string | null, financialHeading?: string | null, seasonalityNote?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, financialRows?: Array<{ __typename: 'FranchiseFranchiseFinancialFinancialRows', label?: string | null, value?: string | null, detail?: string | null, accent?: boolean | null } | null> | null } | { __typename: 'FranchiseFranchiseBenefits', id: string, benefitsEyebrow?: string | null, benefitsHeading?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | { __typename: 'FranchiseFranchiseGallery', id: string, galleryEyebrow?: string | null, galleryHeading?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | { __typename: 'FranchiseFranchiseContact', id: string, contactHeading?: string | null, contactDesc?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+export type FranchiseQuery = { __typename?: 'Query', franchise: { __typename: 'FranchiseFranchiseHero', id: string, heroEyebrow?: string | null, heroHeading?: string | null, heroDesc?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | { __typename: 'FranchiseFranchisePlans', id: string, plansEyebrow?: string | null, plansDesc?: string | null, plansHeading?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, plansList?: Array<{ __typename: 'FranchiseFranchisePlansPlansList', id?: string | null, tagline?: string | null, name?: string | null, desc?: string | null, investment?: string | null, details?: Array<string | null> | null } | null> | null } | { __typename: 'FranchiseFranchiseComparison', id: string, comparisonEyebrow?: string | null, comparisonHeading?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, comparisonRows?: Array<{ __typename: 'FranchiseFranchiseComparisonComparisonRows', label?: string | null, values?: Array<string | null> | null } | null> | null } | { __typename: 'FranchiseFranchiseFinancial', id: string, financialEyebrow?: string | null, financialDesc?: string | null, financialHeading?: string | null, seasonalityNote?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, financialRows?: Array<{ __typename: 'FranchiseFranchiseFinancialFinancialRows', label?: string | null, value?: string | null, detail?: string | null, accent?: boolean | null } | null> | null } | { __typename: 'FranchiseFranchiseBenefits', id: string, benefitsEyebrow?: string | null, benefitsHeading?: string | null, benefitsItems?: Array<string | null> | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | { __typename: 'FranchiseFranchiseGallery', id: string, galleryEyebrow?: string | null, galleryHeading?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | { __typename: 'FranchiseFranchiseContact', id: string, contactHeading?: string | null, contactDesc?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
 
 export type FranchiseConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -1749,7 +1954,7 @@ export type FranchiseConnectionQueryVariables = Exact<{
 }>;
 
 
-export type FranchiseConnectionQuery = { __typename?: 'Query', franchiseConnection: { __typename?: 'FranchiseConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'FranchiseConnectionEdges', cursor: string, node?: { __typename: 'FranchiseFranchiseHero', id: string, heroEyebrow?: string | null, heroHeading?: string | null, heroDesc?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | { __typename: 'FranchiseFranchisePlans', id: string, plansEyebrow?: string | null, plansDesc?: string | null, plansHeading?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | { __typename: 'FranchiseFranchiseComparison', id: string, comparisonEyebrow?: string | null, comparisonHeading?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | { __typename: 'FranchiseFranchiseFinancial', id: string, financialEyebrow?: string | null, financialDesc?: string | null, financialHeading?: string | null, seasonalityNote?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, financialRows?: Array<{ __typename: 'FranchiseFranchiseFinancialFinancialRows', label?: string | null, value?: string | null, detail?: string | null, accent?: boolean | null } | null> | null } | { __typename: 'FranchiseFranchiseBenefits', id: string, benefitsEyebrow?: string | null, benefitsHeading?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | { __typename: 'FranchiseFranchiseGallery', id: string, galleryEyebrow?: string | null, galleryHeading?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | { __typename: 'FranchiseFranchiseContact', id: string, contactHeading?: string | null, contactDesc?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+export type FranchiseConnectionQuery = { __typename?: 'Query', franchiseConnection: { __typename?: 'FranchiseConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'FranchiseConnectionEdges', cursor: string, node?: { __typename: 'FranchiseFranchiseHero', id: string, heroEyebrow?: string | null, heroHeading?: string | null, heroDesc?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | { __typename: 'FranchiseFranchisePlans', id: string, plansEyebrow?: string | null, plansDesc?: string | null, plansHeading?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, plansList?: Array<{ __typename: 'FranchiseFranchisePlansPlansList', id?: string | null, tagline?: string | null, name?: string | null, desc?: string | null, investment?: string | null, details?: Array<string | null> | null } | null> | null } | { __typename: 'FranchiseFranchiseComparison', id: string, comparisonEyebrow?: string | null, comparisonHeading?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, comparisonRows?: Array<{ __typename: 'FranchiseFranchiseComparisonComparisonRows', label?: string | null, values?: Array<string | null> | null } | null> | null } | { __typename: 'FranchiseFranchiseFinancial', id: string, financialEyebrow?: string | null, financialDesc?: string | null, financialHeading?: string | null, seasonalityNote?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, financialRows?: Array<{ __typename: 'FranchiseFranchiseFinancialFinancialRows', label?: string | null, value?: string | null, detail?: string | null, accent?: boolean | null } | null> | null } | { __typename: 'FranchiseFranchiseBenefits', id: string, benefitsEyebrow?: string | null, benefitsHeading?: string | null, benefitsItems?: Array<string | null> | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | { __typename: 'FranchiseFranchiseGallery', id: string, galleryEyebrow?: string | null, galleryHeading?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | { __typename: 'FranchiseFranchiseContact', id: string, contactHeading?: string | null, contactDesc?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
 
 export type PageCollectionsQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
@@ -1836,6 +2041,21 @@ export const HomePartsFragmentDoc = gql`
       example
     }
     disclaimer
+    plans {
+      __typename
+      id
+      tagline
+      name
+      desc
+      investment
+      details
+    }
+    cardProfit {
+      __typename
+      island
+      renovation
+      standard
+    }
   }
   ... on HomeHomeMarketBlock {
     eyebrow
@@ -1855,6 +2075,13 @@ export const HomePartsFragmentDoc = gql`
     headingBefore
     headingAccent
     desc
+    steps {
+      __typename
+      number
+      title
+      desc
+      duration
+    }
   }
   ... on HomeHomeCaseStudies {
     eyebrow
@@ -1871,12 +2098,34 @@ export const HomePartsFragmentDoc = gql`
     }
     openedPrefix
     openedSuffix
+    cases {
+      __typename
+      id
+      city
+      mall
+      photo
+      opened
+      area
+      format
+      tag
+      quote
+      investment
+      profitMonth
+      paybackPeriod
+      roi
+      youtubeId
+    }
   }
   ... on HomeHomeFaq {
     eyebrow
     headingBefore
     headingAccent
     desc
+    items {
+      __typename
+      question
+      answer
+    }
   }
   ... on HomeHomeContacts {
     eyebrow
@@ -2013,10 +2262,24 @@ export const FranchisePartsFragmentDoc = gql`
     plansEyebrow
     plansDesc
     plansHeading
+    plansList {
+      __typename
+      id
+      tagline
+      name
+      desc
+      investment
+      details
+    }
   }
   ... on FranchiseFranchiseComparison {
     comparisonEyebrow
     comparisonHeading
+    comparisonRows {
+      __typename
+      label
+      values
+    }
   }
   ... on FranchiseFranchiseFinancial {
     financialEyebrow
@@ -2034,6 +2297,7 @@ export const FranchisePartsFragmentDoc = gql`
   ... on FranchiseFranchiseBenefits {
     benefitsEyebrow
     benefitsHeading
+    benefitsItems
   }
   ... on FranchiseFranchiseGallery {
     galleryEyebrow
@@ -2446,7 +2710,7 @@ export const ExperimentalGetTinaClient = () =>
   getSdk(
     generateRequester(
       createClient({
-        url: "http://localhost:4001/graphql",
+        url: "https://content.tinajs.io/2.4/content/91229f05-3466-4894-8fa8-49ad837cf35b/github/main",
         queries,
       })
     )

@@ -4,7 +4,6 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { tinaField } from "tinacms/dist/react";
 import SectionHeader from "@/components/shared/SectionHeader";
-import { faqItems } from "@/data/franchise";
 import { siteContent } from "@/data/site-content";
 
 const fallback = siteContent.faq;
@@ -41,7 +40,7 @@ export default function Faq({ data }: { data?: typeof fallback }) {
             visible: { transition: { staggerChildren: 0.05 } },
           }}
         >
-          {faqItems.map((item, i) => {
+          {(s.items || []).map((item: { question: string; answer: string }, i: number) => {
             const isOpen = openIdx === i;
 
             return (

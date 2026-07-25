@@ -112,6 +112,30 @@ export default defineConfig({
                 ],
               },
               { type: "string", name: "disclaimer", label: "Дисклеймер", ui: { component: "textarea" } },
+              {
+                type: "object",
+                name: "plans",
+                label: "Форматы (карточки)",
+                list: true,
+                fields: [
+                  { type: "string", name: "id", label: "ID (island|renovation|standard)" },
+                  { type: "string", name: "tagline", label: "Тэглайн" },
+                  { type: "string", name: "name", label: "Название" },
+                  { type: "string", name: "desc", label: "Описание", ui: { component: "textarea" } },
+                  { type: "string", name: "investment", label: "Инвестиции" },
+                  { type: "string", name: "details", label: "Характеристики", list: true, ui: { component: "textarea" } },
+                ],
+              },
+              {
+                type: "object",
+                name: "cardProfit",
+                label: "Прибыль по форматам",
+                fields: [
+                  { type: "string", name: "island", label: "POP-UP STORE" },
+                  { type: "string", name: "renovation", label: "Реновация" },
+                  { type: "string", name: "standard", label: "Полный стандарт" },
+                ],
+              },
             ],
           },
           {
@@ -149,6 +173,18 @@ export default defineConfig({
               { type: "string", name: "headingBefore", label: "Заголовок (до акцента)" },
               { type: "string", name: "headingAccent", label: "Заголовок (акцент)" },
               { type: "string", name: "desc", label: "Описание" },
+              {
+                type: "object",
+                name: "steps",
+                label: "Шаги",
+                list: true,
+                fields: [
+                  { type: "number", name: "number", label: "Номер" },
+                  { type: "string", name: "title", label: "Заголовок" },
+                  { type: "string", name: "desc", label: "Описание", ui: { component: "textarea" } },
+                  { type: "string", name: "duration", label: "Длительность" },
+                ],
+              },
             ],
           },
           {
@@ -173,6 +209,28 @@ export default defineConfig({
               },
               { type: "string", name: "openedPrefix", label: "Префикс даты открытия" },
               { type: "string", name: "openedSuffix", label: "Суффикс даты открытия" },
+              {
+                type: "object",
+                name: "cases",
+                label: "Кейсы франчайзи",
+                list: true,
+                fields: [
+                  { type: "string", name: "id", label: "ID" },
+                  { type: "string", name: "city", label: "Город" },
+                  { type: "string", name: "mall", label: "ТЦ" },
+                  { type: "string", name: "photo", label: "Фото (путь)" },
+                  { type: "string", name: "opened", label: "Год открытия" },
+                  { type: "string", name: "area", label: "Площадь" },
+                  { type: "string", name: "format", label: "Формат" },
+                  { type: "string", name: "tag", label: "Тег (кратко)" },
+                  { type: "string", name: "quote", label: "Цитата", ui: { component: "textarea" } },
+                  { type: "string", name: "investment", label: "Инвестиции" },
+                  { type: "string", name: "profitMonth", label: "Прибыль / мес" },
+                  { type: "string", name: "paybackPeriod", label: "Окупаемость" },
+                  { type: "string", name: "roi", label: "Доходность" },
+                  { type: "string", name: "youtubeId", label: "ID видео YouTube" },
+                ],
+              },
             ],
           },
           {
@@ -183,6 +241,16 @@ export default defineConfig({
               { type: "string", name: "headingBefore", label: "Заголовок (до акцента)" },
               { type: "string", name: "headingAccent", label: "Заголовок (акцент)" },
               { type: "string", name: "desc", label: "Описание" },
+              {
+                type: "object",
+                name: "items",
+                label: "Вопросы",
+                list: true,
+                fields: [
+                  { type: "string", name: "question", label: "Вопрос" },
+                  { type: "string", name: "answer", label: "Ответ", ui: { component: "textarea" } },
+                ],
+              },
             ],
           },
           {
@@ -418,6 +486,20 @@ export default defineConfig({
               { type: "string", name: "plansEyebrow", label: "Айброу" },
               { type: "string", name: "plansDesc", label: "Описание" },
               { type: "string", name: "plansHeading", label: "Заголовок", ui: { component: "textarea" } },
+              {
+                type: "object",
+                name: "plansList",
+                label: "Форматы",
+                list: true,
+                fields: [
+                  { type: "string", name: "id", label: "ID (island|renovation|standard)" },
+                  { type: "string", name: "tagline", label: "Тэглайн" },
+                  { type: "string", name: "name", label: "Название" },
+                  { type: "string", name: "desc", label: "Описание", ui: { component: "textarea" } },
+                  { type: "string", name: "investment", label: "Инвестиции" },
+                  { type: "string", name: "details", label: "Характеристики", list: true, ui: { component: "textarea" } },
+                ],
+              },
             ],
           },
           {
@@ -426,6 +508,16 @@ export default defineConfig({
             fields: [
               { type: "string", name: "comparisonEyebrow", label: "Айброу" },
               { type: "string", name: "comparisonHeading", label: "Заголовок", ui: { component: "textarea" } },
+              {
+                type: "object",
+                name: "comparisonRows",
+                label: "Строки сравнения",
+                list: true,
+                fields: [
+                  { type: "string", name: "label", label: "Параметр" },
+                  { type: "string", name: "values", label: "Значения (через запятую)", list: true },
+                ],
+              },
             ],
           },
           {
@@ -456,6 +548,7 @@ export default defineConfig({
             fields: [
               { type: "string", name: "benefitsEyebrow", label: "Айброу" },
               { type: "string", name: "benefitsHeading", label: "Заголовок", ui: { component: "textarea" } },
+              { type: "string", name: "benefitsItems", label: "Преимущества", list: true, ui: { component: "textarea" } },
             ],
           },
           {

@@ -103,7 +103,31 @@ var config_default = defineConfig({
                   { type: "string", name: "example", label: "\u041F\u0440\u0438\u043C\u0435\u0440 \u043C\u0430\u0433\u0430\u0437\u0438\u043D\u0430" }
                 ]
               },
-              { type: "string", name: "disclaimer", label: "\u0414\u0438\u0441\u043A\u043B\u0435\u0439\u043C\u0435\u0440", ui: { component: "textarea" } }
+              { type: "string", name: "disclaimer", label: "\u0414\u0438\u0441\u043A\u043B\u0435\u0439\u043C\u0435\u0440", ui: { component: "textarea" } },
+              {
+                type: "object",
+                name: "plans",
+                label: "\u0424\u043E\u0440\u043C\u0430\u0442\u044B (\u043A\u0430\u0440\u0442\u043E\u0447\u043A\u0438)",
+                list: true,
+                fields: [
+                  { type: "string", name: "id", label: "ID (island|renovation|standard)" },
+                  { type: "string", name: "tagline", label: "\u0422\u044D\u0433\u043B\u0430\u0439\u043D" },
+                  { type: "string", name: "name", label: "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435" },
+                  { type: "string", name: "desc", label: "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435", ui: { component: "textarea" } },
+                  { type: "string", name: "investment", label: "\u0418\u043D\u0432\u0435\u0441\u0442\u0438\u0446\u0438\u0438" },
+                  { type: "string", name: "details", label: "\u0425\u0430\u0440\u0430\u043A\u0442\u0435\u0440\u0438\u0441\u0442\u0438\u043A\u0438", list: true, ui: { component: "textarea" } }
+                ]
+              },
+              {
+                type: "object",
+                name: "cardProfit",
+                label: "\u041F\u0440\u0438\u0431\u044B\u043B\u044C \u043F\u043E \u0444\u043E\u0440\u043C\u0430\u0442\u0430\u043C",
+                fields: [
+                  { type: "string", name: "island", label: "POP-UP STORE" },
+                  { type: "string", name: "renovation", label: "\u0420\u0435\u043D\u043E\u0432\u0430\u0446\u0438\u044F" },
+                  { type: "string", name: "standard", label: "\u041F\u043E\u043B\u043D\u044B\u0439 \u0441\u0442\u0430\u043D\u0434\u0430\u0440\u0442" }
+                ]
+              }
             ]
           },
           {
@@ -140,7 +164,19 @@ var config_default = defineConfig({
               { type: "string", name: "eyebrow", label: "\u0410\u0439\u0431\u0440\u043E\u0443" },
               { type: "string", name: "headingBefore", label: "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A (\u0434\u043E \u0430\u043A\u0446\u0435\u043D\u0442\u0430)" },
               { type: "string", name: "headingAccent", label: "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A (\u0430\u043A\u0446\u0435\u043D\u0442)" },
-              { type: "string", name: "desc", label: "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435" }
+              { type: "string", name: "desc", label: "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435" },
+              {
+                type: "object",
+                name: "steps",
+                label: "\u0428\u0430\u0433\u0438",
+                list: true,
+                fields: [
+                  { type: "number", name: "number", label: "\u041D\u043E\u043C\u0435\u0440" },
+                  { type: "string", name: "title", label: "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A" },
+                  { type: "string", name: "desc", label: "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435", ui: { component: "textarea" } },
+                  { type: "string", name: "duration", label: "\u0414\u043B\u0438\u0442\u0435\u043B\u044C\u043D\u043E\u0441\u0442\u044C" }
+                ]
+              }
             ]
           },
           {
@@ -164,7 +200,29 @@ var config_default = defineConfig({
                 ]
               },
               { type: "string", name: "openedPrefix", label: "\u041F\u0440\u0435\u0444\u0438\u043A\u0441 \u0434\u0430\u0442\u044B \u043E\u0442\u043A\u0440\u044B\u0442\u0438\u044F" },
-              { type: "string", name: "openedSuffix", label: "\u0421\u0443\u0444\u0444\u0438\u043A\u0441 \u0434\u0430\u0442\u044B \u043E\u0442\u043A\u0440\u044B\u0442\u0438\u044F" }
+              { type: "string", name: "openedSuffix", label: "\u0421\u0443\u0444\u0444\u0438\u043A\u0441 \u0434\u0430\u0442\u044B \u043E\u0442\u043A\u0440\u044B\u0442\u0438\u044F" },
+              {
+                type: "object",
+                name: "cases",
+                label: "\u041A\u0435\u0439\u0441\u044B \u0444\u0440\u0430\u043D\u0447\u0430\u0439\u0437\u0438",
+                list: true,
+                fields: [
+                  { type: "string", name: "id", label: "ID" },
+                  { type: "string", name: "city", label: "\u0413\u043E\u0440\u043E\u0434" },
+                  { type: "string", name: "mall", label: "\u0422\u0426" },
+                  { type: "string", name: "photo", label: "\u0424\u043E\u0442\u043E (\u043F\u0443\u0442\u044C)" },
+                  { type: "string", name: "opened", label: "\u0413\u043E\u0434 \u043E\u0442\u043A\u0440\u044B\u0442\u0438\u044F" },
+                  { type: "string", name: "area", label: "\u041F\u043B\u043E\u0449\u0430\u0434\u044C" },
+                  { type: "string", name: "format", label: "\u0424\u043E\u0440\u043C\u0430\u0442" },
+                  { type: "string", name: "tag", label: "\u0422\u0435\u0433 (\u043A\u0440\u0430\u0442\u043A\u043E)" },
+                  { type: "string", name: "quote", label: "\u0426\u0438\u0442\u0430\u0442\u0430", ui: { component: "textarea" } },
+                  { type: "string", name: "investment", label: "\u0418\u043D\u0432\u0435\u0441\u0442\u0438\u0446\u0438\u0438" },
+                  { type: "string", name: "profitMonth", label: "\u041F\u0440\u0438\u0431\u044B\u043B\u044C / \u043C\u0435\u0441" },
+                  { type: "string", name: "paybackPeriod", label: "\u041E\u043A\u0443\u043F\u0430\u0435\u043C\u043E\u0441\u0442\u044C" },
+                  { type: "string", name: "roi", label: "\u0414\u043E\u0445\u043E\u0434\u043D\u043E\u0441\u0442\u044C" },
+                  { type: "string", name: "youtubeId", label: "ID \u0432\u0438\u0434\u0435\u043E YouTube" }
+                ]
+              }
             ]
           },
           {
@@ -174,7 +232,17 @@ var config_default = defineConfig({
               { type: "string", name: "eyebrow", label: "\u0410\u0439\u0431\u0440\u043E\u0443" },
               { type: "string", name: "headingBefore", label: "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A (\u0434\u043E \u0430\u043A\u0446\u0435\u043D\u0442\u0430)" },
               { type: "string", name: "headingAccent", label: "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A (\u0430\u043A\u0446\u0435\u043D\u0442)" },
-              { type: "string", name: "desc", label: "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435" }
+              { type: "string", name: "desc", label: "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435" },
+              {
+                type: "object",
+                name: "items",
+                label: "\u0412\u043E\u043F\u0440\u043E\u0441\u044B",
+                list: true,
+                fields: [
+                  { type: "string", name: "question", label: "\u0412\u043E\u043F\u0440\u043E\u0441" },
+                  { type: "string", name: "answer", label: "\u041E\u0442\u0432\u0435\u0442", ui: { component: "textarea" } }
+                ]
+              }
             ]
           },
           {
@@ -407,7 +475,21 @@ var config_default = defineConfig({
             fields: [
               { type: "string", name: "plansEyebrow", label: "\u0410\u0439\u0431\u0440\u043E\u0443" },
               { type: "string", name: "plansDesc", label: "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435" },
-              { type: "string", name: "plansHeading", label: "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A", ui: { component: "textarea" } }
+              { type: "string", name: "plansHeading", label: "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A", ui: { component: "textarea" } },
+              {
+                type: "object",
+                name: "plansList",
+                label: "\u0424\u043E\u0440\u043C\u0430\u0442\u044B",
+                list: true,
+                fields: [
+                  { type: "string", name: "id", label: "ID (island|renovation|standard)" },
+                  { type: "string", name: "tagline", label: "\u0422\u044D\u0433\u043B\u0430\u0439\u043D" },
+                  { type: "string", name: "name", label: "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435" },
+                  { type: "string", name: "desc", label: "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435", ui: { component: "textarea" } },
+                  { type: "string", name: "investment", label: "\u0418\u043D\u0432\u0435\u0441\u0442\u0438\u0446\u0438\u0438" },
+                  { type: "string", name: "details", label: "\u0425\u0430\u0440\u0430\u043A\u0442\u0435\u0440\u0438\u0441\u0442\u0438\u043A\u0438", list: true, ui: { component: "textarea" } }
+                ]
+              }
             ]
           },
           {
@@ -415,7 +497,17 @@ var config_default = defineConfig({
             label: "\u0421\u0440\u0430\u0432\u043D\u0435\u043D\u0438\u0435",
             fields: [
               { type: "string", name: "comparisonEyebrow", label: "\u0410\u0439\u0431\u0440\u043E\u0443" },
-              { type: "string", name: "comparisonHeading", label: "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A", ui: { component: "textarea" } }
+              { type: "string", name: "comparisonHeading", label: "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A", ui: { component: "textarea" } },
+              {
+                type: "object",
+                name: "comparisonRows",
+                label: "\u0421\u0442\u0440\u043E\u043A\u0438 \u0441\u0440\u0430\u0432\u043D\u0435\u043D\u0438\u044F",
+                list: true,
+                fields: [
+                  { type: "string", name: "label", label: "\u041F\u0430\u0440\u0430\u043C\u0435\u0442\u0440" },
+                  { type: "string", name: "values", label: "\u0417\u043D\u0430\u0447\u0435\u043D\u0438\u044F (\u0447\u0435\u0440\u0435\u0437 \u0437\u0430\u043F\u044F\u0442\u0443\u044E)", list: true }
+                ]
+              }
             ]
           },
           {
@@ -445,7 +537,8 @@ var config_default = defineConfig({
             label: "\u041F\u0440\u0435\u0438\u043C\u0443\u0449\u0435\u0441\u0442\u0432\u0430",
             fields: [
               { type: "string", name: "benefitsEyebrow", label: "\u0410\u0439\u0431\u0440\u043E\u0443" },
-              { type: "string", name: "benefitsHeading", label: "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A", ui: { component: "textarea" } }
+              { type: "string", name: "benefitsHeading", label: "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A", ui: { component: "textarea" } },
+              { type: "string", name: "benefitsItems", label: "\u041F\u0440\u0435\u0438\u043C\u0443\u0449\u0435\u0441\u0442\u0432\u0430", list: true, ui: { component: "textarea" } }
             ]
           },
           {

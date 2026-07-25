@@ -44,6 +44,21 @@ fragment HomeParts on Home {
       example
     }
     disclaimer
+    plans {
+      __typename
+      id
+      tagline
+      name
+      desc
+      investment
+      details
+    }
+    cardProfit {
+      __typename
+      island
+      renovation
+      standard
+    }
   }
   ... on HomeHomeMarketBlock {
     eyebrow
@@ -63,6 +78,13 @@ fragment HomeParts on Home {
     headingBefore
     headingAccent
     desc
+    steps {
+      __typename
+      number
+      title
+      desc
+      duration
+    }
   }
   ... on HomeHomeCaseStudies {
     eyebrow
@@ -79,12 +101,34 @@ fragment HomeParts on Home {
     }
     openedPrefix
     openedSuffix
+    cases {
+      __typename
+      id
+      city
+      mall
+      photo
+      opened
+      area
+      format
+      tag
+      quote
+      investment
+      profitMonth
+      paybackPeriod
+      roi
+      youtubeId
+    }
   }
   ... on HomeHomeFaq {
     eyebrow
     headingBefore
     headingAccent
     desc
+    items {
+      __typename
+      question
+      answer
+    }
   }
   ... on HomeHomeContacts {
     eyebrow
@@ -219,10 +263,24 @@ fragment FranchiseParts on Franchise {
     plansEyebrow
     plansDesc
     plansHeading
+    plansList {
+      __typename
+      id
+      tagline
+      name
+      desc
+      investment
+      details
+    }
   }
   ... on FranchiseFranchiseComparison {
     comparisonEyebrow
     comparisonHeading
+    comparisonRows {
+      __typename
+      label
+      values
+    }
   }
   ... on FranchiseFranchiseFinancial {
     financialEyebrow
@@ -240,6 +298,7 @@ fragment FranchiseParts on Franchise {
   ... on FranchiseFranchiseBenefits {
     benefitsEyebrow
     benefitsHeading
+    benefitsItems
   }
   ... on FranchiseFranchiseGallery {
     galleryEyebrow

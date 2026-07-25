@@ -52,6 +52,21 @@ export const HomePartsFragmentDoc = gql`
       example
     }
     disclaimer
+    plans {
+      __typename
+      id
+      tagline
+      name
+      desc
+      investment
+      details
+    }
+    cardProfit {
+      __typename
+      island
+      renovation
+      standard
+    }
   }
   ... on HomeHomeMarketBlock {
     eyebrow
@@ -71,6 +86,13 @@ export const HomePartsFragmentDoc = gql`
     headingBefore
     headingAccent
     desc
+    steps {
+      __typename
+      number
+      title
+      desc
+      duration
+    }
   }
   ... on HomeHomeCaseStudies {
     eyebrow
@@ -87,12 +109,34 @@ export const HomePartsFragmentDoc = gql`
     }
     openedPrefix
     openedSuffix
+    cases {
+      __typename
+      id
+      city
+      mall
+      photo
+      opened
+      area
+      format
+      tag
+      quote
+      investment
+      profitMonth
+      paybackPeriod
+      roi
+      youtubeId
+    }
   }
   ... on HomeHomeFaq {
     eyebrow
     headingBefore
     headingAccent
     desc
+    items {
+      __typename
+      question
+      answer
+    }
   }
   ... on HomeHomeContacts {
     eyebrow
@@ -229,10 +273,24 @@ export const FranchisePartsFragmentDoc = gql`
     plansEyebrow
     plansDesc
     plansHeading
+    plansList {
+      __typename
+      id
+      tagline
+      name
+      desc
+      investment
+      details
+    }
   }
   ... on FranchiseFranchiseComparison {
     comparisonEyebrow
     comparisonHeading
+    comparisonRows {
+      __typename
+      label
+      values
+    }
   }
   ... on FranchiseFranchiseFinancial {
     financialEyebrow
@@ -250,6 +308,7 @@ export const FranchisePartsFragmentDoc = gql`
   ... on FranchiseFranchiseBenefits {
     benefitsEyebrow
     benefitsHeading
+    benefitsItems
   }
   ... on FranchiseFranchiseGallery {
     galleryEyebrow
@@ -636,7 +695,7 @@ const generateRequester = (client) => {
 export const ExperimentalGetTinaClient = () => getSdk(
   generateRequester(
     createClient({
-      url: "http://localhost:4001/graphql",
+      url: "https://content.tinajs.io/2.4/content/91229f05-3466-4894-8fa8-49ad837cf35b/github/main",
       queries
     })
   )

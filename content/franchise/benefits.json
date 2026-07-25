@@ -1,5 +1,13 @@
 {
   "_template": "franchiseBenefits",
   "benefitsEyebrow": "Преимущества",
-  "benefitsHeading": "Почему <span class=\"text-brand-accent\">Diverse</span>"
+  "benefitsHeading": "Почему <span class=\"text-brand-accent\">Diverse</span>",
+  "benefitsItems": [
+    "Сотни магазинов в 9+ странах — в РФ и СНГ пока единицы",
+    "Партнёр Dakar Rally и 24h Le Mans",
+    "Полное сопровождение 24/7: от помещения до открытия",
+    "Без минимального объёма заказа",
+    "Подходит новичкам — 80% партнёров без опыта",
+    "Поставки со склада в Гданьске, таможня под ключ"
+  ]
 }

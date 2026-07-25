@@ -16,7 +16,7 @@ import Contacts from "@/components/blocks/Contacts";
 import Footer from "@/components/shared/Footer";
 import FadeIn from "@/components/shared/FadeIn";
 import JsonLd from "@/components/shared/JsonLd";
-import { faqItems } from "@/data/franchise";
+import { siteContent } from "@/data/site-content";
 import { asset } from "@/lib/path";
 import { SITE_URL } from "@/config/site";
 
@@ -56,10 +56,12 @@ export default function ClientPage({ blocks }: ClientPageProps) {
   const contacts = useTina(blocks.contacts ?? EMPTY);
   const stores = useTina(blocks.stores ?? EMPTY);
 
+  const faqItems = faq?.data?.home?.items ?? siteContent.faq.items;
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqItems.map((item) => ({
+    mainEntity: (faqItems || []).map((item: { question: string; answer: string }) => ({
       "@type": "Question",
       name: item.question,
       acceptedAnswer: {

@@ -1,5 +1,14 @@
 {
   "_template": "franchiseComparison",
   "comparisonEyebrow": "Сравнение",
-  "comparisonHeading": "Что входит в каждый <span class=\"text-brand-accent\">вариант</span>"
+  "comparisonHeading": "Что входит в каждый <span class=\"text-brand-accent\">вариант</span>",
+  "comparisonRows": [
+    { "label": "Инвестиции", "values": ["от 800 000 ₽", "от 1 500 000 ₽", "от 3 000 000 ₽"] },
+    { "label": "Площадь", "values": ["от 20 м²", "Существующее помещение", "от 60 м²"] },
+    { "label": "Дизайн-проект", "values": ["Базовый", "Переоборудование", "Полный от ETOS"] },
+    { "label": "Срок запуска", "values": ["от 2 недель", "от 3 недель", "от 4 недель"] },
+    { "label": "Товарный запас", "values": ["Стартовый", "Стартовый", "Максимальный"] },
+    { "label": "Роялти", "values": ["0%", "0%", "0%"] },
+    { "label": "Паушальный взнос", "values": ["0 ₽", "0 ₽", "0 ₽"] }
+  ]
 }

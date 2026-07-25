@@ -12,8 +12,6 @@ import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
 import Faq from "@/components/blocks/Faq";
 import StoreGallery from "@/components/blocks/StoreGallery";
-import { plans, benefitsFull as benefits } from "@/data/franchise";
-import { comparisonRows } from "@/data/formats";
 import { CONTACTS, FORMAT_OPTIONS } from "@/config/site";
 import { useUserCity } from "@/lib/user-city-context";
 import { queueLead } from "@/lib/lead-queue";
@@ -42,7 +40,7 @@ const EMPTY: TinaResult = { data: {}, query: "", variables: {} };
 
 /* ——— Plans accordion (reused from main) ——— */
 
-function PlansSection() {
+function PlansSection({ plans }: { plans: Array<{ id: string; tagline: string; name: string; desc: string; investment: string; details: string[] }> }) {
   const [openId, setOpenId] = useState<string | null>(null);
 
   return (
@@ -139,7 +137,7 @@ function PlansSection() {
 
 /* ——— Comparison table ——— */
 
-function ComparisonTable() {
+function ComparisonTable({ comparisonRows, plans }: { comparisonRows: Array<{ label: string; values: string[] }>; plans: Array<{ id: string; name: string }> }) {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
@@ -315,6 +313,7 @@ function FinancialModel({ s }: { s: Record<string, unknown> }) {
 /* ——— Benefits ——— */
 
 function BenefitsSection({ s }: { s: Record<string, unknown> }) {
+  const benefitsItems = (s.benefitsItems || []) as string[];
   return (
     <section className="bg-white py-20 md:py-28">
       <div className="container-brand">
@@ -334,7 +333,7 @@ function BenefitsSection({ s }: { s: Record<string, unknown> }) {
             visible: { transition: { staggerChildren: 0.06 } },
           }}
         >
-          {benefits.map((b) => (
+          {benefitsItems.map((b) => (
             <motion.div
               key={b}
               variants={{
@@ -568,6 +567,8 @@ export default function FranchiseContent({
   contact: TinaResult | null;
 }) {
   const { data: heroData } = useTina(hero || EMPTY);
+  const { data: plansData } = useTina(plans || EMPTY);
+  const { data: comparisonData } = useTina(comparison || EMPTY);
   const { data: financialData } = useTina(financial || EMPTY);
   const { data: benefitsData } = useTina(benefits || EMPTY);
 
@@ -576,6 +577,8 @@ export default function FranchiseContent({
     heroHeading?: string;
     heroDesc?: string;
   };
+  const plansList = ((plansData?.franchise as Record<string, unknown>)?.plansList || []) as Array<{ id: string; tagline: string; name: string; desc: string; investment: string; details: string[] }>;
+  const comparisonRows = ((comparisonData?.franchise as Record<string, unknown>)?.comparisonRows || []) as Array<{ label: string; values: string[] }>;
   const fin = (financialData?.franchise || {}) as Record<string, unknown>;
   const ben = (benefitsData?.franchise || {}) as Record<string, unknown>;
 
@@ -644,8 +647,8 @@ export default function FranchiseContent({
           </div>
         </section>
 
-        <PlansSection />
-        <ComparisonTable />
+        <PlansSection plans={plansList} />
+        <ComparisonTable comparisonRows={comparisonRows} plans={plansList} />
         <FinancialModel s={fin} />
         <BenefitsSection s={ben} />
         <div id="gallery"><StoreGallery images={galleryImages} /></div>

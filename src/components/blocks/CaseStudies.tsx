@@ -5,7 +5,6 @@ import Image from "next/image";
 import { tinaField } from "tinacms/dist/react";
 import SectionHeader from "@/components/shared/SectionHeader";
 import FadeIn from "@/components/shared/FadeIn";
-import { caseStudies } from "@/data/metrics";
 import { asset } from "@/lib/path";
 import YoutubeEmbed from "@/components/shared/YoutubeEmbed";
 import { siteContent } from "@/data/site-content";
@@ -43,7 +42,7 @@ export default function CaseStudies({ data }: { data?: typeof fallback }) {
 
          {/* Cards */}
         <div className="grid md:grid-cols-2 gap-5 md:gap-6 max-w-4xl mx-auto">
-          {caseStudies.map((cs, i) => {
+          {(s.cases || []).map((cs: { id: string; city: string; mall: string; photo: string; format: string; youtubeId?: string; quote: string; paybackPeriod: string; profitMonth: string; investment: string; opened: string; area: string }, i: number) => {
             const isVideo = videoOpen === cs.id;
 
             return (

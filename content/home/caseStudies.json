@@ -12,5 +12,39 @@
     "photo": "Фото"
   },
   "openedPrefix": "Открыт в",
-  "openedSuffix": "году"
+  "openedSuffix": "году",
+  "cases": [
+    {
+      "id": "kaliningrad",
+      "city": "Калининград",
+      "mall": "ТРЦ «Европа»",
+      "photo": "/images/stores/kaliningrad.jpg",
+      "opened": "2019",
+      "area": "120 м²",
+      "format": "Полный стандарт",
+      "tag": "Один из самых стабильных магазинов сети.",
+      "quote": "Diverse даёт готовый бизнес с нулевым взносом — это уникальное предложение на рынке франшиз. Мы работаем уже 6 лет, и сеть только растёт.",
+      "investment": "3 млн ₽",
+      "profitMonth": "~350 тыс ₽",
+      "paybackPeriod": "12 мес",
+      "roi": "12%",
+      "youtubeId": ""
+    },
+    {
+      "id": "ufa-mega",
+      "city": "Уфа",
+      "mall": "ТЦ «Мега-Уфа»",
+      "photo": "/images/stores/ufa-mega.webp",
+      "opened": "2022",
+      "area": "65 м²",
+      "format": "Полный стандарт",
+      "tag": "Высокий трафик ТЦ.",
+      "quote": "Формат позволяет быстро запуститься в любом крупном ТЦ. Уже через полгода вышли на плановую выручку.",
+      "investment": "2,4 млн ₽",
+      "profitMonth": "~250 тыс ₽",
+      "paybackPeriod": "13 мес",
+      "roi": "10%",
+      "youtubeId": ""
+    }
+  ]
 }
