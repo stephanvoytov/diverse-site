@@ -11,7 +11,7 @@ import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import { asset } from "@/lib/path";
 import { useUserCity } from "@/lib/user-city-context";
 import { siteContent } from "@/data/site-content";
-import ErrorBoundary from "@/components/shared/ErrorBoundary";
+
 
 export interface TinaStoreItem {
   city?: string;
@@ -112,7 +112,8 @@ export default function Stores({
 
   useEffect(() => {
     if (!mapReady) return;
-    const map = mapRef.current!;
+    const map = mapRef.current;
+    if (!map) return;
     if (lat && lon && userCity) {
       addGhostToMap(map, lat, lon);
     } else if (userCity) {
@@ -131,97 +132,99 @@ export default function Stores({
   useEffect(() => {
     if (mapRef.current || !containerRef.current || !stores.length) return;
 
-    const map = L.map(containerRef.current, {
-      center: [60, 80],
-      zoom: 3,
-      minZoom: 1,
-      zoomControl: true,
-      attributionControl: false,
-    });
-
-    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 18,
-    }).addTo(map);
-
-    function diverseMarker(label: string): L.DivIcon {
-      return L.divIcon({
-        html: `<div role="img" aria-label="Магазин Diverse в ${label}" style="display:flex;align-items:center;justify-content:center;width:28px;height:36px;">
-          <svg width="28" height="36" viewBox="0 0 27 33" fill="none">
-            <path d="M4.3,22.6C-0.7,17.6-0.7,9.5,4.3,4.6C6.8,2.2,10,0.8,13.5,0.8s6.7,1.3,9.2,3.7c5.1,5,5.1,13.1,0,18l-9.2,9L4.3,22.6z" fill="#D12026"/>
-            <path d="M13.5,1.1c3.4,0,6.6,1.3,9.1,3.7c2.4,2.4,3.8,5.5,3.8,8.9s-1.3,6.5-3.8,8.9l-9.1,8.9l-9.1-8.9c-2.4-2.4-3.8-5.5-3.8-8.9s1.3-6.5,3.8-8.9C6.9,2.4,10.1,1.1,13.5,1.1z" fill="#a0101e" opacity="0.4"/>
-            <path fill="#ffffff" fill-rule="evenodd" d="M18.7,10.6l-1.3,2.1h-6.5c-1.4,0-2.9,0.3-3.5,1.5l-0.7,1.1l-1.6,2.6h9.4c1.4,0,2.9-0.3,3.5-1.5l0.7-1.1c0.9-1.6,1.9-3.1,2.8-4.7H18.7z M16.8,13.8l-1.4,2.3c-0.3,0.5-1,0.7-1.6,0.7H8.6l1.4-2.3c0.3-0.5,1-0.7,1.6-0.7H16.8z"/>
-          </svg>
-        </div>`,
-        className: "",
-        iconSize: [28, 36],
-        iconAnchor: [14, 36],
-        popupAnchor: [0, -38],
+    try {
+      const map = L.map(containerRef.current, {
+        center: [60, 80],
+        zoom: 3,
+        minZoom: 1,
+        zoomControl: true,
+        attributionControl: false,
       });
-    }
 
-    const clusters = L.markerClusterGroup({
-      maxClusterRadius: 50,
-      spiderfyOnMaxZoom: true,
-      showCoverageOnHover: false,
-      zoomToBoundsOnClick: true,
-      iconCreateFunction: (cluster) => {
-        const count = cluster.getChildCount();
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 18,
+      }).addTo(map);
+
+      function diverseMarker(label: string): L.DivIcon {
         return L.divIcon({
-          html: `<div role="img" aria-label="${count} магазина(ов)" style="
-            width:40px;height:40px;border-radius:50%;
-            background:#D12026;color:#fff;
-            display:flex;align-items:center;justify-content:center;
-            font-family:Inter,sans-serif;font-size:13px;font-weight:600;
-            border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.3);
-          ">${count}</div>`,
+          html: `<div role="img" aria-label="Магазин Diverse в ${label}" style="display:flex;align-items:center;justify-content:center;width:28px;height:36px;">
+            <svg width="28" height="36" viewBox="0 0 27 33" fill="none">
+              <path d="M4.3,22.6C-0.7,17.6-0.7,9.5,4.3,4.6C6.8,2.2,10,0.8,13.5,0.8s6.7,1.3,9.2,3.7c5.1,5,5.1,13.1,0,18l-9.2,9L4.3,22.6z" fill="#D12026"/>
+              <path d="M13.5,1.1c3.4,0,6.6,1.3,9.1,3.7c2.4,2.4,3.8,5.5,3.8,8.9s-1.3,6.5-3.8,8.9l-9.1,8.9l-9.1-8.9c-2.4-2.4-3.8-5.5-3.8-8.9s1.3-6.5,3.8-8.9C6.9,2.4,10.1,1.1,13.5,1.1z" fill="#a0101e" opacity="0.4"/>
+              <path fill="#ffffff" fill-rule="evenodd" d="M18.7,10.6l-1.3,2.1h-6.5c-1.4,0-2.9,0.3-3.5,1.5l-0.7,1.1l-1.6,2.6h9.4c1.4,0,2.9-0.3,3.5-1.5l0.7-1.1c0.9-1.6,1.9-3.1,2.8-4.7H18.7z M16.8,13.8l-1.4,2.3c-0.3,0.5-1,0.7-1.6,0.7H8.6l1.4-2.3c0.3-0.5,1-0.7,1.6-0.7H16.8z"/>
+            </svg>
+          </div>`,
           className: "",
-          iconSize: [40, 40],
+          iconSize: [28, 36],
+          iconAnchor: [14, 36],
+          popupAnchor: [0, -38],
         });
-      },
-    });
+      }
 
-    const markers: L.Marker[] = [];
+      const clusters = L.markerClusterGroup({
+        maxClusterRadius: 50,
+        spiderfyOnMaxZoom: true,
+        showCoverageOnHover: false,
+        zoomToBoundsOnClick: true,
+        iconCreateFunction: (cluster) => {
+          const count = cluster.getChildCount();
+          return L.divIcon({
+            html: `<div role="img" aria-label="${count} магазина(ов)" style="
+              width:40px;height:40px;border-radius:50%;
+              background:#D12026;color:#fff;
+              display:flex;align-items:center;justify-content:center;
+              font-family:Inter,sans-serif;font-size:13px;font-weight:600;
+              border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.3);
+            ">${count}</div>`,
+            className: "",
+            iconSize: [40, 40],
+          });
+        },
+      });
 
-    stores.forEach((store, i) => {
-      const coords = ll(store);
-      if (!coords[0] && !coords[1]) return;
-      const marker = L.marker(coords, {
-        icon: diverseMarker(store.city || ""),
-      })
-        .bindPopup(popupHtml(store), {
-          maxWidth: 260,
-          className: "store-popup",
-          closeButton: true,
+      const markers: L.Marker[] = [];
+
+      stores.forEach((store, i) => {
+        const coords = ll(store);
+        if (!coords[0] && !coords[1]) return;
+        const marker = L.marker(coords, {
+          icon: diverseMarker(store.city || ""),
         })
-        .on("click", () => {
-          setActiveIdx(i);
-          const el = sidebarRef.current?.querySelector(`[data-store="${i}"]`);
-          if (el) {
-            el.scrollIntoView({ behavior: "smooth", block: "nearest" });
-          }
-        });
-      markers.push(marker);
-      clusters.addLayer(marker);
-    });
+          .bindPopup(popupHtml(store), {
+            maxWidth: 260,
+            className: "store-popup",
+            closeButton: true,
+          })
+          .on("click", () => {
+            setActiveIdx(i);
+          });
+        markers.push(marker);
+        clusters.addLayer(marker);
+      });
 
-    markersRef.current = markers;
-    clustersRef.current = clusters;
-    map.addLayer(clusters);
+      markersRef.current = markers;
+      clustersRef.current = clusters;
+      map.addLayer(clusters);
 
-    if (markers.length) {
-      const bounds = L.latLngBounds(markers.map((m) => m.getLatLng()));
-      map.fitBounds(bounds, { padding: [60, 60], maxZoom: 5 });
-    }
+      if (markers.length) {
+        const bounds = L.latLngBounds(markers.map((m) => m.getLatLng()));
+        map.fitBounds(bounds, { padding: [60, 60], maxZoom: 5 });
+      }
 
-    mapRef.current = map;
-    setMapReady(true);
+      mapRef.current = map;
+      setMapReady(true);
 
-    return () => {
-      map.remove();
+      return () => {
+        map.remove();
+        mapRef.current = null;
+        ghostRef.current = null;
+        setMapReady(false);
+      };
+    } catch {
+      console.warn("Leaflet map initialization failed (likely inside TinaCMS iframe)");
       mapRef.current = null;
-      ghostRef.current = null;
       setMapReady(false);
-    };
+    }
   }, [stores]);
 
   function focusStore(i: number) {
@@ -377,9 +380,7 @@ export default function Stores({
 
           {/* Карта */}
           <div className="order-2 lg:order-2" style={{ isolation: "isolate" }}>
-            <ErrorBoundary>
-              <div ref={containerRef} className="h-[320px] md:h-[480px] w-full" />
-            </ErrorBoundary>
+            <div ref={containerRef} className="h-[320px] md:h-[480px] w-full" />
           </div>
         </motion.div>
       </div>
