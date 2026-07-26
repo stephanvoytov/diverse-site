@@ -82,7 +82,7 @@ export default function Franchise({ data }: { data?: typeof fallback }) {
             visible: { transition: { staggerChildren: 0.1 } },
           }}
         >
-          {(s.plans || []).map((plan: { id: string; tagline: string; name: string; desc: string; investment: string }) => (
+          {(s.plans || []).map((plan: { id: string; tagline: string; name: string; desc: string; investment: string; _content_source?: unknown }) => (
             <motion.div
               key={plan.id}
               variants={{
@@ -96,19 +96,19 @@ export default function Franchise({ data }: { data?: typeof fallback }) {
                   : 'border border-white/10 bg-white/5 hover:bg-white/[0.07] hover:border-white/15'
               }`}
             >
-              <p className="text-[10px] tracking-[0.15em] uppercase text-brand-accent mb-3">
+              <p className="text-[10px] tracking-[0.15em] uppercase text-brand-accent mb-3" data-tina-field={tinaField(plan, "tagline")}>
                 {plan.tagline}
               </p>
-              <h3 className="text-2xl font-bold text-white mb-3 tracking-[-0.01em]">
+              <h3 className="text-2xl font-bold text-white mb-3 tracking-[-0.01em]" data-tina-field={tinaField(plan, "name")}>
                 {plan.name}
               </h3>
-              <p className="text-[13px] text-white/60 leading-relaxed mb-6">
+              <p className="text-[13px] text-white/60 leading-relaxed mb-6" data-tina-field={tinaField(plan, "desc")}>
                 {plan.desc}
               </p>
               {/* Investment + Profit — stacked vertically */}
               <div className="mt-auto pt-5 space-y-3">
                 <div>
-                  <p className="text-[28px] font-bold text-brand-accent mb-0.5">
+                  <p className="text-[28px] font-bold text-brand-accent mb-0.5" data-tina-field={tinaField(plan, "investment")}>
                     {plan.investment}
                   </p>
                   <p className="text-[11px] text-white/50 tracking-[0.1em] uppercase" data-tina-field={tinaField(s.franchiseLabels, "investment")}>

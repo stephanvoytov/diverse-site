@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { tinaField } from "tinacms/dist/react";
 import SectionHeader from "@/components/shared/SectionHeader";
-import { trustPoints } from "@/data/brand";
 import { siteContent } from "@/data/site-content";
 
 const fallback = siteContent.trustModel;
@@ -38,7 +37,7 @@ export default function TrustModel({ data }: { data?: typeof fallback }) {
             visible: { transition: { staggerChildren: 0.08 } },
           }}
         >
-          {trustPoints.map((point) => (
+          {(s.points || []).map((point: { title: string; desc: string; _content_source?: unknown }) => (
             <motion.div
               key={point.title}
               variants={{
@@ -47,10 +46,10 @@ export default function TrustModel({ data }: { data?: typeof fallback }) {
               }}
               className="bg-white border border-brand-gray-200 rounded-sm p-6 md:p-8"
             >
-              <h3 className="text-lg md:text-xl font-bold text-brand-black mb-2">
+              <h3 className="text-lg md:text-xl font-bold text-brand-black mb-2" data-tina-field={tinaField(point, "title")}>
                 {point.title}
               </h3>
-              <p className="text-sm text-brand-gray-400 leading-relaxed">
+              <p className="text-sm text-brand-gray-400 leading-relaxed" data-tina-field={tinaField(point, "desc")}>
                 {point.desc}
               </p>
             </motion.div>

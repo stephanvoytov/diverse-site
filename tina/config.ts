@@ -83,6 +83,18 @@ export default defineConfig({
                   { type: "string", name: "collection", label: "Коллекции" },
                 ],
               },
+              {
+                type: "object",
+                name: "aboutStats",
+                label: "Статистика",
+                list: true,
+                fields: [
+                  { type: "number", name: "num", label: "Число" },
+                  { type: "string", name: "suffix", label: "Суффикс (+)" },
+                  { type: "string", name: "label", label: "Подпись" },
+                  { type: "boolean", name: "accent", label: "Акцентный цвет" },
+                ],
+              },
             ],
           },
           {
@@ -163,6 +175,16 @@ export default defineConfig({
               { type: "string", name: "headingBefore", label: "Заголовок (до акцента)" },
               { type: "string", name: "headingAccent", label: "Заголовок (акцент)" },
               { type: "string", name: "desc", label: "Описание" },
+              {
+                type: "object",
+                name: "points",
+                label: "Карточки",
+                list: true,
+                fields: [
+                  { type: "string", name: "title", label: "Заголовок" },
+                  { type: "string", name: "desc", label: "Описание", ui: { component: "textarea" } },
+                ],
+              },
             ],
           },
           {

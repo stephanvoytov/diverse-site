@@ -37,7 +37,7 @@ export default function Roadmap({ data }: { data?: typeof fallback }) {
             visible: { transition: { staggerChildren: 0.08 } },
           }}
         >
-          {(s.steps || []).map((step: { number: number; title: string; desc: string; duration: string }, i: number) => (
+          {(s.steps || []).map((step: { number: number; title: string; desc: string; duration: string; _content_source?: unknown }, i: number) => (
             <motion.div
               key={step.number}
               variants={{
@@ -60,13 +60,13 @@ export default function Roadmap({ data }: { data?: typeof fallback }) {
               {/* Content card */}
               <div className="flex-1 min-w-0 pb-1">
                 <div className="bg-white border border-brand-gray-200 rounded-sm p-5 md:p-6">
-                  <span className="inline-block text-[10px] label text-brand-accent font-semibold mb-1">
+                  <span className="inline-block text-[10px] label text-brand-accent font-semibold mb-1" data-tina-field={tinaField(step, "duration")}>
                     {step.duration}
                   </span>
-                  <h3 className="text-lg md:text-xl font-bold text-brand-black mb-2">
+                  <h3 className="text-lg md:text-xl font-bold text-brand-black mb-2" data-tina-field={tinaField(step, "title")}>
                     {step.title}
                   </h3>
-                  <p className="text-sm text-brand-gray-400 leading-relaxed">
+                  <p className="text-sm text-brand-gray-400 leading-relaxed" data-tina-field={tinaField(step, "desc")}>
                     {step.desc}
                   </p>
                 </div>

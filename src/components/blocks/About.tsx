@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { tinaField } from "tinacms/dist/react";
 import CountUp from "@/components/ui/CountUp";
-import { aboutStats } from "@/data/brand";
 import { siteContent } from "@/data/site-content";
 
 const fallback = siteContent.about;
@@ -61,35 +60,22 @@ export default function About({ data }: { data?: typeof fallback }) {
           viewport={{ once: true, margin: "-60px" }}
           variants={stagger}
         >
-          {aboutStats.map((stat) => {
-            const match = stat.num.match(/^(\d+)(.*)$/);
-            const countUp = match ? (
-              <CountUp
-                to={Number(match[1])}
-                suffix={match[2]}
-                className={`text-3xl md:text-4xl font-bold ${stat.accent ? "text-brand-accent" : "text-brand-black"}`}
-              />
-            ) : (
-              stat.num
-            );
-
-            return (
-              <motion.div
-                key={stat.num}
-                variants={{
-                  hidden: { opacity: 0, y: 12 },
-                  visible: { opacity: 1, y: 0 },
-                }}
-              >
-                <p className={`text-3xl md:text-4xl font-bold ${stat.accent ? "text-brand-accent" : "text-brand-black"}`}>
-                  {countUp}
-                </p>
-                <p className="text-xs label text-brand-gray-400 mt-1">
-                  {stat.label}
-                </p>
-              </motion.div>
-            );
-          })}
+          {(s.aboutStats || []).map((stat: { num: number; suffix?: string; label: string; accent?: boolean; _content_source?: unknown }) => (
+            <motion.div
+              key={stat.label}
+              variants={{
+                hidden: { opacity: 0, y: 12 },
+                visible: { opacity: 1, y: 0 },
+              }}
+            >
+              <p className={`text-3xl md:text-4xl font-bold ${stat.accent ? "text-brand-accent" : "text-brand-black"}`} data-tina-field={tinaField(stat, "num")}>
+                <CountUp to={stat.num || 0} suffix={stat.suffix || ""} className={`text-3xl md:text-4xl font-bold ${stat.accent ? "text-brand-accent" : "text-brand-black"}`} />
+              </p>
+              <p className="text-xs label text-brand-gray-400 mt-1" data-tina-field={tinaField(stat, "label")}>
+                {stat.label}
+              </p>
+            </motion.div>
+          ))}
         </motion.div>
 
         {/* Links — один observer */}

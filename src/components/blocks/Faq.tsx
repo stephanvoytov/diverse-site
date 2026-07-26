@@ -40,7 +40,7 @@ export default function Faq({ data }: { data?: typeof fallback }) {
             visible: { transition: { staggerChildren: 0.05 } },
           }}
         >
-          {(s.items || []).map((item: { question: string; answer: string }, i: number) => {
+          {(s.items || []).map((item: { question: string; answer: string; _content_source?: unknown }, i: number) => {
             const isOpen = openIdx === i;
 
             return (
@@ -63,7 +63,7 @@ export default function Faq({ data }: { data?: typeof fallback }) {
                   aria-expanded={isOpen}
                   aria-controls={`faq-answer-${i}`}
                 >
-                  <span className="text-sm md:text-base font-semibold text-brand-black pr-4">
+                  <span className="text-sm md:text-base font-semibold text-brand-black pr-4" data-tina-field={tinaField(item, "question")}>
                     {item.question}
                   </span>
                   <motion.span
@@ -97,7 +97,7 @@ export default function Faq({ data }: { data?: typeof fallback }) {
                       className="overflow-hidden"
                     >
                       <div className="px-5 md:px-7 pb-5 md:pb-6 border-t border-brand-gray-100 pt-4">
-                        <p className="text-sm text-brand-gray-400 leading-relaxed">
+                        <p className="text-sm text-brand-gray-400 leading-relaxed" data-tina-field={tinaField(item, "answer")}>
                           {item.answer}
                         </p>
                       </div>

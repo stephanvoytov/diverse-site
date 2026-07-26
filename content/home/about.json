@@ -8,5 +8,10 @@
   "aboutLinks": {
     "about": "Подробнее о бренде",
     "collection": "Посмотреть коллекции"
-  }
+  },
+  "aboutStats": [
+    { "num": 1993, "suffix": "", "label": "Год основания", "accent": false },
+    { "num": 400, "suffix": "+", "label": "Магазинов", "accent": false },
+    { "num": 3, "suffix": "", "label": "Суббренда", "accent": true }
+  ]
 }

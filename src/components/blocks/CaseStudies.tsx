@@ -42,7 +42,7 @@ export default function CaseStudies({ data }: { data?: typeof fallback }) {
 
          {/* Cards */}
         <div className="grid md:grid-cols-2 gap-5 md:gap-6 max-w-4xl mx-auto">
-          {(s.cases || []).map((cs: { id: string; city: string; mall: string; photo: string; format: string; youtubeId?: string; quote: string; paybackPeriod: string; profitMonth: string; investment: string; opened: string; area: string }, i: number) => {
+          {(s.cases || []).map((cs: { id: string; city: string; mall: string; photo: string; format: string; youtubeId?: string; quote: string; paybackPeriod: string; profitMonth: string; investment: string; opened: string; area: string; _content_source?: unknown }, i: number) => {
             const isVideo = videoOpen === cs.id;
 
             return (
@@ -73,45 +73,23 @@ export default function CaseStudies({ data }: { data?: typeof fallback }) {
                   />
                 )}
                 {/* Badge */}
-                <div className="absolute top-3 left-3 bg-brand-accent text-white text-[9px] font-bold px-2.5 py-1 rounded-sm uppercase tracking-[0.08em]">
+                <div className="absolute top-3 left-3 bg-brand-accent text-white text-[9px] font-bold px-2.5 py-1 rounded-sm uppercase tracking-[0.08em]" data-tina-field={tinaField(cs, "format")}>
                   {cs.format}
                 </div>
-                {cs.youtubeId && !isVideo && (
-                  <button
-                    onClick={() => setVideoOpen(cs.id)}
-                    className="absolute top-3 right-3 bg-black/70 hover:bg-black/90 text-white text-[10px] font-semibold px-2.5 py-1.5 rounded-sm uppercase tracking-wide flex items-center gap-1.5 transition-colors"
-                  >
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                    {s.caseLabels.video}
-                  </button>
-                )}
-                {isVideo && cs.youtubeId && (
-                  <button
-                    onClick={() => setVideoOpen(null)}
-                    className="absolute top-3 right-3 bg-black/70 hover:bg-black/90 text-white text-[10px] font-semibold px-2.5 py-1.5 rounded-sm uppercase tracking-wide flex items-center gap-1.5 transition-colors"
-                  >
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                    {s.caseLabels.photo}
-                  </button>
-                )}
               </div>
 
               {/* Info */}
               <div className="p-5 md:p-6 space-y-3">
                 {/* City + Mall */}
                 <div>
-                  <p className="text-base font-bold text-brand-black">{cs.city}</p>
-                  <p className="text-xs font-semibold text-brand-accent">
+                  <p className="text-base font-bold text-brand-black" data-tina-field={tinaField(cs, "city")}>{cs.city}</p>
+                  <p className="text-xs font-semibold text-brand-accent" data-tina-field={tinaField(cs, "mall")}>
                     {cs.mall.replace(/[«»]/g, "")}
                   </p>
                 </div>
 
                 {/* Quote */}
-                <p className="text-[13px] text-brand-gray-500 leading-relaxed italic pt-3 border-t border-brand-gray-200">
+                <p className="text-[13px] text-brand-gray-500 leading-relaxed italic pt-3 border-t border-brand-gray-200" data-tina-field={tinaField(cs, "quote")}>
                   &laquo;{cs.quote}&raquo;
                 </p>
 
@@ -121,15 +99,15 @@ export default function CaseStudies({ data }: { data?: typeof fallback }) {
                 {/* Financial metrics */}
                 <div className="grid grid-cols-3 gap-2">
                   <div>
-                    <p className="text-base font-bold text-brand-black">{cs.paybackPeriod}</p>
+                    <p className="text-base font-bold text-brand-black" data-tina-field={tinaField(cs, "paybackPeriod")}>{cs.paybackPeriod}</p>
                     <p className="text-[10px] text-brand-gray-400 tracking-[0.05em] uppercase" data-tina-field={tinaField(s.caseLabels, "payback")}>{s.caseLabels.payback}</p>
                   </div>
                   <div>
-                    <p className="text-base font-bold text-brand-accent">{cs.profitMonth}</p>
+                    <p className="text-base font-bold text-brand-accent" data-tina-field={tinaField(cs, "profitMonth")}>{cs.profitMonth}</p>
                     <p className="text-[10px] text-brand-gray-400 tracking-[0.05em] uppercase" data-tina-field={tinaField(s.caseLabels, "profitMonth")}>{s.caseLabels.profitMonth}</p>
                   </div>
                   <div>
-                    <p className="text-base font-bold text-brand-gray-500">{cs.investment}</p>
+                    <p className="text-base font-bold text-brand-gray-500" data-tina-field={tinaField(cs, "investment")}>{cs.investment}</p>
                     <p className="text-[10px] text-brand-gray-400 tracking-[0.05em] uppercase" data-tina-field={tinaField(s.caseLabels, "investment")}>{s.caseLabels.investment}</p>
                   </div>
                 </div>
@@ -137,8 +115,8 @@ export default function CaseStudies({ data }: { data?: typeof fallback }) {
                 {/* Opened */}
                 {cs.opened && (
                   <p className="text-xs text-brand-gray-400">
-                    <span data-tina-field={tinaField(s, "openedPrefix")}>{s.openedPrefix}</span> {cs.opened} <span data-tina-field={tinaField(s, "openedSuffix")}>{s.openedSuffix}</span>
-                    {cs.area !== "—" && ` · ${cs.area}`}
+                    <span data-tina-field={tinaField(s, "openedPrefix")}>{s.openedPrefix}</span> <span data-tina-field={tinaField(cs, "opened")}>{cs.opened}</span> <span data-tina-field={tinaField(s, "openedSuffix")}>{s.openedSuffix}</span>
+                    {cs.area !== "—" && <span data-tina-field={tinaField(cs, "area")}> · {cs.area}</span>}
                   </p>
                 )}
               </div>
