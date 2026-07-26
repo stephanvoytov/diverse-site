@@ -41,6 +41,7 @@ export default function AboutContent({
   timeline,
   representative,
   cta,
+  partners,
 }: {
   hero: TinaResult | null;
   stats: TinaResult | null;
@@ -49,6 +50,7 @@ export default function AboutContent({
   timeline: TinaResult | null;
   representative: TinaResult | null;
   cta: TinaResult | null;
+  partners?: TinaResult | null;
 }) {
   const { data: heroData } = useTina(hero || EMPTY);
   const { data: statsData } = useTina(stats || EMPTY);
@@ -81,6 +83,7 @@ export default function AboutContent({
     timelineEyebrow?: string;
     timelineHeading?: string;
     milestones?: Array<{ year?: string; title?: string; desc?: string }>;
+    timelineLink?: { label?: string; text?: string; href?: string };
   };
   const r = (repData?.about || {}) as {
     repEyebrow?: string;
@@ -92,6 +95,10 @@ export default function AboutContent({
   const c = (ctaData?.about || {}) as {
     ctaHeading?: string;
     ctaButton?: string;
+  };
+  const partnersObj = ((partners?.data as Record<string, unknown>)?.["about"] || {}) as {
+    partnersEyebrow?: string;
+    partnerItems?: Array<{ id?: string; name?: string; logo?: string }>;
   };
 
   const { open: openModal } = useModal();
@@ -162,7 +169,7 @@ export default function AboutContent({
         </section>
 
         {/* ===== 3. PartnerTicker ===== */}
-        <PartnerTicker simple />
+        <PartnerTicker simple data={partnersObj} />
 
         {/* ===== 4. О бренде — философия + фото бренда ===== */}
         <section data-header="light" className="bg-brand-gray-100 py-20 md:py-28">
@@ -300,14 +307,15 @@ export default function AboutContent({
               viewport={{ once: true }}
               variants={fadeUp}
             >
-              <p className="text-sm text-brand-gray-400 mb-4">
-                Узнайте больше о продукте
+              <p className="text-sm text-brand-gray-400 mb-4" data-tina-field={tinaField(t.timelineLink, "label")}>
+                {t.timelineLink?.label || "Узнайте больше о продукте"}
               </p>
               <a
-                href="/collection/"
+                href={t.timelineLink?.href || "/collection/"}
                 className="inline-flex items-center gap-2 text-sm font-semibold text-brand-accent hover:text-brand-accent-hover transition-colors group"
+                data-tina-field={tinaField(t.timelineLink, "text")}
               >
-                Посмотреть коллекции
+                {t.timelineLink?.text || "Посмотреть коллекции"}
                 <span className="group-hover:translate-x-1 transition-transform">→</span>
               </a>
             </motion.div>

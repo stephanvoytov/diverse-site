@@ -55,6 +55,7 @@ export default function ClientPage({ blocks }: ClientPageProps) {
   const faq = useTina(blocks.faq ?? EMPTY);
   const contacts = useTina(blocks.contacts ?? EMPTY);
   const stores = useTina(blocks.stores ?? EMPTY);
+  const footerData = blocks.footer;
 
   const faqItems = faq?.data?.home?.items ?? siteContent.faq.items;
 
@@ -102,7 +103,7 @@ export default function ClientPage({ blocks }: ClientPageProps) {
         <FadeIn><Faq data={faq?.data?.home} /></FadeIn>
         <FadeIn margin><Contacts data={contacts?.data?.home} /></FadeIn>
       </main>
-      <Footer />
+      <Footer data={footerData?.data?.home} />
     </>
   );
 }

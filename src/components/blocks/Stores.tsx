@@ -8,30 +8,38 @@ import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
-import type { Store } from "@/data/stores";
-import { stores, citiesSummary } from "@/data/stores";
 import { asset } from "@/lib/path";
 import { useUserCity } from "@/lib/user-city-context";
 import { siteContent } from "@/data/site-content";
 
+export interface TinaStoreItem {
+  city?: string;
+  mall?: string;
+  address?: string;
+  lng?: number;
+  lat?: number;
+  country?: string;
+  photo?: string;
+}
+
 const fallback = siteContent.stores;
 
-function popupHtml(s: Store): string {
+function popupHtml(s: TinaStoreItem): string {
   return `<div style="width:240px;font-family:Inter,sans-serif;line-height:1.5;border-radius:4px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.15);">
     <div style="width:100%;aspect-ratio:3/2;background:#f0f0f0;overflow:hidden;">
-      <img src="${asset(s.photo)}" alt="${s.city}"
+      <img src="${asset(s.photo || "")}" alt="${s.city || ""}"
         style="width:100%;height:100%;object-fit:contain;display:block;background:#f0f0f0;"
-        onerror="this.parentElement.innerHTML='<div style=\\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:700;color:#D12026;background:#f5f5f5;\\'>${s.city[0]}</div>'" />
+        onerror="this.parentElement.innerHTML='<div style=\\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:700;color:#D12026;background:#f5f5f5;\\'>${(s.city?.[0]) || "?"}</div>'" />
     </div>
     <div style="padding:14px 14px 12px;background:#fff;">
-      <div style="font-size:16px;font-weight:700;color:#1a1a1a;line-height:1.3;">${s.city}</div>
+      <div style="font-size:16px;font-weight:700;color:#1a1a1a;line-height:1.3;">${s.city || ""}</div>
       ${s.mall ? `<div style="font-size:12px;font-weight:600;color:#D12026;margin-top:3px;">${s.mall.replace(/[«»]/g, "")}</div>` : ""}
-      <div style="font-size:12px;color:#888;margin-top:4px;line-height:1.4;">${s.address}</div>
+      <div style="font-size:12px;color:#888;margin-top:4px;line-height:1.4;">${s.address || ""}</div>
     </div>
   </div>`;
 }
 
-const ll = (c: [number, number]): [number, number] => [c[1], c[0]];
+const ll = (s: TinaStoreItem): [number, number] => [s.lat || 0, s.lng || 0];
 
 /** Ghost marker: pulsing plus icon */
 function ghostIcon(): L.DivIcon {
@@ -61,8 +69,16 @@ function ghostIcon(): L.DivIcon {
   });
 }
 
-export default function Stores({ data }: { data?: typeof fallback }) {
+export default function Stores({
+  data,
+  allStores,
+}: {
+  data?: typeof fallback;
+  allStores?: TinaStoreItem[];
+}) {
   const s = data ?? fallback;
+  const stores = allStores || s.storeItems || [];
+
   const mapRef = useRef<L.Map | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const markersRef = useRef<L.Marker[]>([]);
@@ -74,7 +90,6 @@ export default function Stores({ data }: { data?: typeof fallback }) {
   const { city: userCity, lat, lon } = useUserCity();
 
   function addGhostToMap(map: L.Map, lat: number, lng: number) {
-    // Если метка уже стоит — удаляем через ref, чтобы обновить позицию
     if (ghostRef.current) {
       map.removeLayer(ghostRef.current);
     }
@@ -94,12 +109,6 @@ export default function Stores({ data }: { data?: typeof fallback }) {
     ghost.addTo(map);
   }
 
-  // Ghost marker — срабатывает когда карта готова.
-  // Сначала пробуем точные координаты из контекста (DaData/кеш).
-  // Если их нет, но город известен — ищем координаты в списке магазинов.
-  // Иначе — центр карты.
-  // При повторном вызове (когда подгрузятся lat/lon) старый маркер удаляется
-  // и создаётся новый на правильных координатах.
   useEffect(() => {
     if (!mapReady) return;
     const map = mapRef.current!;
@@ -107,20 +116,19 @@ export default function Stores({ data }: { data?: typeof fallback }) {
       addGhostToMap(map, lat, lon);
     } else if (userCity) {
       const store = stores.find((s) => s.city === userCity);
-      if (store) {
-        const [clat, clng] = ll(store.coords);
-        addGhostToMap(map, clat, clng);
+      if (store && store.lat && store.lng) {
+        addGhostToMap(map, store.lat, store.lng);
       } else {
         addGhostToMap(map, map.getCenter().lat, map.getCenter().lng);
       }
     } else {
       addGhostToMap(map, map.getCenter().lat, map.getCenter().lng);
     }
-  }, [mapReady, lat, lon, userCity]);
+  }, [mapReady, lat, lon, userCity, stores]);
 
   // Карта
   useEffect(() => {
-    if (mapRef.current || !containerRef.current) return;
+    if (mapRef.current || !containerRef.current || !stores.length) return;
 
     const map = L.map(containerRef.current, {
       center: [60, 80],
@@ -174,8 +182,10 @@ export default function Stores({ data }: { data?: typeof fallback }) {
     const markers: L.Marker[] = [];
 
     stores.forEach((store, i) => {
-      const marker = L.marker(ll(store.coords), {
-        icon: diverseMarker(store.city),
+      const coords = ll(store);
+      if (!coords[0] && !coords[1]) return;
+      const marker = L.marker(coords, {
+        icon: diverseMarker(store.city || ""),
       })
         .bindPopup(popupHtml(store), {
           maxWidth: 260,
@@ -197,8 +207,10 @@ export default function Stores({ data }: { data?: typeof fallback }) {
     clustersRef.current = clusters;
     map.addLayer(clusters);
 
-    const bounds = L.latLngBounds(stores.map((s) => ll(s.coords)));
-    map.fitBounds(bounds, { padding: [60, 60], maxZoom: 5 });
+    if (markers.length) {
+      const bounds = L.latLngBounds(markers.map((m) => m.getLatLng()));
+      map.fitBounds(bounds, { padding: [60, 60], maxZoom: 5 });
+    }
 
     mapRef.current = map;
     setMapReady(true);
@@ -209,7 +221,7 @@ export default function Stores({ data }: { data?: typeof fallback }) {
       ghostRef.current = null;
       setMapReady(false);
     };
-  }, []);
+  }, [stores]);
 
   function focusStore(i: number) {
     const map = mapRef.current;
@@ -225,6 +237,19 @@ export default function Stores({ data }: { data?: typeof fallback }) {
 
     setActiveIdx(i);
   }
+
+  /** Compute cities summary from storeItems */
+  const citiesSummary = (() => {
+    const ru = stores.filter((st) => st.country === "Россия");
+    const kz = stores.filter((st) => st.country === "Казахстан");
+    const ruCities = [...new Set(ru.map((st) => st.city))];
+    const kzCities = [...new Set(kz.map((st) => st.city))];
+    return [
+      { label: "городов России", count: String(ruCities.length) },
+      { label: "города Казахстана", count: String(kzCities.length) },
+      { label: "магазинов", count: String(stores.length) },
+    ];
+  })();
 
   return (
     <section data-header="light" className="min-h-screen bg-white">
@@ -249,13 +274,13 @@ export default function Stores({ data }: { data?: typeof fallback }) {
 
           {/* Статистика */}
           <div className="flex items-center justify-center gap-6 sm:gap-10 mt-8">
-            {citiesSummary.map((s) => (
-              <div key={s.label} className="text-center">
+            {citiesSummary.map((cs) => (
+              <div key={cs.label} className="text-center">
                 <span className="block text-3xl md:text-4xl font-bold text-brand-accent leading-none mb-1">
-                  {s.count}
+                  {cs.count}
                 </span>
                 <span className="text-[11px] label text-brand-gray-400">
-                  {s.label}
+                  {cs.label}
                 </span>
               </div>
             ))}
@@ -298,18 +323,18 @@ export default function Stores({ data }: { data?: typeof fallback }) {
               </div>
               <div className="border-t border-dashed border-brand-gray-200 mx-4" />
             </>
-            {stores.map((s, i) => {
+            {stores.map((store, i) => {
               const isActive = activeIdx === i;
-              const isUfa = s.city === "Уфа";
-              const cityLabel = isUfa
-                ? s.mall.includes("Мега")
+              const isUfa = store.city === "Уфа";
+              const cityLabel = isUfa && store.mall
+                ? store.mall.includes("Мега")
                   ? "Уфа (Мега)"
                   : "Уфа (Планета)"
-                : s.city;
+                : store.city || "";
 
               return (
                 <button
-                  key={s.city + s.mall + i}
+                  key={`store-${store.city}-${store.mall}-${i}`}
                   data-store={i}
                   onClick={() => focusStore(i)}
                   className={`w-full text-left px-4 py-3.5 border-l-2 transition-all duration-300 focus:outline-none ${
@@ -340,7 +365,7 @@ export default function Stores({ data }: { data?: typeof fallback }) {
                       <div className={`text-xs truncate mt-0.5 transition-colors duration-300 ${
                         isActive ? "text-brand-gray-500" : "text-brand-gray-400"
                       }`}>
-                        {s.mall ? `${s.mall.replace(/[«»]/g, "")}` : s.address}
+                        {store.mall ? `${store.mall.replace(/[«»]/g, "")}` : (store.address || "")}
                       </div>
                     </div>
                   </div>

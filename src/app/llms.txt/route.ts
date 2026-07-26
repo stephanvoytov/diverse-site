@@ -1,5 +1,4 @@
 import { SITE_URL } from "@/config/site";
-import type { NextRequest } from "next/server";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
@@ -9,7 +8,7 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
  *
  * Last reviewed: 2026-07-22
  */
-export async function GET(_request: NextRequest) {
+export async function GET() {
   const url = SITE_URL;
 
   // -- файл собирается из массивов (можно вынести в data/ при разрастании) --

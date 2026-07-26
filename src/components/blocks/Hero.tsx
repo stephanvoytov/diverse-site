@@ -8,7 +8,6 @@ import CountUp from "@/components/ui/CountUp";
 import DiverseLogo from "@/components/shared/DiverseLogo";
 import { asset } from "@/lib/path";
 import { useModal } from "@/lib/modal-context";
-import { useUserCity } from "@/lib/user-city-context";
 import { siteContent } from "@/data/site-content";
 
 const fallback = siteContent.hero;
@@ -16,7 +15,6 @@ const fallback = siteContent.hero;
 export default function Hero({ data }: { data?: typeof fallback }) {
   const s = data ?? fallback;
   const { open: openModal } = useModal();
-  const { city } = useUserCity();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,

@@ -3,6 +3,8 @@
   "plansEyebrow": "Варианты",
   "plansDesc": "Три варианта сотрудничества под любой бюджет и локацию",
   "plansHeading": "Выберите свой <span class=\"text-brand-accent\">формат</span>",
+  "plansCollapse": "Свернуть",
+  "plansDetails": "Подробнее",
   "plansList": [
     {
       "id": "island",

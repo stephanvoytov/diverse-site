@@ -1,7 +1,4 @@
 import { SITE_URL } from "@/config/site";
-import type { NextRequest } from "next/server";
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 /**
  * llms-full.txt — полный текст ключевых страниц, сконкатенированный для AI-агентов.
@@ -12,7 +9,7 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
  *
  * Last reviewed: 2026-07-22
  */
-export async function GET(_request: NextRequest) {
+export async function GET() {
   // ===== Brand info =====
   const brand = `
 # Diverse Russia

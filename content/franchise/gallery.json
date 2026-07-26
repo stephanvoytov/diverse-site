@@ -1,5 +1,14 @@
 {
   "_template": "franchiseGallery",
   "galleryEyebrow": "Галерея",
-  "galleryHeading": "Как выглядят магазины Diverse"
+  "galleryDesc": "Реальные фото магазина в ТЦ «Мега Уфа»",
+  "galleryHeading": "Как выглядят магазины <span class=\"text-brand-accent\">Diverse</span>",
+  "galleryImages": [
+    { "src": "/images/gallery/gallery-1.jpg", "alt": "Фасад магазина Diverse в ТЦ «Мега Уфа»" },
+    { "src": "/images/gallery/gallery-2.jpg", "alt": "Торговый зал Diverse" },
+    { "src": "/images/gallery/gallery-3.jpg", "alt": "Примерочная зона Diverse" },
+    { "src": "/images/gallery/gallery-4.jpg", "alt": "Витрина Diverse" },
+    { "src": "/images/gallery/gallery-5.jpg", "alt": "Экспозиция аксессуаров Diverse" },
+    { "src": "/images/gallery/gallery-6.jpg", "alt": "Кассовая зона Diverse" }
+  ]
 }

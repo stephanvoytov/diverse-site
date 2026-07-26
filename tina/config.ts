@@ -348,6 +348,67 @@ export default defineConfig({
                   { type: "string", name: "sidebarSubtext", label: "Подтекст" },
                 ],
               },
+              {
+                type: "object",
+                name: "storeItems",
+                label: "Магазины (список)",
+                list: true,
+                ui: { component: "group-list" },
+                fields: [
+                  { type: "string", name: "city", label: "Город" },
+                  { type: "string", name: "mall", label: "ТЦ" },
+                  { type: "string", name: "address", label: "Адрес", ui: { component: "textarea" } },
+                  { type: "number", name: "lng", label: "Долгота" },
+                  { type: "number", name: "lat", label: "Широта" },
+                  { type: "string", name: "country", label: "Страна" },
+                  { type: "string", name: "photo", label: "Фото (путь)" },
+                ],
+              },
+            ],
+          },
+          {
+            name: "homePartners",
+            label: "Partners (Партнёры)",
+            fields: [
+              { type: "string", name: "partnersEyebrow", label: "Айброу" },
+              { type: "string", name: "partnersHeading", label: "Заголовок", ui: { component: "textarea" } },
+              {
+                type: "object",
+                name: "partnersEyebrowSimple",
+                label: "Айброу (упрощённый, для страницы О бренде)",
+                fields: [
+                  { type: "string", name: "simpleEyebrow", label: "Текст упрощённого айброу" },
+                ],
+              },
+              {
+                type: "object",
+                name: "partnerItems",
+                label: "Партнёры",
+                list: true,
+                fields: [
+                  { type: "string", name: "id", label: "ID" },
+                  { type: "string", name: "name", label: "Название" },
+                  { type: "string", name: "logo", label: "Логотип (путь)" },
+                ],
+              },
+            ],
+          },
+          {
+            name: "homeFooter",
+            label: "Footer (Подвал)",
+            fields: [
+              { type: "string", name: "tagline", label: "Тэглайн («Официальный дистрибьютор...»)", ui: { component: "textarea" } },
+              { type: "string", name: "navSectionTitle", label: "Заголовок «Навигация»" },
+              { type: "string", name: "contactsSectionTitle", label: "Заголовок «Контакты»" },
+              { type: "string", name: "companyName", label: "Название юрлица" },
+              { type: "string", name: "companyInn", label: "ИНН" },
+              { type: "string", name: "companyAddress", label: "Адрес", ui: { component: "textarea" } },
+              { type: "string", name: "readyToStartTitle", label: "Заголовок «Готовы начать?»" },
+              { type: "string", name: "ctaButton", label: "Кнопка CTA" },
+              { type: "string", name: "socialsSectionTitle", label: "Заголовок «Соцсети»" },
+              { type: "string", name: "copyright", label: "Копирайт" },
+              { type: "string", name: "privacyLink", label: "Ссылка на политику" },
+              { type: "string", name: "partnerText", label: "Текст «Diverse — официальный партнёр»" },
             ],
           },
           {
@@ -458,6 +519,16 @@ export default defineConfig({
                   { type: "string", name: "desc", label: "Описание", ui: { component: "textarea" } },
                 ],
               },
+              {
+                type: "object",
+                name: "timelineLink",
+                label: "Ссылка под таймлайном",
+                fields: [
+                  { type: "string", name: "label", label: "Подпись («Узнайте больше о продукте»)" },
+                  { type: "string", name: "text", label: "Текст ссылки («Посмотреть коллекции»)" },
+                  { type: "string", name: "href", label: "URL ссылки" },
+                ],
+              },
             ],
           },
           {
@@ -477,6 +548,24 @@ export default defineConfig({
             fields: [
               { type: "string", name: "ctaHeading", label: "Заголовок", ui: { component: "textarea" } },
               { type: "string", name: "ctaButton", label: "Кнопка" },
+            ],
+          },
+          {
+            name: "aboutPartners",
+            label: "Партнёры",
+            fields: [
+              { type: "string", name: "partnersEyebrow", label: "Айброу" },
+              {
+                type: "object",
+                name: "partnerItems",
+                label: "Партнёры",
+                list: true,
+                fields: [
+                  { type: "string", name: "id", label: "ID" },
+                  { type: "string", name: "name", label: "Название" },
+                  { type: "string", name: "logo", label: "Логотип (путь)" },
+                ],
+              },
             ],
           },
         ],
@@ -508,6 +597,8 @@ export default defineConfig({
               { type: "string", name: "plansEyebrow", label: "Айброу" },
               { type: "string", name: "plansDesc", label: "Описание" },
               { type: "string", name: "plansHeading", label: "Заголовок", ui: { component: "textarea" } },
+              { type: "string", name: "plansCollapse", label: "Свернуть" },
+              { type: "string", name: "plansDetails", label: "Подробнее" },
               {
                 type: "object",
                 name: "plansList",
@@ -578,7 +669,18 @@ export default defineConfig({
             label: "Галерея",
             fields: [
               { type: "string", name: "galleryEyebrow", label: "Айброу" },
-              { type: "string", name: "galleryHeading", label: "Заголовок" },
+              { type: "string", name: "galleryDesc", label: "Описание" },
+              { type: "string", name: "galleryHeading", label: "Заголовок", ui: { component: "textarea" } },
+              {
+                type: "object",
+                name: "galleryImages",
+                label: "Изображения",
+                list: true,
+                fields: [
+                  { type: "string", name: "src", label: "Путь к изображению" },
+                  { type: "string", name: "alt", label: "Alt-текст" },
+                ],
+              },
             ],
           },
           {
@@ -609,6 +711,25 @@ export default defineConfig({
               { type: "string", name: "heroEyebrow", label: "Айброу" },
               { type: "string", name: "heroHeading", label: "Заголовок", ui: { component: "textarea" } },
               { type: "string", name: "heroDesc", label: "Описание", ui: { component: "textarea" } },
+              { type: "string", name: "scrollHint", label: "Подсказка листать" },
+              {
+                type: "object",
+                name: "collectionItems",
+                label: "Коллекции",
+                list: true,
+                ui: { component: "group-list" },
+                fields: [
+                  { type: "string", name: "id", label: "ID" },
+                  { type: "string", name: "name", label: "Название" },
+                  { type: "string", name: "short", label: "Кратко (2 буквы)" },
+                  { type: "string", name: "tag", label: "Тег" },
+                  { type: "string", name: "vibe", label: "Описание", ui: { component: "textarea" } },
+                  { type: "string", name: "colorFrom", label: "Градиент от (hex)" },
+                  { type: "string", name: "colorTo", label: "Градиент до (hex)" },
+                  { type: "string", name: "image", label: "Фон (путь)" },
+                  { type: "string", name: "bgPosition", label: "Позиция фона" },
+                ],
+              },
             ],
           },
           {
@@ -650,6 +771,22 @@ export default defineConfig({
               { type: "string", name: "storesEyebrow", label: "Айброу" },
               { type: "string", name: "storesDesc", label: "Описание" },
               { type: "string", name: "storesHeading", label: "Заголовок", ui: { component: "textarea" } },
+              {
+                type: "object",
+                name: "storeItems",
+                label: "Магазины",
+                list: true,
+                ui: { component: "group-list" },
+                fields: [
+                  { type: "string", name: "city", label: "Город" },
+                  { type: "string", name: "mall", label: "ТЦ" },
+                  { type: "string", name: "address", label: "Адрес", ui: { component: "textarea" } },
+                  { type: "number", name: "lng", label: "Долгота" },
+                  { type: "number", name: "lat", label: "Широта" },
+                  { type: "string", name: "country", label: "Страна" },
+                  { type: "string", name: "photo", label: "Фото (путь)" },
+                ],
+              },
             ],
           },
           {

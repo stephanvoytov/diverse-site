@@ -2,5 +2,18 @@
   "_template": "storesList",
   "storesEyebrow": "Адреса",
   "storesDesc": "От Калининграда до Якутска и Алматы",
-  "storesHeading": "Все магазины <span class=\"text-brand-accent\">Diverse</span>"
+  "storesHeading": "Все магазины <span class=\"text-brand-accent\">Diverse</span>",
+  "storeItems": [
+    { "city": "Калининград", "mall": "ТРЦ «Европа»", "address": "ул. Театральная, 30", "lng": 20.4522, "lat": 54.7104, "country": "Россия", "photo": "/images/stores/kaliningrad.jpg" },
+    { "city": "Зеленоградск", "mall": "ТД «Звёздное Небо»", "address": "Курортный проспект, 18", "lng": 20.4748, "lat": 54.9582, "country": "Россия", "photo": "/images/stores/zelenogradsk.jpg" },
+    { "city": "Уфа", "mall": "ТЦ «Мега-Уфа»", "address": "ул. Рубежная, 174", "lng": 55.9721, "lat": 54.7388, "country": "Россия", "photo": "/images/stores/ufa-mega.webp" },
+    { "city": "Уфа", "mall": "ТРЦ «Планета»", "address": "ул. Энтузиастов, 20", "lng": 56.0497, "lat": 54.7653, "country": "Россия", "photo": "/images/stores/ufa-planeta.jpg" },
+    { "city": "Сургут", "mall": "ТРЦ «Сургут Сити Молл»", "address": "Югорский тракт, 3", "lng": 73.3969, "lat": 61.254, "country": "Россия", "photo": "/images/stores/surgut.jpg" },
+    { "city": "Красноярск", "mall": "ТРЦ «Комсомолл»", "address": "ул. Белинского, 8", "lng": 92.8932, "lat": 56.0153, "country": "Россия", "photo": "/images/stores/krasnoyarsk.jpg" },
+    { "city": "Симферополь", "mall": "ТРЦ «Центрум»", "address": "ул. Симферопольская, 6", "lng": 34.1003, "lat": 44.9482, "country": "Россия", "photo": "/images/stores/simferopol.jpg" },
+    { "city": "Якутск", "mall": "ТЦ «ЦУМ»", "address": "ул. Курашова, 4", "lng": 129.6775, "lat": 62.0355, "country": "Россия", "photo": "/images/stores/yakutsk.jpg" },
+    { "city": "Саратов", "mall": "ТЦ «МИР»", "address": "ул. Московская, 115", "lng": 46.0343, "lat": 51.5336, "country": "Россия", "photo": "/images/stores/saratov.jpg" },
+    { "city": "Щучинск", "mall": "ТД «Акжелкен»", "address": "ул. Ауэзова, 77а", "lng": 70.2025, "lat": 52.9367, "country": "Казахстан", "photo": "/images/stores/shchuchinsk.jpg" },
+    { "city": "Алматы", "mall": "", "address": "ул. Розыбакиева, 289, Блок 1", "lng": 76.8512, "lat": 43.222, "country": "Казахстан", "photo": "/images/stores/almaty.jpg" }
+  ]
 }

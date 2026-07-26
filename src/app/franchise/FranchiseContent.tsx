@@ -11,7 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
 import Faq from "@/components/blocks/Faq";
-import StoreGallery from "@/components/blocks/StoreGallery";
+import StoreGallery, { type GalleryImage } from "@/components/blocks/StoreGallery";
 import { CONTACTS, FORMAT_OPTIONS } from "@/config/site";
 import { useUserCity } from "@/lib/user-city-context";
 import { queueLead } from "@/lib/lead-queue";
@@ -40,17 +40,24 @@ const EMPTY: TinaResult = { data: {}, query: "", variables: {} };
 
 /* ——— Plans accordion (reused from main) ——— */
 
-function PlansSection({ plans }: { plans: Array<{ id: string; tagline: string; name: string; desc: string; investment: string; details: string[] }> }) {
+function PlansSection({ plans, plansEyebrow, plansDesc, plansHeading, plansCollapse, plansDetails }: {
+  plans: Array<{ id: string; tagline: string; name: string; desc: string; investment: string; details: string[] }>;
+  plansEyebrow?: string;
+  plansDesc?: string;
+  plansHeading?: string;
+  plansCollapse?: string;
+  plansDetails?: string;
+}) {
   const [openId, setOpenId] = useState<string | null>(null);
 
   return (
     <section data-header="light" className="bg-white py-20 md:py-28">
       <div className="container-brand">
         <SectionHeader
-          eyebrow="Варианты"
-          desc="Три варианта сотрудничества под любой бюджет и локацию"
+          eyebrow={plansEyebrow || "Варианты"}
+          desc={plansDesc || "Три варианта сотрудничества под любой бюджет и локацию"}
         >
-          Выберите свой <span className="text-brand-accent">формат</span>
+          <span dangerouslySetInnerHTML={{ __html: plansHeading || 'Выберите свой <span class="text-brand-accent">формат</span>' }} />
         </SectionHeader>
 
         <motion.div
@@ -90,7 +97,7 @@ function PlansSection({ plans }: { plans: Array<{ id: string; tagline: string; n
 
                   <div className="flex items-center justify-between">
                     <span className="text-xs label text-brand-gray-400">
-                      {isOpen ? "Свернуть" : "Подробнее"}
+                      {isOpen ? (plansCollapse || "Свернуть") : (plansDetails || "Подробнее")}
                     </span>
                     <motion.span
                       animate={{ rotate: isOpen ? 45 : 0 }}
@@ -354,7 +361,7 @@ function BenefitsSection({ s }: { s: Record<string, unknown> }) {
 
 /* ——— Contact form section ——— */
 
-function ContactSection() {
+function ContactSection({ contactData }: { contactData?: { contactHeading?: string; contactDesc?: string } }) {
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
   const { city: detectedCity } = useUserCity();
   const {
@@ -404,9 +411,9 @@ function ContactSection() {
     <section data-header="light" className="bg-brand-gray-100 py-20 md:py-28">
       <div className="container-brand">
         <SectionHeader
-          desc="Оставьте заявку — мы ответим на все вопросы"
+          desc={contactData?.contactDesc || "Оставьте заявку — мы ответим на все вопросы"}
         >
-          Начните <span className="text-brand-accent">свой бизнес</span>
+          <span dangerouslySetInnerHTML={{ __html: contactData?.contactHeading || 'Начните <span class="text-brand-accent">свой бизнес</span>' }} />
         </SectionHeader>
 
         <motion.div
@@ -536,17 +543,6 @@ function ContactSection() {
   );
 }
 
-/* ——— Gallery images ——— */
-
-const galleryImages = [
-  { src: "/images/franchise/gallery/gallery-1.jpg", alt: "Витрина магазина Diverse в ТЦ Мега Уфа" },
-  { src: "/images/franchise/gallery/gallery-2.jpg", alt: "Кассовая зона Diverse" },
-  { src: "/images/franchise/gallery/gallery-3.jpg", alt: "Манекены и одежда Diverse" },
-  { src: "/images/franchise/gallery/gallery-4.jpg", alt: "Одежда Diverse в магазине" },
-  { src: "/images/franchise/gallery/gallery-5.jpg", alt: "Одежда Diverse на вешалках" },
-  { src: "/images/franchise/gallery/gallery-6.jpg", alt: "Интерьер магазина Diverse" },
-];
-
 /* ——— Page ——— */
 
 export default function FranchiseContent({
@@ -581,6 +577,23 @@ export default function FranchiseContent({
   const comparisonRows = ((comparisonData?.franchise as Record<string, unknown>)?.comparisonRows || []) as Array<{ label: string; values: string[] }>;
   const fin = (financialData?.franchise || {}) as Record<string, unknown>;
   const ben = (benefitsData?.franchise || {}) as Record<string, unknown>;
+  const plansMeta = (plansData?.franchise || {}) as {
+    plansEyebrow?: string;
+    plansDesc?: string;
+    plansHeading?: string;
+    plansCollapse?: string;
+    plansDetails?: string;
+  };
+  const contactData = ((contact?.data as Record<string, unknown>)?.franchise || {}) as {
+    contactHeading?: string;
+    contactDesc?: string;
+  };
+  const galleryData = ((gallery?.data as Record<string, unknown>)?.franchise || {}) as {
+    galleryEyebrow?: string;
+    galleryDesc?: string;
+    galleryHeading?: string;
+    galleryImages?: GalleryImage[];
+  };
 
   return (
     <>
@@ -647,13 +660,20 @@ export default function FranchiseContent({
           </div>
         </section>
 
-        <PlansSection plans={plansList} />
+        <PlansSection
+          plans={plansList}
+          plansEyebrow={plansMeta.plansEyebrow}
+          plansDesc={plansMeta.plansDesc}
+          plansHeading={plansMeta.plansHeading}
+          plansCollapse={plansMeta.plansCollapse}
+          plansDetails={plansMeta.plansDetails}
+        />
         <ComparisonTable comparisonRows={comparisonRows} plans={plansList} />
         <FinancialModel s={fin} />
         <BenefitsSection s={ben} />
-        <div id="gallery"><StoreGallery images={galleryImages} /></div>
+        <div id="gallery"><StoreGallery data={galleryData} /></div>
         <Faq />
-        <ContactSection />
+        <ContactSection contactData={contactData} />
       </main>
       <Footer />
     </>

@@ -1,0 +1,12 @@
+{
+  "_template": "aboutPartners",
+  "partnersEyebrow": "Партнёры Diverse",
+  "partnerItems": [
+    { "id": "dext", "name": "DEXT", "logo": "/images/partners/dext.jpg" },
+    { "id": "honda", "name": "Honda Racing", "logo": "/images/partners/honda.webp" },
+    { "id": "motul", "name": "Motul", "logo": "/images/partners/motul.svg" },
+    { "id": "dakar", "name": "Dakar Rally", "logo": "/images/partners/dakar.png" },
+    { "id": "wrc", "name": "WRC", "logo": "/images/partners/wrc.png" },
+    { "id": "lemans", "name": "24H Le Mans", "logo": "/images/partners/lemans.png" }
+  ]
+}

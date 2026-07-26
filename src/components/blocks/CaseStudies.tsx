@@ -22,7 +22,7 @@ function inCity(city: string): string {
 
 export default function CaseStudies({ data }: { data?: typeof fallback }) {
   const s = data ?? fallback;
-  const [videoOpen, setVideoOpen] = useState<string | null>(null);
+  const [videoOpen] = useState<string | null>(null);
 
   return (
     <section id="section-cases" data-header="light" className="bg-brand-gray-100 py-16 md:py-24">

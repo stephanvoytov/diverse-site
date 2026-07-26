@@ -26,6 +26,8 @@ export default async function Home() {
     faq: readTinaFile("home", "faq.json"),
     contacts: readTinaFile("home", "contacts.json"),
     stores: readTinaFile("home", "stores.json"),
+    partners: readTinaFile("home", "partners.json"),
+    footer: readTinaFile("home", "footer.json"),
   };
 
   return <ClientPage blocks={blocks} />;

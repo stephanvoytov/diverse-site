@@ -8,7 +8,42 @@ import { asset } from "@/lib/path";
 import { CONTACTS } from "@/config/site";
 import { formatPhone } from "@/lib/phone";
 
-export default function Footer() {
+interface TinaFooter {
+  tagline?: string;
+  navSectionTitle?: string;
+  contactsSectionTitle?: string;
+  companyName?: string;
+  companyInn?: string;
+  companyAddress?: string;
+  readyToStartTitle?: string;
+  ctaButton?: string;
+  socialsSectionTitle?: string;
+  copyright?: string;
+  privacyLink?: string;
+  partnerText?: string;
+}
+
+interface FooterProps {
+  data?: TinaFooter;
+}
+
+const defaultFooter: TinaFooter = {
+  tagline: "Официальный дистрибьютор марки Diverse в\u00a0России и\u00a0СНГ",
+  navSectionTitle: "Навигация",
+  contactsSectionTitle: "Контакты",
+  companyName: "ООО «ХАУС»",
+  companyInn: "ИНН 3907201307",
+  companyAddress: "236022, Калининград,\nпл. Победы, 4, оф. 210",
+  readyToStartTitle: "Готовы начать?",
+  ctaButton: "Оставить заявку",
+  socialsSectionTitle: "Соцсети",
+  copyright: "Все права защищены.",
+  privacyLink: "Политика конфиденциальности",
+  partnerText: "Diverse — официальный партнёр",
+};
+
+export default function Footer({ data }: FooterProps) {
+  const f = data || defaultFooter;
   const { open: openModal } = useModal();
   return (
     <footer data-header="dark" className="bg-brand-black">
@@ -27,14 +62,14 @@ export default function Footer() {
               />
             </Link>
             <p className="text-sm text-white/55 leading-relaxed max-w-[260px]">
-              Официальный дистрибьютор марки Diverse в&nbsp;России и&nbsp;СНГ
+              {f.tagline}
             </p>
           </div>
 
           {/* Навигация */}
           <div className="md:col-span-2">
             <p className="text-[11px] tracking-[0.2em] uppercase text-white/50 mb-5">
-              Навигация
+              {f.navSectionTitle}
             </p>
             <ul className="space-y-3">
               {navLinks.map((link) => (
@@ -53,18 +88,16 @@ export default function Footer() {
           {/* Контакты */}
           <div className="md:col-span-3">
             <p className="text-[11px] tracking-[0.2em] uppercase text-white/50 mb-5">
-              Контакты
+              {f.contactsSectionTitle}
             </p>
             <ul className="space-y-3">
               <li>
-                <p className="text-sm text-white/80 font-medium">ООО «ХАУС»</p>
-                <p className="text-xs text-white/50 mt-0.5">ИНН 3907201307</p>
+                <p className="text-sm text-white/80 font-medium">{f.companyName}</p>
+                <p className="text-xs text-white/50 mt-0.5">{f.companyInn}</p>
               </li>
               <li>
-                <p className="text-sm text-white/50 leading-relaxed">
-                  236022, Калининград,
-                  <br />
-                  пл. Победы, 4, оф. 210
+                <p className="text-sm text-white/50 leading-relaxed whitespace-pre-line">
+                  {f.companyAddress}
                 </p>
               </li>
               <li>
@@ -89,17 +122,17 @@ export default function Footer() {
           {/* Быстрая заявка + Соцсети */}
           <div className="md:col-span-3">
             <p className="text-[11px] tracking-[0.2em] uppercase text-white/50 mb-4">
-              Готовы начать?
+              {f.readyToStartTitle}
             </p>
             <button
               onClick={openModal}
               className="w-full mb-5 px-5 py-3 bg-brand-accent text-white text-xs tracking-[0.2em] uppercase font-semibold rounded-sm hover:bg-brand-accent-hover transition-colors cursor-pointer"
             >
-              Оставить заявку
+              {f.ctaButton}
             </button>
 
             <p className="text-[11px] tracking-[0.2em] uppercase text-white/50 mb-3">
-              Соцсети
+              {f.socialsSectionTitle}
             </p>
             <div className="flex flex-wrap gap-2">
               {socials.map((s) => (
@@ -123,18 +156,18 @@ export default function Footer() {
       <div className="border-t border-white/5">
         <div className="container-brand py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-white/50">
-            &copy; {new Date().getFullYear()} ООО «ХАУС». Все права защищены.
+            &copy; {new Date().getFullYear()} ООО «ХАУС». {f.copyright}
           </p>
           <div className="flex items-center gap-4">
             <Link
               href="/privacy/"
               className="text-xs text-white/50 hover:text-white/60 transition-colors"
             >
-              Политика конфиденциальности
+              {f.privacyLink}
             </Link>
             <span className="text-xs text-white/45" aria-hidden="true">|</span>
             <span className="text-xs text-white/50">
-              Diverse — официальный партнёр
+              {f.partnerText}
             </span>
           </div>
         </div>

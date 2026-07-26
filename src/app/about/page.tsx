@@ -55,6 +55,7 @@ export default async function Page() {
   const timeline = readTinaFile("about", "timeline.json");
   const representative = readTinaFile("about", "representative.json");
   const cta = readTinaFile("about", "cta.json");
+  const partners = readTinaFile("about", "partners.json");
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -77,6 +78,7 @@ export default async function Page() {
         timeline={timeline}
         representative={representative}
         cta={cta}
+        partners={partners}
       />
     </>
   );

@@ -19,6 +19,9 @@ const nextConfig = {
   assetPrefix: basePath,
   trailingSlash: true,
   poweredByHeader: false,
+  turbopack: {
+    root: process.cwd(),
+  },
   experimental: {
     inlineCss: true,
   },

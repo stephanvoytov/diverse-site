@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { useTina } from "tinacms/dist/react";
 import { tinaField } from "tinacms/dist/react";
@@ -10,11 +10,17 @@ import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
 import { useModal } from "@/lib/modal-context";
 import { useUserCity } from "@/lib/user-city-context";
-import { stores } from "@/data/stores";
 import { asset } from "@/lib/path";
 
-const russianStores = stores.filter((s) => s.country === "Россия");
-const kzStores = stores.filter((s) => s.country === "Казахстан");
+interface StoreItem {
+  city?: string;
+  mall?: string;
+  address?: string;
+  lng?: number;
+  lat?: number;
+  country?: string;
+  photo?: string;
+}
 
 /** Склонение названий городов для предлога «в» (предложный падеж) */
 function inCity(city: string): string {
@@ -63,12 +69,31 @@ export default function StoresContent({
     storesEyebrow?: string;
     storesDesc?: string;
     storesHeading?: string;
+    storeItems?: StoreItem[];
   };
   const c = (ctaData?.stores || {}) as {
     ctaHeading?: string;
     ctaDesc?: string;
     ctaButton?: string;
   };
+
+  const storeItems = s.storeItems || [];
+
+  const { russianStores, kzStores, stats } = useMemo(() => {
+    const ru = storeItems.filter((st) => st.country === "Россия");
+    const kz = storeItems.filter((st) => st.country === "Казахстан");
+    const ruCities = [...new Set(ru.map((st) => st.city))];
+    const kzCities = [...new Set(kz.map((st) => st.city))];
+    return {
+      russianStores: ru,
+      kzStores: kz,
+      stats: {
+        stores: storeItems.length,
+        cities: ruCities.length + kzCities.length,
+        countries: new Set(storeItems.map((st) => st.country)).size,
+      },
+    };
+  }, [storeItems]);
 
   const { open: openModal } = useModal();
   const { city } = useUserCity();
@@ -118,17 +143,17 @@ export default function StoresContent({
               transition={{ duration: 0.5, delay: 0.3 }}
             >
               <div className="text-center">
-                <p className="text-4xl md:text-5xl font-bold text-white">11</p>
+                <p className="text-4xl md:text-5xl font-bold text-white">{stats.stores}</p>
                 <p className="text-xs label text-white/50 mt-1">Магазинов</p>
               </div>
               <div className="w-px bg-white/15" />
               <div className="text-center">
-                <p className="text-4xl md:text-5xl font-bold text-brand-accent">10</p>
+                <p className="text-4xl md:text-5xl font-bold text-brand-accent">{stats.cities}</p>
                 <p className="text-xs label text-white/50 mt-1">Городов</p>
               </div>
               <div className="w-px bg-white/15" />
               <div className="text-center">
-                <p className="text-4xl md:text-5xl font-bold text-white">2</p>
+                <p className="text-4xl md:text-5xl font-bold text-white">{stats.countries}</p>
                 <p className="text-xs label text-white/50 mt-1">Страны</p>
               </div>
             </motion.div>
@@ -148,48 +173,52 @@ export default function StoresContent({
             </SectionHeader>
 
             {/* Россия */}
-            <div className="mb-14">
-              <h3 className="text-xl font-bold text-brand-black mb-6 flex items-center gap-3">
-                <span className="w-2 h-2 rounded-full bg-brand-accent" />
-                Россия
-                <span className="text-sm font-normal text-brand-gray-400">({russianStores.length} магазинов)</span>
-              </h3>
-              <motion.div
-                className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={{
-                  visible: { transition: { staggerChildren: 0.05 } },
-                }}
-              >
-                {russianStores.map((store, i) => (
-                  <StoreCard key={`ru-${i}`} store={store} index={i} />
-                ))}
-              </motion.div>
-            </div>
+            {russianStores.length > 0 && (
+              <div className="mb-14">
+                <h3 className="text-xl font-bold text-brand-black mb-6 flex items-center gap-3">
+                  <span className="w-2 h-2 rounded-full bg-brand-accent" />
+                  Россия
+                  <span className="text-sm font-normal text-brand-gray-400">({russianStores.length} магазинов)</span>
+                </h3>
+                <motion.div
+                  className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={{
+                    visible: { transition: { staggerChildren: 0.05 } },
+                  }}
+                >
+                  {russianStores.map((store, i) => (
+                    <StoreCard key={`ru-${store.city}-${i}`} store={store} index={i} />
+                  ))}
+                </motion.div>
+              </div>
+            )}
 
             {/* Казахстан */}
-            <div>
-              <h3 className="text-xl font-bold text-brand-black mb-6 flex items-center gap-3">
-                <span className="w-2 h-2 rounded-full bg-brand-accent" />
-                Казахстан
-                <span className="text-sm font-normal text-brand-gray-400">({kzStores.length} магазина)</span>
-              </h3>
-              <motion.div
-                className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={{
-                  visible: { transition: { staggerChildren: 0.05 } },
-                }}
-              >
-                {kzStores.map((store, i) => (
-                  <StoreCard key={`kz-${i}`} store={store} index={i} />
-                ))}
-              </motion.div>
-            </div>
+            {kzStores.length > 0 && (
+              <div>
+                <h3 className="text-xl font-bold text-brand-black mb-6 flex items-center gap-3">
+                  <span className="w-2 h-2 rounded-full bg-brand-accent" />
+                  Казахстан
+                  <span className="text-sm font-normal text-brand-gray-400">({kzStores.length} магазина)</span>
+                </h3>
+                <motion.div
+                  className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={{
+                    visible: { transition: { staggerChildren: 0.05 } },
+                  }}
+                >
+                  {kzStores.map((store, i) => (
+                    <StoreCard key={`kz-${store.city}-${i}`} store={store} index={i} />
+                  ))}
+                </motion.div>
+              </div>
+            )}
           </div>
         </section>
 
@@ -251,7 +280,7 @@ export default function StoresContent({
 
 /* ——— Store card ——— */
 
-function StoreCard({ store, index }: { store: (typeof stores)[0]; index: number }) {
+function StoreCard({ store, index }: { store: StoreItem; index: number }) {
   const [imgFailed, setImgFailed] = useState(false);
   return (
     <motion.article
@@ -264,19 +293,21 @@ function StoreCard({ store, index }: { store: (typeof stores)[0]; index: number 
       <div className="aspect-[4/3] bg-brand-gray-200 overflow-hidden">
         {imgFailed ? (
           <div className="w-full h-full flex items-center justify-center text-3xl font-bold text-brand-accent bg-brand-gray-100">
-            {store.city[0]}
+            {store.city?.[0] || "?"}
           </div>
         ) : (
-          <Image
-            src={asset(store.photo)}
-            alt={`${store.city} — ${store.mall || store.address}`}
-            width={400}
-            height={300}
-            sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
-            className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
-            onError={() => setImgFailed(true)}
-            priority={index === 0}
-          />
+          store.photo && (
+            <Image
+              src={asset(store.photo)}
+              alt={`${store.city || ""} — ${store.mall || store.address || ""}`}
+              width={400}
+              height={300}
+              sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
+              className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+              onError={() => setImgFailed(true)}
+              priority={index === 0}
+            />
+          )
         )}
       </div>
       <div className="p-4 md:p-5">

@@ -5,17 +5,27 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { asset } from "@/lib/path";
+import { tinaField } from "tinacms/dist/react";
 
-interface GalleryImage {
+export interface GalleryImage {
   src: string;
   alt: string;
 }
 
-interface Props {
-  images: GalleryImage[];
+export interface GalleryData {
+  [key: string]: unknown;
+  galleryEyebrow?: string;
+  galleryDesc?: string;
+  galleryHeading?: string;
+  galleryImages?: GalleryImage[];
 }
 
-export default function StoreGallery({ images }: Props) {
+interface Props {
+  data: GalleryData;
+}
+
+export default function StoreGallery({ data }: Props) {
+  const images = data.galleryImages || [];
   const [selected, setSelected] = useState<number | null>(null);
 
   const close = useCallback(() => setSelected(null), []);
@@ -59,11 +69,13 @@ export default function StoreGallery({ images }: Props) {
       <section data-header="light" className="bg-white py-20 md:py-28">
         <div className="container-brand">
           <SectionHeader
-            eyebrow="Галерея"
-            desc="Реальные фото магазина в ТЦ «Мега Уфа»"
+            eyebrow={data.galleryEyebrow}
+            desc={data.galleryDesc}
+            eyebrowField={tinaField(data, "galleryEyebrow")}
+            descField={tinaField(data, "galleryDesc")}
             className="mb-14"
           >
-            Как выглядят магазины <span className="text-brand-accent">Diverse</span>
+            <span data-tina-field={tinaField(data, "galleryHeading")} dangerouslySetInnerHTML={{ __html: data.galleryHeading || "" }} />
           </SectionHeader>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-5xl mx-auto">
@@ -191,7 +203,7 @@ export default function StoreGallery({ images }: Props) {
               key={selected}
               className="relative max-w-4xl w-full max-h-[85vh]"
               initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
+              animate={{ opacity: 1, scale: 0.95 }}
               exit={{ opacity: 0, scale: 0.95 }}
               onClick={(e) => e.stopPropagation()}
             >

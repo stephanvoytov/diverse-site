@@ -10,7 +10,7 @@ export const siteContent = {
     tagline: "Официальный представитель бренда в России",
     heading: "Франшиза",
     description:
-      "Готовая модель бизнеса в сегменте масс-маркет/мидл. Ведущий польский бренд одежды с 30-летней историей. Партнёр Dakar Rally.",
+      "Готовая модель бизнеса в сегменте масс-маркет. Ведущий польский бренд одежды с 30-летней историей. Партнёр Dakar Rally.",
     pricing: "0\u00a0₽ паушальный взнос\u00a0·\u00a00%\u00a0роялти\u00a0·\u00a0от\u00a0800\u00a0000\u00a0₽",
     cta: {
       consultation: "Получить консультацию",
@@ -33,6 +33,10 @@ export const siteContent = {
     aboutLinks: {
       about: "Подробнее о бренде",
       collection: "Посмотреть коллекции",
+    },
+    aboutLinksText: {
+      timelineLabel: "Узнайте больше о продукте",
+      timelineLink: "Посмотреть коллекции",
     },
     aboutStats: [
       { num: 1993, suffix: "", label: "Год основания", accent: false },
@@ -270,6 +274,50 @@ export const siteContent = {
       sidebarCTA: "откройте по франшизе",
       sidebarSubtext: "Станьте партнёром ООО «ХАУС»",
     },
+    storeItems: [
+      { city: "Калининград", mall: "ТРЦ «Европа»", address: "ул. Театральная, 30", lng: 20.4522, lat: 54.7104, country: "Россия", photo: "/images/stores/kaliningrad.jpg" },
+      { city: "Зеленоградск", mall: "ТД «Звёздное Небо»", address: "Курортный проспект, 18", lng: 20.4748, lat: 54.9582, country: "Россия", photo: "/images/stores/zelenogradsk.jpg" },
+      { city: "Уфа", mall: "ТЦ «Мега-Уфа»", address: "ул. Рубежная, 174", lng: 55.9721, lat: 54.7388, country: "Россия", photo: "/images/stores/ufa-mega.webp" },
+      { city: "Уфа", mall: "ТРЦ «Планета»", address: "ул. Энтузиастов, 20", lng: 56.0497, lat: 54.7653, country: "Россия", photo: "/images/stores/ufa-planeta.jpg" },
+      { city: "Сургут", mall: "ТРЦ «Сургут Сити Молл»", address: "Югорский тракт, 3", lng: 73.3969, lat: 61.254, country: "Россия", photo: "/images/stores/surgut.jpg" },
+      { city: "Красноярск", mall: "ТРЦ «Комсомолл»", address: "ул. Белинского, 8", lng: 92.8932, lat: 56.0153, country: "Россия", photo: "/images/stores/krasnoyarsk.jpg" },
+      { city: "Симферополь", mall: "ТРЦ «Центрум»", address: "ул. Симферопольская, 6", lng: 34.1003, lat: 44.9482, country: "Россия", photo: "/images/stores/simferopol.jpg" },
+      { city: "Якутск", mall: "ТЦ «ЦУМ»", address: "ул. Курашова, 4", lng: 129.6775, lat: 62.0355, country: "Россия", photo: "/images/stores/yakutsk.jpg" },
+      { city: "Саратов", mall: "ТЦ «МИР»", address: "ул. Московская, 115", lng: 46.0343, lat: 51.5336, country: "Россия", photo: "/images/stores/saratov.jpg" },
+      { city: "Щучинск", mall: "ТД «Акжелкен»", address: "ул. Ауэзова, 77а", lng: 70.2025, lat: 52.9367, country: "Казахстан", photo: "/images/stores/shchuchinsk.jpg" },
+      { city: "Алматы", mall: "", address: "ул. Розыбакиева, 289, Блок 1", lng: 76.8512, lat: 43.222, country: "Казахстан", photo: "/images/stores/almaty.jpg" },
+    ],
+  },
+
+  /* ——— Partners (Партнёры — главная) ——— */
+  partners: {
+    partnersEyebrow: "Партнёры бренда",
+    partnersHeading: 'С кем сотрудничает <span class="text-brand-accent">Diverse</span>',
+    partnersEyebrowSimple: { simpleEyebrow: "Партнёры Diverse" },
+    partnerItems: [
+      { id: "dext", name: "DEXT", logo: "/images/partners/dext.jpg" },
+      { id: "honda", name: "Honda Racing", logo: "/images/partners/honda.webp" },
+      { id: "motul", name: "Motul", logo: "/images/partners/motul.svg" },
+      { id: "dakar", name: "Dakar Rally", logo: "/images/partners/dakar.png" },
+      { id: "wrc", name: "WRC", logo: "/images/partners/wrc.png" },
+      { id: "lemans", name: "24H Le Mans", logo: "/images/partners/lemans.png" },
+    ],
+  },
+
+  /* ——— Footer (Подвал) ——— */
+  footer: {
+    tagline: "Официальный дистрибьютор марки Diverse в\u00a0России и\u00a0СНГ",
+    navSectionTitle: "Навигация",
+    contactsSectionTitle: "Контакты",
+    companyName: "ООО «ХАУС»",
+    companyInn: "ИНН 3907201307",
+    companyAddress: "236022, Калининград,\nпл. Победы, 4, оф. 210",
+    readyToStartTitle: "Готовы начать?",
+    ctaButton: "Оставить заявку",
+    socialsSectionTitle: "Соцсети",
+    copyright: "Все права защищены.",
+    privacyLink: "Политика конфиденциальности",
+    partnerText: "Diverse — официальный партнёр",
   },
 
   /* ——— KpRating (Рейтинг КП) ——— */

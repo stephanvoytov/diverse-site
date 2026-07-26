@@ -8,15 +8,28 @@ import { tinaField } from "tinacms/dist/react";
 import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
 import { useModal } from "@/lib/modal-context";
-import { collections } from "@/data/collections";
 import { asset } from "@/lib/path";
+
+interface CollectionItem {
+  id?: string;
+  name?: string;
+  short?: string;
+  tag?: string;
+  vibe?: string;
+  colorFrom?: string;
+  colorTo?: string;
+  image?: string;
+  bgPosition?: string;
+}
 
 function CollectionSection({
   item,
   index,
+  scrollHint,
 }: {
-  item: (typeof collections)[number];
+  item: CollectionItem;
   index: number;
+  scrollHint?: string;
 }) {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
@@ -128,7 +141,7 @@ function CollectionSection({
           transition={{ delay: 1.5, duration: 1 }}
         >
           <span className="text-[10px] tracking-[0.3em] text-white/30 uppercase">
-            Листайте
+            {scrollHint || "Листайте"}
           </span>
           <motion.span
             className="block w-px h-8 bg-white/20"
@@ -163,6 +176,8 @@ export default function CollectionContent({
     heroEyebrow?: string;
     heroHeading?: string;
     heroDesc?: string;
+    scrollHint?: string;
+    collectionItems?: CollectionItem[];
   };
   const c = (ctaData?.pageCollections || {}) as {
     ctaEyebrow?: string;
@@ -170,6 +185,8 @@ export default function CollectionContent({
     ctaDesc?: string;
     ctaButton?: string;
   };
+
+  const collectionItems = h.collectionItems || [];
 
   const { open: openModal } = useModal();
   return (
@@ -235,8 +252,8 @@ export default function CollectionContent({
         </section>
 
         {/* Collection sections */}
-        {collections.map((item, index) => (
-          <CollectionSection key={item.id} item={item} index={index} />
+        {collectionItems.map((item, index) => (
+          <CollectionSection key={item.id || index} item={item} index={index} scrollHint={h.scrollHint} />
         ))}
 
         {/* CTA */}
