@@ -11,6 +11,7 @@ import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import { asset } from "@/lib/path";
 import { useUserCity } from "@/lib/user-city-context";
 import { siteContent } from "@/data/site-content";
+import ErrorBoundary from "@/components/shared/ErrorBoundary";
 
 export interface TinaStoreItem {
   city?: string;
@@ -376,7 +377,9 @@ export default function Stores({
 
           {/* Карта */}
           <div className="order-2 lg:order-2" style={{ isolation: "isolate" }}>
-            <div ref={containerRef} className="h-[320px] md:h-[480px] w-full" />
+            <ErrorBoundary>
+              <div ref={containerRef} className="h-[320px] md:h-[480px] w-full" />
+            </ErrorBoundary>
           </div>
         </motion.div>
       </div>
