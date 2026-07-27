@@ -1,12 +1,14 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import type { ComponentProps } from "react";
 
 const Stores = dynamic(() => import("@/components/blocks/Stores"), {
   ssr: false,
 });
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function StoresMap({ data }: { data?: any }) {
+type StoresProps = ComponentProps<typeof Stores>;
+
+export default function StoresMap({ data }: { data?: StoresProps["data"] }) {
   return <Stores data={data} />;
 }

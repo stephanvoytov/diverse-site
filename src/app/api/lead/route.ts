@@ -2,7 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { sendLead } from "@/lib/mail";
 import { sendLeadToTelegram } from "@/lib/telegram";
 import { checkRateLimit, rateLimitResponse } from "@/lib/rate-limit";
+import { saveLead, ensureSchema } from "@/lib/turso";
 import logger from "@/lib/logger";
+
+// Инициализация схемы при первом запросе
+let schemaReady = false;
 
 export async function POST(req: NextRequest) {
   try {
@@ -33,7 +37,7 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
-    const { name, phone, email, message, city } = body;
+    const { name, phone, email, message, city, source } = body;
 
     // Валидация
     if (!name || name.length < 2) {
@@ -44,12 +48,35 @@ export async function POST(req: NextRequest) {
     }
     // message — опциональное поле, проверка не требуется
 
-    const lead = { name, phone, email, message: message ?? "Нужна консультация", city };
+    const leadData = {
+      name,
+      phone,
+      email: email || null,
+      message: message ?? "Нужна консультация",
+      city: city || null,
+      source: source || "form",
+    };
 
-    // Дублируем на оба канала одновременно
+    // ─── 1. Сохраняем в Turso (гарантированно) ───
+    if (!schemaReady) {
+      await ensureSchema();
+      schemaReady = true;
+    }
+
+    let savedLead;
+    try {
+      savedLead = await saveLead(leadData);
+      logger.info({ leadId: savedLead.id }, "Lead saved to Turso");
+    } catch (dbErr) {
+      // Если Turso упал — логируем, но не блокируем отправку
+      logger.error({ err: dbErr }, "Turso save failed, continuing with notifications");
+    }
+
+    // ─── 2. Уведомления параллельно (Telegram + SMTP) ───
+    const notificationData = { name, phone, email, message: leadData.message, city };
     const [smtpRes, tgRes] = await Promise.allSettled([
-      sendLead(lead),
-      sendLeadToTelegram(lead),
+      sendLead(notificationData),
+      sendLeadToTelegram(notificationData),
     ]);
 
     const smtpOk = smtpRes.status === "fulfilled";
@@ -62,15 +89,31 @@ export async function POST(req: NextRequest) {
       logger.warn({ err: (tgRes as PromiseRejectedResult).reason }, "Telegram error");
     }
 
-    if (!smtpOk && !tgOk) {
-      logger.error("Both SMTP and Telegram failed");
-      return NextResponse.json(
-        { error: "Ошибка отправки. Каналы недоступны." },
-        { status: 500 }
-      );
+    // ─── 3. Результат ───
+    // Лид сохранён = успех, даже если уведомления упали
+    if (savedLead) {
+      return NextResponse.json({
+        ok: true,
+        leadId: savedLead.id,
+        notifications: { smtp: smtpOk, telegram: tgOk },
+      });
     }
 
-    return NextResponse.json({ ok: true });
+    // Turso упал, но уведомления ушли — тоже ок
+    if (smtpOk || tgOk) {
+      return NextResponse.json({
+        ok: true,
+        notifications: { smtp: smtpOk, telegram: tgOk },
+        warning: "Lead not persisted (database unavailable)",
+      });
+    }
+
+    // Всё упало
+    logger.error("All channels failed: Turso, SMTP, Telegram");
+    return NextResponse.json(
+      { error: "Ошибка отправки. Попробуйте позже." },
+      { status: 500 }
+    );
   } catch (err) {
     logger.error({ err }, "Lead API error");
     return NextResponse.json(

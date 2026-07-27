@@ -28,7 +28,8 @@ const StoresMap = dynamic(() => import("@/components/shared/StoresMap"), {
   ),
 });
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+/** TinaCMS collection data — shapes vary per block, narrowed at component boundaries */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- TinaCMS dynamic data, each component narrows its own shape
 type TinaData = Record<string, any>;
 
 interface TinaResult {
