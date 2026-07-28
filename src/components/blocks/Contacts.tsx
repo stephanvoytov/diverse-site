@@ -160,23 +160,25 @@ export default function Contacts({ data }: { data?: typeof fallback }) {
                 />
               </div>
 
-              {submitStatus === "success" && (
-                <p className="text-sm text-green-400 font-medium">
-                  {s.form.success}
-                </p>
-              )}
-              {submitStatus === "error" && (
-                <p className="text-sm text-brand-accent">
-                  {s.form.error}{" "}
-                  <a href={CONTACTS.telegram} target="_blank" rel="noopener noreferrer" className="underline hover:no-underline font-semibold">
-                    {s.form.telegram}
-                  </a>
-                  {" "}{s.form.or}{" "}
-                  <a href="mailto:diverserussia@yandex.ru" className="underline hover:no-underline">
-                    {s.form.mail}
-                  </a>
-                </p>
-              )}
+              <div aria-live="polite">
+                {submitStatus === "success" && (
+                  <p className="text-sm text-green-400 font-medium">
+                    {s.form.success}
+                  </p>
+                )}
+                {submitStatus === "error" && (
+                  <p className="text-sm text-brand-accent">
+                    {s.form.error}{" "}
+                    <a href={CONTACTS.telegram} target="_blank" rel="noopener noreferrer" className="underline hover:no-underline font-semibold">
+                      {s.form.telegram}
+                    </a>
+                    {" "}{s.form.or}{" "}
+                    <a href="mailto:diverserussia@yandex.ru" className="underline hover:no-underline">
+                      {s.form.mail}
+                    </a>
+                  </p>
+                )}
+              </div>
 
               <button
                 type="submit"

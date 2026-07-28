@@ -12,6 +12,7 @@
  */
 
 import { escapeHtml } from "@/lib/html";
+import { SITE_URL } from "@/config/site";
 import logger from "@/lib/logger";
 
 const TELEGRAM_API = "https://api.telegram.org";
@@ -251,16 +252,12 @@ async function fetchLeads(
   const token = process.env.TELEGRAM_BOT_TOKEN;
   if (!token) return { ok: false, error: "Bot token not configured" };
 
-  const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:3000";
-
   const params = new URLSearchParams({ action, period });
   if (city) params.set("city", city);
   if (limit) params.set("limit", String(limit));
 
   try {
-    const res = await fetch(`${baseUrl}/api/leads?${params}`, {
+    const res = await fetch(`${SITE_URL}/api/leads?${params}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     if (!res.ok) return { ok: false, error: `HTTP ${res.status}` };

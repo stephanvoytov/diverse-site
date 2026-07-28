@@ -1,17 +1,24 @@
 /**
  * Скрипт установки Telegram webhook.
  *
- * Запуск: npx tsx scripts/set-telegram-webhook.ts https://diversebrand.ru/api/telegram/webhook
+ * Берёт URL сайта из NEXT_PUBLIC_SITE_URL (или fallback на diversebrand.vercel.app).
+ * Запуск: npx tsx scripts/set-telegram-webhook.ts
  */
 
+import { config } from "dotenv";
+import { resolve, dirname } from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+// Загружаем .env.local (как Next.js)
+config({ path: resolve(__dirname, "../.env.local") });
+
 const TELEGRAM_API = "https://api.telegram.org";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://diversebrand.vercel.app";
 
 async function main() {
-  const webhookUrl = process.argv[2];
-  if (!webhookUrl) {
-    console.error("Usage: npx tsx scripts/set-telegram-webhook.ts <webhook-url>");
-    process.exit(1);
-  }
+  const webhookUrl = `${SITE_URL}/api/telegram/webhook`;
 
   const token = process.env.TELEGRAM_BOT_TOKEN;
   if (!token) {

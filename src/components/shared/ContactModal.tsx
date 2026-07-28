@@ -531,21 +531,22 @@ export default function ContactModal() {
                   </motion.div>
                 )}
 
-                {step === 3 && submitStatus === "success" && (
-                  <motion.p
-                    className="mt-4 text-sm text-green-600 font-medium text-center"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                  >
-                    ✓ Спасибо! Мы получили заявку.
-                  </motion.p>
-                )}
-                {step === 3 && submitStatus === "error" && (
-                  <motion.div
-                    className="mt-4 text-center"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                  >
+                <div aria-live="polite">
+                  {step === 3 && submitStatus === "success" && (
+                    <motion.p
+                      className="mt-4 text-sm text-green-600 font-medium text-center"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                    >
+                      ✓ Спасибо! Мы получили заявку.
+                    </motion.p>
+                  )}
+                  {step === 3 && submitStatus === "error" && (
+                    <motion.div
+                      className="mt-4 text-center"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                    >
                     <p className="text-sm text-brand-accent mb-3">
                       ✕ Ошибка отправки. Попробуйте снова или напишите в{" "}
                       <a href={CONTACTS.telegram} target="_blank" rel="noopener noreferrer" className="underline hover:no-underline font-semibold">Telegram</a>
@@ -558,7 +559,8 @@ export default function ContactModal() {
                       Попробовать снова →
                     </button>
                   </motion.div>
-                )}
+                  )}
+                </div>
               </AnimatePresence>
             </div>
           </motion.div>
