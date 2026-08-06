@@ -42,7 +42,7 @@ export const siteContent = {
       { num: 1993, suffix: "", label: "Год основания", accent: false },
       { num: 350, suffix: "+", label: "Магазинов в 10 странах", accent: false },
       { num: 1500, suffix: "", label: "Сотрудников", accent: false },
-      { num: 100, suffix: "M+", label: "Доход, $", accent: false },
+      { num: 100, suffix: "M+", label: "Доход", accent: false },
       { num: 10, suffix: "M+", label: "Единиц в год", accent: false },
       { num: 12, suffix: "+", label: "Стран присутствия", accent: false },
       { num: 3, suffix: "", label: "Суббренда", accent: true },

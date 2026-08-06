@@ -32,7 +32,7 @@ export const aboutStats: StatItem[] = [
   { num: "1993", label: "Год основания" },
   { num: "350+", label: "Магазинов в 10 странах" },
   { num: "1500", label: "Сотрудников" },
-  { num: "100M+", label: "Доход, $" },
+  { num: "100M+", label: "Доход" },
   { num: "10M+", label: "Единиц в год" },
   { num: "12+", label: "Стран присутствия" },
   { num: "3", label: "Суббренда", accent: true },

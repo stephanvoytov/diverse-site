@@ -53,3 +53,8 @@ tina-dev.log
 
 # Dev logs
 .tmp-dev.log
+
+# Playwright / browser test artifacts
+.playwright-mcp/
+carousel-*.png
+franchise-*.png

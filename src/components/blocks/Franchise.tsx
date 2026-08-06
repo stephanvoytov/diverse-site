@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { tinaField } from "tinacms/dist/react";
 import { useModal } from "@/lib/modal-context";
@@ -12,6 +13,61 @@ const easeOut: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
 export default function Franchise({ data }: { data?: typeof fallback }) {
   const s = data ?? fallback;
   const { open: openModal } = useModal();
+
+  const plans = s.plans || [];
+
+  // Сколько карточек показываем одновременно: 1 (моб) / 2 (планшет) / 3 (десктоп)
+  const [perView, setPerView] = useState(3);
+  const [index, setIndex] = useState(0);
+  // Шаг сдвига в px = ширина одной карточки
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const [step, setStep] = useState(0);
+
+  useEffect(() => {
+    const update = () => {
+      const w = window.innerWidth;
+      const pv = w < 640 ? 1 : w < 1024 ? 2 : 3;
+      setPerView(pv);
+      setStep((viewportRef.current?.clientWidth ?? 0) / pv);
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  const maxIndex = Math.max(0, plans.length - perView);
+
+  // Не даём индексу выйти за пределы при смене брейкпоинта
+  useEffect(() => {
+    setIndex((i) => Math.min(i, maxIndex));
+  }, [maxIndex]);
+
+  const next = () => setIndex((i) => Math.min(i + 1, maxIndex));
+  const prev = () => setIndex((i) => Math.max(i - 1, 0));
+
+  // Колесо мыши / свайп тачпадом над каруселью листают карточки.
+  // В начале и в конце — скролл «проваливается» на страницу (вертикальный скролл не ломается).
+  const wheelLock = useRef(0);
+  useEffect(() => {
+    const el = viewportRef.current;
+    if (!el) return;
+    const handler = (e: WheelEvent) => {
+      const isHorizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY);
+      const delta = isHorizontal ? e.deltaX : e.deltaY;
+      if (delta === 0) return;
+      const goingForward = delta > 0;
+      if ((goingForward && index >= maxIndex) || (!goingForward && index === 0)) return;
+      e.preventDefault();
+      const now = Date.now();
+      if (now - wheelLock.current < 550) return;
+      wheelLock.current = now;
+      if (goingForward) next();
+      else prev();
+    };
+    el.addEventListener("wheel", handler, { passive: false });
+    return () => el.removeEventListener("wheel", handler);
+  }, [index, maxIndex]);
+
   return (
     <section
       data-header="dark"
@@ -70,53 +126,105 @@ export default function Franchise({ data }: { data?: typeof fallback }) {
           </motion.p>
         </motion.div>
 
-        {/* Cards — тизер: имя, описание и прибыль */}
-        <motion.div
-          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-[4px] max-w-5xl mx-auto"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          variants={{
-            visible: { transition: { staggerChildren: 0.1 } },
-          }}
-        >
-          {(s.plans || []).map((plan: { id: string; tagline: string; name: string; desc: string; _content_source?: unknown }) => (
+        {/* Cards — карусель: имя, описание и прибыль */}
+        <div className="relative max-w-5xl mx-auto">
+          {/* Arrow left */}
+          <button
+            onClick={prev}
+            aria-label="Предыдущие форматы"
+            className={`hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 items-center justify-center rounded-full bg-brand-black/70 border border-white/15 text-white/70 hover:text-white hover:border-white/30 hover:bg-brand-black/90 transition-colors cursor-pointer -translate-x-4 ${
+              index === 0 ? "opacity-30 pointer-events-none" : ""
+            }`}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+
+          {/* Viewport карусели */}
+          <div ref={viewportRef} className="overflow-hidden">
             <motion.div
-              key={plan.id}
-              variants={{
-                hidden: { opacity: 0, y: 24 },
-                visible: { opacity: 1, y: 0 },
+              className="flex"
+              animate={{ x: -index * step }}
+              transition={{ duration: 0.5, ease: easeOut }}
+              drag={perView === 1 ? "x" : false}
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.08}
+              dragMomentum={false}
+              onDragEnd={(_, info) => {
+                if (info.offset.x < -50) next();
+                else if (info.offset.x > 50) prev();
               }}
-              whileHover={{ y: -4 }}
-              className={`rounded-sm p-6 md:p-8 flex flex-col transition-colors duration-300 ${
-                plan.id === 'renovation'
-                  ? 'border border-brand-accent bg-brand-accent/6 hover:bg-brand-accent/10'
-                  : 'border border-white/10 bg-white/5 hover:bg-white/[0.07] hover:border-white/15'
-              }`}
             >
-              <p className="text-[10px] tracking-[0.15em] uppercase text-brand-accent mb-3" data-tina-field={tinaField(plan, "tagline")}>
-                {plan.tagline}
-              </p>
-              <h3 className="text-2xl font-bold text-white mb-3 tracking-[-0.01em]" data-tina-field={tinaField(plan, "name")}>
-                {plan.name}
-              </h3>
-              <p className="text-[13px] text-white/60 leading-relaxed mb-6" data-tina-field={tinaField(plan, "desc")}>
-                {plan.desc}
-              </p>
-              {/* Profit — stacked vertically */}
-              <div className="mt-auto pt-5 space-y-3">
-                <div>
-                  <p className="text-lg font-bold text-white">
-                    {s.cardProfit?.[plan.id as keyof typeof s.cardProfit] || ""}
-                  </p>
-                  <p className="text-[11px] text-white/50 tracking-[0.1em] uppercase" data-tina-field={tinaField(s.franchiseLabels, "profitMonth")}>
-                    {s.franchiseLabels.profitMonth}
-                  </p>
+              {plans.map((plan: { id: string; tagline: string; name: string; desc: string; _content_source?: unknown }) => (
+                <div
+                  key={plan.id}
+                  className="shrink-0 px-3 py-2"
+                  style={{ width: `${100 / perView}%` }}
+                >
+                  <motion.div
+                    whileHover={{ y: -4 }}
+                    className={`h-full rounded-sm p-6 md:p-8 flex flex-col transition-colors duration-300 ${
+                      plan.id === 'renovation'
+                        ? 'border border-brand-accent bg-brand-accent/6 hover:bg-brand-accent/10'
+                        : 'border border-white/10 bg-white/5 hover:bg-white/[0.07] hover:border-white/15'
+                    }`}
+                  >
+                    <p className="text-[10px] tracking-[0.15em] uppercase text-brand-accent mb-3" data-tina-field={tinaField(plan, "tagline")}>
+                      {plan.tagline}
+                    </p>
+                    <h3 className="text-2xl font-bold text-white mb-3 tracking-[-0.01em]" data-tina-field={tinaField(plan, "name")}>
+                      {plan.name}
+                    </h3>
+                    <p className="text-[13px] text-white/60 leading-relaxed mb-6" data-tina-field={tinaField(plan, "desc")}>
+                      {plan.desc}
+                    </p>
+                    {/* Profit — stacked vertically */}
+                    <div className="mt-auto pt-5 space-y-3">
+                      <div>
+                        <p className="text-lg font-bold text-white">
+                          {s.cardProfit?.[plan.id as keyof typeof s.cardProfit] || ""}
+                        </p>
+                        <p className="text-[11px] text-white/50 tracking-[0.1em] uppercase" data-tina-field={tinaField(s.franchiseLabels, "profitMonth")}>
+                          {s.franchiseLabels.profitMonth}
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
                 </div>
-              </div>
+              ))}
             </motion.div>
-          ))}
-        </motion.div>
+          </div>
+
+          {/* Arrow right */}
+          <button
+            onClick={next}
+            aria-label="Следующие форматы"
+            className={`hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 items-center justify-center rounded-full bg-white/5 border border-white/10 text-white/70 hover:text-white hover:border-white/30 hover:bg-white/10 transition-colors cursor-pointer translate-x-4 ${
+              index >= maxIndex ? "opacity-30 pointer-events-none" : ""
+            }`}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9 6l6 6-6 6" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Точки-индикаторы */}
+        {maxIndex > 0 && (
+          <div className="flex items-center justify-center gap-2 mt-6">
+            {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setIndex(i)}
+                aria-label={`Форматы, страница ${i + 1}`}
+                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                  i === index ? "w-6 bg-brand-accent" : "w-1.5 bg-white/20 hover:bg-white/40"
+                }`}
+              />
+            ))}
+          </div>
+        )}
 
         {/* Disclaimer */}
         <p className="text-center text-[10px] text-white/20 mt-4 md:mt-6" data-tina-field={tinaField(s, "disclaimer")}>{s.disclaimer}</p>
