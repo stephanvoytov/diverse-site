@@ -5,7 +5,7 @@ import { navLinks } from "@/data/navigation";
 import { footerSocials as socials } from "@/data/socials";
 import { useModal } from "@/lib/modal-context";
 import { asset } from "@/lib/path";
-import { CONTACTS } from "@/config/site";
+import { CONTACTS, SITE } from "@/config/site";
 import { formatPhone } from "@/lib/phone";
 
 interface TinaFooter {
@@ -94,6 +94,9 @@ export default function Footer({ data }: FooterProps) {
               <li>
                 <p className="text-sm text-white/80 font-medium">{f.companyName}</p>
                 <p className="text-xs text-white/50 mt-0.5">{f.companyInn}</p>
+                {SITE.ogrn && (
+                  <p className="text-xs text-white/50 mt-0.5">ОГРН {SITE.ogrn}</p>
+                )}
               </li>
               <li>
                 <p className="text-sm text-white/50 leading-relaxed whitespace-pre-line">

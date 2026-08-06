@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import { useTina } from "tinacms/dist/react";
 import { tinaField } from "tinacms/dist/react";
 import SectionHeader from "@/components/shared/SectionHeader";
@@ -71,8 +72,7 @@ function PlansSection({ plans, plansEyebrow, plansDesc, plansHeading, plansColla
         >
           {plans.map((plan) => {
             const isOpen = openId === plan.id;
-            return (
-              <motion.div
+            return (              <motion.div
                 key={plan.id}
                 variants={{
                   hidden: { opacity: 0, y: 20 },
@@ -137,6 +137,10 @@ function PlansSection({ plans, plansEyebrow, plansDesc, plansHeading, plansColla
             );
           })}
         </motion.div>
+
+        <p className="text-center text-[10px] text-brand-gray-300 mt-4 md:mt-6 max-w-2xl mx-auto">
+          * Все цифры — оценочные, точный расчёт под ваш формат и локацию — на консультации
+        </p>
       </div>
     </section>
   );
@@ -533,7 +537,10 @@ function ContactSection({ contactData }: { contactData?: { contactHeading?: stri
               </button>
 
               <p className="text-xs text-brand-gray-300 text-center">
-                Нажимая «Отправить», вы соглашаетесь на обработку персональных данных
+                Нажимая «Отправить», вы соглашаетесь на обработку персональных данных и с{" "}
+                <Link href="/privacy/" className="underline hover:no-underline">
+                  политикой конфиденциальности
+                </Link>
               </p>
             </div>
           </form>

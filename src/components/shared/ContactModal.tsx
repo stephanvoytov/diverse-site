@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import { useModal } from "@/lib/modal-context";
 import { useUserCity } from "@/lib/user-city-context";
 import { queueLead } from "@/lib/lead-queue";
@@ -293,7 +294,10 @@ function StepContact({
           Бесплатно · Без обязательств
         </p>
         <p className="text-[10px] text-brand-gray-300 text-center leading-relaxed mt-3">
-          Нажимая «Получить расчёт», вы соглашаетесь на обработку персональных данных
+          Нажимая «Получить расчёт», вы соглашаетесь на обработку персональных данных и с{" "}
+          <Link href="/privacy/" className="underline hover:no-underline">
+            политикой конфиденциальности
+          </Link>
         </p>
       </form>
     </motion.div>

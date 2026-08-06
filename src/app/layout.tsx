@@ -1,17 +1,14 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import "./globals.css";
 import { ModalProvider } from "@/lib/modal-context";
 import { UserCityProvider } from "@/lib/user-city-context";
 import ContactModal from "@/components/shared/ContactModal";
 import ContactFloating from "@/components/shared/ContactFloating";
 import ExitIntentPopup from "@/components/shared/ExitIntentPopup";
+import AnalyticsConsent from "@/components/shared/AnalyticsConsent";
 import JsonLd from "@/components/shared/JsonLd";
 import { asset } from "@/lib/path";
 import { CONTACTS, SITE, SITE_URL } from "@/config/site";
-
-const ymId = process.env.NEXT_PUBLIC_YM_ID || "";
-const vkPixelId = process.env.NEXT_PUBLIC_VK_PIXEL_ID || "";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 const siteUrl = SITE_URL;
@@ -146,44 +143,9 @@ export default function RootLayout({
             <ContactModal />
             <ContactFloating />
             <ExitIntentPopup />
+            <AnalyticsConsent />
           </ModalProvider>
         </UserCityProvider>
-
-        {ymId && (
-          <Script id="yandex-metrica" strategy="afterInteractive">
-            {`
-              (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-              m[i].l=1*new Date();
-              for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-              k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-              (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-
-              ym(${ymId}, "init", {
-                clickmap:true,
-                trackLinks:true,
-                accurateTrackBounce:true,
-                webvisor:true
-              });
-            `}
-          </Script>
-        )}
-
-        {vkPixelId && (
-          <Script id="vk-pixel" strategy="afterInteractive">
-            {`
-              !function(){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src="https://vk.com/js/api/openapi.js?169",t.onload=function(){VK.Retargeting.Init("${vkPixelId}"),VK.Retargeting.Hit()},document.head.appendChild(t)}();
-            `}
-          </Script>
-        )}
-
-        {ymId && (
-          <noscript>
-            <div>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={`https://mc.yandex.ru/watch/${ymId}`} style={{position:"absolute",left:-9999}} alt="" />
-            </div>
-          </noscript>
-        )}
       </body>
     </html>
   );

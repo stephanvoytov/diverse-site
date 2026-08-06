@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { tinaField } from "tinacms/dist/react";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contactSocials } from "@/data/socials";
-import { CONTACTS, FORMAT_OPTIONS } from "@/config/site";
+import { CONTACTS, FORMAT_OPTIONS, SITE } from "@/config/site";
 import { formatPhone } from "@/lib/phone";
 import { useUserCity } from "@/lib/user-city-context";
 import { queueLead } from "@/lib/lead-queue";
@@ -200,6 +201,9 @@ export default function Contacts({ data }: { data?: typeof fallback }) {
                 </p>
                 <h3 className="text-xl font-bold text-white mb-1" data-tina-field={tinaField(s.company, "name")}>{s.company.name}</h3>
                 <p className="text-sm text-white/40 mb-0.5" data-tina-field={tinaField(s.company, "inn")}>{s.company.inn}</p>
+                {SITE.ogrn && (
+                  <p className="text-sm text-white/40 mb-0.5">ОГРН {SITE.ogrn}</p>
+                )}
                 <p className="text-sm text-white/40" data-tina-field={tinaField(s.company, "address")}>
                   {s.company.address}
                 </p>
@@ -254,7 +258,10 @@ export default function Contacts({ data }: { data?: typeof fallback }) {
 
             {/* Нижний блок — можно добавить карту или что-то ещё */}
             <p className="text-xs text-white/40 leading-relaxed" data-tina-field={tinaField(s, "privacy")}>
-              {s.privacy}
+              {s.privacy}{" "}
+              <Link href="/privacy/" className="underline hover:no-underline">
+                Политика конфиденциальности
+              </Link>
             </p>
           </div>
         </motion.div>

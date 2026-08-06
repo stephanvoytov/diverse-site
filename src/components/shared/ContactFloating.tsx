@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { CONTACTS } from "@/config/site";
@@ -189,6 +190,13 @@ export default function ContactFloating() {
                       >
                         {status === "sending" ? "Отправка…" : status === "success" ? "Отправлено ✓" : "Перезвоните"}
                       </button>
+
+                      <p className="text-[10px] text-brand-gray-300 text-center leading-relaxed">
+                        Нажимая «Перезвоните», вы соглашаетесь на обработку персональных данных и с{" "}
+                        <Link href="/privacy/" className="underline hover:no-underline">
+                          политикой конфиденциальности
+                        </Link>
+                      </p>
                     </div>
                   </motion.form>
                 )}
