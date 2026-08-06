@@ -1,0 +1,45 @@
+npm notice run diverse-site@1.0.0 dev
+npm notice run next dev
+▲ Next.js 16.2.12 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://172.18.0.1:3000
+- Environments: .env.local, .env
+✓ Ready in 567ms
+- Experiments (use with caution):
+  ✓ inlineCss
+
+ GET /images/gallery/gallery-1.jpg 404 in 83ms (next.js: 43ms, application-code: 40ms)
+⨯ The requested resource isn't a valid image for /images/gallery/gallery-1.jpg received null
+ GET /franchise/ 200 in 1017ms (next.js: 353ms, proxy.ts: 129ms, application-code: 535ms)
+ GET /api/geo/city/ 200 in 978ms (next.js: 359ms, proxy.ts: 5ms, application-code: 613ms)
+ GET /images/gallery/gallery-1.jpg 404 in 57ms (next.js: 12ms, application-code: 45ms)
+⨯ The requested resource isn't a valid image for /images/gallery/gallery-1.jpg received null
+ GET /franchise/ 200 in 71ms (next.js: 5ms, proxy.ts: 3ms, application-code: 63ms)
+ GET /franchise/ 200 in 83ms (next.js: 5ms, proxy.ts: 4ms, application-code: 73ms)
+ GET /images/gallery/gallery-1.jpg 404 in 61ms (next.js: 17ms, application-code: 44ms)
+⨯ The requested resource isn't a valid image for /images/gallery/gallery-1.jpg received null
+ GET /api/geo/city/ 200 in 278ms (next.js: 24ms, proxy.ts: 15ms, application-code: 240ms)
+✓ Compiled in 55ms
+ GET /franchise/ 200 in 140ms (next.js: 49ms, proxy.ts: 20ms, application-code: 71ms)
+ GET /franchise/ 200 in 36ms (next.js: 5ms, proxy.ts: 4ms, application-code: 27ms)
+✓ Compiled in 154ms
+ GET /franchise/ 200 in 116ms (next.js: 53ms, proxy.ts: 20ms, application-code: 43ms)
+ GET /franchise/ 200 in 278ms (next.js: 5ms, proxy.ts: 4ms, application-code: 269ms)
+ GET /images/gallery/gallery-1.jpg 404 in 66ms (next.js: 25ms, application-code: 41ms)
+⨯ The requested resource isn't a valid image for /images/gallery/gallery-1.jpg received null
+ GET /api/geo/city/ 200 in 297ms (next.js: 48ms, proxy.ts: 4ms, application-code: 244ms)
+✓ Compiled in 120ms
+ GET /franchise/ 200 in 122ms (next.js: 51ms, proxy.ts: 26ms, application-code: 45ms)
+✓ Compiled in 99ms
+ GET /franchise/ 200 in 101ms (next.js: 40ms, proxy.ts: 21ms, application-code: 39ms)
+ GET / 200 in 73ms (next.js: 35ms, proxy.ts: 3ms, application-code: 35ms)
+ GET /collection/ 200 in 618ms (next.js: 341ms, proxy.ts: 9ms, application-code: 268ms)
+ GET /about/ 200 in 625ms (next.js: 294ms, proxy.ts: 9ms, application-code: 322ms)
+ GET /stores/ 200 in 623ms (next.js: 387ms, proxy.ts: 8ms, application-code: 228ms)
+ GET /franchise/ 200 in 646ms (next.js: 9ms, proxy.ts: 9ms, application-code: 629ms)
+ GET / 200 in 119ms (next.js: 5ms, proxy.ts: 4ms, application-code: 111ms)
+ GET /collection/ 200 in 356ms (next.js: 165ms, proxy.ts: 11ms, application-code: 181ms)
+ GET /about/ 200 in 375ms (next.js: 15ms, proxy.ts: 20ms, application-code: 340ms)
+ GET /stores/ 200 in 365ms (next.js: 192ms, proxy.ts: 8ms, application-code: 164ms)
+ GET /franchise/ 200 in 404ms (next.js: 93ms, proxy.ts: 11ms, application-code: 300ms)
+ GET /api/geo/city/ 200 in 725ms (next.js: 51ms, proxy.ts: 5ms, application-code: 668ms)

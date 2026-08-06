@@ -128,6 +128,63 @@ export default function Franchise({ data }: { data?: typeof fallback }) {
           ))}
         </motion.div>
 
+        {/* Directions — компактный тизер направлений коллекции */}
+        <motion.div
+          className="mt-8 md:mt-10 max-w-5xl mx-auto"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={{
+            visible: { transition: { staggerChildren: 0.08 } },
+          }}
+        >
+          <motion.p
+            variants={{
+              hidden: { opacity: 0, y: 10 },
+              visible: { opacity: 1, y: 0 },
+            }}
+            className="text-center text-[10px] tracking-[0.2em] uppercase text-white/40 mb-4"
+          >
+            Направление коллекции
+          </motion.p>
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 10 },
+              visible: { opacity: 1, y: 0 },
+            }}
+            className="grid grid-cols-1 sm:grid-cols-3 gap-[4px]"
+          >
+            {[
+              { name: "Diverse Man", desc: "Мужская коллекция" },
+              { name: "Diverse Women", desc: "Женская коллекция" },
+              { name: "Микс", desc: "Мужская и женская" },
+            ].map((d) => (
+              <div
+                key={d.name}
+                className="rounded-sm border border-white/10 bg-white/5 px-5 py-4 text-center hover:bg-white/[0.07] hover:border-white/15 transition-colors"
+              >
+                <p className="text-sm font-bold text-white">{d.name}</p>
+                <p className="text-[11px] text-white/50 mt-0.5">{d.desc}</p>
+              </div>
+            ))}
+          </motion.div>
+          <motion.p
+            variants={{
+              hidden: { opacity: 0, y: 10 },
+              visible: { opacity: 1, y: 0 },
+            }}
+            className="text-center mt-3"
+          >
+            <a
+              href="/franchise/#directions"
+              className="inline-flex items-center gap-2 text-xs text-white/50 hover:text-white transition-colors group"
+            >
+              Подробнее о направлениях
+              <span className="group-hover:translate-x-1 transition-transform">→</span>
+            </a>
+          </motion.p>
+        </motion.div>
+
         {/* Disclaimer */}
         <p className="text-center text-[10px] text-white/20 mt-4 md:mt-6" data-tina-field={tinaField(s, "disclaimer")}>{s.disclaimer}</p>
 

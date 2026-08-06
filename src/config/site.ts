@@ -48,4 +48,20 @@ export const FORMAT_OPTIONS = [
 
 export type FormatId = (typeof FORMAT_OPTIONS)[number]["id"];
 
+/* ===== Направления коллекции (для форм) ===== */
+
+export const DIRECTION_OPTIONS = [
+  { id: "man" as const,     label: "Diverse Man",    desc: "Мужская коллекция" },
+  { id: "women" as const,   label: "Diverse Women",  desc: "Женская коллекция" },
+  { id: "mix" as const,     label: "Микс",           desc: "Мужская и женская" },
+] as const;
+
+export type DirectionId = (typeof DIRECTION_OPTIONS)[number]["id"];
+
+export const DIRECTION_LABELS: Record<DirectionId, string> = {
+  man: "Diverse Man",
+  women: "Diverse Women",
+  mix: "Микс",
+};
+
 

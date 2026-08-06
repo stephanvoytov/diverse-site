@@ -7,7 +7,7 @@ import { useModal } from "@/lib/modal-context";
 import { useUserCity } from "@/lib/user-city-context";
 import { queueLead } from "@/lib/lead-queue";
 import { lockBody, unlockBody } from "@/lib/body-scroll";
-import { FORMAT_OPTIONS, CONTACTS } from "@/config/site";
+import { FORMAT_OPTIONS, DIRECTION_OPTIONS, DIRECTION_LABELS, type DirectionId, CONTACTS } from "@/config/site";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 
@@ -141,18 +141,22 @@ function StepFormat({
   );
 }
 
-/* ——— Step 2: Город + Помещение ——— */
+/* ——— Step 2: Город + Помещение + Направление ——— */
 
 function StepCity({
   city,
   premise,
+  direction,
   onCityChange,
   onPremiseChange,
+  onDirectionChange,
 }: {
   city: string;
   premise: PremiseOption;
+  direction: DirectionId | null;
   onCityChange: (v: string) => void;
   onPremiseChange: (v: PremiseOption) => void;
+  onDirectionChange: (v: DirectionId | null) => void;
 }) {
   return (
     <motion.div
@@ -176,6 +180,30 @@ function StepCity({
           placeholder="Ваш город"
           className="w-full px-4 py-3 text-sm bg-white border border-brand-gray-200 rounded-sm outline-none focus:border-brand-accent transition-colors placeholder:text-brand-gray-300"
         />
+
+        <div>
+          <p className="text-sm font-medium text-brand-black mb-2.5">
+            Какое направление?
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {DIRECTION_OPTIONS.map((opt) => {
+              const isActive = direction === opt.id;
+              return (
+                <button
+                  key={opt.id}
+                  onClick={() => onDirectionChange(isActive ? null : opt.id)}
+                  className={`px-4 py-2.5 text-sm font-medium rounded-sm border transition-all duration-200 cursor-pointer ${
+                    isActive
+                      ? "border-brand-accent bg-brand-accent/[0.04] text-brand-accent"
+                      : "border-brand-gray-200 bg-white text-brand-gray-400 hover:border-brand-gray-300"
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
 
         <div>
           <p className="text-sm font-medium text-brand-black mb-2.5">
@@ -319,6 +347,7 @@ export default function ContactModal() {
   // Step 2
   const [city, setCity] = useState("");
   const [premise, setPremise] = useState<PremiseOption>(null);
+  const [direction, setDirection] = useState<DirectionId | null>(null);
 
   // Step 3
   const [name, setName] = useState("");
@@ -342,6 +371,7 @@ export default function ContactModal() {
         setFormat(null);
         setCity("");
         setPremise(null);
+        setDirection(null);
         setName("");
         setPhone(undefined);
         setErrors({});
@@ -400,6 +430,8 @@ export default function ContactModal() {
       ? premise === "yes" ? "Есть" : premise === "no" ? "Нет" : "Подбираю"
       : "Не указано";
 
+    const directionLabel = direction ? DIRECTION_LABELS[direction] : "";
+
     const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT || "/api/lead";
     // phone validated in validateStep3()
     const phoneValue: string = phone ?? "";
@@ -409,6 +441,7 @@ export default function ContactModal() {
       city: detectedCity || undefined,
       message: [
         `Формат: ${formatLabel}`,
+        directionLabel ? `Направление: ${directionLabel}` : "",
         city ? `Город: ${city}` : "",
         `Помещение: ${premiseLabel}`,
       ].filter(Boolean).join(". "),
@@ -491,8 +524,10 @@ export default function ContactModal() {
                     key="step2"
                     city={city}
                     premise={premise}
+                    direction={direction}
                     onCityChange={setCity}
                     onPremiseChange={setPremise}
+                    onDirectionChange={setDirection}
                   />
                 )}
 
