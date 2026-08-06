@@ -549,6 +549,7 @@ export default function ContactModal() {
               <AnimatePresence>
                 {step === 2 && (
                   <motion.div
+                    key="nav-step2"
                     className="flex gap-3 mt-6"
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
@@ -570,7 +571,7 @@ export default function ContactModal() {
                   </motion.div>
                 )}
 
-                <div aria-live="polite">
+                <div key="submit-status" aria-live="polite">
                   {step === 3 && submitStatus === "success" && (
                     <motion.p
                       className="mt-4 text-sm text-green-600 font-medium text-center"

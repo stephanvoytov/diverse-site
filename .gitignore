@@ -50,3 +50,6 @@ AGENTS.md
 # TinaCMS dev logs
 tina-dev.log
 *.pid
+
+# Dev logs
+.tmp-dev.log
