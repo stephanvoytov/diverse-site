@@ -30,13 +30,17 @@ export interface StatItem {
 
 export const aboutStats: StatItem[] = [
   { num: "1993", label: "Год основания" },
-  { num: "400+", label: "Магазинов" },
+  { num: "350+", label: "Магазинов в 10 странах" },
+  { num: "1500", label: "Сотрудников" },
+  { num: "100M+", label: "Доход, $" },
+  { num: "10M+", label: "Единиц в год" },
+  { num: "12+", label: "Стран присутствия" },
   { num: "3", label: "Суббренда", accent: true },
 ];
 
 export const heroStats = [
   { num: "30+", label: "Лет на рынке" },
-  { num: "400+", label: "Магазинов в мире" },
+  { num: "350+", label: "Магазинов в 10 странах" },
   { num: "11", label: "В РФ и Казахстане", accent: true },
 ];
 

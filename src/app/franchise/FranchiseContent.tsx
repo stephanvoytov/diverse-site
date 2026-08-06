@@ -13,7 +13,7 @@ import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
 import Faq from "@/components/blocks/Faq";
 import StoreGallery, { type GalleryImage } from "@/components/blocks/StoreGallery";
-import { CONTACTS, FORMAT_OPTIONS, DIRECTION_OPTIONS } from "@/config/site";
+import { CONTACTS, FORMAT_OPTIONS } from "@/config/site";
 import { useUserCity } from "@/lib/user-city-context";
 import { queueLead } from "@/lib/lead-queue";
 import PhoneInput from "react-phone-number-input/react-hook-form";
@@ -23,7 +23,6 @@ const franchiseFormSchema = z.object({
   name: z.string().min(2, "Введите имя").max(50, "Слишком длинное имя"),
   phone: z.string().min(5, "Введите корректный телефон"),
   format: z.string().optional(),
-  direction: z.string().optional(),
   city: z.string().optional(),
   message: z.string().min(5, "Напишите пару слов").max(500, "Слишком длинное сообщение").optional().or(z.literal("")),
 });
@@ -43,7 +42,7 @@ const EMPTY: TinaResult = { data: {}, query: "", variables: {} };
 /* ——— Plans accordion (reused from main) ——— */
 
 function PlansSection({ plans, plansEyebrow, plansDesc, plansHeading, plansCollapse, plansDetails }: {
-  plans: Array<{ id: string; tagline: string; name: string; desc: string; investment: string; details: string[] }>;
+  plans: Array<{ id: string; tagline: string; name: string; desc: string; details: string[] }>;
   plansEyebrow?: string;
   plansDesc?: string;
   plansHeading?: string;
@@ -57,13 +56,13 @@ function PlansSection({ plans, plansEyebrow, plansDesc, plansHeading, plansColla
       <div className="container-brand">
         <SectionHeader
           eyebrow={plansEyebrow || "Варианты"}
-          desc={plansDesc || "Три варианта сотрудничества под любой бюджет и локацию"}
+          desc={plansDesc || "Пять вариантов сотрудничества под любой бюджет и локацию"}
         >
           <span dangerouslySetInnerHTML={{ __html: plansHeading || 'Выберите свой <span class="text-brand-accent">формат</span>' }} />
         </SectionHeader>
 
         <motion.div
-          className="grid md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto"
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -94,7 +93,6 @@ function PlansSection({ plans, plansEyebrow, plansDesc, plansHeading, plansColla
                   <p className="text-xs tracking-[0.2em] uppercase text-brand-accent mb-2">{plan.tagline}</p>
                   <h3 className="text-2xl font-bold text-brand-black mb-2">{plan.name}</h3>
                   <p className="text-sm text-brand-gray-400 leading-relaxed mb-4">{plan.desc}</p>
-                  <p className="text-xl font-bold text-brand-accent mb-3">{plan.investment}</p>
 
                   <div className="flex items-center justify-between">
                     <span className="text-xs label text-brand-gray-400">
@@ -147,70 +145,6 @@ function PlansSection({ plans, plansEyebrow, plansDesc, plansHeading, plansColla
   );
 }
 
-/* ——— Directions (направления коллекции: Man / Women / Микс) ——— */
-
-const DIRECTIONS = [
-  {
-    id: "man",
-    name: "Diverse Man",
-    tagline: "Мужская коллекция",
-    desc: "Магазин с мужским ассортиментом: casual, деним, худи, бомберы, аксессуары. Точное попадание в мужскую аудиторию — от студентов до уверенных в себе профессионалов.",
-  },
-  {
-    id: "women",
-    name: "Diverse Women",
-    tagline: "Женская коллекция",
-    desc: "Магазин с женским ассортиментом: платья, верх, деним, аксессуары. Европейский дизайн и качество — сильный аргумент для женской аудитории.",
-  },
-  {
-    id: "mix",
-    name: "Микс",
-    tagline: "Мужская + женская",
-    desc: "Полный ассортимент обоих направлений в одном магазине. Максимальная аудитория и средний чек за счёт парных покупок.",
-  },
-];
-
-function DirectionsSection() {
-  return (
-    <section id="directions" data-header="light" className="bg-white py-20 md:py-28">
-      <div className="container-brand">
-        <SectionHeader
-          eyebrow="Направление коллекции"
-          desc="Выберите, какую одежду будет продавать ваш магазин"
-        >
-          <span>Выберите <span className="text-brand-accent">направление</span></span>
-        </SectionHeader>
-
-        <motion.div
-          className="grid md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={{
-            visible: { transition: { staggerChildren: 0.08 } },
-          }}
-        >
-          {DIRECTIONS.map((d) => (
-            <motion.div
-              key={d.id}
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] } },
-              }}
-              className="rounded-sm border border-brand-gray-200 bg-brand-gray-100 p-6 md:p-8 hover:border-brand-gray-300 transition-colors"
-            >
-              <p className="text-xs tracking-[0.2em] uppercase text-brand-accent mb-2">{d.tagline}</p>
-              <h3 className="text-2xl font-bold text-brand-black mb-3">{d.name}</h3>
-              <p className="text-sm text-brand-gray-400 leading-relaxed">{d.desc}</p>
-              <p className="text-xs text-brand-gray-300 mt-5">Доступно в любом формате</p>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
 /* ——— Comparison table ——— */
 
 function ComparisonTable({ comparisonRows, plans }: { comparisonRows: Array<{ label: string; values: string[] }>; plans: Array<{ id: string; name: string }> }) {
@@ -234,7 +168,7 @@ function ComparisonTable({ comparisonRows, plans }: { comparisonRows: Array<{ la
             transition={{ delay: 0.1, duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
           >
           <table className="w-full text-sm border-collapse">
-            <caption className="sr-only">Сравнение форматов франшизы Diverse: POP-UP STORE, Реновация, Полный стандарт</caption>
+            <caption className="sr-only">Сравнение форматов франшизы Diverse: POP-UP STORE, MULTI BRAND STORE, Реновация, DIVERSE Man / Women, DIVERSE Brand Store</caption>
             <thead>
               <tr>
                 <th className="text-left py-4 pr-6 text-xs label text-brand-gray-400 font-medium w-[140px]">
@@ -447,9 +381,6 @@ function ContactSection({ contactData }: { contactData?: { contactHeading?: stri
     setSubmitStatus("idle");
     try {
       const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT || "/api/lead";
-      const directionLabel = data.direction
-        ? DIRECTION_OPTIONS.find((o) => o.id === data.direction)?.label ?? data.direction
-        : "";
       const formatLabel = data.format
         ? FORMAT_OPTIONS.find((o) => o.id === data.format)?.label ?? data.format
         : "";
@@ -460,20 +391,16 @@ function ContactSection({ contactData }: { contactData?: { contactHeading?: stri
           name: data.name,
           phone: data.phone,
           format: data.format || "",
-          direction: data.direction || "",
           city: detectedCity,
           message: data.city
-            ? `Хочу открыть магазин в городе: ${data.city}${formatLabel ? `, формат: ${formatLabel}` : ""}${directionLabel ? `, направление: ${directionLabel}` : ""}${data.message ? `. ${data.message}` : ""}`
-            : data.message || [formatLabel && `Хочу открыть магазин по франшизе, формат: ${formatLabel}`, directionLabel && `Направление: ${directionLabel}`].filter(Boolean).join(". ") || "Хочу открыть магазин по франшизе",
+            ? `Хочу открыть магазин в городе: ${data.city}${formatLabel ? `, формат: ${formatLabel}` : ""}${data.message ? `. ${data.message}` : ""}`
+            : data.message || (formatLabel ? `Хочу открыть магазин по франшизе, формат: ${formatLabel}` : "Хочу открыть магазин по франшизе"),
         }),
       });
       if (!res.ok) throw new Error("Server error");
       setSubmitStatus("success");
       reset();
     } catch {
-      const directionLabel = data.direction
-        ? DIRECTION_OPTIONS.find((o) => o.id === data.direction)?.label ?? data.direction
-        : "";
       const formatLabel = data.format
         ? FORMAT_OPTIONS.find((o) => o.id === data.format)?.label ?? data.format
         : "";
@@ -481,8 +408,8 @@ function ContactSection({ contactData }: { contactData?: { contactHeading?: stri
         name: data.name,
         phone: data.phone,
         message: data.city
-          ? `Хочу открыть магазин в городе: ${data.city}${formatLabel ? `, формат: ${formatLabel}` : ""}${directionLabel ? `, направление: ${directionLabel}` : ""}${data.message ? `. ${data.message}` : ""}`
-          : data.message || [formatLabel && `Хочу открыть магазин по франшизе, формат: ${formatLabel}`, directionLabel && `Направление: ${directionLabel}`].filter(Boolean).join(". ") || "Хочу открыть магазин по франшизе",
+          ? `Хочу открыть магазин в городе: ${data.city}${formatLabel ? `, формат: ${formatLabel}` : ""}${data.message ? `. ${data.message}` : ""}`
+          : data.message || (formatLabel ? `Хочу открыть магазин по франшизе, формат: ${formatLabel}` : "Хочу открыть магазин по франшизе"),
         createdAt: Date.now(),
       });
       setSubmitStatus("error");
@@ -561,22 +488,6 @@ function ContactSection({ contactData }: { contactData?: { contactHeading?: stri
                     <option value="" disabled>Выберите формат</option>
                     {FORMAT_OPTIONS.map((f) => (
                       <option key={f.id} value={f.id}>{f.label} — {f.desc}</option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label htmlFor="franchise-direction" className="block text-xs label text-brand-gray-500 mb-2">
-                    Направление
-                  </label>
-                  <select
-                    id="franchise-direction"
-                    {...register("direction")}
-                    defaultValue=""
-                    className="w-full px-4 py-3 text-sm bg-brand-gray-100 border border-brand-gray-200 rounded-sm outline-none focus:border-brand-black transition-colors appearance-none select-arrow-dark"
-                  >
-                    <option value="" disabled>Выберите направление</option>
-                    {DIRECTION_OPTIONS.map((d) => (
-                      <option key={d.id} value={d.id}>{d.label} — {d.desc}</option>
                     ))}
                   </select>
                 </div>
@@ -769,7 +680,6 @@ export default function FranchiseContent({
           plansCollapse={plansMeta.plansCollapse}
           plansDetails={plansMeta.plansDetails}
         />
-        <DirectionsSection />
         <ComparisonTable comparisonRows={comparisonRows} plans={plansList} />
         <FinancialModel s={fin} />
         <BenefitsSection s={ben} />

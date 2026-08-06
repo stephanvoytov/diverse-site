@@ -5,14 +5,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
-import { CONTACTS, DIRECTION_OPTIONS } from "@/config/site";
+import { CONTACTS } from "@/config/site";
 import { useUserCity } from "@/lib/user-city-context";
 
 export default function ContactFloating() {
   const [isOpen, setIsOpen] = useState(false);
   const [callbackOpen, setCallbackOpen] = useState(false);
   const [phone, setPhone] = useState<string | undefined>();
-  const [direction, setDirection] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [hasScrolled, setHasScrolled] = useState(false);
   const { city } = useUserCity();
@@ -41,9 +40,6 @@ export default function ContactFloating() {
     e.preventDefault();
     if (!phone || phone.length < 5) return;
     setStatus("sending");
-    const directionLabel = direction
-      ? DIRECTION_OPTIONS.find((o) => o.id === direction)?.label ?? direction
-      : "";
     try {
       const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT || "/api/lead";
       const res = await fetch(endpoint, {
@@ -52,13 +48,13 @@ export default function ContactFloating() {
         body: JSON.stringify({
           name: "Заказ звонка",
           phone,
-          message: `Обратный звонок${directionLabel ? `, направление: ${directionLabel}` : ""}`,
+          message: "Обратный звонок",
           city,
         }),
       });
       if (!res.ok) throw new Error();
       setStatus("success");
-      setTimeout(() => { setCallbackOpen(false); setStatus("idle"); setPhone(undefined); setDirection(""); }, 2000);
+      setTimeout(() => { setCallbackOpen(false); setStatus("idle"); setPhone(undefined); }, 2000);
     } catch {
       setStatus("error");
     }
@@ -184,18 +180,6 @@ export default function ContactFloating() {
                         placeholder="+7 (999) 123-45-67"
                         className="phone-input-accent"
                       />
-
-                      <select
-                        value={direction}
-                        onChange={(e) => setDirection(e.target.value)}
-                        className="w-full px-3 py-2.5 text-xs bg-brand-gray-100 border border-brand-gray-200 rounded-sm outline-none focus:border-brand-accent transition-colors appearance-none select-arrow-dark"
-                        aria-label="Направление"
-                      >
-                        <option value="" disabled>Направление</option>
-                        {DIRECTION_OPTIONS.map((d) => (
-                          <option key={d.id} value={d.id}>{d.label}</option>
-                        ))}
-                      </select>
 
                       {status === "success" && (
                         <p className="text-xs text-green-600 text-center">✓ Заявка отправлена</p>

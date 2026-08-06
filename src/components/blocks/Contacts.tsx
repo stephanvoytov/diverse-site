@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contactSocials } from "@/data/socials";
-import { CONTACTS, FORMAT_OPTIONS, DIRECTION_OPTIONS, SITE } from "@/config/site";
+import { CONTACTS, FORMAT_OPTIONS, SITE } from "@/config/site";
 import { formatPhone } from "@/lib/phone";
 import { useUserCity } from "@/lib/user-city-context";
 import { queueLead } from "@/lib/lead-queue";
@@ -23,7 +23,6 @@ const contactSchema = z.object({
   name: z.string().min(2, "Введите имя").max(50, "Слишком длинное имя"),
   phone: z.string().min(5, "Введите корректный телефон"),
   format: z.string().optional(),
-  direction: z.string().optional(),
   message: z.string().optional(),
 });
 
@@ -144,25 +143,6 @@ export default function Contacts({ data }: { data?: typeof fallback }) {
                   {FORMAT_OPTIONS.map((f) => (
                     <option key={f.id} value={f.id} className="text-brand-black">
                       {f.label} — {f.desc}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
-                <label htmlFor="contacts-direction" className="block text-xs label text-white/50 mb-2">
-                  Направление
-                </label>
-                <select
-                  id="contacts-direction"
-                  {...register("direction")}
-                  defaultValue=""
-                  className="w-full px-4 py-3 text-sm bg-white/10 border border-white/20 rounded-sm outline-none focus:border-white transition-colors text-white appearance-none select-arrow-light"
-                >
-                  <option value="" disabled className="text-brand-gray-400">Выберите направление</option>
-                  {DIRECTION_OPTIONS.map((d) => (
-                    <option key={d.id} value={d.id} className="text-brand-black">
-                      {d.label} — {d.desc}
                     </option>
                   ))}
                 </select>

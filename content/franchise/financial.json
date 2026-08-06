@@ -10,7 +10,6 @@
     { "label": "ФОТ (2–3 сотрудника)", "value": "~150 000 ₽", "detail": "", "accent": false },
     { "label": "Маркетинг / прочие", "value": "~50 000 ₽", "detail": "", "accent": false },
     { "label": "Операционная прибыль / мес", "value": "от 300 000 ₽", "detail": "", "accent": true },
-    { "label": "Инвестиции (вход)", "value": "от 1,5 млн ₽", "detail": "", "accent": false },
     { "label": "Точка безубыточности", "value": "~700 000 ₽/мес", "detail": "Порог выручки для покрытия всех расходов", "accent": false },
     { "label": "Срок окупаемости", "value": "~12–14 мес", "detail": "С учётом сезонности", "accent": false }
   ],

@@ -41,27 +41,13 @@ export const SOCIALS = {
 /* ===== Форматы франшизы (для форм) ===== */
 
 export const FORMAT_OPTIONS = [
-  { id: "island" as const,     label: "POP-UP STORE",      desc: "от 800 тыс ₽, от 20 м²" },
-  { id: "renovation" as const, label: "Реновация",         desc: "от 1,5 млн ₽, готовое помещение" },
-  { id: "standard" as const,   label: "Полный стандарт",   desc: "от 3 млн ₽, от 60 м²" },
+  { id: "island" as const,     label: "POP-UP STORE",        desc: "от 20 м², галерея ТЦ" },
+  { id: "multibrand" as const, label: "MULTI BRAND STORE",   desc: "в мультибрендовом магазине" },
+  { id: "renovation" as const, label: "Реновация",           desc: "переоборудование, готовое помещение" },
+  { id: "manwomen" as const,   label: "DIVERSE Man / Women", desc: "от 70 м², мужская или женская коллекция" },
+  { id: "brandstore" as const, label: "DIVERSE Brand Store", desc: "от 120 м², полный формат" },
 ] as const;
 
 export type FormatId = (typeof FORMAT_OPTIONS)[number]["id"];
-
-/* ===== Направления коллекции (для форм) ===== */
-
-export const DIRECTION_OPTIONS = [
-  { id: "man" as const,     label: "Diverse Man",    desc: "Мужская коллекция" },
-  { id: "women" as const,   label: "Diverse Women",  desc: "Женская коллекция" },
-  { id: "mix" as const,     label: "Микс",           desc: "Мужская и женская" },
-] as const;
-
-export type DirectionId = (typeof DIRECTION_OPTIONS)[number]["id"];
-
-export const DIRECTION_LABELS: Record<DirectionId, string> = {
-  man: "Diverse Man",
-  women: "Diverse Women",
-  mix: "Микс",
-};
 
 

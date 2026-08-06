@@ -11,10 +11,10 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 export const metadata: Metadata = {
   title: "О бренде Diverse — история, коллекции и философия",
   description:
-    "Diverse — польский бренд одежды с 30-летней историей. Более 400 магазинов в 9 странах, партнёр Dakar Rally. Коллекции, направления и факты о бренде.",
+    "Diverse — польский бренд одежды с 30-летней историей. Более 350 магазинов в 10 странах, партнёр Dakar Rally. Коллекции, направления и факты о бренде.",
   openGraph: {
     title: "О бренде Diverse — история, коллекции и философия",
-    description: "Diverse — польский бренд одежды с 30-летней историей. Более 400 магазинов в 9 странах, партнёр Dakar Rally.",
+    description: "Diverse — польский бренд одежды с 30-летней историей. Более 350 магазинов в 10 странах, партнёр Dakar Rally.",
     url: `${SITE_URL}${basePath}/about/`,
     siteName: "Diverse Россия",
     locale: "ru_RU",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "О бренде Diverse — история, коллекции и философия",
-    description: "Diverse — польский бренд одежды с 30-летней историей. Более 400 магазинов в 9 странах, партнёр Dakar Rally.",
+    description: "Diverse — польский бренд одежды с 30-летней историей. Более 350 магазинов в 10 странах, партнёр Dakar Rally.",
     images: [`${basePath}/images/about/diverse.jpg`],
   },
   keywords: [

@@ -70,11 +70,9 @@ export default function Franchise({ data }: { data?: typeof fallback }) {
           </motion.p>
         </motion.div>
 
-        {/* Cards — тизер: имя, описание и инвестиции */}
-
-        {/* Cards — тизер: имя, описание и инвестиции */}
+        {/* Cards — тизер: имя, описание и прибыль */}
         <motion.div
-          className="grid md:grid-cols-3 gap-[4px] max-w-5xl mx-auto"
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-[4px] max-w-5xl mx-auto"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
@@ -82,7 +80,7 @@ export default function Franchise({ data }: { data?: typeof fallback }) {
             visible: { transition: { staggerChildren: 0.1 } },
           }}
         >
-          {(s.plans || []).map((plan: { id: string; tagline: string; name: string; desc: string; investment: string; _content_source?: unknown }) => (
+          {(s.plans || []).map((plan: { id: string; tagline: string; name: string; desc: string; _content_source?: unknown }) => (
             <motion.div
               key={plan.id}
               variants={{
@@ -105,16 +103,8 @@ export default function Franchise({ data }: { data?: typeof fallback }) {
               <p className="text-[13px] text-white/60 leading-relaxed mb-6" data-tina-field={tinaField(plan, "desc")}>
                 {plan.desc}
               </p>
-              {/* Investment + Profit — stacked vertically */}
+              {/* Profit — stacked vertically */}
               <div className="mt-auto pt-5 space-y-3">
-                <div>
-                  <p className="text-[28px] font-bold text-brand-accent mb-0.5" data-tina-field={tinaField(plan, "investment")}>
-                    {plan.investment}
-                  </p>
-                  <p className="text-[11px] text-white/50 tracking-[0.1em] uppercase" data-tina-field={tinaField(s.franchiseLabels, "investment")}>
-                    {s.franchiseLabels.investment}
-                  </p>
-                </div>
                 <div>
                   <p className="text-lg font-bold text-white">
                     {s.cardProfit?.[plan.id as keyof typeof s.cardProfit] || ""}
@@ -126,63 +116,6 @@ export default function Franchise({ data }: { data?: typeof fallback }) {
               </div>
             </motion.div>
           ))}
-        </motion.div>
-
-        {/* Directions — компактный тизер направлений коллекции */}
-        <motion.div
-          className="mt-8 md:mt-10 max-w-5xl mx-auto"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          variants={{
-            visible: { transition: { staggerChildren: 0.08 } },
-          }}
-        >
-          <motion.p
-            variants={{
-              hidden: { opacity: 0, y: 10 },
-              visible: { opacity: 1, y: 0 },
-            }}
-            className="text-center text-[10px] tracking-[0.2em] uppercase text-white/40 mb-4"
-          >
-            Направление коллекции
-          </motion.p>
-          <motion.div
-            variants={{
-              hidden: { opacity: 0, y: 10 },
-              visible: { opacity: 1, y: 0 },
-            }}
-            className="grid grid-cols-1 sm:grid-cols-3 gap-[4px]"
-          >
-            {[
-              { name: "Diverse Man", desc: "Мужская коллекция" },
-              { name: "Diverse Women", desc: "Женская коллекция" },
-              { name: "Микс", desc: "Мужская и женская" },
-            ].map((d) => (
-              <div
-                key={d.name}
-                className="rounded-sm border border-white/10 bg-white/5 px-5 py-4 text-center hover:bg-white/[0.07] hover:border-white/15 transition-colors"
-              >
-                <p className="text-sm font-bold text-white">{d.name}</p>
-                <p className="text-[11px] text-white/50 mt-0.5">{d.desc}</p>
-              </div>
-            ))}
-          </motion.div>
-          <motion.p
-            variants={{
-              hidden: { opacity: 0, y: 10 },
-              visible: { opacity: 1, y: 0 },
-            }}
-            className="text-center mt-3"
-          >
-            <a
-              href="/franchise/#directions"
-              className="inline-flex items-center gap-2 text-xs text-white/50 hover:text-white transition-colors group"
-            >
-              Подробнее о направлениях
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
-            </a>
-          </motion.p>
         </motion.div>
 
         {/* Disclaimer */}
