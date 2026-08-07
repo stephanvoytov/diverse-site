@@ -66,10 +66,8 @@ export default function PartnerTicker({ simple, data }: PartnerTickerProps) {
                   draggable={false}
                   className="object-contain"
                   style={{
-                    maxWidth: "min(25vw, 140px)",
-                    maxHeight: "clamp(36px, 5vw, 52px)",
-                    width: "auto",
-                    height: "auto",
+                    width: "min(25vw, 140px)",
+                    height: "clamp(36px, 5vw, 52px)",
                   }}
                 />
               )}
@@ -90,10 +88,8 @@ export default function PartnerTicker({ simple, data }: PartnerTickerProps) {
                   draggable={false}
                   className="object-contain"
                   style={{
-                    maxWidth: "min(25vw, 140px)",
-                    maxHeight: "clamp(36px, 5vw, 52px)",
-                    width: "auto",
-                    height: "auto",
+                    width: "min(25vw, 140px)",
+                    height: "clamp(36px, 5vw, 52px)",
                   }}
                 />
               )}

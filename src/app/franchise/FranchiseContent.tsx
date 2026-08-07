@@ -21,13 +21,17 @@ import "react-phone-number-input/style.css";
 
 const franchiseFormSchema = z.object({
   name: z.string().min(2, "Введите имя").max(50, "Слишком длинное имя"),
-  phone: z.string().min(5, "Введите корректный телефон"),
+  phone: z
+    .union([z.string(), z.null(), z.undefined()])
+    .transform((v) => v ?? "")
+    .pipe(z.string().min(5, "Введите корректный телефон")),
   format: z.string().optional(),
   city: z.string().optional(),
   message: z.string().min(5, "Напишите пару слов").max(500, "Слишком длинное сообщение").optional().or(z.literal("")),
 });
 
-type FranchiseForm = z.infer<typeof franchiseFormSchema>;
+type FranchiseFormInput = z.input<typeof franchiseFormSchema>;
+type FranchiseForm = z.output<typeof franchiseFormSchema>;
 
 /* ——— Types ——— */
 
@@ -380,7 +384,7 @@ function ContactSection({ contactData }: { contactData?: { contactHeading?: stri
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
-  } = useForm<FranchiseForm>({
+  } = useForm<FranchiseFormInput, unknown, FranchiseForm>({
     resolver: zodResolver(franchiseFormSchema),
   });
 

@@ -21,12 +21,16 @@ const fallback = siteContent.contacts;
 
 const contactSchema = z.object({
   name: z.string().min(2, "Введите имя").max(50, "Слишком длинное имя"),
-  phone: z.string().min(5, "Введите корректный телефон"),
+  phone: z
+    .union([z.string(), z.null(), z.undefined()])
+    .transform((v) => v ?? "")
+    .pipe(z.string().min(5, "Введите корректный телефон")),
   format: z.string().optional(),
   message: z.string().optional(),
 });
 
-type ContactForm = z.infer<typeof contactSchema>;
+type ContactFormInput = z.input<typeof contactSchema>;
+type ContactForm = z.output<typeof contactSchema>;
 
 export default function Contacts({ data }: { data?: typeof fallback }) {
   const s = data ?? fallback;
@@ -38,7 +42,7 @@ export default function Contacts({ data }: { data?: typeof fallback }) {
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
-  } = useForm<ContactForm>({
+  } = useForm<ContactFormInput, unknown, ContactForm>({
     resolver: zodResolver(contactSchema),
   });
 
