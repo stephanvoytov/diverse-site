@@ -666,7 +666,7 @@ export default defineConfig({
             fields: [
               { type: "string", name: "benefitsEyebrow", label: "Айброу" },
               { type: "string", name: "benefitsHeading", label: "Заголовок", ui: { component: "textarea" } },
-              { type: "string", name: "benefitsItems", label: "Преимущества", list: true, ui: { component: "textarea" } },
+              { type: "string", name: "benefitsItems", label: "Преимущества", list: true },
             ],
           },
           {
@@ -719,6 +719,26 @@ export default defineConfig({
                   { type: "string", name: "mail", label: "почта (текст ссылки)" },
                   { type: "string", name: "consent", label: "Согласие на обработку (до ссылки)" },
                   { type: "string", name: "privacyLink", label: "Ссылка на политику" },
+                ],
+              },
+            ],
+          },
+          {
+            name: "franchiseFaq",
+            label: "FAQ (Часто спрашивают)",
+            fields: [
+              { type: "string", name: "eyebrow", label: "Айброу" },
+              { type: "string", name: "headingBefore", label: "Заголовок (до акцента)" },
+              { type: "string", name: "headingAccent", label: "Заголовок (акцент)" },
+              { type: "string", name: "desc", label: "Описание" },
+              {
+                type: "object",
+                name: "items",
+                label: "Вопросы",
+                list: true,
+                fields: [
+                  { type: "string", name: "question", label: "Вопрос" },
+                  { type: "string", name: "answer", label: "Ответ", ui: { component: "textarea" } },
                 ],
               },
             ],

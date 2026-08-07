@@ -59,6 +59,7 @@ export default function AboutContent({
   const { data: timelineData } = useTina(timeline || EMPTY);
   const { data: repData } = useTina(representative || EMPTY);
   const { data: ctaData } = useTina(cta || EMPTY);
+  const { data: partnersTina } = useTina(partners || EMPTY);
 
   const h = (heroData?.about || {}) as {
     heroEyebrow?: string;
@@ -96,7 +97,7 @@ export default function AboutContent({
     ctaHeading?: string;
     ctaButton?: string;
   };
-  const partnersObj = ((partners?.data as Record<string, unknown>)?.["about"] || {}) as {
+  const partnersObj = ((partnersTina?.about as Record<string, unknown>) || {}) as {
     partnersEyebrow?: string;
     partnerItems?: Array<{ id?: string; name?: string; logo?: string }>;
   };

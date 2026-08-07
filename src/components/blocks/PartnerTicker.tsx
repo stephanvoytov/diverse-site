@@ -29,8 +29,8 @@ export default function PartnerTicker({ simple, data }: PartnerTickerProps) {
     <section data-header="light" className="bg-white py-16 md:py-24">
       <div className="container-brand text-center">
         {simple ? (
-          <p className="text-xs eyebrow text-brand-gray-400 pb-8 md:pb-12" data-tina-field={data ? tinaField(data.partnersEyebrowSimple, "simpleEyebrow") : undefined}>
-            {data?.partnersEyebrowSimple?.simpleEyebrow || "Партнёры Diverse"}
+          <p className="text-xs eyebrow text-brand-gray-400 pb-8 md:pb-12" data-tina-field={data ? tinaField(data, "partnersEyebrow") : undefined}>
+            {data?.partnersEyebrow || data?.partnersEyebrowSimple?.simpleEyebrow || "Партнёры Diverse"}
           </p>
         ) : (
           <div className="pb-8 md:pb-12">

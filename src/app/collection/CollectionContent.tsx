@@ -10,7 +10,7 @@ import Footer from "@/components/shared/Footer";
 import { useModal } from "@/lib/modal-context";
 import { asset } from "@/lib/path";
 
-interface CollectionItem {
+type CollectionItem = {
   id?: string;
   name?: string;
   short?: string;
@@ -20,7 +20,7 @@ interface CollectionItem {
   colorTo?: string;
   image?: string;
   bgPosition?: string;
-}
+};
 
 function CollectionSection({
   item,
@@ -95,7 +95,7 @@ function CollectionSection({
             isEven ? "justify-start pl-[8%]" : "justify-end pr-[8%]"
           }`}
         >
-          <span className="text-[clamp(8rem,25vw,20rem)] font-black text-white/[0.04] select-none tracking-[0.05em] leading-none">
+          <span className="text-[clamp(8rem,25vw,20rem)] font-black text-white/[0.04] select-none tracking-[0.05em] leading-none" data-tina-field={tinaField(item, "short")}>
             {item.short}
           </span>
         </div>
@@ -114,18 +114,18 @@ function CollectionSection({
                 {String(index + 1).padStart(2, "0")}
               </span>
               <span className="w-8 h-px bg-white/20" />
-              <span className="text-xs md:text-sm tracking-[0.25em] font-semibold text-brand-accent">
+              <span className="text-xs md:text-sm tracking-[0.25em] font-semibold text-brand-accent" data-tina-field={tinaField(item, "tag")}>
                 {item.tag}
               </span>
             </div>
 
             {/* Name */}
-            <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-white leading-[0.92] tracking-[-0.02em] mt-1">
+            <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-white leading-[0.92] tracking-[-0.02em] mt-1" data-tina-field={tinaField(item, "name")}>
               {item.name}
             </h2>
 
             {/* Description */}
-            <p className="text-base sm:text-lg md:text-xl text-white/70 leading-relaxed mt-3 md:mt-4 max-w-lg">
+            <p className="text-base sm:text-lg md:text-xl text-white/70 leading-relaxed mt-3 md:mt-4 max-w-lg" data-tina-field={tinaField(item, "vibe")}>
               {item.vibe}
             </p>
           </div>

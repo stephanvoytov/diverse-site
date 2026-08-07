@@ -61,6 +61,7 @@ export default async function Page() {
   const benefits = readTinaFile("franchise", "benefits.json");
   const gallery = readTinaFile("franchise", "gallery.json");
   const contact = readTinaFile("franchise", "contact.json");
+  const faq = readTinaFile("franchise", "faq.json");
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -104,6 +105,7 @@ export default async function Page() {
         benefits={benefits}
         gallery={gallery}
         contact={contact}
+        faq={faq}
       />
     </>
   );

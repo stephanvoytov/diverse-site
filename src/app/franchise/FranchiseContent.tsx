@@ -432,8 +432,9 @@ function ContactSection({ contactData }: { contactData?: { contactHeading?: stri
       <div className="container-brand">
         <SectionHeader
           desc={contactData?.contactDesc || "Оставьте заявку — мы ответим на все вопросы"}
+          descField={contactData ? tinaField(contactData, "contactDesc") : undefined}
         >
-          <span dangerouslySetInnerHTML={{ __html: contactData?.contactHeading || 'Начните <span class="text-brand-accent">свой бизнес</span>' }} />
+          <span data-tina-field={contactData ? tinaField(contactData, "contactHeading") : undefined} dangerouslySetInnerHTML={{ __html: contactData?.contactHeading || 'Начните <span class="text-brand-accent">свой бизнес</span>' }} />
         </SectionHeader>
 
         <motion.div
@@ -450,7 +451,7 @@ function ContactSection({ contactData }: { contactData?: { contactHeading?: stri
           >
             <div className="space-y-5">
               <div>
-                <label htmlFor="franchise-name" className="block text-xs label text-brand-gray-500 mb-2">
+                <label htmlFor="franchise-name" className="block text-xs label text-brand-gray-500 mb-2" data-tina-field={f ? tinaField(f, "name") : undefined}>
                   {f.name || "Имя"} <span className="text-brand-accent">*</span>
                 </label>
                 <input
@@ -471,7 +472,7 @@ function ContactSection({ contactData }: { contactData?: { contactHeading?: stri
 
               <div className="grid sm:grid-cols-2 gap-5">
                 <div>
-                  <label htmlFor="franchise-phone" className="block text-xs label text-brand-gray-500 mb-2">
+                  <label htmlFor="franchise-phone" className="block text-xs label text-brand-gray-500 mb-2" data-tina-field={f ? tinaField(f, "phone") : undefined}>
                     {f.phone || "Телефон"} <span className="text-brand-accent">*</span>
                   </label>
                   <PhoneInput
@@ -487,7 +488,7 @@ function ContactSection({ contactData }: { contactData?: { contactHeading?: stri
                   )}
                 </div>
                 <div>
-                  <label htmlFor="franchise-format" className="block text-xs label text-brand-gray-500 mb-2">
+                  <label htmlFor="franchise-format" className="block text-xs label text-brand-gray-500 mb-2" data-tina-field={f ? tinaField(f, "format") : undefined}>
                     {f.format || "Формат"}
                   </label>
                   <select
@@ -505,7 +506,7 @@ function ContactSection({ contactData }: { contactData?: { contactHeading?: stri
               </div>
 
               <div>
-                <label htmlFor="franchise-city" className="block text-xs label text-brand-gray-500 mb-2">
+                <label htmlFor="franchise-city" className="block text-xs label text-brand-gray-500 mb-2" data-tina-field={f ? tinaField(f, "city") : undefined}>
                   {f.city || "Город"}
                 </label>
                 <input
@@ -518,7 +519,7 @@ function ContactSection({ contactData }: { contactData?: { contactHeading?: stri
               </div>
 
               <div>
-                <label htmlFor="franchise-message" className="block text-xs label text-brand-gray-500 mb-2">
+                <label htmlFor="franchise-message" className="block text-xs label text-brand-gray-500 mb-2" data-tina-field={f ? tinaField(f, "message") : undefined}>
                   {f.message || "Комментарий"}
                 </label>
                 <textarea
@@ -547,12 +548,13 @@ function ContactSection({ contactData }: { contactData?: { contactHeading?: stri
               <button
                 type="submit"
                 disabled={isSubmitting || submitStatus === "success"}
+                data-tina-field={f ? tinaField(f, "submit") : undefined}
                 className="w-full py-4 bg-brand-accent text-white text-xs tracking-[0.2em] uppercase font-semibold rounded-sm hover:bg-brand-accent-hover transition-colors disabled:opacity-50"
               >
                 {isSubmitting ? (f.submitting || "Отправка…") : submitStatus === "success" ? (f.submitted || "Отправлено ✓") : (f.submit || "Отправить заявку")}
               </button>
 
-              <p className="text-xs text-brand-gray-300 text-center">
+              <p className="text-xs text-brand-gray-300 text-center" data-tina-field={f ? tinaField(f, "consent") : undefined}>
                 {f.consent || "Нажимая «Отправить», вы соглашаетесь на обработку персональных данных и с"}{" "}
                 <Link href="/privacy/" className="underline hover:no-underline">
                   {f.privacyLink || "политикой конфиденциальности"}
@@ -576,6 +578,7 @@ export default function FranchiseContent({
   benefits,
   gallery,
   contact,
+  faq,
 }: {
   hero: TinaResult | null;
   plans: TinaResult | null;
@@ -584,12 +587,16 @@ export default function FranchiseContent({
   benefits: TinaResult | null;
   gallery: TinaResult | null;
   contact: TinaResult | null;
+  faq: TinaResult | null;
 }) {
   const { data: heroData } = useTina(hero || EMPTY);
   const { data: plansData } = useTina(plans || EMPTY);
   const { data: comparisonData } = useTina(comparison || EMPTY);
   const { data: financialData } = useTina(financial || EMPTY);
   const { data: benefitsData } = useTina(benefits || EMPTY);
+  const { data: galleryTina } = useTina(gallery || EMPTY);
+  const { data: contactTina } = useTina(contact || EMPTY);
+  const { data: faqTina } = useTina(faq || EMPTY);
 
   const h = (heroData?.franchise || {}) as {
     heroEyebrow?: string;
@@ -614,12 +621,12 @@ export default function FranchiseContent({
     comparisonHeading?: string;
     comparisonParamLabel?: string;
   };
-  const contactData = ((contact?.data as Record<string, unknown>)?.franchise || {}) as {
+  const contactData = ((contactTina?.franchise as Record<string, unknown>) || {}) as {
     contactHeading?: string;
     contactDesc?: string;
     formLabels?: Record<string, string>;
   };
-  const galleryData = ((gallery?.data as Record<string, unknown>)?.franchise || {}) as {
+  const galleryData = ((galleryTina?.franchise as Record<string, unknown>) || {}) as {
     galleryEyebrow?: string;
     galleryDesc?: string;
     galleryHeading?: string;
@@ -708,7 +715,7 @@ export default function FranchiseContent({
         <FinancialModel s={fin} />
         <BenefitsSection s={ben} />
         <div id="gallery"><StoreGallery data={galleryData} /></div>
-        <Faq />
+        <Faq data={(faqTina?.franchise as typeof import("@/data/site-content").siteContent.faq) || undefined} />
         <ContactSection contactData={contactData} />
       </main>
       <Footer />
