@@ -53,7 +53,7 @@ function PlansSection({ plans, plansEyebrow, plansDesc, plansHeading, plansColla
   plansCollapse?: string;
   plansDetails?: string;
   plansDisclaimer?: string;
-  plansMeta?: { plansDisclaimer?: string };
+  plansMeta?: { plansEyebrow?: string; plansDesc?: string; plansHeading?: string; plansDisclaimer?: string };
 }) {
   const [openId, setOpenId] = useState<string | null>(null);
 
@@ -63,8 +63,10 @@ function PlansSection({ plans, plansEyebrow, plansDesc, plansHeading, plansColla
         <SectionHeader
           eyebrow={plansEyebrow || "Варианты"}
           desc={plansDesc || "Пять вариантов сотрудничества под любой бюджет и локацию"}
+          eyebrowField={plansMeta ? tinaField(plansMeta, "plansEyebrow") : undefined}
+          descField={plansMeta ? tinaField(plansMeta, "plansDesc") : undefined}
         >
-          <span dangerouslySetInnerHTML={{ __html: plansHeading || 'Выберите свой <span class="text-brand-accent">формат</span>' }} />
+          <span data-tina-field={plansMeta ? tinaField(plansMeta, "plansHeading") : undefined} dangerouslySetInnerHTML={{ __html: plansHeading || 'Выберите свой <span class="text-brand-accent">формат</span>' }} />
         </SectionHeader>
 
         <motion.div
@@ -194,11 +196,11 @@ function ComparisonTable({ comparisonRows, plans, comparisonMeta }: { comparison
             <tbody>
               {comparisonRows.map((row) => (
                 <tr key={row.label} className="border-t border-brand-gray-200">
-                  <td className="py-4 pr-6 text-brand-gray-500 font-medium">{row.label}</td>
+                  <td className="py-4 pr-6 text-brand-gray-500 font-medium" data-tina-field={tinaField(row, "label")}>{row.label}</td>
                   {row.values.map((val, vi) => (
                     <td key={vi} className={`text-center py-4 px-4 ${
                       vi === 0 ? "text-brand-black" : "text-brand-gray-400"
-                    }`}>
+                    }`} data-tina-field={tinaField(row, "values", vi)}>
                       {val}
                     </td>
                   ))}
@@ -234,8 +236,8 @@ function ComparisonTable({ comparisonRows, plans, comparisonMeta }: { comparison
               <tbody>
                 {comparisonRows.map((row) => (
                   <tr key={row.label} className="border-b border-brand-gray-100 last:border-b-0">
-                    <td className="py-3.5 px-4 text-brand-gray-500 font-medium w-1/2">{row.label}</td>
-                    <td className="py-3.5 px-4 text-brand-black font-semibold text-right">
+                    <td className="py-3.5 px-4 text-brand-gray-500 font-medium w-1/2" data-tina-field={tinaField(row, "label")}>{row.label}</td>
+                    <td className="py-3.5 px-4 text-brand-black font-semibold text-right" data-tina-field={tinaField(row, "values", activeTab)}>
                       {row.values[activeTab]}
                     </td>
                   </tr>
@@ -353,7 +355,7 @@ function BenefitsSection({ s }: { s: Record<string, unknown> }) {
             visible: { transition: { staggerChildren: 0.06 } },
           }}
         >
-          {benefitsItems.map((b) => (
+          {benefitsItems.map((b, bi) => (
             <motion.div
               key={b}
               variants={{
@@ -363,7 +365,7 @@ function BenefitsSection({ s }: { s: Record<string, unknown> }) {
               className="flex items-start gap-4 p-5 bg-brand-gray-100 rounded-sm"
             >
               <span className="w-2 h-2 rounded-full bg-brand-accent mt-2 shrink-0" />
-              <span className="text-sm md:text-base text-brand-black font-medium">{b}</span>
+              <span className="text-sm md:text-base text-brand-black font-medium" data-tina-field={tinaField(s, "benefitsItems", bi)}>{b}</span>
             </motion.div>
           ))}
         </motion.div>
