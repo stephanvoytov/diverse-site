@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useModal } from "@/lib/modal-context";
 import { useUserCity } from "@/lib/user-city-context";
-import { queueLead } from "@/lib/lead-queue";
+import { queueLead, flushQueue } from "@/lib/lead-queue";
 import { lockBody, unlockBody } from "@/lib/body-scroll";
 import { FORMAT_OPTIONS, CONTACTS } from "@/config/site";
 import PhoneInput from "react-phone-number-input";
@@ -422,6 +422,8 @@ export default function ContactModal() {
       });
       if (!res.ok) throw new Error("Server error");
       setSubmitStatus("success");
+      // Доставка накопленных офлайн-заявок (не блокирует UI)
+      void flushQueue(endpoint);
       setTimeout(() => { close(); }, 2000);
     } catch {
       // Сохраняем лид локально, чтобы не потерять

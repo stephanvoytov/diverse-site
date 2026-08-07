@@ -7,6 +7,7 @@ import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { CONTACTS } from "@/config/site";
 import { useUserCity } from "@/lib/user-city-context";
+import { flushQueue } from "@/lib/lead-queue";
 
 export default function ContactFloating() {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,6 +36,12 @@ export default function ContactFloating() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [isOpen]);
+
+  // Попытка доставить офлайн-заявки (localStorage) при загрузке страницы
+  useEffect(() => {
+    const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT || "/api/lead";
+    void flushQueue(endpoint);
+  }, []);
 
   const handleCallbackSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

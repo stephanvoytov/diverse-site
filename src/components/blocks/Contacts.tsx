@@ -12,7 +12,7 @@ import { contactSocials } from "@/data/socials";
 import { CONTACTS, FORMAT_OPTIONS, SITE } from "@/config/site";
 import { formatPhone } from "@/lib/phone";
 import { useUserCity } from "@/lib/user-city-context";
-import { queueLead } from "@/lib/lead-queue";
+import { queueLead, flushQueue } from "@/lib/lead-queue";
 import PhoneInput from "react-phone-number-input/react-hook-form";
 import { siteContent } from "@/data/site-content";
 import "react-phone-number-input/style.css";
@@ -58,6 +58,8 @@ export default function Contacts({ data }: { data?: typeof fallback }) {
       if (!res.ok) throw new Error("Server error");
       setSubmitStatus("success");
       reset();
+      // Доставка накопленных офлайн-заявок (не блокирует UI)
+      void flushQueue(endpoint);
     } catch {
       // Сохраняем лид локально, чтобы не потерять при ошибке сети/сервера
       queueLead({

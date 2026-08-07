@@ -201,11 +201,19 @@ async function handleCity(ctx: BotContext): Promise<void> {
 }
 
 async function handleExport(ctx: BotContext): Promise<void> {
-  const csv = await fetchLeads("export", "month");
-  if (typeof csv === "string") {
-    await sendTelegramMessage(ctx.chatId, `📥 CSV-файл формируется...\n\nСкачать: /api/leads?action=export&period=month`);
-  } else {
+  const csv = await fetchLeadsCsv("month");
+  if (csv === null) {
     await sendTelegramMessage(ctx.chatId, `⚠️ Ошибка экспорта`);
+    return;
+  }
+  // Пустой экспорт = только строка заголовка
+  if (csv.trim() === "" || csv.trim() === "ID,Имя,Телефон,Email,Сообщение,Город,Источник,Дата") {
+    await sendTelegramMessage(ctx.chatId, `📭 Заявок за месяц пока нет`);
+    return;
+  }
+  const ok = await sendTelegramDocument(ctx.chatId, "leads.csv", csv, "text/csv");
+  if (!ok) {
+    await sendTelegramMessage(ctx.chatId, `⚠️ Не удалось отправить CSV-файл`);
   }
 }
 
@@ -267,6 +275,27 @@ async function fetchLeads(
   }
 }
 
+/**
+ * Получить CSV-экспорт заявок (текст, не JSON).
+ * Возвращает null при ошибке.
+ */
+async function fetchLeadsCsv(period: string): Promise<string | null> {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  if (!token) return null;
+
+  const params = new URLSearchParams({ action: "export", period });
+  try {
+    const res = await fetch(`${SITE_URL}/api/leads?${params}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (!res.ok) return null;
+    return await res.text();
+  } catch (err) {
+    logger.error({ err }, "Failed to fetch leads CSV");
+    return null;
+  }
+}
+
 // ─── Отправка сообщений ───
 
 async function sendTelegramMessage(chatId: string, text: string): Promise<void> {
@@ -286,6 +315,36 @@ async function sendTelegramMessage(chatId: string, text: string): Promise<void> 
     });
   } catch (err) {
     logger.error({ err, chatId }, "Failed to send Telegram message");
+  }
+}
+
+/**
+ * Отправить файл (документ) в чат через sendDocument.
+ */
+async function sendTelegramDocument(
+  chatId: string,
+  filename: string,
+  content: string,
+  mime: string
+): Promise<boolean> {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  if (!token) return false;
+
+  try {
+    const form = new FormData();
+    form.append("chat_id", chatId);
+    form.append("document", new Blob([content], { type: mime }), filename);
+    const res = await fetch(`${TELEGRAM_API}/bot${token}/sendDocument`, {
+      method: "POST",
+      body: form,
+    });
+    if (!res.ok) {
+      logger.warn({ status: res.status, chatId }, "sendDocument failed");
+    }
+    return res.ok;
+  } catch (err) {
+    logger.error({ err, chatId }, "Failed to send Telegram document");
+    return false;
   }
 }
 

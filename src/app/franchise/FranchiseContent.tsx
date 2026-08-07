@@ -15,7 +15,7 @@ import Faq from "@/components/blocks/Faq";
 import StoreGallery, { type GalleryImage } from "@/components/blocks/StoreGallery";
 import { CONTACTS, FORMAT_OPTIONS } from "@/config/site";
 import { useUserCity } from "@/lib/user-city-context";
-import { queueLead } from "@/lib/lead-queue";
+import { queueLead, flushQueue } from "@/lib/lead-queue";
 import PhoneInput from "react-phone-number-input/react-hook-form";
 import "react-phone-number-input/style.css";
 
@@ -413,6 +413,8 @@ function ContactSection({ contactData }: { contactData?: { contactHeading?: stri
       if (!res.ok) throw new Error("Server error");
       setSubmitStatus("success");
       reset();
+      // Доставка накопленных офлайн-заявок (не блокирует UI)
+      void flushQueue(endpoint);
     } catch {
       const formatLabel = data.format
         ? FORMAT_OPTIONS.find((o) => o.id === data.format)?.label ?? data.format
