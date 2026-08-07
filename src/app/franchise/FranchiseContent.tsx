@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Fragment } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useTina } from "tinacms/dist/react";
@@ -41,13 +41,15 @@ const EMPTY: TinaResult = { data: {}, query: "", variables: {} };
 
 /* ——— Plans accordion (reused from main) ——— */
 
-function PlansSection({ plans, plansEyebrow, plansDesc, plansHeading, plansCollapse, plansDetails }: {
+function PlansSection({ plans, plansEyebrow, plansDesc, plansHeading, plansCollapse, plansDetails, plansDisclaimer, plansMeta }: {
   plans: Array<{ id: string; tagline: string; name: string; desc: string; details: string[] }>;
   plansEyebrow?: string;
   plansDesc?: string;
   plansHeading?: string;
   plansCollapse?: string;
   plansDetails?: string;
+  plansDisclaimer?: string;
+  plansMeta?: { plansDisclaimer?: string };
 }) {
   const [openId, setOpenId] = useState<string | null>(null);
 
@@ -90,9 +92,9 @@ function PlansSection({ plans, plansEyebrow, plansDesc, plansHeading, plansColla
                 onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setOpenId(isOpen ? null : plan.id); } }}
               >
                 <div className="p-6 md:p-8">
-                  <p className="text-xs tracking-[0.2em] uppercase text-brand-accent mb-2">{plan.tagline}</p>
-                  <h3 className="text-2xl font-bold text-brand-black mb-2">{plan.name}</h3>
-                  <p className="text-sm text-brand-gray-400 leading-relaxed mb-4">{plan.desc}</p>
+                  <p className="text-xs tracking-[0.2em] uppercase text-brand-accent mb-2" data-tina-field={tinaField(plan, "tagline")}>{plan.tagline}</p>
+                  <h3 className="text-2xl font-bold text-brand-black mb-2" data-tina-field={tinaField(plan, "name")}>{plan.name}</h3>
+                  <p className="text-sm text-brand-gray-400 leading-relaxed mb-4" data-tina-field={tinaField(plan, "desc")}>{plan.desc}</p>
 
                   <div className="flex items-center justify-between">
                     <span className="text-xs label text-brand-gray-400">
@@ -120,7 +122,7 @@ function PlansSection({ plans, plansEyebrow, plansDesc, plansHeading, plansColla
                       className="overflow-hidden"
                     >
                       <div className="px-6 md:px-8 pb-6 md:pb-8 border-t border-brand-gray-200 pt-5">
-                        <ul className="space-y-2.5">
+                        <ul className="space-y-2.5" data-tina-field={tinaField(plan, "details")}>
                           {plan.details.map((d) => (
                             <li key={d} className="flex items-start gap-3 text-sm text-brand-gray-400">
                               <span className="w-1.5 h-1.5 rounded-full bg-brand-accent mt-[7px] shrink-0" />
@@ -137,8 +139,8 @@ function PlansSection({ plans, plansEyebrow, plansDesc, plansHeading, plansColla
           })}
         </motion.div>
 
-        <p className="text-center text-[10px] text-brand-gray-300 mt-4 md:mt-6 max-w-2xl mx-auto">
-          * Все цифры — оценочные, точный расчёт под ваш формат и локацию — на консультации
+        <p className="text-center text-[10px] text-brand-gray-300 mt-4 md:mt-6 max-w-2xl mx-auto" data-tina-field={plansMeta ? tinaField(plansMeta, "plansDisclaimer") : undefined}>
+          {plansDisclaimer || "* Все цифры — оценочные, точный расчёт под ваш формат и локацию — на консультации"}
         </p>
       </div>
     </section>
@@ -147,16 +149,20 @@ function PlansSection({ plans, plansEyebrow, plansDesc, plansHeading, plansColla
 
 /* ——— Comparison table ——— */
 
-function ComparisonTable({ comparisonRows, plans }: { comparisonRows: Array<{ label: string; values: string[] }>; plans: Array<{ id: string; name: string }> }) {
+function ComparisonTable({ comparisonRows, plans, comparisonMeta }: { comparisonRows: Array<{ label: string; values: string[] }>; plans: Array<{ id: string; name: string }>; comparisonMeta?: { comparisonEyebrow?: string; comparisonHeading?: string; comparisonParamLabel?: string } }) {
   const [activeTab, setActiveTab] = useState(0);
+  const eyebrow = (comparisonMeta?.comparisonEyebrow as string) || "Сравнение";
+  const heading = (comparisonMeta?.comparisonHeading as string) || 'Что входит в каждый <span class="text-brand-accent">вариант</span>';
+  const paramLabel = (comparisonMeta?.comparisonParamLabel as string) || "Параметр";
 
   return (
     <section data-header="light" className="bg-brand-gray-100 py-20 md:py-28">
       <div className="container-brand">
         <SectionHeader
-          eyebrow="Сравнение"
+          eyebrow={eyebrow}
+          eyebrowField={comparisonMeta ? tinaField(comparisonMeta, "comparisonEyebrow") : undefined}
         >
-          Что входит в каждый <span className="text-brand-accent">вариант</span>
+          <span data-tina-field={comparisonMeta ? tinaField(comparisonMeta, "comparisonHeading") : undefined} dangerouslySetInnerHTML={{ __html: heading }} />
         </SectionHeader>
 
         {/* Desktop: полноценная таблица */}
@@ -172,7 +178,7 @@ function ComparisonTable({ comparisonRows, plans }: { comparisonRows: Array<{ la
             <thead>
               <tr>
                 <th className="text-left py-4 pr-6 text-xs label text-brand-gray-400 font-medium w-[140px]">
-                  Параметр
+                  {paramLabel}
                 </th>
                 {plans.map((p) => (
                   <th key={p.id} className="text-center py-4 px-4 font-bold text-brand-black min-w-[160px]">
@@ -364,8 +370,9 @@ function BenefitsSection({ s }: { s: Record<string, unknown> }) {
 
 /* ——— Contact form section ——— */
 
-function ContactSection({ contactData }: { contactData?: { contactHeading?: string; contactDesc?: string } }) {
+function ContactSection({ contactData }: { contactData?: { contactHeading?: string; contactDesc?: string; formLabels?: Record<string, string> } }) {
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const f = contactData?.formLabels || {};
   const { city: detectedCity } = useUserCity();
   const {
     control,
@@ -440,12 +447,12 @@ function ContactSection({ contactData }: { contactData?: { contactHeading?: stri
             <div className="space-y-5">
               <div>
                 <label htmlFor="franchise-name" className="block text-xs label text-brand-gray-500 mb-2">
-                  Имя <span className="text-brand-accent">*</span>
+                  {f.name || "Имя"} <span className="text-brand-accent">*</span>
                 </label>
                 <input
                   id="franchise-name"
                   type="text"
-                  placeholder="Ваше имя"
+                  placeholder={f.namePlaceholder || "Ваше имя"}
                   {...register("name")}
                   className={`w-full px-4 py-3 text-sm bg-brand-gray-100 border rounded-sm outline-none transition-colors placeholder:text-brand-gray-300 ${
                     errors.name
@@ -461,7 +468,7 @@ function ContactSection({ contactData }: { contactData?: { contactHeading?: stri
               <div className="grid sm:grid-cols-2 gap-5">
                 <div>
                   <label htmlFor="franchise-phone" className="block text-xs label text-brand-gray-500 mb-2">
-                    Телефон <span className="text-brand-accent">*</span>
+                    {f.phone || "Телефон"} <span className="text-brand-accent">*</span>
                   </label>
                   <PhoneInput
                     name="phone"
@@ -477,7 +484,7 @@ function ContactSection({ contactData }: { contactData?: { contactHeading?: stri
                 </div>
                 <div>
                   <label htmlFor="franchise-format" className="block text-xs label text-brand-gray-500 mb-2">
-                    Формат
+                    {f.format || "Формат"}
                   </label>
                   <select
                     id="franchise-format"
@@ -485,7 +492,7 @@ function ContactSection({ contactData }: { contactData?: { contactHeading?: stri
                     defaultValue=""
                     className="w-full px-4 py-3 text-sm bg-brand-gray-100 border border-brand-gray-200 rounded-sm outline-none focus:border-brand-black transition-colors appearance-none select-arrow-dark"
                   >
-                    <option value="" disabled>Выберите формат</option>
+                    <option value="" disabled>{f.formatPlaceholder || "Выберите формат"}</option>
                     {FORMAT_OPTIONS.map((f) => (
                       <option key={f.id} value={f.id}>{f.label} — {f.desc}</option>
                     ))}
@@ -495,12 +502,12 @@ function ContactSection({ contactData }: { contactData?: { contactHeading?: stri
 
               <div>
                 <label htmlFor="franchise-city" className="block text-xs label text-brand-gray-500 mb-2">
-                  Город
+                  {f.city || "Город"}
                 </label>
                 <input
                   id="franchise-city"
                   type="text"
-                  placeholder="Ваш город"
+                  placeholder={f.cityPlaceholder || "Ваш город"}
                   {...register("city")}
                   className="w-full px-4 py-3 text-sm bg-brand-gray-100 border border-brand-gray-200 rounded-sm outline-none focus:border-brand-black transition-colors placeholder:text-brand-gray-300"
                 />
@@ -508,12 +515,12 @@ function ContactSection({ contactData }: { contactData?: { contactHeading?: stri
 
               <div>
                 <label htmlFor="franchise-message" className="block text-xs label text-brand-gray-500 mb-2">
-                  Комментарий
+                  {f.message || "Комментарий"}
                 </label>
                 <textarea
                   id="franchise-message"
                   rows={3}
-                  placeholder="Какой формат интересует? Есть ли помещение?"
+                  placeholder={f.messagePlaceholder || "Какой формат интересует? Есть ли помещение?"}
                   {...register("message")}
                   className="w-full px-4 py-3 text-sm bg-brand-gray-100 border border-brand-gray-200 rounded-sm outline-none focus:border-brand-black transition-colors placeholder:text-brand-gray-300 resize-none"
                 />
@@ -521,15 +528,15 @@ function ContactSection({ contactData }: { contactData?: { contactHeading?: stri
 
               {submitStatus === "success" && (
                 <p className="text-sm text-green-600 font-medium text-center">
-                  ✓ Спасибо! Мы получили заявку.
+                  {f.success || "✓ Спасибо! Мы получили заявку."}
                 </p>
               )}
               {submitStatus === "error" && (
                 <p className="text-sm text-brand-accent text-center">
-                  ✕ Ошибка отправки. Напишите нам в{" "}
-                  <a href={CONTACTS.telegram} target="_blank" rel="noopener noreferrer" className="underline hover:no-underline font-semibold">Telegram</a>
-                  {" "}или на{" "}
-                  <a href={`mailto:${CONTACTS.email}`} className="underline hover:no-underline">почту</a>.
+                  {f.error || "✕ Ошибка отправки. Напишите нам в"}{" "}
+                  <a href={CONTACTS.telegram} target="_blank" rel="noopener noreferrer" className="underline hover:no-underline font-semibold">{f.telegram || "Telegram"}</a>
+                  {" "}{f.or || "или на"}{" "}
+                  <a href={`mailto:${CONTACTS.email}`} className="underline hover:no-underline">{f.mail || "почту"}</a>.
                 </p>
               )}
 
@@ -538,13 +545,13 @@ function ContactSection({ contactData }: { contactData?: { contactHeading?: stri
                 disabled={isSubmitting || submitStatus === "success"}
                 className="w-full py-4 bg-brand-accent text-white text-xs tracking-[0.2em] uppercase font-semibold rounded-sm hover:bg-brand-accent-hover transition-colors disabled:opacity-50"
               >
-                {isSubmitting ? "Отправка…" : submitStatus === "success" ? "Отправлено ✓" : "Отправить заявку"}
+                {isSubmitting ? (f.submitting || "Отправка…") : submitStatus === "success" ? (f.submitted || "Отправлено ✓") : (f.submit || "Отправить заявку")}
               </button>
 
               <p className="text-xs text-brand-gray-300 text-center">
-                Нажимая «Отправить», вы соглашаетесь на обработку персональных данных и с{" "}
+                {f.consent || "Нажимая «Отправить», вы соглашаетесь на обработку персональных данных и с"}{" "}
                 <Link href="/privacy/" className="underline hover:no-underline">
-                  политикой конфиденциальности
+                  {f.privacyLink || "политикой конфиденциальности"}
                 </Link>
               </p>
             </div>
@@ -584,6 +591,7 @@ export default function FranchiseContent({
     heroEyebrow?: string;
     heroHeading?: string;
     heroDesc?: string;
+    heroStats?: Array<{ value: string; label: string }>;
   };
   const plansList = ((plansData?.franchise as Record<string, unknown>)?.plansList || []) as Array<{ id: string; tagline: string; name: string; desc: string; investment: string; details: string[] }>;
   const comparisonRows = ((comparisonData?.franchise as Record<string, unknown>)?.comparisonRows || []) as Array<{ label: string; values: string[] }>;
@@ -595,10 +603,17 @@ export default function FranchiseContent({
     plansHeading?: string;
     plansCollapse?: string;
     plansDetails?: string;
+    plansDisclaimer?: string;
+  };
+  const comparisonMeta = (comparisonData?.franchise || {}) as {
+    comparisonEyebrow?: string;
+    comparisonHeading?: string;
+    comparisonParamLabel?: string;
   };
   const contactData = ((contact?.data as Record<string, unknown>)?.franchise || {}) as {
     contactHeading?: string;
     contactDesc?: string;
+    formLabels?: Record<string, string>;
   };
   const galleryData = ((gallery?.data as Record<string, unknown>)?.franchise || {}) as {
     galleryEyebrow?: string;
@@ -654,20 +669,23 @@ export default function FranchiseContent({
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
             >
-              <div className="text-center">
-                <p className="text-3xl md:text-4xl font-bold text-white">0 ₽</p>
-                <p className="text-xs label text-white/50 mt-1">Взнос</p>
-              </div>
-              <div className="w-px bg-white/15" />
-              <div className="text-center">
-                <p className="text-3xl md:text-4xl font-bold text-white">0%</p>
-                <p className="text-xs label text-white/50 mt-1">Роялти</p>
-              </div>
-              <div className="w-px bg-white/15" />
-              <div className="text-center">
-                <p className="text-3xl md:text-4xl font-bold text-brand-accent">11</p>
-                <p className="text-xs label text-white/50 mt-1">Магазинов</p>
-              </div>
+              {(h.heroStats && h.heroStats.length ? h.heroStats : [
+                { value: "0 ₽", label: "Взнос" },
+                { value: "0%", label: "Роялти" },
+                { value: "11", label: "Магазинов" },
+              ]).map((stat, i) => (
+                <Fragment key={stat.label}>
+                  {i > 0 && <div className="w-px bg-white/15" />}
+                  <div className="text-center">
+                    <p className={`text-3xl md:text-4xl font-bold ${i === 2 ? "text-brand-accent" : "text-white"}`} data-tina-field={h.heroStats?.[i] ? tinaField(h.heroStats[i], "value") : undefined}>
+                      {stat.value}
+                    </p>
+                    <p className="text-xs label text-white/50 mt-1" data-tina-field={h.heroStats?.[i] ? tinaField(h.heroStats[i], "label") : undefined}>
+                      {stat.label}
+                    </p>
+                  </div>
+                </Fragment>
+              ))}
             </motion.div>
           </div>
         </section>
@@ -679,8 +697,10 @@ export default function FranchiseContent({
           plansHeading={plansMeta.plansHeading}
           plansCollapse={plansMeta.plansCollapse}
           plansDetails={plansMeta.plansDetails}
+          plansDisclaimer={plansMeta.plansDisclaimer}
+          plansMeta={plansMeta}
         />
-        <ComparisonTable comparisonRows={comparisonRows} plans={plansList} />
+        <ComparisonTable comparisonRows={comparisonRows} plans={plansList} comparisonMeta={comparisonMeta} />
         <FinancialModel s={fin} />
         <BenefitsSection s={ben} />
         <div id="gallery"><StoreGallery data={galleryData} /></div>

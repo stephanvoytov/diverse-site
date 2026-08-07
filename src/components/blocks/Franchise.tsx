@@ -133,7 +133,7 @@ export default function Franchise({ data }: { data?: typeof fallback }) {
                 else if (info.offset.x > 50) prev();
               }}
             >
-              {plans.map((plan: { id: string; tagline: string; name: string; desc: string; _content_source?: unknown }) => (
+              {plans.map((plan: { id: string; tagline: string; name: string; desc: string; profit?: string; _content_source?: unknown }) => (
                 <div
                   key={plan.id}
                   className="shrink-0 px-3 py-2"
@@ -158,8 +158,8 @@ export default function Franchise({ data }: { data?: typeof fallback }) {
                     {/* Profit — stacked vertically */}
                     <div className="mt-auto pt-5 space-y-3">
                       <div>
-                        <p className="text-lg font-bold text-white">
-                          {s.cardProfit?.[plan.id as keyof typeof s.cardProfit] || ""}
+                        <p className="text-lg font-bold text-white" data-tina-field={tinaField(plan, "profit")}>
+                          {plan.profit}
                         </p>
                         <p className="text-[11px] text-white/50 tracking-[0.1em] uppercase" data-tina-field={tinaField(s.franchiseLabels, "profitMonth")}>
                           {s.franchiseLabels.profitMonth}

@@ -2,6 +2,7 @@
   "_template": "franchiseComparison",
   "comparisonEyebrow": "Сравнение",
   "comparisonHeading": "Что входит в каждый <span class=\"text-brand-accent\">вариант</span>",
+  "comparisonParamLabel": "Параметр",
   "comparisonRows": [
     { "label": "Площадь", "values": ["от 20 м²", "Существующий магазин", "Готовое помещение", "от 70 м²", "от 120 м²"] },
     { "label": "Дизайн-проект", "values": ["Базовый", "Адаптация", "Переоборудование", "Проект от польских архитекторов", "Полный от польских архитекторов"] },

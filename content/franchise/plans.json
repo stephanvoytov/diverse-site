@@ -5,6 +5,7 @@
   "plansHeading": "Выберите свой <span class=\"text-brand-accent\">формат</span>",
   "plansCollapse": "Свернуть",
   "plansDetails": "Подробнее",
+  "plansDisclaimer": "* Все цифры — оценочные, точный расчёт под ваш формат и локацию — на консультации",
   "plansList": [
     {
       "id": "island",

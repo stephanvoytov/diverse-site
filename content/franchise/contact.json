@@ -1,5 +1,26 @@
 {
   "_template": "franchiseContact",
   "contactHeading": "Начните <span class=\"text-brand-accent\">свой бизнес</span>",
-  "contactDesc": "Оставьте заявку — мы ответим на все вопросы"
+  "contactDesc": "Оставьте заявку — мы ответим на все вопросы",
+  "formLabels": {
+    "name": "Имя",
+    "namePlaceholder": "Ваше имя",
+    "phone": "Телефон",
+    "format": "Формат",
+    "formatPlaceholder": "Выберите формат",
+    "city": "Город",
+    "cityPlaceholder": "Ваш город",
+    "message": "Комментарий",
+    "messagePlaceholder": "Какой формат интересует? Есть ли помещение?",
+    "submit": "Отправить заявку",
+    "submitting": "Отправка…",
+    "submitted": "Отправлено ✓",
+    "success": "✓ Спасибо! Мы получили заявку.",
+    "error": "✕ Ошибка отправки. Напишите нам в",
+    "telegram": "Telegram",
+    "or": "или на",
+    "mail": "почту",
+    "consent": "Нажимая «Отправить», вы соглашаетесь на обработку персональных данных и с",
+    "privacyLink": "политикой конфиденциальности"
+  }
 }
