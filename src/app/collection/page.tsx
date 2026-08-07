@@ -20,14 +20,14 @@ export const metadata: Metadata = {
     siteName: "Diverse Россия",
     locale: "ru_RU",
     type: "website",
-    images: [{ url: `${basePath}/images/diverse.avif`, width: 1200, height: 800 }],
+    images: [{ url: `${basePath}/images/collections/diverse.jpg`, width: 1200, height: 800 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Коллекции Diverse — одежда для города, спорта и путешествий",
     description:
       "Изучите коллекции Diverse: городской стиль, технологичные линии и одежда для активного образа жизни.",
-    images: [`${basePath}/images/diverse.avif`],
+    images: [`${basePath}/images/collections/diverse.jpg`],
   },
   keywords: [
     "коллекции Diverse", "Dakar одежда",
@@ -62,9 +62,24 @@ export default async function CollectionPage() {
     ],
   };
 
+  const collectionsSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Коллекции Diverse",
+    itemListElement: ((hero?.data as Record<string, unknown>)?.["pageCollections"] as { collectionItems?: Array<{ name?: string; tag?: string; vibe?: string }> } | undefined)?.collectionItems
+      ?.map((item, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: item.name || "",
+        description: item.vibe || "",
+        additionalProperty: item.tag ? { "@type": "PropertyValue", name: "tag", value: item.tag } : undefined,
+      })) || [],
+  };
+
   return (
     <>
       <JsonLd data={breadcrumbSchema} />
+      <JsonLd data={collectionsSchema} />
       <CollectionContent
         hero={hero}
         cta={cta}

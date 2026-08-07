@@ -8,7 +8,7 @@ import ExitIntentPopup from "@/components/shared/ExitIntentPopup";
 import AnalyticsConsent from "@/components/shared/AnalyticsConsent";
 import JsonLd from "@/components/shared/JsonLd";
 import { asset } from "@/lib/path";
-import { CONTACTS, SITE, SITE_URL } from "@/config/site";
+import { CONTACTS, SITE, SITE_URL, SOCIALS } from "@/config/site";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 const siteUrl = SITE_URL;
@@ -87,6 +87,16 @@ const organizationSchema = {
   description: "Официальный представитель бренда в России и СНГ",
   url: siteUrl + basePath,
   logo: `${siteUrl}${basePath}/apple-touch-icon.png`,
+  foundingDate: "1993",
+  areaServed: ["RU", "KZ", "BY"],
+  sameAs: [
+    SOCIALS.vk,
+    SOCIALS.instagram,
+    SOCIALS.youtube,
+    SOCIALS.telegram,
+    SOCIALS.whatsapp,
+    SOCIALS.rutube,
+  ],
   address: {
     "@type": "PostalAddress",
     streetAddress: "пл. Победы, 4, оф. 210",

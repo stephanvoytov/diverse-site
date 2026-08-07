@@ -93,10 +93,23 @@ export default async function Page() {
     })),
   };
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: ((faq?.data as Record<string, unknown>)?.["franchise"] as { items?: Array<{ question?: string; answer?: string }> } | undefined)?.items
+      ?.filter((i) => i.question && i.answer)
+      .map((i) => ({
+        "@type": "Question",
+        name: i.question,
+        acceptedAnswer: { "@type": "Answer", text: i.answer },
+      })) || [],
+  };
+
   return (
     <>
       <JsonLd data={breadcrumbSchema} />
       <JsonLd data={productSchema} />
+      <JsonLd data={faqSchema} />
       <FranchiseContent
         hero={hero}
         plans={plans}
