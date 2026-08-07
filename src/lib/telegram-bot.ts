@@ -6,6 +6,7 @@
  *   /leads   — последние 10 заявок
  *   /stats   — статистика за неделю
  *   /today   — статистика за сегодня
+ *   /month   — статистика за месяц
  *   /city    — топ городов
  *   /export  — CSV-экспорт за месяц
  *   /help    — список команд
@@ -16,6 +17,7 @@ import { SITE_URL } from "@/config/site";
 import logger from "@/lib/logger";
 
 const TELEGRAM_API = "https://api.telegram.org";
+const DIVIDER = "───────────────";
 
 interface BotContext {
   chatId: string;
@@ -35,45 +37,47 @@ export async function handleBotUpdate(update: Record<string, unknown>): Promise<
 
   if (!chatId || !text) return;
 
-  // Проверяем, что сообщение из разрешённого чата
+  // Только разрешённые чаты (посторонних молча игнорируем)
   const rawChatIds = process.env.TELEGRAM_CHAT_ID || "";
   const allowedChatIds = rawChatIds.split(",").map((id) => id.trim()).filter(Boolean);
-  if (!allowedChatIds.includes(chatId)) {
-    await sendTelegramMessage(chatId, "⛔ У вас нет доступа к этому боту.");
-    return;
-  }
+  if (!allowedChatIds.includes(chatId)) return;
 
   const ctx: BotContext = { chatId, text };
   const command = text.split(" ")[0].toLowerCase().split("@")[0]; // /leads@bot_name → /leads
 
-  switch (command) {
-    case "/start":
-      await handleStart(ctx);
-      break;
-    case "/leads":
-      await handleLeads(ctx);
-      break;
-    case "/stats":
-      await handleStats(ctx, "week");
-      break;
-    case "/today":
-      await handleStats(ctx, "today");
-      break;
-    case "/month":
-      await handleStats(ctx, "month");
-      break;
-    case "/city":
-      await handleCity(ctx);
-      break;
-    case "/export":
-      await handleExport(ctx);
-      break;
-    case "/help":
-      await handleHelp(ctx);
-      break;
-    default:
-      // Игнорируем неизвестные команды
-      break;
+  try {
+    switch (command) {
+      case "/start":
+        await handleStart(ctx);
+        break;
+      case "/leads":
+        await handleLeads(ctx);
+        break;
+      case "/stats":
+        await handleStats(ctx, "week");
+        break;
+      case "/today":
+        await handleStats(ctx, "today");
+        break;
+      case "/month":
+        await handleStats(ctx, "month");
+        break;
+      case "/city":
+        await handleCity(ctx);
+        break;
+      case "/export":
+        await handleExport(ctx);
+        break;
+      case "/help":
+        await handleHelp(ctx);
+        break;
+      default:
+        // Игнорируем неизвестные команды
+        break;
+    }
+  } catch (err) {
+    logger.error({ err, chatId, command }, "Bot command error");
+    await sendTelegramMessage(ctx.chatId, "⚠️ Внутренняя ошибка. Попробуйте ещё раз.");
   }
 }
 
@@ -83,23 +87,22 @@ async function handleStart(ctx: BotContext): Promise<void> {
   await sendTelegramMessage(
     ctx.chatId,
     `🤖 <b>Diverse Bot</b>\n\n` +
-    `Добро пожаловать! Я помогу отслеживать заявки с сайта.\n\n` +
+    `Привет! Отслеживаю заявки с сайта и отвечаю на команды.\n\n` +
     `<b>Команды:</b>\n` +
-    `/leads — последние 10 заявок\n` +
-    `/today — статистика за сегодня\n` +
-    `/stats — статистика за неделю\n` +
-    `/month — статистика за месяц\n` +
-    `/city — топ городов\n` +
-    `/export — CSV-экспорт\n` +
-    `/help — список команд`
+    `📋 /leads — последние заявки\n` +
+    `📊 /stats — за неделю\n` +
+    `📈 /today — за сегодня\n` +
+    `📅 /month — за месяц\n` +
+    `🏙 /city — топ городов\n` +
+    `📥 /export — CSV за месяц\n` +
+    `❓ /help — справка`
   );
 }
 
 async function handleLeads(ctx: BotContext): Promise<void> {
   const result = await fetchLeads("list", "all", undefined, 10);
-  if (!result || typeof result === "string" || !result.ok) {
-    const error = typeof result === "string" ? result : "unknown error";
-    await sendTelegramMessage(ctx.chatId, `⚠️ Ошибка: ${error}`);
+  if (!result.ok) {
+    await sendTelegramMessage(ctx.chatId, `⚠️ Ошибка: ${result.error}`);
     return;
   }
 
@@ -109,29 +112,34 @@ async function handleLeads(ctx: BotContext): Promise<void> {
     return;
   }
 
-  const lines = leads.map((lead, i) => {
-    const date = new Date(String(lead.created_at)).toLocaleDateString("ru-RU", {
-      day: "2-digit",
-      month: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-    const city = lead.city ? ` 📍${escapeHtml(String(lead.city))}` : "";
-    const source = lead.source === "callback" ? "📞" : "📩";
-    return `${i + 1}. ${source} <b>${escapeHtml(String(lead.name))}</b> — ${escapeHtml(String(lead.phone))}${city} (${date})`;
+  const sourceNames: Record<string, string> = {
+    form: "📩 Новая заявка",
+    callback: "📞 Обратный звонок",
+    franchise: "🏪 Франшиза",
+  };
+
+  const blocks = leads.map((lead, i) => {
+    const source = sourceNames[String(lead.source)] ?? "📩 Заявка";
+    const lines = [
+      `${i + 1}. ${source}`,
+      `👤 ${escapeHtml(String(lead.name))}`,
+      `📞 ${escapeHtml(String(lead.phone))}`,
+    ];
+    if (lead.city) lines.push(`📍 ${escapeHtml(String(lead.city))}`);
+    lines.push(`🕒 ${formatDate(String(lead.created_at))}`);
+    return lines.join("\n");
   });
 
   await sendTelegramMessage(
     ctx.chatId,
-    `📋 <b>Последние заявки:</b>\n\n${lines.join("\n")}`
+    `📋 <b>Последние заявки</b>\n\n${blocks.join(`\n${DIVIDER}\n`)}`
   );
 }
 
 async function handleStats(ctx: BotContext, period: string): Promise<void> {
   const result = await fetchLeads("stats", period);
-  if (!result || typeof result === "string" || !result.ok) {
-    const error = typeof result === "string" ? result : "unknown error";
-    await sendTelegramMessage(ctx.chatId, `⚠️ Ошибка: ${error}`);
+  if (!result.ok) {
+    await sendTelegramMessage(ctx.chatId, `⚠️ Ошибка: ${result.error}`);
     return;
   }
 
@@ -154,20 +162,19 @@ async function handleStats(ctx: BotContext, period: string): Promise<void> {
   if (stats.byDay && stats.byDay.length > 0) {
     msg += `\n📅 <b>По дням:</b>\n`;
     for (const day of stats.byDay.slice(0, 7)) {
-      const bar = "█".repeat(Math.min(Number(day.count), 20));
-      msg += `  ${day.date}: ${bar} ${day.count}\n`;
+      msg += `   ${formatDay(String(day.date))} — ${day.count}\n`;
     }
   }
 
   if (stats.bySource && stats.bySource.length > 0) {
-    msg += `\n🔗 <b>По источникам:</b>\n`;
     const sourceNames: Record<string, string> = {
-      form: "Форма",
-      callback: "Обратный звонок",
-      franchise: "Франшиза",
+      form: "📩 Форма",
+      callback: "📞 Обратный звонок",
+      franchise: "🏪 Франшиза",
     };
+    msg += `\n🔗 <b>По источникам:</b>\n`;
     for (const src of stats.bySource) {
-      msg += `  ${sourceNames[String(src.source)] || String(src.source)}: ${src.count}\n`;
+      msg += `   ${sourceNames[String(src.source)] || String(src.source)} — ${src.count}\n`;
     }
   }
 
@@ -176,9 +183,8 @@ async function handleStats(ctx: BotContext, period: string): Promise<void> {
 
 async function handleCity(ctx: BotContext): Promise<void> {
   const result = await fetchLeads("stats", "all");
-  if (!result || typeof result === "string" || !result.ok) {
-    const error = typeof result === "string" ? result : "unknown error";
-    await sendTelegramMessage(ctx.chatId, `⚠️ Ошибка: ${error}`);
+  if (!result.ok) {
+    await sendTelegramMessage(ctx.chatId, `⚠️ Ошибка: ${result.error}`);
     return;
   }
 
@@ -188,15 +194,15 @@ async function handleCity(ctx: BotContext): Promise<void> {
     return;
   }
 
+  const medals = ["🥇", "🥈", "🥉"];
   const lines = stats.byCity.map((c, i) => {
-    const emoji = i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : "  ";
-    const bar = "█".repeat(Math.min(Number(c.count), 20));
-    return `${emoji} <b>${escapeHtml(String(c.city))}</b>: ${bar} ${c.count}`;
+    const medal = medals[i] ?? "   ";
+    return `${medal} <b>${escapeHtml(String(c.city))}</b> — ${c.count}`;
   });
 
   await sendTelegramMessage(
     ctx.chatId,
-    `🏙 <b>Топ городов (за всё время):</b>\n\n${lines.join("\n")}`
+    `🏙 <b>Топ городов (за всё время)</b>\n\n${lines.join("\n")}`
   );
 }
 
@@ -220,15 +226,37 @@ async function handleExport(ctx: BotContext): Promise<void> {
 async function handleHelp(ctx: BotContext): Promise<void> {
   await sendTelegramMessage(
     ctx.chatId,
-    `🤖 <b>Diverse Bot — Команды</b>\n\n` +
-    `/leads — последние 10 заявок\n` +
-    `/today — статистика за сегодня\n` +
-    `/stats — статистика за неделю\n` +
-    `/month — статистика за месяц\n` +
-    `/city — топ городов\n` +
-    `/export — CSV-экспорт за месяц\n` +
-    `/help — эта справка`
+    `🤖 <b>Diverse Bot — команды</b>\n\n` +
+    `📋 /leads — последние 10 заявок\n` +
+    `📊 /stats — статистика за неделю\n` +
+    `📈 /today — за сегодня\n` +
+    `📅 /month — за месяц\n` +
+    `🏙 /city — топ городов\n` +
+    `📥 /export — CSV за месяц\n` +
+    `❓ /help — эта справка`
   );
+}
+
+// ─── Форматирование ───
+
+/** "2026-08-07T14:30:00.000Z" → "07.08.2026, 14:30" */
+function formatDate(iso: string): string {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return iso;
+  return d.toLocaleString("ru-RU", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+/** "2026-08-07" → "07.08" */
+function formatDay(dateStr: string): string {
+  const m = dateStr.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (!m) return dateStr;
+  return `${m[3]}.${m[2]}`;
 }
 
 // ─── API вызовы ───
@@ -249,7 +277,7 @@ interface FetchLeadsErr {
   error: string;
 }
 
-type FetchLeadsResult = FetchLeadsOk | FetchLeadsErr | string;
+type FetchLeadsResult = FetchLeadsOk | FetchLeadsErr;
 
 async function fetchLeads(
   action: string,
@@ -303,7 +331,7 @@ async function sendTelegramMessage(chatId: string, text: string): Promise<void> 
   if (!token) return;
 
   try {
-    await fetch(`${TELEGRAM_API}/bot${token}/sendMessage`, {
+    const res = await fetch(`${TELEGRAM_API}/bot${token}/sendMessage`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -313,6 +341,10 @@ async function sendTelegramMessage(chatId: string, text: string): Promise<void> 
         disable_web_page_preview: true,
       }),
     });
+    if (!res.ok) {
+      const body = await res.text();
+      logger.warn({ status: res.status, chatId, body }, "sendMessage failed");
+    }
   } catch (err) {
     logger.error({ err, chatId }, "Failed to send Telegram message");
   }
