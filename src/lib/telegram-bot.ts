@@ -239,7 +239,7 @@ async function handleHelp(ctx: BotContext): Promise<void> {
 
 // ─── Форматирование ───
 
-/** "2026-08-07T14:30:00.000Z" → "07.08.2026, 14:30" */
+/** "2026-08-07T14:30:00.000Z" → "07.08.2026, 14:30" (Калининград, UTC+2) */
 function formatDate(iso: string): string {
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return iso;
@@ -249,6 +249,7 @@ function formatDate(iso: string): string {
     year: "numeric",
     hour: "2-digit",
     minute: "2-digit",
+    timeZone: "Europe/Kaliningrad",
   });
 }
 

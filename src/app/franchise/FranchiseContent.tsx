@@ -405,6 +405,7 @@ function ContactSection({ contactData }: { contactData?: { contactHeading?: stri
           phone: data.phone,
           format: data.format || "",
           city: detectedCity,
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
           message: data.city
             ? `Хочу открыть магазин в городе: ${data.city}${formatLabel ? `, формат: ${formatLabel}` : ""}${data.message ? `. ${data.message}` : ""}`
             : data.message || (formatLabel ? `Хочу открыть магазин по франшизе, формат: ${formatLabel}` : "Хочу открыть магазин по франшизе"),

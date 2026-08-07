@@ -1,6 +1,7 @@
 ﻿import logger from "@/lib/logger";
 import { escapeHtml } from "@/lib/html";
 import { parseMessagePairs } from "@/lib/message-parser";
+import { SITE_URL } from "@/config/site";
 
 const TELEGRAM_API = "https://api.telegram.org";
 
@@ -12,6 +13,12 @@ export interface LeadData {
   message: string;
   /** Предположительный город (из dadata) */
   city?: string;
+  /** Источник заявки: "form" | "callback" | "franchise" */
+  source?: string;
+  /** ID сохранённого лида в Turso (для поиска в CSV) */
+  leadId?: string;
+  /** IANA-таймзона отправителя (напр. "Europe/Moscow") — для локального времени */
+  timezone?: string;
 }
 
 /** Отправить заявку в Telegram-чат(ы) администратора */
@@ -72,64 +79,130 @@ export async function sendLeadToTelegram(data: LeadData): Promise<void> {
 }
 
 function buildMessage(data: LeadData, isCallback: boolean): string {
+  const lines: string[] = [];
+
   if (isCallback) {
-    const callbackLines: string[] = [
-      `📞 <b>Обратный звонок</b>`,
-      ``,
-    ];
+    lines.push(`📞 <b>Обратный звонок</b>`, ``);
+    lines.push(`📞 ${escapeHtml(data.phone)}`);
     if (data.city) {
-      callbackLines.push(`<b>Город (предп.):</b> ${escapeHtml(data.city)}`);
+      lines.push(`📍 ${escapeHtml(data.city)} <i>(предп.)</i>`);
     }
-    callbackLines.push(`<b>Телефон:</b> ${escapeHtml(data.phone)}`);
-    callbackLines.push(``, `<i>Отправлено с diversebrand.ru</i>`);
-    return callbackLines.join("\n");
-  }
+  } else {
+    lines.push(`📩 <b>Новая заявка</b>`, ``);
 
-  const parsed = parseMessage(data.message);
-  const lines: string[] = [`📩 <b>Новая заявка</b>`, ``];
-
-  if (data.name && data.name !== "Заказ звонка") {
-    lines.push(`<b>Имя:</b> ${escapeHtml(data.name)}`);
-  }
-  lines.push(`<b>Телефон:</b> ${escapeHtml(data.phone)}`);
-
-  if (data.email) {
-    lines.push(`<b>Email:</b> ${escapeHtml(data.email)}`);
-  }
-
-  if (data.city) {
-    lines.push(`<b>Город (предп.):</b> ${escapeHtml(data.city)}`);
-  }
-
-  if (parsed.type === "pairs") {
-    // Структурированные данные (из 3-шаговой формы)
-    lines.push(``);
-    for (const [key, val] of parsed.data) {
-      lines.push(`${escapeHtml(key)}: ${escapeHtml(val)}`);
+    if (data.name && data.name !== "Заказ звонка") {
+      lines.push(`👤 ${escapeHtml(data.name)}`);
     }
-  } else if (parsed.type === "raw") {
-    // Свободный текст (из FranchiseContent, Контакты)
-    lines.push(``);
-    lines.push(escapeHtml(parsed.data));
+    lines.push(`📞 ${escapeHtml(data.phone)}`);
+
+    if (data.email) {
+      lines.push(`📧 ${escapeHtml(data.email)}`);
+    }
+    if (data.city) {
+      lines.push(`📍 ${escapeHtml(data.city)} <i>(предп.)</i>`);
+    }
+
+    const details = buildDetails(data.message);
+    if (details) {
+      lines.push(``, details);
+    }
   }
 
-  lines.push(``, `<i>Отправлено с diversebrand.ru</i>`);
+  // Мета: источник · время · ID
+  const meta: string[] = [];
+  meta.push(sourceLabel(data.source));
+  lines.push(``, `<i>${meta.join(" · ")}</i>`);
+
+  // Времена: локальное отправителя + Калининградское (UTC+2)
+  const times = buildTimes(data.timezone);
+  if (times) {
+    lines.push(``, times);
+  }
+
+  if (data.leadId) {
+    lines.push(`<i>ID: ${escapeHtml(data.leadId)}</i>`);
+  }
+  lines.push(`<i>Отправлено с ${formatSiteDomain()}</i>`);
 
   return lines.join("\n");
 }
 
-/**
- * Разбирает message в детали.
- *
- * Если сообщение похоже на "Формат: ... Город: ..." (структурированное) —
- * парсит в пары ключ-значение.
- * Иначе — возвращает сырой текст как один блок.
- */
-function parseMessage(msg: string): { type: "pairs"; data: [string, string][] } | { type: "raw"; data: string } {
-  if (!msg) return { type: "raw", data: "" };
-  const pairs = parseMessagePairs(msg);
-  if (pairs) {
-    return { type: "pairs" as const, data: pairs };
+/** Два времени с пометками: локальное (таймзона отправителя) и Калининград */
+function buildTimes(userTimezone?: string): string {
+  const now = new Date();
+  const parts: string[] = [];
+
+  const local = userTimezone ? formatTime(now, userTimezone) : null;
+  if (local) {
+    parts.push(`🕒 <i>Локальное:</i> ${local}`);
   }
-  return { type: "raw" as const, data: msg };
+
+  const kld = formatTime(now, "Europe/Kaliningrad");
+  if (kld) {
+    parts.push(`🕐 <i>Калининград:</i> ${kld}`);
+  }
+
+  return parts.join("\n");
+}
+
+/** Детали заявки: пары "Формат: ... Город: ..." → структурированный список, иначе свободный текст */
+function buildDetails(message: string): string | null {
+  if (!message || message === "Обратный звонок") return null;
+
+  const iconMap: Record<string, string> = {
+    "Формат": "📋",
+    "Город": "🏙",
+    "Помещение": "🏠",
+    "Комментарий": "💬",
+  };
+
+  const pairs = parseMessagePairs(message);
+  if (pairs && pairs.length > 0) {
+    const rows = pairs.map(([key, val]) => {
+      const icon = iconMap[key] ?? "•";
+      return `${icon} ${escapeHtml(key)}: ${escapeHtml(val)}`;
+    });
+    return rows.join("\n");
+  }
+
+  // Свободный текст (из FranchiseContent, Контакты)
+  return `💬 ${escapeHtml(message)}`;
+}
+
+function sourceLabel(source?: string): string {
+  switch (source) {
+    case "callback":
+      return "📞 Обратный звонок";
+    case "franchise":
+      return "🏪 Франшиза";
+    case "form":
+      return "📩 Форма";
+    default:
+      return "📩 Форма";
+  }
+}
+
+/** Время в заданной таймзоне: "07.08.2026, 14:30". null при невалидной таймзоне */
+function formatTime(date: Date, timeZone: string): string | null {
+  try {
+    return date.toLocaleString("ru-RU", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      timeZone,
+    });
+  } catch {
+    return null;
+  }
+}
+
+/** Домен из SITE_URL без www: "diversebrand.ru" */
+function formatSiteDomain(): string {
+  try {
+    return new URL(SITE_URL).hostname.replace(/^www\./, "");
+  } catch {
+    return SITE_URL;
+  }
 }

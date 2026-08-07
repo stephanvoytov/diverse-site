@@ -57,6 +57,7 @@ export default function ContactFloating() {
           phone,
           message: "Обратный звонок",
           city,
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         }),
       });
       if (!res.ok) throw new Error();

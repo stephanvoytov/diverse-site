@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
-    const { name, phone, email, message, city, source } = body;
+    const { name, phone, email, message, city, source, timezone } = body;
 
     // Валидация
     if (!name || name.length < 2) {
@@ -73,7 +73,16 @@ export async function POST(req: NextRequest) {
     }
 
     // ─── 2. Уведомления параллельно (Telegram + SMTP) ───
-    const notificationData = { name, phone, email, message: leadData.message, city };
+    const notificationData = {
+      name,
+      phone,
+      email,
+      message: leadData.message,
+      city,
+      source: leadData.source,
+      leadId: savedLead?.id,
+      timezone: typeof timezone === "string" && timezone.length <= 64 ? timezone : undefined,
+    };
     const [smtpRes, tgRes] = await Promise.allSettled([
       sendLead(notificationData),
       sendLeadToTelegram(notificationData),

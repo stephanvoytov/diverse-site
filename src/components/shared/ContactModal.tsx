@@ -407,6 +407,7 @@ export default function ContactModal() {
       name: name.trim(),
       phone: phoneValue,
       city: detectedCity || undefined,
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       message: [
         `Формат: ${formatLabel}`,
         city ? `Город: ${city}` : "",

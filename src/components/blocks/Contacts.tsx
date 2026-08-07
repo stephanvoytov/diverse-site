@@ -53,7 +53,11 @@ export default function Contacts({ data }: { data?: typeof fallback }) {
       const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, city: detectedCity }),
+        body: JSON.stringify({
+          ...data,
+          city: detectedCity,
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        }),
       });
       if (!res.ok) throw new Error("Server error");
       setSubmitStatus("success");
