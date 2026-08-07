@@ -1,7 +1,6 @@
 ﻿import logger from "@/lib/logger";
 import { escapeHtml } from "@/lib/html";
 import { parseMessagePairs } from "@/lib/message-parser";
-import { SITE_URL } from "@/config/site";
 
 const TELEGRAM_API = "https://api.telegram.org";
 
@@ -82,70 +81,30 @@ function buildMessage(data: LeadData, isCallback: boolean): string {
   const lines: string[] = [];
 
   if (isCallback) {
-    lines.push(`📞 <b>Обратный звонок</b>`, ``);
-    lines.push(`📞 ${escapeHtml(data.phone)}`);
-    if (data.city) {
-      lines.push(`📍 ${escapeHtml(data.city)} <i>(предп.)</i>`);
-    }
+    lines.push(`📞 <b>Обратный звонок</b>`);
+    lines.push(`📞 ${escapeHtml(data.phone)}${data.city ? ` · 📍 ${escapeHtml(data.city)} <i>(предп.)</i>` : ""}`);
   } else {
-    lines.push(`📩 <b>Новая заявка</b>`, ``);
-
-    if (data.name && data.name !== "Заказ звонка") {
-      lines.push(`👤 ${escapeHtml(data.name)}`);
-    }
-    lines.push(`📞 ${escapeHtml(data.phone)}`);
-
-    if (data.email) {
-      lines.push(`📧 ${escapeHtml(data.email)}`);
-    }
-    if (data.city) {
-      lines.push(`📍 ${escapeHtml(data.city)} <i>(предп.)</i>`);
-    }
+    lines.push(`📩 <b>Новая заявка</b>`);
+    const name = data.name && data.name !== "Заказ звонка" ? `👤 ${escapeHtml(data.name)} · ` : "";
+    lines.push(`${name}📞 ${escapeHtml(data.phone)}`);
+    if (data.email) lines.push(`📧 ${escapeHtml(data.email)}`);
+    if (data.city) lines.push(`📍 ${escapeHtml(data.city)} <i>(предп.)</i>`);
 
     const details = buildDetails(data.message);
-    if (details) {
-      lines.push(``, details);
-    }
+    if (details) lines.push(details);
   }
 
-  // Мета: источник · время · ID
-  const meta: string[] = [];
-  meta.push(sourceLabel(data.source));
-  lines.push(``, `<i>${meta.join(" · ")}</i>`);
-
-  // Времена: локальное отправителя + Калининградское (UTC+2)
   const times = buildTimes(data.timezone);
-  if (times) {
-    lines.push(``, times);
-  }
+  if (times) lines.push(times);
 
   if (data.leadId) {
     lines.push(`<i>ID: ${escapeHtml(data.leadId)}</i>`);
   }
-  lines.push(`<i>Отправлено с ${formatSiteDomain()}</i>`);
 
   return lines.join("\n");
 }
 
-/** Два времени с пометками: локальное (таймзона отправителя) и Калининград */
-function buildTimes(userTimezone?: string): string {
-  const now = new Date();
-  const parts: string[] = [];
-
-  const local = userTimezone ? formatTime(now, userTimezone) : null;
-  if (local) {
-    parts.push(`🕒 <i>Локальное:</i> ${local}`);
-  }
-
-  const kld = formatTime(now, "Europe/Kaliningrad");
-  if (kld) {
-    parts.push(`🕐 <i>Калининград:</i> ${kld}`);
-  }
-
-  return parts.join("\n");
-}
-
-/** Детали заявки: пары "Формат: ... Город: ..." → структурированный список, иначе свободный текст */
+/** Детали заявки: пары "Формат: ... Город: ..." → одна строка, иначе свободный текст */
 function buildDetails(message: string): string | null {
   if (!message || message === "Обратный звонок") return null;
 
@@ -158,28 +117,30 @@ function buildDetails(message: string): string | null {
 
   const pairs = parseMessagePairs(message);
   if (pairs && pairs.length > 0) {
-    const rows = pairs.map(([key, val]) => {
-      const icon = iconMap[key] ?? "•";
-      return `${icon} ${escapeHtml(key)}: ${escapeHtml(val)}`;
-    });
-    return rows.join("\n");
+    return pairs
+      .map(([key, val]) => {
+        const icon = iconMap[key] ?? "•";
+        return `${icon} ${escapeHtml(key)}: ${escapeHtml(val)}`;
+      })
+      .join(" · ");
   }
 
   // Свободный текст (из FranchiseContent, Контакты)
   return `💬 ${escapeHtml(message)}`;
 }
 
-function sourceLabel(source?: string): string {
-  switch (source) {
-    case "callback":
-      return "📞 Обратный звонок";
-    case "franchise":
-      return "🏪 Франшиза";
-    case "form":
-      return "📩 Форма";
-    default:
-      return "📩 Форма";
-  }
+/** Два времени с пометками: локальное (таймзона отправителя) и КЛД (Калининград, UTC+2) */
+function buildTimes(userTimezone?: string): string {
+  const now = new Date();
+  const parts: string[] = [];
+
+  const local = userTimezone ? formatTime(now, userTimezone) : null;
+  if (local) parts.push(`🕒 ${local} <i>(лок.)</i>`);
+
+  const kld = formatTime(now, "Europe/Kaliningrad");
+  if (kld) parts.push(`🕐 ${kld} <i>(КЛД)</i>`);
+
+  return parts.join(" · ");
 }
 
 /** Время в заданной таймзоне: "07.08.2026, 14:30". null при невалидной таймзоне */
@@ -195,14 +156,5 @@ function formatTime(date: Date, timeZone: string): string | null {
     });
   } catch {
     return null;
-  }
-}
-
-/** Домен из SITE_URL без www: "diversebrand.ru" */
-function formatSiteDomain(): string {
-  try {
-    return new URL(SITE_URL).hostname.replace(/^www\./, "");
-  } catch {
-    return SITE_URL;
   }
 }
