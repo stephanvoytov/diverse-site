@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
-    const { name, phone, email, message, city, source, timezone } = body;
+    const { name, phone, email, message, city, format, source, timezone } = body;
 
     // Валидация
     if (!name || name.length < 2) {
@@ -48,11 +48,19 @@ export async function POST(req: NextRequest) {
     }
     // message — опциональное поле, проверка не требуется
 
+    // Единый формат сообщения: API сам собирает строку из полей
+    const isCallback = source === "callback" || message === "Обратный звонок";
+    const leadMessage = isCallback
+      ? "Обратный звонок"
+      : [format ? `Формат: ${format}` : "", city ? `Город: ${city}` : "", message || ""]
+          .filter(Boolean)
+          .join(". ") || "Нужна консультация";
+
     const leadData = {
       name,
       phone,
       email: email || null,
-      message: message ?? "Нужна консультация",
+      message: leadMessage,
       city: city || null,
       source: source || "form",
     };
@@ -82,8 +90,7 @@ export async function POST(req: NextRequest) {
       source: leadData.source,
       leadId: savedLead?.id,
       timezone: typeof timezone === "string" && timezone.length <= 64 ? timezone : undefined,
-    };
-    const [smtpRes, tgRes] = await Promise.allSettled([
+    };    const [smtpRes, tgRes] = await Promise.allSettled([
       sendLead(notificationData),
       sendLeadToTelegram(notificationData),
     ]);

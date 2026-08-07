@@ -15,7 +15,7 @@ import Faq from "@/components/blocks/Faq";
 import StoreGallery, { type GalleryImage } from "@/components/blocks/StoreGallery";
 import { CONTACTS, FORMAT_OPTIONS } from "@/config/site";
 import { useUserCity } from "@/lib/user-city-context";
-import { queueLead, flushQueue } from "@/lib/lead-queue";
+import { useLeadSubmit } from "@/lib/use-lead-submit";
 import PhoneInput from "react-phone-number-input/react-hook-form";
 import "react-phone-number-input/style.css";
 
@@ -377,59 +377,34 @@ function BenefitsSection({ s }: { s: Record<string, unknown> }) {
 /* ——— Contact form section ——— */
 
 function ContactSection({ contactData }: { contactData?: { contactHeading?: string; contactDesc?: string; formLabels?: Record<string, string> } }) {
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
   const f = contactData?.formLabels || {};
   const { city: detectedCity } = useUserCity();
+  const { submit, isSubmitting, status: submitStatus } = useLeadSubmit();
   const {
     control,
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     reset,
   } = useForm<FranchiseFormInput, unknown, FranchiseForm>({
     resolver: zodResolver(franchiseFormSchema),
   });
 
   const onSubmit = async (data: FranchiseForm) => {
-    setSubmitStatus("idle");
-    try {
-      const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT || "/api/lead";
-      const formatLabel = data.format
-        ? FORMAT_OPTIONS.find((o) => o.id === data.format)?.label ?? data.format
-        : "";
-      const res = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.name,
-          phone: data.phone,
-          format: data.format || "",
-          city: detectedCity,
-          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-          message: data.city
-            ? `Хочу открыть магазин в городе: ${data.city}${formatLabel ? `, формат: ${formatLabel}` : ""}${data.message ? `. ${data.message}` : ""}`
-            : data.message || (formatLabel ? `Хочу открыть магазин по франшизе, формат: ${formatLabel}` : "Хочу открыть магазин по франшизе"),
-        }),
-      });
-      if (!res.ok) throw new Error("Server error");
-      setSubmitStatus("success");
-      reset();
-      // Доставка накопленных офлайн-заявок (не блокирует UI)
-      void flushQueue(endpoint);
-    } catch {
-      const formatLabel = data.format
-        ? FORMAT_OPTIONS.find((o) => o.id === data.format)?.label ?? data.format
-        : "";
-      queueLead({
-        name: data.name,
-        phone: data.phone,
-        message: data.city
-          ? `Хочу открыть магазин в городе: ${data.city}${formatLabel ? `, формат: ${formatLabel}` : ""}${data.message ? `. ${data.message}` : ""}`
-          : data.message || (formatLabel ? `Хочу открыть магазин по франшизе, формат: ${formatLabel}` : "Хочу открыть магазин по франшизе"),
-        createdAt: Date.now(),
-      });
-      setSubmitStatus("error");
-    }
+    const formatLabel = data.format
+      ? FORMAT_OPTIONS.find((o) => o.id === data.format)?.label ?? data.format
+      : "";
+    const ok = await submit({
+      name: data.name,
+      phone: data.phone,
+      city: detectedCity || undefined,
+      format: formatLabel || undefined,
+      message: data.city
+        ? `Хочу открыть магазин в городе: ${data.city}${data.message ? `. ${data.message}` : ""}`
+        : data.message || undefined,
+      source: "franchise",
+    });
+    if (ok) reset();
   };
 
   return (

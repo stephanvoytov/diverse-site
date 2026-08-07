@@ -1,6 +1,5 @@
 ﻿"use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { tinaField } from "tinacms/dist/react";
@@ -12,7 +11,7 @@ import { contactSocials } from "@/data/socials";
 import { CONTACTS, FORMAT_OPTIONS, SITE } from "@/config/site";
 import { formatPhone } from "@/lib/phone";
 import { useUserCity } from "@/lib/user-city-context";
-import { queueLead, flushQueue } from "@/lib/lead-queue";
+import { useLeadSubmit } from "@/lib/use-lead-submit";
 import PhoneInput from "react-phone-number-input/react-hook-form";
 import { siteContent } from "@/data/site-content";
 import "react-phone-number-input/style.css";
@@ -34,46 +33,28 @@ type ContactForm = z.output<typeof contactSchema>;
 
 export default function Contacts({ data }: { data?: typeof fallback }) {
   const s = data ?? fallback;
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
   const { city: detectedCity } = useUserCity();
+  const { submit, isSubmitting, status: submitStatus } = useLeadSubmit();
   const {
     control,
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     reset,
   } = useForm<ContactFormInput, unknown, ContactForm>({
     resolver: zodResolver(contactSchema),
   });
 
   const onSubmit = async (data: ContactForm) => {
-    setSubmitStatus("idle");
-    try {
-      const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT || "/api/lead";
-      const res = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...data,
-          city: detectedCity,
-          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-        }),
-      });
-      if (!res.ok) throw new Error("Server error");
-      setSubmitStatus("success");
-      reset();
-      // Доставка накопленных офлайн-заявок (не блокирует UI)
-      void flushQueue(endpoint);
-    } catch {
-      // Сохраняем лид локально, чтобы не потерять при ошибке сети/сервера
-      queueLead({
-        name: data.name,
-        phone: data.phone,
-        message: data.message || s.form.leadQueueFallback,
-        createdAt: Date.now(),
-      });
-      setSubmitStatus("error");
-    }
+    const ok = await submit({
+      name: data.name,
+      phone: data.phone,
+      city: detectedCity || undefined,
+      format: data.format || undefined,
+      message: data.message || undefined,
+      source: "form",
+    });
+    if (ok) reset();
   };
 
   return (

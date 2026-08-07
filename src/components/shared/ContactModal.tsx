@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useModal } from "@/lib/modal-context";
 import { useUserCity } from "@/lib/user-city-context";
-import { queueLead, flushQueue } from "@/lib/lead-queue";
 import { lockBody, unlockBody } from "@/lib/body-scroll";
+import { useLeadSubmit } from "@/lib/use-lead-submit";
 import { FORMAT_OPTIONS, CONTACTS } from "@/config/site";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
@@ -35,6 +35,115 @@ function ProgressBar({ step }: { step: number }) {
         {step}/3
       </span>
     </div>
+  );
+}
+
+/* ——— Quick: имя + телефон ——— */
+
+function StepQuick({
+  name,
+  phone,
+  message,
+  errors,
+  onNameChange,
+  onPhoneChange,
+  onMessageChange,
+  onSubmit,
+  isSubmitting,
+  onSwitchToFull,
+}: {
+  name: string;
+  phone: string | undefined;
+  message: string;
+  errors: { name?: string; phone?: string };
+  onNameChange: (v: string) => void;
+  onPhoneChange: (v?: string) => void;
+  onMessageChange: (v: string) => void;
+  onSubmit: () => void;
+  isSubmitting: boolean;
+  onSwitchToFull: () => void;
+}) {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit();
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: 24 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -24 }}
+      transition={{ duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+    >
+      <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+        <div>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => onNameChange(e.target.value)}
+            placeholder="Ваше имя (необязательно)"
+            className={`w-full px-4 py-3 text-sm bg-white border rounded-sm outline-none transition-colors placeholder:text-brand-gray-300 ${
+              errors.name
+                ? "border-brand-accent"
+                : "border-brand-gray-200 focus:border-brand-accent"
+            }`}
+          />
+          {errors.name && (
+            <p className="mt-1 text-xs text-brand-accent">{errors.name}</p>
+          )}
+        </div>
+
+        <div>
+          <PhoneInput
+            value={phone}
+            onChange={onPhoneChange}
+            defaultCountry="RU"
+            countries={["RU", "KZ", "BY"]}
+            placeholder="+7 (999) 123-45-67"
+            className="phone-input-accent"
+          />
+          {errors.phone && (
+            <p className="mt-1 text-xs text-brand-accent">{errors.phone}</p>
+          )}
+        </div>
+
+        <div>
+          <textarea
+            value={message}
+            onChange={(e) => onMessageChange(e.target.value)}
+            rows={3}
+            placeholder="Сообщение (необязательно): вопрос, город, формат…"
+            className="w-full px-4 py-3 text-sm bg-white border border-brand-gray-200 rounded-sm outline-none focus:border-brand-accent transition-colors placeholder:text-brand-gray-300 resize-none"
+          />
+        </div>
+
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="w-full py-3.5 bg-brand-accent text-white text-xs tracking-[0.2em] uppercase font-semibold rounded-sm hover:bg-brand-accent-hover transition-colors disabled:opacity-50 cursor-pointer"
+        >
+          {isSubmitting ? "Отправка…" : "Оставить заявку"}
+        </button>
+
+        <button
+          type="button"
+          onClick={onSwitchToFull}
+          className="w-full py-3.5 border border-brand-gray-300 text-brand-black text-xs tracking-[0.2em] uppercase font-semibold rounded-sm hover:border-brand-accent hover:text-brand-accent transition-colors cursor-pointer"
+        >
+          Полный расчёт →
+        </button>
+
+        <p className="text-xs text-brand-gray-300 text-center leading-relaxed">
+          Бесплатно · Без обязательств
+        </p>
+        <p className="text-[10px] text-brand-gray-300 text-center leading-relaxed mt-3">
+          Нажимая «Оставить заявку», вы соглашаетесь на обработку персональных данных и с{" "}
+          <Link href="/privacy/" className="underline hover:no-underline">
+            политикой конфиденциальности
+          </Link>
+        </p>
+      </form>
+    </motion.div>
   );
 }
 
@@ -209,22 +318,26 @@ function StepCity({
   );
 }
 
-/* ——— Step 3: Имя + Телефон ——— */
+/* ——— Step 3: Имя + Телефон + Сообщение ——— */
 
 function StepContact({
   name,
   phone,
+  message,
   errors,
   onNameChange,
   onPhoneChange,
+  onMessageChange,
   onSubmit,
   isSubmitting,
 }: {
   name: string;
   phone: string | undefined;
+  message: string;
   errors: { name?: string; phone?: string };
   onNameChange: (v: string) => void;
   onPhoneChange: (v?: string) => void;
+  onMessageChange: (v: string) => void;
   onSubmit: () => void;
   isSubmitting: boolean;
 }) {
@@ -282,6 +395,16 @@ function StepContact({
           )}
         </div>
 
+        <div>
+          <textarea
+            value={message}
+            onChange={(e) => onMessageChange(e.target.value)}
+            rows={3}
+            placeholder="Комментарий (необязательно): площадь, бюджет, сроки…"
+            className="w-full px-4 py-3 text-sm bg-white border border-brand-gray-200 rounded-sm outline-none focus:border-brand-accent transition-colors placeholder:text-brand-gray-300 resize-none"
+          />
+        </div>
+
         <button
           type="submit"
           disabled={isSubmitting}
@@ -310,22 +433,25 @@ export default function ContactModal() {
   const { isOpen, close } = useModal();
   const { city: detectedCity } = useUserCity();
   const overlayRef = useRef<HTMLDivElement>(null);
+  const { submit, isSubmitting, status: submitStatus } = useLeadSubmit();
 
+  const [mode, setMode] = useState<"quick" | "full">("quick");
   const [step, setStep] = useState(1);
 
-  // Step 1
-  const [format, setFormat] = useState<Format>(null);
+  // Quick
+  const [quickName, setQuickName] = useState("");
+  const [quickPhone, setQuickPhone] = useState<string | undefined>();
+  const [quickMessage, setQuickMessage] = useState("");
+  const [quickErrors, setQuickErrors] = useState<{ name?: string; phone?: string }>({});
 
-  // Step 2
+  // Full
+  const [format, setFormat] = useState<Format>(null);
   const [city, setCity] = useState("");
   const [premise, setPremise] = useState<PremiseOption>(null);
-
-  // Step 3
   const [name, setName] = useState("");
   const [phone, setPhone] = useState<string | undefined>();
+  const [message, setMessage] = useState("");
   const [errors, setErrors] = useState<{ name?: string; phone?: string }>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
 
   // Автоподстановка города из контекста (по IP)
   useEffect(() => {
@@ -338,14 +464,19 @@ export default function ContactModal() {
   useEffect(() => {
     if (!isOpen) {
       const timer = setTimeout(() => {
+        setMode("quick");
         setStep(1);
         setFormat(null);
         setCity("");
         setPremise(null);
         setName("");
         setPhone(undefined);
+        setMessage("");
         setErrors({});
-        setSubmitStatus("idle");
+        setQuickName("");
+        setQuickPhone(undefined);
+        setQuickMessage("");
+        setQuickErrors({});
       }, 300);
       return () => clearTimeout(timer);
     }
@@ -386,11 +517,30 @@ export default function ContactModal() {
     return Object.keys(errs).length === 0;
   };
 
-  const handleSubmit = async () => {
-    if (!validateStep3()) return;
+  const validateQuick = (): boolean => {
+    const errs: { name?: string; phone?: string } = {};
+    if (quickName.trim() && quickName.trim().length < 2) errs.name = "Введите имя";
+    if (!quickPhone || quickPhone.length < 5) errs.phone = "Введите корректный телефон";
+    setQuickErrors(errs);
+    return Object.keys(errs).length === 0;
+  };
 
-    setIsSubmitting(true);
-    setSubmitStatus("idle");
+  const handleQuickSubmit = async () => {
+    if (!validateQuick()) return;
+    const ok = await submit({
+      name: quickName.trim() || "Заказ звонка",
+      phone: quickPhone ?? "",
+      city: detectedCity || undefined,
+      message: quickMessage.trim() || undefined,
+      source: "callback",
+    });
+    if (ok) {
+      setTimeout(() => { close(); }, 2000);
+    }
+  };
+
+  const handleFullSubmit = async () => {
+    if (!validateStep3()) return;
 
     const formatLabel = format
       ? FORMAT_OPTIONS.find((o) => o.id === format)?.label ?? format
@@ -400,39 +550,26 @@ export default function ContactModal() {
       ? premise === "yes" ? "Есть" : premise === "no" ? "Нет" : "Подбираю"
       : "Не указано";
 
-    const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT || "/api/lead";
-    // phone validated in validateStep3()
-    const phoneValue: string = phone ?? "";
-    const payload = {
+    const ok = await submit({
       name: name.trim(),
-      phone: phoneValue,
-      city: detectedCity || undefined,
-      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      phone: phone ?? "",
+      city: city || detectedCity || undefined,
+      format: formatLabel,
       message: [
-        `Формат: ${formatLabel}`,
         city ? `Город: ${city}` : "",
         `Помещение: ${premiseLabel}`,
+        message.trim(),
       ].filter(Boolean).join(". "),
-    };
-
-    try {
-      const res = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      if (!res.ok) throw new Error("Server error");
-      setSubmitStatus("success");
-      // Доставка накопленных офлайн-заявок (не блокирует UI)
-      void flushQueue(endpoint);
+      source: "form",
+    });
+    if (ok) {
       setTimeout(() => { close(); }, 2000);
-    } catch {
-      // Сохраняем лид локально, чтобы не потерять
-      queueLead({ ...payload, createdAt: Date.now() });
-      setSubmitStatus("error");
-    } finally {
-      setIsSubmitting(false);
     }
+  };
+
+  const switchToFull = () => {
+    setMode("full");
+    setStep(1);
   };
 
   return (
@@ -468,20 +605,38 @@ export default function ContactModal() {
             {/* Content */}
             <div className="px-8 pt-8 pb-8">
               <h2 className="text-xl md:text-2xl font-bold text-brand-black mb-1">
-                {step === 1 && "Рассчитайте прибыль"}
-                {step === 2 && "Город и помещение"}
-                {step === 3 && "Контакты"}
+                {mode === "quick" && "Оставить заявку"}
+                {mode === "full" && step === 1 && "Рассчитайте прибыль"}
+                {mode === "full" && step === 2 && "Город и помещение"}
+                {mode === "full" && step === 3 && "Контакты"}
               </h2>
               <p className="text-xs text-brand-gray-400 mb-4">
-                {step === 1 && "Выберите формат — подберём лучшие условия"}
-                {step === 2 && "Подготовим расчёт под вашу локацию"}
-                {step === 3 && "Результат пришлём на телефон"}
+                {mode === "quick" && "Оставьте номер — перезвоним в течение дня"}
+                {mode === "full" && step === 1 && "Выберите формат — подберём лучшие условия"}
+                {mode === "full" && step === 2 && "Подготовим расчёт под вашу локацию"}
+                {mode === "full" && step === 3 && "Результат пришлём на телефон"}
               </p>
 
-              <ProgressBar step={step} />
+              {mode === "full" && <ProgressBar step={step} />}
 
               <AnimatePresence mode="wait">
-                {step === 1 && (
+                {mode === "quick" && (
+                  <StepQuick
+                    key="quick"
+                    name={quickName}
+                    phone={quickPhone}
+                    message={quickMessage}
+                    errors={quickErrors}
+                    onNameChange={setQuickName}
+                    onPhoneChange={setQuickPhone}
+                    onMessageChange={setQuickMessage}
+                    onSubmit={handleQuickSubmit}
+                    isSubmitting={isSubmitting}
+                    onSwitchToFull={switchToFull}
+                  />
+                )}
+
+                {mode === "full" && step === 1 && (
                   <StepFormat
                     key="step1"
                     selected={format}
@@ -489,7 +644,7 @@ export default function ContactModal() {
                   />
                 )}
 
-                {step === 2 && (
+                {mode === "full" && step === 2 && (
                   <StepCity
                     key="step2"
                     city={city}
@@ -499,15 +654,17 @@ export default function ContactModal() {
                   />
                 )}
 
-                {step === 3 && (
+                {mode === "full" && step === 3 && (
                   <StepContact
                     key="step3"
                     name={name}
                     phone={phone}
+                    message={message}
                     errors={errors}
                     onNameChange={setName}
                     onPhoneChange={setPhone}
-                    onSubmit={handleSubmit}
+                    onMessageChange={setMessage}
+                    onSubmit={handleFullSubmit}
                     isSubmitting={isSubmitting}
                   />
                 )}
@@ -515,7 +672,7 @@ export default function ContactModal() {
 
               {/* Navigation buttons */}
               <AnimatePresence>
-                {step === 2 && (
+                {mode === "full" && step === 2 && (
                   <motion.div
                     key="nav-step2"
                     className="flex gap-3 mt-6"
@@ -540,7 +697,7 @@ export default function ContactModal() {
                 )}
 
                 <div key="submit-status" aria-live="polite">
-                  {step === 3 && submitStatus === "success" && (
+                  {submitStatus === "success" && (
                     <motion.p
                       className="mt-4 text-sm text-green-600 font-medium text-center"
                       initial={{ opacity: 0 }}
@@ -549,7 +706,7 @@ export default function ContactModal() {
                       ✓ Спасибо! Мы получили заявку.
                     </motion.p>
                   )}
-                  {step === 3 && submitStatus === "error" && (
+                  {submitStatus === "error" && (
                     <motion.div
                       className="mt-4 text-center"
                       initial={{ opacity: 0 }}
@@ -560,7 +717,7 @@ export default function ContactModal() {
                       <a href={CONTACTS.telegram} target="_blank" rel="noopener noreferrer" className="underline hover:no-underline font-semibold">Telegram</a>
                     </p>
                     <button
-                      onClick={handleSubmit}
+                      onClick={mode === "quick" ? handleQuickSubmit : handleFullSubmit}
                       disabled={isSubmitting}
                       className="text-xs font-semibold text-brand-accent underline hover:no-underline cursor-pointer"
                     >
