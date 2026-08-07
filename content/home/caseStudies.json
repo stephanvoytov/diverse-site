@@ -1,5 +1,4 @@
 {
-  "_template": "homeCaseStudies",
   "eyebrow": "Реальные результаты",
   "headingBefore": "Кейсы действующих",
   "headingAccent": "франчайзи",
@@ -36,7 +35,7 @@
       "mall": "ТЦ «Мега-Уфа»",
       "photo": "/images/stores/ufa-mega.webp",
       "opened": "2022",
-      "area": "65 м²",
+      "area": "130 м²",
       "format": "DIVERSE Brand Store",
       "tag": "Высокий трафик ТЦ.",
       "quote": "Формат позволяет быстро запуститься в любом крупном ТЦ. Уже через полгода вышли на плановую выручку.",
@@ -46,5 +45,6 @@
       "roi": "10%",
       "youtubeId": ""
     }
-  ]
+  ],
+  "_template": "homeCaseStudies"
 }
